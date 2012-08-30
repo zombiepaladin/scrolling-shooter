@@ -21,7 +21,7 @@ namespace ScrollingShooter
     /// Represents all the possible powerups our ship might pick up; uses
     /// a bitmask so multiple powerups can be represented with a single variable
     /// </summary>
-    enum Powerups
+    public enum Powerups
     {
         None = 0,
         Fireball = 0x1,
@@ -73,6 +73,17 @@ namespace ScrollingShooter
         public override Rectangle Bounds
         {
             get { return new Rectangle((int)position.X, (int)position.Y, spriteBounds[0].Width, spriteBounds[0].Height); }
+        }
+
+
+        /// <summary>
+        /// Applies the specified powerup to the ship
+        /// </summary>
+        /// <param name="powerup">the indicated powerup</param>
+        public void ApplyPowerup(Powerups powerup)
+        {
+            // Store the new powerup in the powerups bitmask
+            this.powerups |= powerup;
         }
 
 

@@ -17,13 +17,13 @@ namespace ScrollingShooter
         /// Updates the game object - called every frame
         /// </summary>
         /// <param name="elaspsedTime"></param>
-        public abstract void Update(float elaspsedTime);
+        public abstract void Update(float elapsedTime);
 
         /// <summary>
         /// Renders the game object - called every frame
         /// </summary>
         /// <param name="elaspedTime"></param>
         /// <param name="spriteBatch"></param>
-        public abstract void Draw(float elaspedTime, SpriteBatch spriteBatch);
+        public abstract void Draw(float elapsedTime, SpriteBatch spriteBatch);
     }
 }

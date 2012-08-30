@@ -18,6 +18,7 @@ namespace ScrollingShooter
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        PlayerShip player;
 
         public ScrollingShooterGame()
         {
@@ -48,6 +49,7 @@ namespace ScrollingShooter
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
+            player = new ShrikeShip(Content);
         }
 
         /// <summary>
@@ -71,6 +73,7 @@ namespace ScrollingShooter
                 this.Exit();
 
             // TODO: Add your update logic here
+            player.Update((float)gameTime.ElapsedGameTime.TotalSeconds);
 
             base.Update(gameTime);
         }
@@ -84,6 +87,9 @@ namespace ScrollingShooter
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
+            spriteBatch.Begin();
+            player.Draw((float)gameTime.ElapsedGameTime.TotalSeconds, spriteBatch);
+            spriteBatch.End();
 
             base.Draw(gameTime);
         }

@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace ScrollingShooter
+namespace ScrollingShooter.Powerups
 {
     /// <summary>
     /// An abstract base class for powerups

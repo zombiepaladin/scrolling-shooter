@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
 
-namespace ScrollingShooter
+namespace ScrollingShooter.Ships
 {
     /// <summary>
     /// Represents the five possible steering states for our ships
@@ -25,6 +25,7 @@ namespace ScrollingShooter
     {
         None = 0,
         Fireball = 0x1,
+        BubbleBeam,
     }
 
     /// <summary>

@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 
-namespace ScrollingShooter
+namespace ScrollingShooter.Powerups
 {
     /// <summary>
     /// A class representing a fireball powerup

@@ -66,7 +66,7 @@ namespace ScrollingShooter
         SteeringState steeringState = SteeringState.Straight;
 
         // The powerups equipped on this ship
-        Powerups powerups = Powerups.ShotgunPowerup;
+        Powerups powerups = Powerups.None;
 
 
         /// <summary>

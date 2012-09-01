@@ -25,6 +25,7 @@ namespace ScrollingShooter
     {
         None = 0,
         Fireball = 0x1,
+        ShotgunPowerup = 0x2,
     }
 
     /// <summary>
@@ -65,7 +66,7 @@ namespace ScrollingShooter
         SteeringState steeringState = SteeringState.Straight;
 
         // The powerups equipped on this ship
-        Powerups powerups = Powerups.None;
+        Powerups powerups = Powerups.ShotgunPowerup;
 
 
         /// <summary>
@@ -149,7 +150,7 @@ namespace ScrollingShooter
                 // Streaming weapons
 
                 // Default gun
-                if (defaultGunTimer > 0.25f)
+                if (defaultGunTimer > 0.25f && powerups == 0)
                 {
                     ScrollingShooterGame.Game.projectiles.Add(new Bullet(ScrollingShooterGame.Game.Content, position));
                     defaultGunTimer = 0f;
@@ -158,9 +159,16 @@ namespace ScrollingShooter
                 // Fire-once weapons
                 if (oldKeyboardState.IsKeyUp(Keys.Space))
                 {
-
-                    if ((powerups & Powerups.Fireball) > 0)
+                    if ((int)(powerups & Powerups.Fireball) == 0x1)
                         TriggerFireball();
+
+                    // Fires a spray shot if the powerup is active and half a second has passed since the last shot
+                    else if ((int)(powerups & Powerups.ShotgunPowerup) == 0x2 &&
+                             defaultGunTimer > 0.5f)
+                    {
+                        TriggerShotgun();
+                        defaultGunTimer = 0f;
+                    }
                 }
             }
                     
@@ -187,6 +195,19 @@ namespace ScrollingShooter
         void TriggerFireball()
         {
             // TODO: Fire fireball
+        }
+
+        /// <summary>
+        /// A helper function that shoots a spray shot from the ship
+        /// when the spray shot powerup is active
+        /// </summary>
+        void TriggerShotgun()
+        {
+            ScrollingShooterGame.Game.projectiles.Add(new ShotgunBullet(ScrollingShooterGame.Game.Content, position, BulletDirection.Straight));
+            ScrollingShooterGame.Game.projectiles.Add(new ShotgunBullet(ScrollingShooterGame.Game.Content, position, BulletDirection.Left));
+            ScrollingShooterGame.Game.projectiles.Add(new ShotgunBullet(ScrollingShooterGame.Game.Content, position, BulletDirection.Right));
+            ScrollingShooterGame.Game.projectiles.Add(new ShotgunBullet(ScrollingShooterGame.Game.Content, position, BulletDirection.HardLeft));
+            ScrollingShooterGame.Game.projectiles.Add(new ShotgunBullet(ScrollingShooterGame.Game.Content, position, BulletDirection.HardRight));
         }
     }
 }

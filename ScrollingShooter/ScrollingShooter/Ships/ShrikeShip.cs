@@ -1,15 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 
 namespace ScrollingShooter.Ships
 {
+    /// <summary>
+    /// A V-shaped fighter ship with good manuverability
+    /// </summary>
     public class ShrikeShip : PlayerShip
     {
+        /// <summary>
+        /// Create a new ShrikeShip instance
+        /// </summary>
+        /// <param name="content"></param>
         public ShrikeShip(ContentManager content)
         {
             this.spriteSheet = content.Load<Texture2D>("Spritesheets/tyrian.shp.007D3C");

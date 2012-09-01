@@ -21,8 +21,12 @@ namespace ScrollingShooter
         SpriteBatch spriteBatch;
         PlayerShip player;
 
+        public List<Projectile> projectiles = new List<Projectile>();
+        public static ScrollingShooterGame Game;
+        
         public ScrollingShooterGame()
         {
+            Game = this;
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
         }
@@ -74,7 +78,14 @@ namespace ScrollingShooter
                 this.Exit();
 
             // TODO: Add your update logic here
-            player.Update((float)gameTime.ElapsedGameTime.TotalSeconds);
+            float elapsedTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+            player.Update(elapsedTime);
+
+            foreach(Projectile projectile in projectiles)
+            {
+                projectile.Update(elapsedTime);
+            }
 
             base.Update(gameTime);
         }
@@ -88,8 +99,15 @@ namespace ScrollingShooter
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
+            float elapsedGameTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
+            
             spriteBatch.Begin();
-            player.Draw((float)gameTime.ElapsedGameTime.TotalSeconds, spriteBatch);
+            player.Draw(elapsedGameTime, spriteBatch);
+
+            foreach (Projectile projectile in projectiles)
+            {
+                projectile.Draw(elapsedGameTime, spriteBatch);
+            }
             spriteBatch.End();
 
             base.Draw(gameTime);

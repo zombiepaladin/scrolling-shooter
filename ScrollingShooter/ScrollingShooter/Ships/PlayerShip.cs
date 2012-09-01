@@ -33,6 +33,8 @@ namespace ScrollingShooter.Ships
     /// </summary>
     public abstract class PlayerShip : GameObject
     {
+        float defaultGunTimer = 0;
+
         /// <summary>
         /// The velocity of the ship - varies from ship to ship
         /// </summary>
@@ -96,6 +98,9 @@ namespace ScrollingShooter.Ships
         {
             KeyboardState currentKeyboardState = Keyboard.GetState();
 
+            // Update timers
+            defaultGunTimer += elapsedTime;
+
             // Steer the ship up or down according to user input
             if(currentKeyboardState.IsKeyDown(Keys.Up))
             {
@@ -111,30 +116,53 @@ namespace ScrollingShooter.Ships
 
             if (currentKeyboardState.IsKeyDown(Keys.Left))
             {
-                position.X -= elapsedTime * velocity.X;
-
-                if (oldKeyboardState.IsKeyDown(Keys.Left))
+                if (currentKeyboardState.IsKeyDown(Keys.LeftShift) ||
+                    currentKeyboardState.IsKeyDown(Keys.RightShift))
+                {
                     steeringState = SteeringState.HardLeft;
+                    position.X -= elapsedTime * 2 * velocity.X;
+
+                }
                 else
+                {
                     steeringState = SteeringState.Left;
+                    position.X -= elapsedTime * velocity.X;
+                }
             }
             else if (currentKeyboardState.IsKeyDown(Keys.Right))
             {
-                position.X += elapsedTime * velocity.X;
-
-                if (oldKeyboardState.IsKeyDown(Keys.Right))
+                if (currentKeyboardState.IsKeyDown(Keys.LeftShift) ||
+                    currentKeyboardState.IsKeyDown(Keys.RightShift))
+                {
+                    position.X += elapsedTime * 2 * velocity.X;
                     steeringState = SteeringState.HardRight;
+                }
                 else
+                {
+                    position.X += elapsedTime * velocity.X;
                     steeringState = SteeringState.Right;
+                }
             }
 
             // Fire weapons
-            if (currentKeyboardState.IsKeyDown(Keys.Space) && oldKeyboardState.IsKeyUp(Keys.Space))
+            if (currentKeyboardState.IsKeyDown(Keys.Space))
             {
-                // TODO: Fire default weapon
+                // Streaming weapons
 
-                if ((powerups & Powerups.Fireball) > 0)
-                    TriggerFireball();
+                // Default gun
+                if (defaultGunTimer > 0.25f)
+                {
+                    ScrollingShooterGame.Game.projectiles.Add(new Bullet(ScrollingShooterGame.Game.Content, position));
+                    defaultGunTimer = 0f;
+                }
+
+                // Fire-once weapons
+                if (oldKeyboardState.IsKeyUp(Keys.Space))
+                {
+
+                    if ((powerups & Powerups.Fireball) > 0)
+                        TriggerFireball();
+                }
             }
                     
             // store the current keyboard state for next frame

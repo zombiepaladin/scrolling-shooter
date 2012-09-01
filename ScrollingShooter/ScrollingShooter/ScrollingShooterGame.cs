@@ -19,6 +19,7 @@ namespace ScrollingShooter
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         PlayerShip player;
+        ShotgunPowerup shotgunPowerup;
 
         public List<Projectile> projectiles = new List<Projectile>();
         public static ScrollingShooterGame Game;
@@ -54,6 +55,9 @@ namespace ScrollingShooter
 
             // TODO: use this.Content to load your game content here
             player = new ShrikeShip(Content);
+
+            // Create a new SprayShotPowerup
+            shotgunPowerup = new ShotgunPowerup(Content, new Vector2(50, 50));
         }
 
         /// <summary>
@@ -102,6 +106,9 @@ namespace ScrollingShooter
             
             spriteBatch.Begin();
             player.Draw(elapsedGameTime, spriteBatch);
+
+            // Draw a SprayShotPowerup
+            shotgunPowerup.Draw((float)gameTime.ElapsedGameTime.TotalSeconds, spriteBatch);
 
             foreach (Projectile projectile in projectiles)
             {

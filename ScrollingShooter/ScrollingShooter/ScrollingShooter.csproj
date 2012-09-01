@@ -108,8 +108,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GameObject.cs" />
+    <Compile Include="Powerups\ShotgunPowerup.cs" />
     <Compile Include="Projectiles\Bullet.cs" />
     <Compile Include="Projectiles\Projectile.cs" />
+    <Compile Include="Projectiles\ShotgunBullet.cs" />
     <Compile Include="Ships\PlayerShip.cs" />
     <Compile Include="Powerups\FireballPowerup.cs" />
     <Compile Include="Powerups\Powerup.cs" />

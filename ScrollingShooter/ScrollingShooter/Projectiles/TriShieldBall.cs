@@ -34,8 +34,6 @@ namespace ScrollingShooter
 
             this.spriteBounds = new Rectangle(84, 182, 12, 14);
 
-            this.velocity = new Vector2(0, -300);
-
             this.rotation = rotation;
 
             this.player = player;

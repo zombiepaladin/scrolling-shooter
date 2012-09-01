@@ -89,84 +89,84 @@ namespace ScrollingShooter
         }
 
 
-        /// <summary>
-        /// Updates the ship
-        /// </summary>
-        /// <param name="elapsedTime"></param>
-        public override void Update(float elapsedTime)
+/// <summary>
+/// Updates the ship
+/// </summary>
+/// <param name="elapsedTime"></param>
+public override void Update(float elapsedTime)
+{
+    KeyboardState currentKeyboardState = Keyboard.GetState();
+
+    // Update timers
+    defaultGunTimer += elapsedTime;
+
+    // Steer the ship up or down according to user input
+    if(currentKeyboardState.IsKeyDown(Keys.Up))
+    {
+        position.Y -= elapsedTime * velocity.Y;
+    } 
+    else if(currentKeyboardState.IsKeyDown(Keys.Down))
+    {
+        position.Y += elapsedTime * velocity.Y;
+    }
+
+    // Steer the ship left or right according to user input
+    steeringState = SteeringState.Straight;
+
+    if (currentKeyboardState.IsKeyDown(Keys.Left))
+    {
+        if (currentKeyboardState.IsKeyDown(Keys.LeftShift) ||
+            currentKeyboardState.IsKeyDown(Keys.RightShift))
         {
-            KeyboardState currentKeyboardState = Keyboard.GetState();
+            steeringState = SteeringState.HardLeft;
+            position.X -= elapsedTime * 2 * velocity.X;
 
-            // Update timers
-            defaultGunTimer += elapsedTime;
-
-            // Steer the ship up or down according to user input
-            if(currentKeyboardState.IsKeyDown(Keys.Up))
-            {
-                position.Y -= elapsedTime * velocity.Y;
-            } 
-            else if(currentKeyboardState.IsKeyDown(Keys.Down))
-            {
-                position.Y += elapsedTime * velocity.Y;
-            }
-
-            // Steer the ship left or right according to user input
-            steeringState = SteeringState.Straight;
-
-            if (currentKeyboardState.IsKeyDown(Keys.Left))
-            {
-                if (currentKeyboardState.IsKeyDown(Keys.LeftShift) ||
-                    currentKeyboardState.IsKeyDown(Keys.RightShift))
-                {
-                    steeringState = SteeringState.HardLeft;
-                    position.X -= elapsedTime * 2 * velocity.X;
-
-                }
-                else
-                {
-                    steeringState = SteeringState.Left;
-                    position.X -= elapsedTime * velocity.X;
-                }
-            }
-            else if (currentKeyboardState.IsKeyDown(Keys.Right))
-            {
-                if (currentKeyboardState.IsKeyDown(Keys.LeftShift) ||
-                    currentKeyboardState.IsKeyDown(Keys.RightShift))
-                {
-                    position.X += elapsedTime * 2 * velocity.X;
-                    steeringState = SteeringState.HardRight;
-                }
-                else
-                {
-                    position.X += elapsedTime * velocity.X;
-                    steeringState = SteeringState.Right;
-                }
-            }
-
-            // Fire weapons
-            if (currentKeyboardState.IsKeyDown(Keys.Space))
-            {
-                // Streaming weapons
-
-                // Default gun
-                if (defaultGunTimer > 0.25f)
-                {
-                    ScrollingShooterGame.Game.projectiles.Add(new Bullet(ScrollingShooterGame.Game.Content, position));
-                    defaultGunTimer = 0f;
-                }
-
-                // Fire-once weapons
-                if (oldKeyboardState.IsKeyUp(Keys.Space))
-                {
-
-                    if ((powerups & Powerups.Fireball) > 0)
-                        TriggerFireball();
-                }
-            }
-                    
-            // store the current keyboard state for next frame
-            oldKeyboardState = currentKeyboardState;
         }
+        else
+        {
+            steeringState = SteeringState.Left;
+            position.X -= elapsedTime * velocity.X;
+        }
+    }
+    else if (currentKeyboardState.IsKeyDown(Keys.Right))
+    {
+        if (currentKeyboardState.IsKeyDown(Keys.LeftShift) ||
+            currentKeyboardState.IsKeyDown(Keys.RightShift))
+        {
+            position.X += elapsedTime * 2 * velocity.X;
+            steeringState = SteeringState.HardRight;
+        }
+        else
+        {
+            position.X += elapsedTime * velocity.X;
+            steeringState = SteeringState.Right;
+        }
+    }
+
+    // Fire weapons
+    if (currentKeyboardState.IsKeyDown(Keys.Space))
+    {
+        // Streaming weapons
+
+        // Default gun
+        if (defaultGunTimer > 0.25f)
+        {
+            ScrollingShooterGame.Game.projectiles.Add(new Bullet(ScrollingShooterGame.Game.Content, position));
+            defaultGunTimer = 0f;
+        }
+
+        // Fire-once weapons
+        if (oldKeyboardState.IsKeyUp(Keys.Space))
+        {
+
+            if ((powerups & Powerups.Fireball) > 0)
+                TriggerFireball();
+        }
+    }
+                    
+    // store the current keyboard state for next frame
+    oldKeyboardState = currentKeyboardState;
+}
 
 
         /// <summary>
@@ -187,6 +187,7 @@ namespace ScrollingShooter
         void TriggerFireball()
         {
             // TODO: Fire fireball
+            ScrollingShooterGame.Game.projectiles.Add(new Fireball(ScrollingShooterGame.Game.Content, position));
         }
     }
 }

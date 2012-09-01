@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
+using System;
 
 namespace ScrollingShooter
 {
@@ -25,6 +26,7 @@ namespace ScrollingShooter
     {
         None = 0,
         Fireball = 0x1,
+        Ale = 0x512,
     }
 
     /// <summary>
@@ -33,7 +35,7 @@ namespace ScrollingShooter
     public abstract class PlayerShip : GameObject
     {
         float defaultGunTimer = 0;
-
+        
         /// <summary>
         /// The velocity of the ship - varies from ship to ship
         /// </summary>
@@ -43,7 +45,7 @@ namespace ScrollingShooter
         /// The position of the ship in the game world.  We use a Vector2 for position 
         /// rather than a Rectangle, as floats allow us to move less than a pixel
         /// </summary>
-        protected Vector2 position;
+        protected Vector2 position = new Vector2(300,300);
 
         /// <summary>
         /// The spritesheet our ship is found upon
@@ -67,6 +69,10 @@ namespace ScrollingShooter
         // The powerups equipped on this ship
         Powerups powerups = Powerups.None;
 
+        /// This drunk status of the ship.  If the bool is true, movements are reversed, and damage is doubled.
+        /// The drunk counter represents how many more frame updates before the player is sober again.
+        bool drunk = false;
+        int drunkCounter = 0;
 
         /// <summary>
         /// The bounding rectangle for the ship.  Generated from the animation frame and the ship's
@@ -86,6 +92,13 @@ namespace ScrollingShooter
         {
             // Store the new powerup in the powerups bitmask
             this.powerups |= powerup;
+
+            switch (powerup)
+            {
+                case Powerups.Ale:
+                    GetDrunk();
+                    break;
+            }
         }
 
 
@@ -100,46 +113,102 @@ namespace ScrollingShooter
             // Update timers
             defaultGunTimer += elapsedTime;
 
-            // Steer the ship up or down according to user input
-            if(currentKeyboardState.IsKeyDown(Keys.Up))
+            if(!drunk)
             {
-                position.Y -= elapsedTime * velocity.Y;
-            } 
-            else if(currentKeyboardState.IsKeyDown(Keys.Down))
-            {
-                position.Y += elapsedTime * velocity.Y;
+                // Steer the ship up or down according to user input
+                if(currentKeyboardState.IsKeyDown(Keys.Up))
+                {
+                    position.Y -= elapsedTime * velocity.Y;
+                } 
+                else if(currentKeyboardState.IsKeyDown(Keys.Down))
+                {
+                    position.Y += elapsedTime * velocity.Y;
+                }
+
+                // Steer the ship left or right according to user input
+                steeringState = SteeringState.Straight;
+
+                if (currentKeyboardState.IsKeyDown(Keys.Left))
+                {
+                    if (currentKeyboardState.IsKeyDown(Keys.LeftShift) ||
+                        currentKeyboardState.IsKeyDown(Keys.RightShift))
+                    {
+                        steeringState = SteeringState.HardLeft;
+                        position.X -= elapsedTime * 2 * velocity.X;
+
+                    }
+                    else
+                    {
+                        steeringState = SteeringState.Left;
+                        position.X -= elapsedTime * velocity.X;
+                    }
+                }
+                else if (currentKeyboardState.IsKeyDown(Keys.Right))
+                {
+                    if (currentKeyboardState.IsKeyDown(Keys.LeftShift) ||
+                        currentKeyboardState.IsKeyDown(Keys.RightShift))
+                    {
+                        position.X += elapsedTime * 2 * velocity.X;
+                        steeringState = SteeringState.HardRight;
+                    }
+                    else
+                    {
+                        position.X += elapsedTime * velocity.X;
+                        steeringState = SteeringState.Right;
+                    }
+                }
             }
 
-            // Steer the ship left or right according to user input
-            steeringState = SteeringState.Straight;
-
-            if (currentKeyboardState.IsKeyDown(Keys.Left))
+            //Player is drunk and movements are reversed.
+            else
             {
-                if (currentKeyboardState.IsKeyDown(Keys.LeftShift) ||
-                    currentKeyboardState.IsKeyDown(Keys.RightShift))
+                //Decrease drunkCounter and make the player sober if their drunk time is up.
+                drunkCounter--;
+                if (drunkCounter == 0)
                 {
-                    steeringState = SteeringState.HardLeft;
-                    position.X -= elapsedTime * 2 * velocity.X;
+                    SoberUp();
+                }
+                // Steer the ship up or down according to user input
+                if (currentKeyboardState.IsKeyDown(Keys.Up))
+                {
+                    position.Y += elapsedTime * velocity.Y;
+                }
+                else if (currentKeyboardState.IsKeyDown(Keys.Down))
+                {
+                    position.Y -= elapsedTime * velocity.Y;
+                }
 
-                }
-                else
+                // Steer the ship left or right according to user input
+                steeringState = SteeringState.Straight;
+
+                if (currentKeyboardState.IsKeyDown(Keys.Left))
                 {
-                    steeringState = SteeringState.Left;
-                    position.X -= elapsedTime * velocity.X;
+                    if (currentKeyboardState.IsKeyDown(Keys.LeftShift) ||
+                        currentKeyboardState.IsKeyDown(Keys.RightShift))
+                    {
+                        steeringState = SteeringState.HardLeft;
+                        position.X += elapsedTime * 2 * velocity.X;
+
+                    }
+                    else
+                    {
+                        steeringState = SteeringState.Left;
+                        position.X += elapsedTime * velocity.X;
+                    }
                 }
-            }
-            else if (currentKeyboardState.IsKeyDown(Keys.Right))
-            {
-                if (currentKeyboardState.IsKeyDown(Keys.LeftShift) ||
-                    currentKeyboardState.IsKeyDown(Keys.RightShift))
+                else if (currentKeyboardState.IsKeyDown(Keys.Right))
                 {
-                    position.X += elapsedTime * 2 * velocity.X;
-                    steeringState = SteeringState.HardRight;
-                }
-                else
-                {
-                    position.X += elapsedTime * velocity.X;
-                    steeringState = SteeringState.Right;
+                    if (currentKeyboardState.IsKeyDown(Keys.LeftShift) ||
+                        currentKeyboardState.IsKeyDown(Keys.RightShift))
+                    {
+                        position.X -= elapsedTime * 2 * velocity.X;
+                        steeringState = SteeringState.HardRight;
+                    }
+                    else
+                    {
+                        position.X -= elapsedTime * velocity.X;
+                        steeringState = SteeringState.Right;
+                    }
                 }
             }
 
@@ -187,6 +256,25 @@ namespace ScrollingShooter
         void TriggerFireball()
         {
             // TODO: Fire fireball
+        }
+
+        /// <summary>
+        /// Makes the player drunk.  If the player is already drunk the player is just made drunk for longer.  The drunk counter is
+        /// increased by a random number.  Time to be drunk is between 5 and 10 seconds.
+        /// </summary>
+        void GetDrunk()
+        {
+            drunk = true;
+            Random drunkRand = new Random();
+            drunkCounter += drunkRand.Next(300, 600);
+        }
+
+        /// <summary>
+        /// Makes the player sober.  Activated when the drunk time has run out.
+        /// </summary>
+        void SoberUp()
+        {
+            drunk = false;
         }
     }
 }

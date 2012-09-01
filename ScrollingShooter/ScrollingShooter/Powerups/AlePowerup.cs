@@ -9,6 +9,10 @@ namespace ScrollingShooter
     /// The ale powerup will reverse the ship's movement directions and make the ship deal double damage.  It will last for about
     /// 5-10 seconds.
     /// </summary>
+    /// TODO LIST
+    /// 1.  Double damage dealt (when damage system has been added).
+    /// 
+   
     public class AlePowerup : Powerup
     {
         /// <summary>

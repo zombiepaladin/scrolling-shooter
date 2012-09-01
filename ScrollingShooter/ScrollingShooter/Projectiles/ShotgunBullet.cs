@@ -16,8 +16,12 @@ namespace ScrollingShooter
         HardRight = 4,
     }
 
+    /// <summary>
+    /// Represents a bullet that is shot when the shotgun powerup is active
+    /// </summary>
     public class ShotgunBullet : Projectile
     {
+        // The direction the bullet is traveling
         BulletDirection direction;
 
         /// <summary>

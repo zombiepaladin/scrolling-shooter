@@ -162,7 +162,7 @@ namespace ScrollingShooter
                     if ((int)(powerups & Powerups.Fireball) == 0x1)
                         TriggerFireball();
 
-                    // Fires a spray shot if the powerup is active and half a second has passed since the last shot
+                    // Fires a shotgun shot if the shotgun powerup is active and half a second has passed since the last shot
                     else if ((int)(powerups & Powerups.ShotgunPowerup) == 0x2 &&
                              defaultGunTimer > 0.5f)
                     {

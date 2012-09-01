@@ -25,6 +25,7 @@ namespace ScrollingShooter
     {
         None = 0,
         Fireball = 0x1,
+        Bomb = 0x40,
     }
 
     /// <summary>
@@ -33,6 +34,7 @@ namespace ScrollingShooter
     public abstract class PlayerShip : GameObject
     {
         float defaultGunTimer = 0;
+        float bombTimer = 1.5f;
 
         /// <summary>
         /// The velocity of the ship - varies from ship to ship
@@ -99,6 +101,7 @@ namespace ScrollingShooter
 
             // Update timers
             defaultGunTimer += elapsedTime;
+            bombTimer += elapsedTime;
 
             // Steer the ship up or down according to user input
             if(currentKeyboardState.IsKeyDown(Keys.Up))
@@ -142,7 +145,19 @@ namespace ScrollingShooter
                     steeringState = SteeringState.Right;
                 }
             }
-
+            // Fire bomb
+            if (currentKeyboardState.IsKeyDown(Keys.B))
+            {
+                //checks if player has the bomb power up
+                if ((powerups & Powerups.Bomb) > 0)
+                {
+                    if (bombTimer > 1.5f)
+                    {
+                        ScrollingShooterGame.Game.projectiles.Add(new Bomb(ScrollingShooterGame.Game.Content, position));
+                        bombTimer = 0f;
+                    }
+                }
+            }
             // Fire weapons
             if (currentKeyboardState.IsKeyDown(Keys.Space))
             {
@@ -161,6 +176,8 @@ namespace ScrollingShooter
 
                     if ((powerups & Powerups.Fireball) > 0)
                         TriggerFireball();
+                 //   if ((powerups & Powerups.Bomb) > 0)
+                 //       TriggerBomb();
                 }
             }
                     
@@ -187,6 +204,10 @@ namespace ScrollingShooter
         void TriggerFireball()
         {
             // TODO: Fire fireball
+        }
+        void TriggerBomb()
+        {
+            // TODO: Fire Bomb
         }
     }
 }

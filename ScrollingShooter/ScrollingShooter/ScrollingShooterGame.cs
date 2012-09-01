@@ -20,6 +20,11 @@ namespace ScrollingShooter
         SpriteBatch spriteBatch;
         PlayerShip player;
 
+        /// <summary>
+        /// Specific instance to draw the railgun powerup.
+        /// </summary>
+        Powerup railgun; 
+
         public List<Projectile> projectiles = new List<Projectile>();
         public static ScrollingShooterGame Game;
         
@@ -54,6 +59,9 @@ namespace ScrollingShooter
 
             // TODO: use this.Content to load your game content here
             player = new ShrikeShip(Content);
+
+            // Initialization of the specific railgun powerup
+            railgun = new Railgun(Content, new Vector2(300,300));
         }
 
         /// <summary>
@@ -74,12 +82,18 @@ namespace ScrollingShooter
         {
             // Allows the game to exit
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
-                this.Exit();
-
+                this.Exit();;
             // TODO: Add your update logic here
             float elapsedTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
             player.Update(elapsedTime);
+
+            //Check for collision with railgun powerup to apply the powerup
+            if ((player.Bounds.X + player.Bounds.Width >= railgun.Bounds.X + railgun.Bounds.Width)
+                && (player.Bounds.Y + player.Bounds.Height >= railgun.Bounds.Y + railgun.Bounds.Height))
+            {
+                player.ApplyPowerup(Powerups.Railgun);
+            }
 
             foreach(Projectile projectile in projectiles)
             {
@@ -107,8 +121,10 @@ namespace ScrollingShooter
             {
                 projectile.Draw(elapsedGameTime, spriteBatch);
             }
-            spriteBatch.End();
 
+            //Draws the railgun powerUp
+            railgun.Draw(elapsedGameTime, spriteBatch);
+            spriteBatch.End();
             base.Draw(gameTime);
         }
     }

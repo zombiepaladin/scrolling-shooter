@@ -54,6 +54,7 @@ namespace ScrollingShooter
         public override void Draw(float elapsedTime, SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(spriteSheet, Bounds, spriteBounds, Color.White);
+            
         }
     }
 }

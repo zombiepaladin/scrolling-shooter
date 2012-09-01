@@ -25,6 +25,8 @@ namespace ScrollingShooter
     {
         None = 0,
         Fireball = 0x1,
+        // Enum value for Railgun,  may need to change to accomodate number overlapping with other powerups
+        Railgun = 0x8
     }
 
     /// <summary>
@@ -33,6 +35,11 @@ namespace ScrollingShooter
     public abstract class PlayerShip : GameObject
     {
         float defaultGunTimer = 0;
+        
+        /// <summary>
+        /// Timer to adjust refire rate of railgun
+        /// </summary>
+        float railgunTimer = 0;
 
         /// <summary>
         /// The velocity of the ship - varies from ship to ship
@@ -56,6 +63,11 @@ namespace ScrollingShooter
         protected Rectangle[] spriteBounds = new Rectangle[5];
 
         /// <summary>
+        /// Rectangle to draw the railgun when the powerup is enabled
+        /// </summary>
+        protected Rectangle railgunSpriteBounds = new Rectangle(146, 55, 8, 33);
+
+        /// <summary>
         /// The keyboard state from the previous frame, used to see if a key was just pressed,
         /// or held down
         /// </summary>
@@ -75,6 +87,11 @@ namespace ScrollingShooter
         public override Rectangle Bounds
         {
             get { return new Rectangle((int)position.X, (int)position.Y, spriteBounds[0].Width, spriteBounds[0].Height); }
+        }
+
+        public Rectangle RailgunBounds
+        {
+            get { return new Rectangle((int)(position.X+(Bounds.Width/2)-4), (int)(position.Y-(Bounds.Height/2)), railgunSpriteBounds.Width, railgunSpriteBounds.Height); }
         }
 
 
@@ -99,6 +116,9 @@ namespace ScrollingShooter
 
             // Update timers
             defaultGunTimer += elapsedTime;
+
+            railgunTimer += elapsedTime;
+            
 
             // Steer the ship up or down according to user input
             if(currentKeyboardState.IsKeyDown(Keys.Up))
@@ -155,13 +175,22 @@ namespace ScrollingShooter
                     defaultGunTimer = 0f;
                 }
 
+                //Conditionals to fire railgun.
+                if ((powerups & Powerups.Railgun) > 0)
+                {
+                    if (railgunTimer > 3.0f)
+                    {
+                        TriggerRailgun();
+                        railgunTimer = 0f;
+                    }
+                }
+
                 // Fire-once weapons
                 if (oldKeyboardState.IsKeyUp(Keys.Space))
                 {
-
                     if ((powerups & Powerups.Fireball) > 0)
                         TriggerFireball();
-                }
+                }   
             }
                     
             // store the current keyboard state for next frame
@@ -176,6 +205,9 @@ namespace ScrollingShooter
         /// <param name="spriteBatch">An already-initialized spritebatch, ready for Draw() commands</param>
         public override void Draw(float elaspedTime, SpriteBatch spriteBatch)
         {
+            if ((powerups & Powerups.Railgun) > 0)
+                spriteBatch.Draw(spriteSheet, RailgunBounds, railgunSpriteBounds, Color.White);
+
             spriteBatch.Draw(spriteSheet, Bounds, spriteBounds[(int)steeringState], Color.White);
         }
 
@@ -187,6 +219,18 @@ namespace ScrollingShooter
         void TriggerFireball()
         {
             // TODO: Fire fireball
+        }
+        
+        /// <summary>
+        /// Fires the railgun sabot round from the ship,
+        /// corresponding to the railgun powerup
+        /// </summary>
+        void TriggerRailgun()
+        {
+            ScrollingShooterGame.Game.projectiles.Add(new RGSabot(ScrollingShooterGame.Game.Content, 
+                new Vector2(position.X+(Bounds.Width/2)-4,position.Y)));
+            //Simuated recoil
+            position.Y += 10;
         }
     }
 }

@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework.Content;
 namespace ScrollingShooter
 {
     /// <summary>
-    /// Represents the ____ possible directions for the bullet to travel in
+    /// Represents the 5 possible directions for the bullet to travel in
     /// </summary>
     public enum BulletDirection
     {
@@ -28,27 +28,27 @@ namespace ScrollingShooter
         /// <param name="bulletDirection"></param>
         public ShotgunBullet(ContentManager content, Vector2 position, BulletDirection bulletDirection)
         {
-            this.spriteSheet = content.Load<Texture2D>("Spritesheets/tyrian.shp.01D8A7");
+            this.spriteSheet = content.Load<Texture2D>("Spritesheets/newsh(.shp.000000");
 
             direction = bulletDirection;
 
-            this.spriteBounds = new Rectangle(38, 57, 7, 11);
+            this.spriteBounds = new Rectangle(146, 99, 7, 13);
 
             // Sets the velocity based on the direction the bullet should be headed in
             if (bulletDirection == BulletDirection.Right)
-                this.velocity = new Vector2(50, -250);
+                this.velocity = new Vector2(100, -500);
 
             else if (bulletDirection == BulletDirection.Left)
-                this.velocity = new Vector2(-50, -250);
+                this.velocity = new Vector2(-100, -500);
 
             else if (bulletDirection == BulletDirection.HardLeft)
-                this.velocity = new Vector2(-100, -200);
+                this.velocity = new Vector2(-200, -400);
 
             else if (bulletDirection == BulletDirection.HardRight)
-                this.velocity = new Vector2(100, -200);
+                this.velocity = new Vector2(200, -400);
 
             else
-                this.velocity = new Vector2(0, -300);
+                this.velocity = new Vector2(0, -600);
 
             this.position = position;
         }

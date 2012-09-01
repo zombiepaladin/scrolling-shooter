@@ -25,6 +25,7 @@ namespace ScrollingShooter
     {
         None = 0,
         Fireball = 0x1,
+        TriShield = 0x128
     }
 
     /// <summary>
@@ -86,6 +87,13 @@ namespace ScrollingShooter
         {
             // Store the new powerup in the powerups bitmask
             this.powerups |= powerup;
+
+            switch (powerup)
+            {
+                case Powerups.TriShield:
+                    ApplyTriShield();
+                    break;
+            }
         }
 
 
@@ -187,6 +195,20 @@ namespace ScrollingShooter
         void TriggerFireball()
         {
             // TODO: Fire fireball
+        }
+
+        /// <summary>
+        /// A helper function that initializes the tri-shield.
+        /// Creates three trishield balls.
+        /// </summary>
+        void ApplyTriShield()
+        {
+            //Create three balls, each at different rotations around the ship
+            for(int i = 0; i < 3; i++)
+            {
+                ScrollingShooterGame.Game.projectiles.Add(new TriShieldBall(ScrollingShooterGame.Game.Content,
+                    2 * MathHelper.Pi / 3 * i, this));
+            }
         }
     }
 }

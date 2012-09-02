@@ -25,6 +25,7 @@ namespace ScrollingShooter
     {
         None = 0,
         Fireball = 0x1,
+        Frostball = 0x2,
     }
 
     /// <summary>
@@ -161,6 +162,8 @@ public override void Update(float elapsedTime)
 
             if ((powerups & Powerups.Fireball) > 0)
                 TriggerFireball();
+            if ((powerups & Powerups.Frostball) > 0)
+                TriggerFrostball();
         }
     }
                     
@@ -188,6 +191,16 @@ public override void Update(float elapsedTime)
         {
             // TODO: Fire fireball
             ScrollingShooterGame.Game.projectiles.Add(new Fireball(ScrollingShooterGame.Game.Content, position));
+        }
+
+        /// <summary>
+        /// A helper function that fires a frostball from the ship, 
+        /// corresponding to the frostball powerup
+        /// </summary>
+        void TriggerFrostball()
+        {
+            // TODO: Fire frostball
+            ScrollingShooterGame.Game.projectiles.Add(new Frostball(ScrollingShooterGame.Game.Content, position));
         }
     }
 }

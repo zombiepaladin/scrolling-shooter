@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
 
-namespace ScrollingShooters
+namespace ScrollingShooter
 {
     /// <summary>
     /// Represents the five possible steering states for our ships
@@ -25,7 +25,7 @@ namespace ScrollingShooters
     {
         None = 0,
         Fireball = 0x1,
-        BubbleBeam,
+        BubbleBeam = 0x2,
     }
 
     /// <summary>
@@ -150,7 +150,15 @@ namespace ScrollingShooters
                 // Streaming weapons
 
                 // Default gun
-                if (defaultGunTimer > 0.25f)
+                if (powerups == Powerups.BubbleBeam)
+                {
+                    if (defaultGunTimer > BubbleBullet.FIRE_INTERVAL_MS)
+                    {
+                        ScrollingShooterGame.Game.projectiles.Add(new BubbleBullet(ScrollingShooterGame.Game.Content, position));
+                        defaultGunTimer = 0f;
+                    }
+                }
+                else if (defaultGunTimer > 0.25f)
                 {
                     ScrollingShooterGame.Game.projectiles.Add(new Bullet(ScrollingShooterGame.Game.Content, position));
                     defaultGunTimer = 0f;

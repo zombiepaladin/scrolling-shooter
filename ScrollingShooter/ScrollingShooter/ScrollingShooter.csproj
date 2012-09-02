@@ -108,6 +108,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GameObject.cs" />
+    <Compile Include="Powerups\BubbleBeamPowerup.cs" />
+    <Compile Include="Projectiles\BubbleBullet.cs" />
     <Compile Include="Projectiles\Bullet.cs" />
     <Compile Include="Projectiles\Projectile.cs" />
     <Compile Include="Ships\PlayerShip.cs" />

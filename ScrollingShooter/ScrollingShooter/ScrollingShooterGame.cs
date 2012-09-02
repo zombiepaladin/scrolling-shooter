@@ -8,7 +8,6 @@ using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
-using ScrollingShooter.Ships;
 
 namespace ScrollingShooter
 {
@@ -20,6 +19,8 @@ namespace ScrollingShooter
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         PlayerShip player;
+
+        BubbleBeamPowerup powerup;
 
         public List<Projectile> projectiles = new List<Projectile>();
         public static ScrollingShooterGame Game;
@@ -55,6 +56,7 @@ namespace ScrollingShooter
 
             // TODO: use this.Content to load your game content here
             player = new ShrikeShip(Content);
+            player.ApplyPowerup(Powerups.BubbleBeam);
         }
 
         /// <summary>

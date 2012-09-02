@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace ScrollingShooter.Powerups
+namespace ScrollingShooter
 {
     public class BubbleBeamPowerup : Powerup
     {

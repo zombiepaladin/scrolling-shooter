@@ -21,6 +21,7 @@ namespace ScrollingShooter
         PlayerShip player;
 
         public List<Projectile> projectiles = new List<Projectile>();
+        public List<Powerup> powerups = new List<Powerup>();
         public static ScrollingShooterGame Game;
         
         public ScrollingShooterGame()
@@ -54,6 +55,13 @@ namespace ScrollingShooter
 
             // TODO: use this.Content to load your game content here
             player = new ShrikeShip(Content);
+
+            //TODO: Remove
+            //Populates the powerup List with the Homing Missile Powerup
+            powerups.Add(new HomingMissilesPowerup(Content, new Vector2(500, 150)));
+
+            //DELETE THIS/////////////////////////////////////////////////////////////////////////////////////////
+            this.IsMouseVisible = true;
         }
 
         /// <summary>
@@ -86,6 +94,12 @@ namespace ScrollingShooter
                 projectile.Update(elapsedTime);
             }
 
+            //Updates each powerup in our powerup list
+            foreach (Powerup powerup in powerups)
+            {
+                powerup.Update(elapsedTime);
+            }
+
             base.Update(gameTime);
         }
 
@@ -101,12 +115,20 @@ namespace ScrollingShooter
             float elapsedGameTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
             
             spriteBatch.Begin();
+
             player.Draw(elapsedGameTime, spriteBatch);
 
             foreach (Projectile projectile in projectiles)
             {
                 projectile.Draw(elapsedGameTime, spriteBatch);
             }
+
+            //Draws each powerup in our powerup list
+            foreach (Powerup powerup in powerups)
+            {
+                powerup.Draw(elapsedGameTime, spriteBatch);
+            }
+
             spriteBatch.End();
 
             base.Draw(gameTime);

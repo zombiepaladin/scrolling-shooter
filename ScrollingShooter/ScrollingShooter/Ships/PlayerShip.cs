@@ -25,6 +25,12 @@ namespace ScrollingShooter
     {
         None = 0,
         Fireball = 0x1,
+
+        //ShotgunPowerup = 0x2,
+        //BombPowerup = 0x40,
+        //TriShieldPowerup = 0x128,
+
+        HomingMissiles = 0x64,  //Adding the bitmask for the Homing Missile
     }
 
     /// <summary>
@@ -33,6 +39,9 @@ namespace ScrollingShooter
     public abstract class PlayerShip : GameObject
     {
         float defaultGunTimer = 0;
+
+        //The timer for the Homing Missiles
+        float homingMissileTimer = 0;
 
         /// <summary>
         /// The velocity of the ship - varies from ship to ship
@@ -99,6 +108,7 @@ namespace ScrollingShooter
 
             // Update timers
             defaultGunTimer += elapsedTime;
+            homingMissileTimer += elapsedTime;
 
             // Steer the ship up or down according to user input
             if(currentKeyboardState.IsKeyDown(Keys.Up))
@@ -155,6 +165,16 @@ namespace ScrollingShooter
                     defaultGunTimer = 0f;
                 }
 
+                if (homingMissileTimer > 2f)
+                {
+                    if ((powerups & Powerups.HomingMissiles) > 0)
+                    {
+                        TriggerHomingMissiles();
+                    }
+
+                    homingMissileTimer = 0f;
+                }
+
                 // Fire-once weapons
                 if (oldKeyboardState.IsKeyUp(Keys.Space))
                 {
@@ -187,6 +207,49 @@ namespace ScrollingShooter
         void TriggerFireball()
         {
             // TODO: Fire fireball
+        }
+
+        /// <summary>
+        /// This helper function fires a volley of homing missiles
+        /// from the ship, uses the HomingMissilePowerup class
+        /// </summary>
+        void TriggerHomingMissiles()
+        {
+            //TODO:
+            //Will need to consider the powerup level later to determine
+            //how many projectiles will be shot
+
+            //Just a temporary variable to hold the content manager
+            ContentManager contentManager = ScrollingShooterGame.Game.Content;
+
+            //TODO: Might want to add handles(i.e. Vector2's) to ships to indicate places to fire from
+            //a temporary variable to indicate the Position to fire from, this will probably be randomized in a general area
+            Vector2 fireVector = new Vector2(this.position.X + this.Bounds.Width / 2, this.position.Y);
+
+            //I will use this as a placeholder for the level
+            short weaponLevel = 2;
+
+            //Lvl 1 will always have 3 missiles, lvl 2 will have 5, lvl 3 will have 8
+            short numberOfMissiles; 
+
+            //Determines the number of missiles fired at each upgrade level
+            if (weaponLevel == 2)
+            {
+                numberOfMissiles = 5;
+            }
+            else if (weaponLevel == 3)
+            {
+                numberOfMissiles = 8;
+            }
+            else
+            {
+                numberOfMissiles = 3;
+            }
+
+            for (short i = 0; i < numberOfMissiles; i++)
+            {
+                ScrollingShooterGame.Game.projectiles.Add(new HomingMissileProjectile(contentManager, fireVector, weaponLevel, i + 1));
+            }
         }
     }
 }

@@ -20,6 +20,9 @@ namespace ScrollingShooter
         SpriteBatch spriteBatch;
         PlayerShip player;
 
+        //content item for displaying the frostball powerup
+        FrostballPowerup frostballPowerup;
+
         public List<Projectile> projectiles = new List<Projectile>();
         public static ScrollingShooterGame Game;
         
@@ -54,7 +57,10 @@ namespace ScrollingShooter
 
             // TODO: use this.Content to load your game content here
             player = new ShrikeShip(Content);
-            player.ApplyPowerup(Powerups.Fireball);
+            //player.ApplyPowerup(Powerups.Fireball);
+            player.ApplyPowerup(Powerups.Frostball);
+
+            frostballPowerup = new FrostballPowerup(Content, new Vector2(200, 200));
         }
 
         /// <summary>
@@ -102,6 +108,8 @@ namespace ScrollingShooter
             float elapsedGameTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
             
             spriteBatch.Begin();
+           
+            frostballPowerup.Draw(elapsedGameTime, spriteBatch);
             player.Draw(elapsedGameTime, spriteBatch);
 
             foreach (Projectile projectile in projectiles)

@@ -281,8 +281,10 @@ namespace ScrollingShooter
         public override void Draw(float elapsedTime, SpriteBatch spriteBatch)
         {
             //Will need to call the Draw function for the explosion and smoke stream classes here (explosion only if this.isAlive == false)
-
-            base.Draw(elapsedTime, spriteBatch);
+            if (isAlive)
+            {
+                base.Draw(elapsedTime, spriteBatch);
+            }
         }
 
         #endregion

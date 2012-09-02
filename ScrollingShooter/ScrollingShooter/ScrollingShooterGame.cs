@@ -21,6 +21,7 @@ namespace ScrollingShooter
         PlayerShip player;
 
         public List<Projectile> projectiles = new List<Projectile>();
+        public List<Powerup> powerups = new List<Powerup>();
         public static ScrollingShooterGame Game;
         
         public ScrollingShooterGame()
@@ -55,6 +56,11 @@ namespace ScrollingShooter
             // TODO: use this.Content to load your game content here
             player = new ShrikeShip(Content);
             player.ApplyPowerup(Powerups.Fireball);
+
+
+            //This is for test, adding the powerup to the screen and the power to the ship
+            powerups.Add(new BladesPowerup(Content, new Vector2(350, 200)));
+            player.ApplyPowerup(Powerups.Blades);
         }
 
         /// <summary>
@@ -87,6 +93,11 @@ namespace ScrollingShooter
                 projectile.Update(elapsedTime);
             }
 
+            foreach (Powerup powerup in powerups)
+            {
+                powerup.Update(elapsedTime);
+            }
+
             base.Update(gameTime);
         }
 
@@ -108,6 +119,12 @@ namespace ScrollingShooter
             {
                 projectile.Draw(elapsedGameTime, spriteBatch);
             }
+
+            foreach (Powerup powerup in powerups)
+            {
+                powerup.Draw(elapsedGameTime, spriteBatch);
+            }
+
             spriteBatch.End();
 
             base.Draw(gameTime);

@@ -54,6 +54,7 @@ namespace ScrollingShooter
 
             // TODO: use this.Content to load your game content here
             player = new ShrikeShip(Content);
+            player.ApplyPowerup(Powerups.Fireball);
         }
 
         /// <summary>

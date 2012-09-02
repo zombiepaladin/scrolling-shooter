@@ -25,6 +25,7 @@ namespace ScrollingShooter
     {
         None = 0,
         Fireball = 0x1,
+        Birdcrap = 0x2,
     }
 
     /// <summary>
@@ -161,6 +162,8 @@ public override void Update(float elapsedTime)
 
             if ((powerups & Powerups.Fireball) > 0)
                 TriggerFireball();
+            if ((powerups & Powerups.Birdcrap) > 0)
+                TriggerBirdcrap();
         }
     }
                     
@@ -188,6 +191,14 @@ public override void Update(float elapsedTime)
         {
             // TODO: Fire fireball
             ScrollingShooterGame.Game.projectiles.Add(new Fireball(ScrollingShooterGame.Game.Content, position));
+        }
+        /// <summary>
+        /// A helper that fires birdcrap from the ship. Coraspondes to the birdcrap power up.
+        /// </summary>
+        void TriggerBirdcrap()
+        {
+            //TODO:Create effect and calculations when colides with enemy ship, the event will determin if the enimy is "blind" or if his ship will crash. Also when audio is implemented it will make a pooping sound and splat sounds.
+            ScrollingShooterGame.Game.projectiles.Add(new BirdCrap(ScrollingShooterGame.Game.Content, position));
         }
     }
 }

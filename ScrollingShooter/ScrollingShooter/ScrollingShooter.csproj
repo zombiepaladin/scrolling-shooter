@@ -108,6 +108,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GameObject.cs" />
+    <Compile Include="Powerups\BirdcrapPowerup.cs" />
+    <Compile Include="Projectiles\BirdCrap.cs" />
     <Compile Include="Projectiles\Bullet.cs" />
     <Compile Include="Projectiles\Fireball.cs" />
     <Compile Include="Projectiles\Projectile.cs" />

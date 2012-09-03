@@ -25,6 +25,7 @@ namespace ScrollingShooter
     {
         None = 0,
         Fireball = 0x1,
+        EightBallShield = 0x2,
     }
 
     /// <summary>
@@ -163,6 +164,20 @@ public override void Update(float elapsedTime)
                 TriggerFireball();
         }
     }
+
+    // Deploy Shields
+    //if (currentKeyboardState.IsKeyDown(Keys.S))
+    //{
+    //    // Deploy... make them persistent on a timer?
+    //    if (oldKeyboardState.IsKeyUp(Keys.S))
+    //    {
+    //        if ((powerups & Powerups.EightBallShield) > 0)
+    //            TriggerEightBallShield();
+    //    }
+    //}
+
+    if ((powerups & Powerups.EightBallShield) > 0) //test persist
+        TriggerEightBallShield();
                     
     // store the current keyboard state for next frame
     oldKeyboardState = currentKeyboardState;
@@ -187,7 +202,18 @@ public override void Update(float elapsedTime)
         void TriggerFireball()
         {
             // TODO: Fire fireball
-            ScrollingShooterGame.Game.projectiles.Add(new Fireball(ScrollingShooterGame.Game.Content, position));
+            ScrollingShooterGame.Game.projectiles.Add(new Fireball(ScrollingShooterGame.Game.Content, 
+                position));
+        }
+
+        void TriggerEightBallShield()
+        {
+            // Clear the shield list (ghetto)
+            ScrollingShooterGame.Game.shields.Clear();
+
+            // Deploy the eight ball shield
+            ScrollingShooterGame.Game.shields.Add(new EightBallShield(ScrollingShooterGame.Game.Content, 
+                position, this));
         }
     }
 }

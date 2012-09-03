@@ -25,6 +25,7 @@ namespace ScrollingShooter
     {
         None = 0,
         Fireball = 0x1,
+        MultipleShips = 0x8
     }
 
     /// <summary>
@@ -86,6 +87,16 @@ namespace ScrollingShooter
         {
             // Store the new powerup in the powerups bitmask
             this.powerups |= powerup;
+        }
+
+        /// <summary>
+        /// Applies the specified position to the ship
+        /// </summary>
+        /// <param name="x">position x</param>
+        /// /// <param name="y">position y</param>
+        public void SetPosition(float x, float y)
+        {
+            this.position = new Vector2(x, y);
         }
 
 

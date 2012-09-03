@@ -21,6 +21,7 @@ namespace ScrollingShooter
         PlayerShip player;
 
         public List<Projectile> projectiles = new List<Projectile>();
+        public List<Shield> shields = new List<Shield>(); //added for all possible shields
         public static ScrollingShooterGame Game;
         
         public ScrollingShooterGame()
@@ -55,6 +56,7 @@ namespace ScrollingShooter
             // TODO: use this.Content to load your game content here
             player = new ShrikeShip(Content);
             player.ApplyPowerup(Powerups.Fireball);
+            player.ApplyPowerup(Powerups.EightBallShield);  //apply eight ball powerup on game load
         }
 
         /// <summary>
@@ -87,6 +89,11 @@ namespace ScrollingShooter
                 projectile.Update(elapsedTime);
             }
 
+            foreach (Shield shield in shields)  //update the shields
+            {
+                shield.Update(elapsedTime);
+            }
+
             base.Update(gameTime);
         }
 
@@ -108,6 +115,12 @@ namespace ScrollingShooter
             {
                 projectile.Draw(elapsedGameTime, spriteBatch);
             }
+
+            foreach (Shield shield in shields)  //added loop for the shields
+            {
+                shield.Draw(elapsedGameTime, spriteBatch);
+            }
+
             spriteBatch.End();
 
             base.Draw(gameTime);

@@ -25,6 +25,7 @@ namespace ScrollingShooter
     {
         None = 0,
         Fireball = 0x1,
+        Multicannon = 0x2,
     }
 
     /// <summary>
@@ -161,6 +162,9 @@ public override void Update(float elapsedTime)
 
             if ((powerups & Powerups.Fireball) > 0)
                 TriggerFireball();
+
+            if ((powerups & Powerups.Multicannon) > 0)
+                TriggerMulticannon();
         }
     }
                     
@@ -188,6 +192,25 @@ public override void Update(float elapsedTime)
         {
             // TODO: Fire fireball
             ScrollingShooterGame.Game.projectiles.Add(new Fireball(ScrollingShooterGame.Game.Content, position));
+        }
+
+        /// <summary>
+        /// A helper function that fires cannons from the ship, 
+        /// corresponding to the multicannon powerup
+        /// </summary>
+        void TriggerMulticannon()
+        {
+            // Left side cannon       
+            Vector2 cannonLeft = position;
+            // Right side cannon
+            Vector2 cannonRight = position;
+
+            // Cannon position based on ship's position
+            cannonLeft.X -= 10;
+            cannonRight.X += 20;
+
+            ScrollingShooterGame.Game.projectiles.Add(new Cannonball(ScrollingShooterGame.Game.Content, cannonLeft));
+            ScrollingShooterGame.Game.projectiles.Add(new Cannonball(ScrollingShooterGame.Game.Content, cannonRight));
         }
     }
 }

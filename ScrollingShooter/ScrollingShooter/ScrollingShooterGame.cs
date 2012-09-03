@@ -19,6 +19,8 @@ namespace ScrollingShooter
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         PlayerShip player;
+        Vector2 position;
+        MulticannonPowerup multicannon;
 
         public List<Projectile> projectiles = new List<Projectile>();
         public static ScrollingShooterGame Game;
@@ -40,6 +42,10 @@ namespace ScrollingShooter
         {
             // TODO: Add your initialization logic here
 
+            //TODO: Remove. Currently exists to display powerup.
+            position.X = 30;
+            position.Y = 50;
+
             base.Initialize();
         }
 
@@ -54,7 +60,12 @@ namespace ScrollingShooter
 
             // TODO: use this.Content to load your game content here
             player = new ShrikeShip(Content);
-            player.ApplyPowerup(Powerups.Fireball);
+
+            // Create a Multicannon Powerup
+            multicannon = new MulticannonPowerup(Content, position);
+
+            // Apply Multicannon Powerup
+            player.ApplyPowerup(Powerups.Multicannon);
         }
 
         /// <summary>
@@ -103,6 +114,9 @@ namespace ScrollingShooter
             
             spriteBatch.Begin();
             player.Draw(elapsedGameTime, spriteBatch);
+
+            // Draws multicannon powerup F
+            multicannon.Draw((float)gameTime.ElapsedGameTime.TotalSeconds, spriteBatch);
 
             foreach (Projectile projectile in projectiles)
             {

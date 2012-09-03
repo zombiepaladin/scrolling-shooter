@@ -1,3 +1,4 @@
+#define TEST
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -51,6 +52,9 @@ namespace ScrollingShooter
         /// </summary>
         protected override void LoadContent()
         {
+#if TEST
+            IsMouseVisible = true;
+#endif
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             // TODO: use this.Content to load your game content here

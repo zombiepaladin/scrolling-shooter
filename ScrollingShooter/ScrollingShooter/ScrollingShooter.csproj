@@ -110,6 +110,7 @@
     <Compile Include="GameObject.cs" />
     <Compile Include="Gui\GUIObject.cs" />
     <Compile Include="Gui\GUIObjects\GUIHealthBar.cs" />
+    <Compile Include="Interfaces\ICollidable.cs" />
     <Compile Include="ObjectManagers\GUIManager.cs" />
     <Compile Include="ObjectManagers\ProjectileManager.cs" />
     <Compile Include="Projectiles\Bullet.cs" />

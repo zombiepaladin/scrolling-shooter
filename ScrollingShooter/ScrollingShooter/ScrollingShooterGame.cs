@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+using ScrollingShooter.ObjectManagers;
 
 namespace ScrollingShooter
 {
@@ -19,8 +20,7 @@ namespace ScrollingShooter
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         PlayerShip player;
-
-        public List<Projectile> projectiles = new List<Projectile>();
+        public ProjectileManager pManager = new ProjectileManager();
         public static ScrollingShooterGame Game;
         
         public ScrollingShooterGame()
@@ -82,10 +82,7 @@ namespace ScrollingShooter
 
             player.Update(elapsedTime);
 
-            foreach(Projectile projectile in projectiles)
-            {
-                projectile.Update(elapsedTime);
-            }
+            pManager.UpdateAll(elapsedTime);
 
             base.Update(gameTime);
         }
@@ -104,10 +101,7 @@ namespace ScrollingShooter
             spriteBatch.Begin();
             player.Draw(elapsedGameTime, spriteBatch);
 
-            foreach (Projectile projectile in projectiles)
-            {
-                projectile.Draw(elapsedGameTime, spriteBatch);
-            }
+            pManager.DrawAll(elapsedGameTime, spriteBatch);
             spriteBatch.End();
 
             base.Draw(gameTime);

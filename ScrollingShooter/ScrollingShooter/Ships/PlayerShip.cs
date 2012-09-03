@@ -151,7 +151,7 @@ public override void Update(float elapsedTime)
         // Default gun
         if (defaultGunTimer > 0.25f)
         {
-            ScrollingShooterGame.Game.projectiles.Add(new Bullet(ScrollingShooterGame.Game.Content, position));
+            ScrollingShooterGame.Game.pManager.Add(new Bullet(ScrollingShooterGame.Game.Content, position));
             defaultGunTimer = 0f;
         }
 
@@ -187,7 +187,7 @@ public override void Update(float elapsedTime)
         void TriggerFireball()
         {
             // TODO: Fire fireball
-            ScrollingShooterGame.Game.projectiles.Add(new Fireball(ScrollingShooterGame.Game.Content, position));
+            ScrollingShooterGame.Game.pManager.Add(new Fireball(ScrollingShooterGame.Game.Content, position));
         }
     }
 }

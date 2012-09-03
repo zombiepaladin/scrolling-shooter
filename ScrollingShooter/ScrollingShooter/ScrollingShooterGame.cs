@@ -8,6 +8,8 @@ using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+using ScrollingShooter.ObjectManagers;
+using ScrollingShooter.Gui.GUIObjects;
 
 namespace ScrollingShooter
 {
@@ -19,10 +21,10 @@ namespace ScrollingShooter
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         PlayerShip player;
-
-        public List<Projectile> projectiles = new List<Projectile>();
+        public ProjectileManager pManager = new ProjectileManager();
+        public GUIManager gManager = new GUIManager();
         public static ScrollingShooterGame Game;
-        
+
         public ScrollingShooterGame()
         {
             Game = this;
@@ -38,9 +40,9 @@ namespace ScrollingShooter
         /// </summary>
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
-
-            base.Initialize();
+            // TODO: Add your initialization logic here 
+           
+           base.Initialize();
         }
 
         /// <summary>
@@ -49,11 +51,17 @@ namespace ScrollingShooter
         /// </summary>
         protected override void LoadContent()
         {
+#if TEST
+            IsMouseVisible = true;
+#endif
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-
             // TODO: use this.Content to load your game content here
             player = new ShrikeShip(Content);
+            GUIHealthBar hBar1 = new GUIHealthBar(Content, new Vector2(GraphicsDevice.Viewport.Width-10-150,10), 100, 100);
+            GUIHealthBar hBar2 = new GUIHealthBar(Content, new Vector2(10, 10), 100, 100);
+            gManager.Add(hBar1);
+            gManager.Add(hBar2);
             player.ApplyPowerup(Powerups.Fireball);
         }
 
@@ -81,11 +89,8 @@ namespace ScrollingShooter
             float elapsedTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
             player.Update(elapsedTime);
-
-            foreach(Projectile projectile in projectiles)
-            {
-                projectile.Update(elapsedTime);
-            }
+            gManager.UpdateAll(elapsedTime);
+            pManager.UpdateAll(elapsedTime);
 
             base.Update(gameTime);
         }
@@ -103,11 +108,8 @@ namespace ScrollingShooter
             
             spriteBatch.Begin();
             player.Draw(elapsedGameTime, spriteBatch);
-
-            foreach (Projectile projectile in projectiles)
-            {
-                projectile.Draw(elapsedGameTime, spriteBatch);
-            }
+            gManager.DrawAll(elapsedGameTime,spriteBatch);
+            pManager.DrawAll(elapsedGameTime, spriteBatch);
             spriteBatch.End();
 
             base.Draw(gameTime);

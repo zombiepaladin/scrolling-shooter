@@ -10,8 +10,12 @@ namespace ScrollingShooter
     /// </summary>
     public class BubbleBullet : Projectile
     {
+        /// <summary>
+        /// Minimum amount of elapsed time before firing another bullet.
+        /// </summary>
         public static float FIRE_INTERVAL_MS = .05f;
 
+        //Constants for the Bubble bullet.
         private const String SPRITESHEET = "Spritesheets/tyrian.shp.01D8A7";
         private static readonly Rectangle SPRITEBOUNDS = new Rectangle(217, 156, 5, 5);
         private static Random rand = new Random();
@@ -20,7 +24,7 @@ namespace ScrollingShooter
         /// Creates a new bubblebullet
         /// </summary>
         /// <param name="content">A ContentManager to load content from</param>
-        /// <param name="position">A position on the screen</param>
+        /// <param name="position">Starting position on the screen</param>
         public BubbleBullet(ContentManager content, Vector2 position)
         {
             this.spriteSheet = content.Load<Texture2D>(SPRITESHEET);
@@ -29,6 +33,10 @@ namespace ScrollingShooter
             this.position = position;
         }
 
+        /// <summary>
+        /// Updates the bullet's position and velocity.
+        /// </summary>
+        /// <param name="elapsedTime">Elapsed time since last update.</param>
         public override void Update(float elapsedTime)
         {
             base.Update(elapsedTime);

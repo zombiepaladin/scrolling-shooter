@@ -13,11 +13,17 @@ namespace ScrollingShooter
     /// </summary>
     public class BubbleBeamPowerup : Powerup
     {
+        //Constant values for the Bubble Beam Powerup
         private const int X_BOUNDS = 22;
         private const int Y_BOUNDS = 22;
         private const String SPRITE_SHEET = "Spritesheets/tyrian.shp.010008";
         private static readonly Rectangle SPRITE_SOURCE = new Rectangle(49, 142, X_BOUNDS, Y_BOUNDS);
 
+        /// <summary>
+        /// Creates a new BubbleBeam Powerup
+        /// </summary>
+        /// <param name="contentManager">ContentManager to load resources with.</param>
+        /// <param name="position">Starting position for the power up.</param>
         public BubbleBeamPowerup(ContentManager contentManager, Vector2 position)
         {
             this.spriteSource = SPRITE_SOURCE;

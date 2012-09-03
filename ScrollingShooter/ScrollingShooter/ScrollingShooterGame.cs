@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using ScrollingShooter.ObjectManagers;
+using ScrollingShooter.Gui.GUIObjects;
 
 namespace ScrollingShooter
 {
@@ -22,7 +23,8 @@ namespace ScrollingShooter
         PlayerShip player;
         public ProjectileManager pManager = new ProjectileManager();
         public static ScrollingShooterGame Game;
-        
+        GUIHealthBar hBar = new GUIHealthBar(100, 100);
+
         public ScrollingShooterGame()
         {
             Game = this;
@@ -38,9 +40,9 @@ namespace ScrollingShooter
         /// </summary>
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
-
-            base.Initialize();
+            // TODO: Add your initialization logic here 
+           hBar.position = new Vector2(10, 10);
+           base.Initialize();
         }
 
         /// <summary>
@@ -51,7 +53,7 @@ namespace ScrollingShooter
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-
+            hBar.texture = this.Content.Load<Texture2D>("healthbar");
             // TODO: use this.Content to load your game content here
             player = new ShrikeShip(Content);
             player.ApplyPowerup(Powerups.Fireball);
@@ -81,7 +83,7 @@ namespace ScrollingShooter
             float elapsedTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
             player.Update(elapsedTime);
-
+            hBar.Update(elapsedTime);
             pManager.UpdateAll(elapsedTime);
 
             base.Update(gameTime);
@@ -100,7 +102,7 @@ namespace ScrollingShooter
             
             spriteBatch.Begin();
             player.Draw(elapsedGameTime, spriteBatch);
-
+            hBar.Draw(elapsedGameTime, spriteBatch);
             pManager.DrawAll(elapsedGameTime, spriteBatch);
             spriteBatch.End();
 

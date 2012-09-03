@@ -10,9 +10,9 @@ namespace ScrollingShooter.Gui
 {
     public abstract class GUIObject : GameObject
     {
-        protected Vector2 position;
-        protected Texture2D texture;
-        protected  Boolean IsClicked;
+        public Vector2 position;
+        public Texture2D texture;
+        public  Boolean IsClicked;
 
         public override Microsoft.Xna.Framework.Rectangle Bounds
         {

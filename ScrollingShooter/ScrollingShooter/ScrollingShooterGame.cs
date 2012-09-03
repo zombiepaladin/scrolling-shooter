@@ -22,8 +22,8 @@ namespace ScrollingShooter
         SpriteBatch spriteBatch;
         PlayerShip player;
         public ProjectileManager pManager = new ProjectileManager();
+        public GUIManager gManager = new GUIManager();
         public static ScrollingShooterGame Game;
-        GUIHealthBar hBar;
 
         public ScrollingShooterGame()
         {
@@ -55,7 +55,10 @@ namespace ScrollingShooter
             spriteBatch = new SpriteBatch(GraphicsDevice);
             // TODO: use this.Content to load your game content here
             player = new ShrikeShip(Content);
-            hBar = new GUIHealthBar(Content, new Vector2(10,10), 100, 100);
+            GUIHealthBar hBar1 = new GUIHealthBar(Content, new Vector2(GraphicsDevice.Viewport.Width-10-150,10), 100, 100);
+            GUIHealthBar hBar2 = new GUIHealthBar(Content, new Vector2(10, 10), 100, 100);
+            gManager.Add(hBar1);
+            gManager.Add(hBar2);
             player.ApplyPowerup(Powerups.Fireball);
         }
 
@@ -83,7 +86,7 @@ namespace ScrollingShooter
             float elapsedTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
             player.Update(elapsedTime);
-            hBar.Update(elapsedTime);
+            gManager.UpdateAll(elapsedTime);
             pManager.UpdateAll(elapsedTime);
 
             base.Update(gameTime);
@@ -102,7 +105,7 @@ namespace ScrollingShooter
             
             spriteBatch.Begin();
             player.Draw(elapsedGameTime, spriteBatch);
-            hBar.Draw(elapsedGameTime, spriteBatch);
+            gManager.DrawAll(elapsedGameTime,spriteBatch);
             pManager.DrawAll(elapsedGameTime, spriteBatch);
             spriteBatch.End();
 

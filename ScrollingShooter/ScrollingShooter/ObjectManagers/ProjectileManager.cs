@@ -11,7 +11,10 @@ namespace ScrollingShooter.ObjectManagers
     {
         private List<Projectile> mProjectiles = new List<Projectile>();
 
-        public void Add(Projectile projectile);
+        public void Add(Projectile projectile)
+        {
+            mProjectiles.Add(projectile);
+        }
         public void DrawAll(float elapsedTime, SpriteBatch spriteBatch)
         {
             if (mProjectiles.Count != 0)

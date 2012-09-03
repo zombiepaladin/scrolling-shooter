@@ -108,6 +108,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GameObject.cs" />
+    <Compile Include="ObjectManagers\ProjectileManager.cs" />
     <Compile Include="Projectiles\Bullet.cs" />
     <Compile Include="Projectiles\Fireball.cs" />
     <Compile Include="Projectiles\Projectile.cs" />

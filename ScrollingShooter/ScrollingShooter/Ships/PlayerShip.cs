@@ -149,7 +149,6 @@ namespace ScrollingShooter
             {
                 // Streaming weapons
 
-                // Default gun
                 if (powerups == Powerups.BubbleBeam)
                 {
                     if (defaultGunTimer > BubbleBullet.FIRE_INTERVAL_MS)
@@ -158,6 +157,7 @@ namespace ScrollingShooter
                         defaultGunTimer = 0f;
                     }
                 }
+                // Default gun
                 else if (defaultGunTimer > 0.25f)
                 {
                     ScrollingShooterGame.Game.projectiles.Add(new Bullet(ScrollingShooterGame.Game.Content, position));

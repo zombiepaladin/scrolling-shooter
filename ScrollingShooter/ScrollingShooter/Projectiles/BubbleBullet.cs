@@ -10,10 +10,10 @@ namespace ScrollingShooter
     /// </summary>
     public class BubbleBullet : Projectile
     {
-        public static float FIRE_INTERVAL_MS = .1f;
+        public static float FIRE_INTERVAL_MS = .05f;
 
         private const String SPRITESHEET = "Spritesheets/tyrian.shp.01D8A7";
-        private static readonly Rectangle SPRITEBOUNDS = new Rectangle(38, 57, 7, 11);
+        private static readonly Rectangle SPRITEBOUNDS = new Rectangle(217, 156, 5, 5);
         private static Random rand = new Random();
 
         /// <summary>
@@ -29,12 +29,19 @@ namespace ScrollingShooter
             this.position = position;
         }
 
+        public override void Update(float elapsedTime)
+        {
+            base.Update(elapsedTime);
+            float yValue = Math.Min(velocity.Y + 10, -50);
+            this.velocity.Y = yValue;
+        }
+
         /// <summary>
         /// Generates a new random velocity within the given range.
         /// Direction will be any value from -range/2 to range/2
         /// </summary>
-        /// <param name = "range"> </param>
-        /// <returns></returns>
+        /// <param name = "range">Range of the y value</param>
+        /// <returns>Velocity of this bullet</returns>
         private Vector2 generateRandomVelocity(int range)
 		{
 			int randomNum = rand.Next(range);

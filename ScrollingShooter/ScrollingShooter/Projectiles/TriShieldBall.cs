@@ -50,8 +50,8 @@ namespace ScrollingShooter
             if (this.rotation >= 2 * MathHelper.Pi)
                 this.rotation -= 2 * MathHelper.Pi;
 
-            this.position.X = (float)(player.Bounds.Center.X + DIST_FROM_PLAYER * Math.Cos(this.rotation));
-            this.position.Y = (float)(player.Bounds.Center.Y + DIST_FROM_PLAYER * Math.Sin(this.rotation));
+            this.position.X = (float)(player.Bounds.Center.X - (this.Bounds.Width / 2) + DIST_FROM_PLAYER * Math.Cos(this.rotation));
+            this.position.Y = (float)(player.Bounds.Center.Y - (this.Bounds.Height / 2) + DIST_FROM_PLAYER * Math.Sin(this.rotation));
         }
     }
 }

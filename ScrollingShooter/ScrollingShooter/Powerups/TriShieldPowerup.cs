@@ -12,7 +12,6 @@ namespace ScrollingShooter
         //To do:
         //1. Handle exceptional circumstances (aka have a trishield, pick up another)
         //2. Locate a better sprite for the projectile (just a bigger one will do)
-        //3. Determine bug with centering the projectiles on the player
 
         /// <summary>
         /// Creates a new Trishield powerup

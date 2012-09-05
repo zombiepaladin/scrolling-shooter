@@ -25,6 +25,7 @@ namespace ScrollingShooter
     {
         None = 0,
         Fireball = 0x1,
+        DroneWave = 0x16,
     }
 
     /// <summary>
@@ -160,7 +161,14 @@ public override void Update(float elapsedTime)
         {
 
             if ((powerups & Powerups.Fireball) > 0)
+            {
                 TriggerFireball();
+            }
+
+            if ((powerups & Powerups.DroneWave) > 0)
+            {
+                TriggerDroneWave();
+            }
         }
     }
                     
@@ -188,6 +196,22 @@ public override void Update(float elapsedTime)
         {
             // TODO: Fire fireball
             ScrollingShooterGame.Game.projectiles.Add(new Fireball(ScrollingShooterGame.Game.Content, position));
+        }
+
+        /// <summary>
+        /// A helper function that fires a wide drone wave from the ship, corresponding to the fireball powerup.
+        /// </summary>
+        void TriggerDroneWave()
+        {
+            // waveIndex helps draw the wave to the left and right of the ship, while waveSpacing holds the vector difference of space between each drone.
+            // Drone count is managed by 2*i.
+            Vector2 waveIndex = new Vector2(-1, 1);
+            Vector2 waveSpacing = new Vector2(40,30);
+            for (int i = 0; i < 6; i++)
+            {
+                ScrollingShooterGame.Game.projectiles.Add(new DroneWave(ScrollingShooterGame.Game.Content, position + waveSpacing*waveIndex*i));
+                ScrollingShooterGame.Game.projectiles.Add(new DroneWave(ScrollingShooterGame.Game.Content, position + waveSpacing*i));
+            }
         }
     }
 }

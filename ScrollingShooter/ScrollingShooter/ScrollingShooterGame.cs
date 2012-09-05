@@ -23,6 +23,7 @@ namespace ScrollingShooter
         public List<Projectile> projectiles = new List<Projectile>();
         public List<Enemy> enemies = new List<Enemy>();
         public static ScrollingShooterGame Game;
+        public List<Powerup> powerups = new List<Powerup>();
         
         public ScrollingShooterGame()
         {
@@ -56,7 +57,9 @@ namespace ScrollingShooter
             // TODO: use this.Content to load your game content here
             player = new ShrikeShip(Content);
             player.ApplyPowerup(Powerups.Fireball);
+            player.ApplyPowerup(Powerups.DroneWave);
             enemies.Add(new Dart(Content, new Vector2(100, 100)));
+            powerups.Add(new DroneWavePowerup(Content, new Vector2(250, 250)));
         }
 
         /// <summary>
@@ -110,6 +113,11 @@ namespace ScrollingShooter
             
             spriteBatch.Begin();
             player.Draw(elapsedGameTime, spriteBatch);
+
+            foreach (Powerup powerup in powerups)
+            {
+                powerup.Draw(elapsedGameTime, spriteBatch);
+            }
 
             foreach (Projectile projectile in projectiles)
             {

@@ -18,12 +18,13 @@ namespace ScrollingShooter
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        PlayerShip player;
-
+        
+        public PlayerShip player;
         //For assignment 1 only.
         BubbleBeamPowerup powerup;
 
         public List<Projectile> projectiles = new List<Projectile>();
+        public List<Enemy> enemies = new List<Enemy>();
         public static ScrollingShooterGame Game;
         
         public ScrollingShooterGame()
@@ -93,6 +94,11 @@ namespace ScrollingShooter
                 projectile.Update(elapsedTime);
             }
 
+            foreach (Enemy enemy in enemies)
+            {
+                enemy.Update(elapsedTime);
+            }
+
             base.Update(gameTime);
         }
 
@@ -115,8 +121,10 @@ namespace ScrollingShooter
                 projectile.Draw(elapsedGameTime, spriteBatch);
             }
 
-            //For assignment 1 only.
-            powerup.Draw(elapsedGameTime, spriteBatch);
+            foreach (Enemy enemy in enemies)
+            {
+                enemy.Draw(elapsedGameTime, spriteBatch);
+            }
 
             spriteBatch.End();
 

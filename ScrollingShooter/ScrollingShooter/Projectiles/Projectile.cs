@@ -8,6 +8,8 @@ namespace ScrollingShooter
     /// </summary>
     public abstract class Projectile : GameObject
     {
+        public static int POWER_LEVEL = 1;
+
         /// <summary>
         /// The projectile's velocity
         /// </summary>

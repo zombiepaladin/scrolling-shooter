@@ -59,6 +59,7 @@ namespace ScrollingShooter
             //TODO: Remove
             //Populates the powerup List with the Homing Missile Powerup
             powerups.Add(new HomingMissilesPowerup(Content, new Vector2(500, 150)));
+
         }
 
         /// <summary>

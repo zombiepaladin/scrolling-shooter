@@ -18,10 +18,10 @@ namespace ScrollingShooter
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+
+        public static GameObjectManager GameObjectManager;
         
         public PlayerShip player;
-        public List<Projectile> projectiles = new List<Projectile>();
-        public List<Enemy> enemies = new List<Enemy>();
         public static ScrollingShooterGame Game;
         
         public ScrollingShooterGame()
@@ -53,10 +53,13 @@ namespace ScrollingShooter
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
+            GameObjectManager = new GameObjectManager(Content);
+
             // TODO: use this.Content to load your game content here
-            player = new ShrikeShip(Content);
-            player.ApplyPowerup(Powerups.Fireball);
-            enemies.Add(new Dart(Content, new Vector2(100, 100)));
+            player = GameObjectManager.CreatePlayerShip(PlayerShipType.Shrike, new Vector2(300, 300));
+            player.ApplyPowerup(PowerupType.Fireball);
+
+            GameObjectManager.CreateEnemy(EnemyType.Dart, new Vector2(200, 200));
         }
 
         /// <summary>
@@ -81,18 +84,8 @@ namespace ScrollingShooter
 
             // TODO: Add your update logic here
             float elapsedTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
-
-            player.Update(elapsedTime);
-
-            foreach(Projectile projectile in projectiles)
-            {
-                projectile.Update(elapsedTime);
-            }
-
-            foreach (Enemy enemy in enemies)
-            {
-                enemy.Update(elapsedTime);
-            }
+            
+            GameObjectManager.Update(elapsedTime);
 
             base.Update(gameTime);
         }
@@ -109,17 +102,8 @@ namespace ScrollingShooter
             float elapsedGameTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
             
             spriteBatch.Begin();
-            player.Draw(elapsedGameTime, spriteBatch);
 
-            foreach (Projectile projectile in projectiles)
-            {
-                projectile.Draw(elapsedGameTime, spriteBatch);
-            }
-
-            foreach (Enemy enemy in enemies)
-            {
-                enemy.Draw(elapsedGameTime, spriteBatch);
-            }
+            GameObjectManager.Draw(elapsedGameTime, spriteBatch);
 
             spriteBatch.End();
 

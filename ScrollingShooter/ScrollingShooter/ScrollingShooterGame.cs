@@ -20,6 +20,9 @@ namespace ScrollingShooter
         SpriteBatch spriteBatch;
         
         public PlayerShip player;
+        //For assignment 1 only.
+        BubbleBeamPowerup powerup;
+
         public List<Projectile> projectiles = new List<Projectile>();
         public List<Enemy> enemies = new List<Enemy>();
         public static ScrollingShooterGame Game;
@@ -55,8 +58,10 @@ namespace ScrollingShooter
 
             // TODO: use this.Content to load your game content here
             player = new ShrikeShip(Content);
-            player.ApplyPowerup(Powerups.Fireball);
-            enemies.Add(new Dart(Content, new Vector2(100, 100)));
+            
+            //For assignment 1 only.
+            player.ApplyPowerup(Powerups.BubbleBeam);
+            powerup = new BubbleBeamPowerup(Content, new Vector2(100, 100));
         }
 
         /// <summary>

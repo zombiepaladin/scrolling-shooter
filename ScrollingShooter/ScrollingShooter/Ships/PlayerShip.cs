@@ -25,6 +25,7 @@ namespace ScrollingShooter
     {
         None = 0,
         Fireball = 0x1,
+        BubbleBeam = 0x2,
     }
 
     /// <summary>
@@ -148,12 +149,20 @@ public override void Update(float elapsedTime)
     {
         // Streaming weapons
 
-        // Default gun
-        if (defaultGunTimer > 0.25f)
-        {
-            ScrollingShooterGame.Game.projectiles.Add(new Bullet(ScrollingShooterGame.Game.Content, position));
-            defaultGunTimer = 0f;
-        }
+                if (powerups == Powerups.BubbleBeam)
+                {
+                    if (defaultGunTimer > BubbleBullet.FIRE_INTERVAL_MS)
+                    {
+                        ScrollingShooterGame.Game.projectiles.Add(new BubbleBullet(ScrollingShooterGame.Game.Content, position));
+                        defaultGunTimer = 0f;
+                    }
+                }
+                // Default gun
+                else if (defaultGunTimer > 0.25f)
+                {
+                    ScrollingShooterGame.Game.projectiles.Add(new Bullet(ScrollingShooterGame.Game.Content, position));
+                    defaultGunTimer = 0f;
+                }
 
         // Fire-once weapons
         if (oldKeyboardState.IsKeyUp(Keys.Space))

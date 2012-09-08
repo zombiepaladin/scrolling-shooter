@@ -37,7 +37,7 @@ namespace ScrollingShooter
         /// </summary>
         /// <param name="content">A ContentManager to load resources with</param>
         /// <param name="position">The position of the Dart ship in the game world</param>
-        public Dart(ContentManager content, Vector2 position)
+        public Dart(uint id, ContentManager content, Vector2 position) : base (id)
         {
             this.position = position;
 

@@ -18,12 +18,17 @@ namespace ScrollingShooter
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+<<<<<<< HEAD
         PlayerShip player;
 
         //content item for displaying the frostball powerup
         FrostballPowerup frostballPowerup;
+=======
+>>>>>>> upstream/master
 
-        public List<Projectile> projectiles = new List<Projectile>();
+        public static GameObjectManager GameObjectManager;
+        
+        public PlayerShip player;
         public static ScrollingShooterGame Game;
         
         public ScrollingShooterGame()
@@ -55,12 +60,21 @@ namespace ScrollingShooter
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
+            GameObjectManager = new GameObjectManager(Content);
+
             // TODO: use this.Content to load your game content here
+<<<<<<< HEAD
             player = new ShrikeShip(Content);
             //player.ApplyPowerup(Powerups.Fireball);
             player.ApplyPowerup(Powerups.Frostball);
 
             frostballPowerup = new FrostballPowerup(Content, new Vector2(200, 200));
+=======
+            player = GameObjectManager.CreatePlayerShip(PlayerShipType.Shrike, new Vector2(300, 300));
+            player.ApplyPowerup(PowerupType.Fireball);
+
+            GameObjectManager.CreateEnemy(EnemyType.Dart, new Vector2(200, 200));
+>>>>>>> upstream/master
         }
 
         /// <summary>
@@ -85,13 +99,8 @@ namespace ScrollingShooter
 
             // TODO: Add your update logic here
             float elapsedTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
-
-            player.Update(elapsedTime);
-
-            foreach(Projectile projectile in projectiles)
-            {
-                projectile.Update(elapsedTime);
-            }
+            
+            GameObjectManager.Update(elapsedTime);
 
             base.Update(gameTime);
         }
@@ -108,14 +117,15 @@ namespace ScrollingShooter
             float elapsedGameTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
             
             spriteBatch.Begin();
+<<<<<<< HEAD
            
             frostballPowerup.Draw(elapsedGameTime, spriteBatch);
             player.Draw(elapsedGameTime, spriteBatch);
+=======
+>>>>>>> upstream/master
 
-            foreach (Projectile projectile in projectiles)
-            {
-                projectile.Draw(elapsedGameTime, spriteBatch);
-            }
+            GameObjectManager.Draw(elapsedGameTime, spriteBatch);
+
             spriteBatch.End();
 
             base.Draw(gameTime);

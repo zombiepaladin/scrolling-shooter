@@ -9,9 +9,24 @@ namespace ScrollingShooter
     public abstract class GameObject
     {
         /// <summary>
+        /// The game object's ID, which should be unique and never change
+        /// We use the readonly keyword so it can only be set at object creation
+        /// </summary>
+        public readonly uint ID;
+
+        /// <summary>
         /// The bounds of this game object in the game world
         /// </summary>
         public abstract Rectangle Bounds { get; }
+
+        /// <summary>
+        /// Creates a new GameObject with the specified ID
+        /// </summary>
+        /// <param name="id">The game object's id</param>
+        public GameObject(uint id)
+        {
+            this.ID = id;
+        }
 
         /// <summary>
         /// Updates the game object - called every frame

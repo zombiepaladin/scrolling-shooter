@@ -56,10 +56,11 @@ namespace ScrollingShooter
 
             // TODO: use this.Content to load your game content here
             player = new ShrikeShip(Content);
-            player.ApplyPowerup(Powerups.Fireball);
-            player.ApplyPowerup(Powerups.DroneWave);
-            enemies.Add(new Dart(Content, new Vector2(100, 100)));
-            powerups.Add(new DroneWavePowerup(Content, new Vector2(250, 250)));
+            //player.ApplyPowerup(Powerups.Fireball);
+            //player.ApplyPowerup(Powerups.DroneWave);
+            //enemies.Add(new Dart(Content, new Vector2(100, 100)));
+            //powerups.Add(new DroneWavePowerup(Content, new Vector2(250, 250)));
+            enemies.Add(new Turret(Content, new Vector2(300, 300)));
         }
 
         /// <summary>

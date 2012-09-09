@@ -111,10 +111,16 @@
     <Compile Include="Enemies\Enemy.cs" />
     <Compile Include="Enemies\LaserDrone.cs" />
     <Compile Include="GameObject.cs" />
+<<<<<<< HEAD
     <Compile Include="GameObjectManager.cs" />
+=======
+    <Compile Include="Powerups\MeteorPowerup.cs" />
+    <Compile Include="Projectiles\BigMeteor.cs" />
+>>>>>>> c05db2d76088445962246bf03891ccb9b1e207e9
     <Compile Include="Projectiles\Bullet.cs" />
     <Compile Include="Projectiles\DroneLaser.cs" />
     <Compile Include="Projectiles\Fireball.cs" />
+    <Compile Include="Projectiles\Meteor.cs" />
     <Compile Include="Projectiles\Projectile.cs" />
     <Compile Include="Ships\PlayerShip.cs" />
     <Compile Include="Powerups\FireballPowerup.cs" />

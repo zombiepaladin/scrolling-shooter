@@ -57,7 +57,8 @@ namespace ScrollingShooter
 
             // TODO: use this.Content to load your game content here
             player = GameObjectManager.CreatePlayerShip(PlayerShipType.Shrike, new Vector2(300, 300));
-            player.ApplyPowerup(PowerupType.Fireball);
+            GameObjectManager.CreatePowerup(PowerupType.Fireball, new Vector2(100, 200));
+            //player.ApplyPowerup(PowerupType.Fireball);
 
             GameObjectManager.CreateEnemy(EnemyType.Dart, new Vector2(200, 200));
         }
@@ -86,6 +87,28 @@ namespace ScrollingShooter
             float elapsedTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
             
             GameObjectManager.Update(elapsedTime);
+
+            // Process collisions
+            foreach (CollisionPair pair in GameObjectManager.Collisions)
+            {
+                // Player collisions
+                if (pair.A == player.ID || pair.B == player.ID)
+                {
+                    uint colliderID = (pair.A == player.ID) ? pair.B : pair.A;
+                    GameObject collider = GameObjectManager.GetObject(colliderID);
+                    
+                    // Process powerup collisions
+                    Powerup powerup = collider as Powerup;
+                    if (powerup != null)
+                    {
+                        player.ApplyPowerup(powerup.Type);
+                        GameObjectManager.DestroyObject(colliderID);
+                    }
+
+                }
+
+
+            }
 
             base.Update(gameTime);
         }

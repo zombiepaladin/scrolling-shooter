@@ -47,211 +47,253 @@
       <Name>destruct_sprites</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
+      <ProcessorParameters_ColorKeyColor>191, 220, 191, 255</ProcessorParameters_ColorKeyColor>
     </Compile>
     <Compile Include="Spritesheets\newsh#.shp.000000.png">
       <Name>newsh#.shp.000000</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
+      <ProcessorParameters_ColorKeyColor>191, 220, 191, 255</ProcessorParameters_ColorKeyColor>
     </Compile>
     <Compile Include="Spritesheets\newsh%24.shp.000000.png">
       <Name>newsh%24.shp.000000</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
+      <ProcessorParameters_ColorKeyColor>191, 220, 191, 255</ProcessorParameters_ColorKeyColor>
     </Compile>
     <Compile Include="Spritesheets\newsh%28.shp.000000.png">
       <Name>newsh%28.shp.000000</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
+      <ProcessorParameters_ColorKeyColor>191, 220, 191, 255</ProcessorParameters_ColorKeyColor>
     </Compile>
     <Compile Include="Spritesheets\newsh%40.shp.000000.png">
       <Name>newsh%40.shp.000000</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
+      <ProcessorParameters_ColorKeyColor>191, 220, 191, 255</ProcessorParameters_ColorKeyColor>
     </Compile>
     <Compile Include="Spritesheets\newsh0.shp.000000.png">
       <Name>newsh0.shp.000000</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
+      <ProcessorParameters_ColorKeyColor>191, 220, 191, 255</ProcessorParameters_ColorKeyColor>
     </Compile>
     <Compile Include="Spritesheets\newsh1.shp.000000.png">
       <Name>newsh1.shp.000000</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
+      <ProcessorParameters_ColorKeyColor>191, 220, 191, 255</ProcessorParameters_ColorKeyColor>
     </Compile>
     <Compile Include="Spritesheets\newsh2.shp.000000.png">
       <Name>newsh2.shp.000000</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
+      <ProcessorParameters_ColorKeyColor>191, 220, 191, 255</ProcessorParameters_ColorKeyColor>
     </Compile>
     <Compile Include="Spritesheets\newsh3.shp.000000.png">
       <Name>newsh3.shp.000000</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
+      <ProcessorParameters_ColorKeyColor>191, 220, 191, 255</ProcessorParameters_ColorKeyColor>
     </Compile>
     <Compile Include="Spritesheets\newsh4.shp.000000.png">
       <Name>newsh4.shp.000000</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
+      <ProcessorParameters_ColorKeyColor>191, 220, 191, 255</ProcessorParameters_ColorKeyColor>
     </Compile>
     <Compile Include="Spritesheets\newsh5.shp.000000.png">
       <Name>newsh5.shp.000000</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
+      <ProcessorParameters_ColorKeyColor>191, 220, 191, 255</ProcessorParameters_ColorKeyColor>
     </Compile>
     <Compile Include="Spritesheets\newsh6.shp.000000.png">
       <Name>newsh6.shp.000000</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
+      <ProcessorParameters_ColorKeyColor>191, 220, 191, 255</ProcessorParameters_ColorKeyColor>
     </Compile>
     <Compile Include="Spritesheets\newsh7.shp.000000.png">
       <Name>newsh7.shp.000000</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
+      <ProcessorParameters_ColorKeyColor>191, 220, 191, 255</ProcessorParameters_ColorKeyColor>
     </Compile>
     <Compile Include="Spritesheets\newsh8.shp.000000.png">
       <Name>newsh8.shp.000000</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
+      <ProcessorParameters_ColorKeyColor>191, 220, 191, 255</ProcessorParameters_ColorKeyColor>
     </Compile>
     <Compile Include="Spritesheets\newsh9.shp.000000.png">
       <Name>newsh9.shp.000000</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
+      <ProcessorParameters_ColorKeyColor>191, 220, 191, 255</ProcessorParameters_ColorKeyColor>
     </Compile>
     <Compile Include="Spritesheets\newsha.shp.000000.png">
       <Name>newsha.shp.000000</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
+      <ProcessorParameters_ColorKeyColor>191, 220, 191, 255</ProcessorParameters_ColorKeyColor>
     </Compile>
     <Compile Include="Spritesheets\newshb.shp.000000.png">
       <Name>newshb.shp.000000</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
+      <ProcessorParameters_ColorKeyColor>191, 220, 191, 255</ProcessorParameters_ColorKeyColor>
     </Compile>
     <Compile Include="Spritesheets\newshc.shp.000000.png">
       <Name>newshc.shp.000000</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
+      <ProcessorParameters_ColorKeyColor>191, 220, 191, 255</ProcessorParameters_ColorKeyColor>
     </Compile>
     <Compile Include="Spritesheets\newshd.shp.000000.png">
       <Name>newshd.shp.000000</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
+      <ProcessorParameters_ColorKeyColor>191, 220, 191, 255</ProcessorParameters_ColorKeyColor>
     </Compile>
     <Compile Include="Spritesheets\newshe.shp.000000.png">
       <Name>newshe.shp.000000</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
+      <ProcessorParameters_ColorKeyColor>191, 220, 191, 255</ProcessorParameters_ColorKeyColor>
     </Compile>
     <Compile Include="Spritesheets\newshf.shp.000000.png">
       <Name>newshf.shp.000000</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
+      <ProcessorParameters_ColorKeyColor>191, 220, 191, 255</ProcessorParameters_ColorKeyColor>
     </Compile>
     <Compile Include="Spritesheets\newshg.shp.000000.png">
       <Name>newshg.shp.000000</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
+      <ProcessorParameters_ColorKeyColor>191, 220, 191, 255</ProcessorParameters_ColorKeyColor>
     </Compile>
     <Compile Include="Spritesheets\newshh.shp.000000.png">
       <Name>newshh.shp.000000</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
+      <ProcessorParameters_ColorKeyColor>191, 220, 191, 255</ProcessorParameters_ColorKeyColor>
     </Compile>
     <Compile Include="Spritesheets\newshi.shp.000000.png">
       <Name>newshi.shp.000000</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
+      <ProcessorParameters_ColorKeyColor>191, 220, 191, 255</ProcessorParameters_ColorKeyColor>
     </Compile>
     <Compile Include="Spritesheets\newshj.shp.000000.png">
       <Name>newshj.shp.000000</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
+      <ProcessorParameters_ColorKeyColor>191, 220, 191, 255</ProcessorParameters_ColorKeyColor>
     </Compile>
     <Compile Include="Spritesheets\newshk.shp.000000.png">
       <Name>newshk.shp.000000</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
+      <ProcessorParameters_ColorKeyColor>191, 220, 191, 255</ProcessorParameters_ColorKeyColor>
     </Compile>
     <Compile Include="Spritesheets\newshl.shp.000000.png">
       <Name>newshl.shp.000000</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
+      <ProcessorParameters_ColorKeyColor>191, 220, 191, 255</ProcessorParameters_ColorKeyColor>
     </Compile>
     <Compile Include="Spritesheets\newshm.shp.000000.png">
       <Name>newshm.shp.000000</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
+      <ProcessorParameters_ColorKeyColor>191, 220, 191, 255</ProcessorParameters_ColorKeyColor>
     </Compile>
     <Compile Include="Spritesheets\newshn.shp.000000.png">
       <Name>newshn.shp.000000</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
+      <ProcessorParameters_ColorKeyColor>191, 220, 191, 255</ProcessorParameters_ColorKeyColor>
     </Compile>
     <Compile Include="Spritesheets\newsho.shp.000000.png">
       <Name>newsho.shp.000000</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
+      <ProcessorParameters_ColorKeyColor>191, 220, 191, 255</ProcessorParameters_ColorKeyColor>
     </Compile>
     <Compile Include="Spritesheets\newshp.shp.000000.png">
       <Name>newshp.shp.000000</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
+      <ProcessorParameters_ColorKeyColor>191, 220, 191, 255</ProcessorParameters_ColorKeyColor>
     </Compile>
     <Compile Include="Spritesheets\newshr.shp.000000.png">
       <Name>newshr.shp.000000</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
+      <ProcessorParameters_ColorKeyColor>191, 220, 191, 255</ProcessorParameters_ColorKeyColor>
     </Compile>
     <Compile Include="Spritesheets\newshs.shp.000000.png">
       <Name>newshs.shp.000000</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
+      <ProcessorParameters_ColorKeyColor>191, 220, 191, 255</ProcessorParameters_ColorKeyColor>
     </Compile>
     <Compile Include="Spritesheets\newsht.shp.000000.png">
       <Name>newsht.shp.000000</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
+      <ProcessorParameters_ColorKeyColor>191, 200, 191, 255</ProcessorParameters_ColorKeyColor>
     </Compile>
     <Compile Include="Spritesheets\newshu.shp.000000.png">
       <Name>newshu.shp.000000</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
+      <ProcessorParameters_ColorKeyColor>191, 220, 191, 255</ProcessorParameters_ColorKeyColor>
     </Compile>
     <Compile Include="Spritesheets\newshv.shp.000000.png">
       <Name>newshv.shp.000000</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
+      <ProcessorParameters_ColorKeyColor>191, 220, 191, 255</ProcessorParameters_ColorKeyColor>
     </Compile>
     <Compile Include="Spritesheets\newsh^.shp.000000.png">
       <Name>newsh^.shp.000000</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
+      <ProcessorParameters_ColorKeyColor>191, 220, 191, 255</ProcessorParameters_ColorKeyColor>
     </Compile>
     <Compile Include="Spritesheets\tyrian.shp.000000.png">
       <Name>tyrian.shp.000000</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
+      <ProcessorParameters_ColorKeyColor>191, 220, 191, 255</ProcessorParameters_ColorKeyColor>
     </Compile>
     <Compile Include="Spritesheets\tyrian.shp.007D3C.png">
       <Name>tyrian.shp.007D3C</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
+      <ProcessorParameters_ColorKeyColor>191, 220, 191, 255</ProcessorParameters_ColorKeyColor>
     </Compile>
     <Compile Include="Spritesheets\tyrian.shp.010008.png">
       <Name>tyrian.shp.010008</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
+      <ProcessorParameters_ColorKeyColor>191, 220, 191, 255</ProcessorParameters_ColorKeyColor>
     </Compile>
     <Compile Include="Spritesheets\tyrian.shp.01673F.png">
       <Name>tyrian.shp.01673F</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
+      <ProcessorParameters_ColorKeyColor>191, 220, 191, 255</ProcessorParameters_ColorKeyColor>
     </Compile>
     <Compile Include="Spritesheets\tyrian.shp.01D8A7.png">
       <Name>tyrian.shp.01D8A7</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
+      <ProcessorParameters_ColorKeyColor>191, 220, 191, 255</ProcessorParameters_ColorKeyColor>
     </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />

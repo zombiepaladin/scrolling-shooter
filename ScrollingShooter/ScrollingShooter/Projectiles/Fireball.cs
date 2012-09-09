@@ -5,20 +5,20 @@ using Microsoft.Xna.Framework.Content;
 namespace ScrollingShooter
 {
     /// <summary>
-    /// A basic bullet 
+    /// A fireball projectile 
     /// </summary>
-    public class Bullet : Projectile
+    public class Fireball : Projectile
     {
         /// <summary>
-        /// Creates a new bullet
+        /// Creates a new fireball
         /// </summary>
         /// <param name="content">A ContentManager to load content from</param>
         /// <param name="position">A position on the screen</param>
-        public Bullet(uint id, ContentManager content, Vector2 position) : base (id)
+        public Fireball(uint id, ContentManager content, Vector2 position) : base (id)
         {   
             this.spriteSheet = content.Load<Texture2D>("Spritesheets/tyrian.shp.01D8A7");
 
-            this.spriteBounds = new Rectangle(38, 57, 7, 11);
+            this.spriteBounds = new Rectangle(49, 56, 9, 13);
 
             this.velocity = new Vector2(0, -300);
 

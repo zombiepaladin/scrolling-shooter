@@ -18,10 +18,11 @@ namespace ScrollingShooter
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        PlayerShip player;
         
 
-        public List<Projectile> projectiles = new List<Projectile>();
+        public static GameObjectManager GameObjectManager;
+        
+        public PlayerShip player;
         public static ScrollingShooterGame Game;
         //TODO(temporary -> remove): temporary field
         BombPowerUp bomb;
@@ -55,8 +56,13 @@ namespace ScrollingShooter
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
+            GameObjectManager = new GameObjectManager(Content);
+
             // TODO: use this.Content to load your game content here
-            player = new ShrikeShip(Content);
+            player = GameObjectManager.CreatePlayerShip(PlayerShipType.Shrike, new Vector2(300, 300));
+            player.ApplyPowerup(PowerupType.Fireball);
+
+            GameObjectManager.CreateEnemy(EnemyType.Dart, new Vector2(200, 200));
             //TODO(temporary -> remove): creates bomb PowerUp 
             bomb = new BombPowerUp(Content,new Vector2(150,150));
         }
@@ -83,13 +89,8 @@ namespace ScrollingShooter
 
             // TODO: Add your update logic here
             float elapsedTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
-
-            player.Update(elapsedTime);
-
-            foreach(Projectile projectile in projectiles)
-            {
-                projectile.Update(elapsedTime);
-            }
+            
+            GameObjectManager.Update(elapsedTime);
 
             base.Update(gameTime);
         }
@@ -106,13 +107,10 @@ namespace ScrollingShooter
             float elapsedGameTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
             
             spriteBatch.Begin();
-            player.Draw(elapsedGameTime, spriteBatch);
             ////TODO(temporary -> remove):Draw BombPowerUp on the screen
             bomb.Draw(elapsedGameTime, spriteBatch);
-            foreach (Projectile projectile in projectiles)
-            {
-                projectile.Draw(elapsedGameTime, spriteBatch);
-            }
+            GameObjectManager.Draw(elapsedGameTime, spriteBatch);
+
             spriteBatch.End();
 
             base.Draw(gameTime);

@@ -187,8 +187,8 @@ namespace ScrollingShooter
         /// <param name="spriteBatch">An already-initialized spritebatch, ready for Draw() commands</param>
         public override void Draw(float elaspedTime, SpriteBatch spriteBatch)
         {
-            //spriteBatch.Draw(spriteSheet, Bounds, spriteBounds[(int)steeringState], Color.White);
-            spriteBatch.Draw(spriteSheet, Bounds, spriteBounds[(int)steeringState], Color.White, MathHelper.PiOver4, new Vector2(Bounds.Width / 2, Bounds.Height / 2), SpriteEffects.None, 1f);
+            spriteBatch.Draw(spriteSheet, Bounds, spriteBounds[(int)steeringState], Color.White);
+            //spriteBatch.Draw(spriteSheet, Bounds, spriteBounds[(int)steeringState], Color.White, MathHelper.PiOver4, new Vector2(Bounds.Width / 2, Bounds.Height / 2), SpriteEffects.None, 1f);
         }
 
 

@@ -346,6 +346,10 @@ namespace ScrollingShooter
                     projectile = new Fireball(id, content, position);
                     break;
 
+                case ProjectileType.DroneLaser:
+                    projectile = new DroneLaser(id, content, position);
+                    break;
+
                 default:
                     throw new NotImplementedException("The projectile type " + Enum.GetName(typeof(ProjectileType), projectileType) + " is not supported");
             }
@@ -369,6 +373,10 @@ namespace ScrollingShooter
             {
                 case EnemyType.Dart:
                     enemy = new Dart(id, content, position);
+                    break;
+
+                case EnemyType.LaserDrone:
+                    enemy = new LaserDrone(id, content, position);
                     break;
                 
                 default:

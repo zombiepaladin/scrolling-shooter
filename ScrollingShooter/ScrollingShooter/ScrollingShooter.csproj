@@ -109,9 +109,11 @@
   <ItemGroup>
     <Compile Include="Enemies\Dart.cs" />
     <Compile Include="Enemies\Enemy.cs" />
+    <Compile Include="Enemies\LaserDrone.cs" />
     <Compile Include="GameObject.cs" />
     <Compile Include="GameObjectManager.cs" />
     <Compile Include="Projectiles\Bullet.cs" />
+    <Compile Include="Projectiles\DroneLaser.cs" />
     <Compile Include="Projectiles\Fireball.cs" />
     <Compile Include="Projectiles\Projectile.cs" />
     <Compile Include="Ships\PlayerShip.cs" />

@@ -13,7 +13,7 @@ namespace ScrollingShooter
         /// Create a new ShrikeShip instance
         /// </summary>
         /// <param name="content"></param>
-        public ShrikeShip(ContentManager content)
+        public ShrikeShip(uint id, ContentManager content) : base (id)
         {
             this.spriteSheet = content.Load<Texture2D>("Spritesheets/tyrian.shp.007D3C");
 

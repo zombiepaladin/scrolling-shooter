@@ -30,7 +30,7 @@ namespace ScrollingShooter
         /// <param name="content">A ContentManager to load content from</param>
         /// <param name="position">The starting position of the bullet</param>
         /// <param name="bulletDirection"></param>
-        public ShotgunBullet(ContentManager content, Vector2 position, BulletDirection bulletDirection)
+        public ShotgunBullet(uint id, ContentManager content, Vector2 position, BulletDirection bulletDirection) : base(id)
         {
             this.spriteSheet = content.Load<Texture2D>("Spritesheets/newsh(.shp.000000");
 

@@ -18,10 +18,10 @@ namespace ScrollingShooter
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        PlayerShip player;
-        ShotgunPowerup shotgunPowerup;
 
-        public List<Projectile> projectiles = new List<Projectile>();
+        public static GameObjectManager GameObjectManager;
+        
+        public PlayerShip player;
         public static ScrollingShooterGame Game;
         
         public ScrollingShooterGame()
@@ -53,11 +53,14 @@ namespace ScrollingShooter
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            // TODO: use this.Content to load your game content here
-            player = new ShrikeShip(Content);
+            GameObjectManager = new GameObjectManager(Content);
 
-            // Create a new SprayShotPowerup
-            shotgunPowerup = new ShotgunPowerup(Content, new Vector2(50, 50));
+            // TODO: use this.Content to load your game content here
+            player = GameObjectManager.CreatePlayerShip(PlayerShipType.Shrike, new Vector2(300, 300));
+            GameObjectManager.CreatePowerup(PowerupType.Fireball, new Vector2(100, 200));
+            //player.ApplyPowerup(PowerupType.Fireball);
+
+            GameObjectManager.CreateEnemy(EnemyType.Dart, new Vector2(200, 200));
         }
 
         /// <summary>
@@ -82,12 +85,29 @@ namespace ScrollingShooter
 
             // TODO: Add your update logic here
             float elapsedTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
+            
+            GameObjectManager.Update(elapsedTime);
 
-            player.Update(elapsedTime);
-
-            foreach(Projectile projectile in projectiles)
+            // Process collisions
+            foreach (CollisionPair pair in GameObjectManager.Collisions)
             {
-                projectile.Update(elapsedTime);
+                // Player collisions
+                if (pair.A == player.ID || pair.B == player.ID)
+                {
+                    uint colliderID = (pair.A == player.ID) ? pair.B : pair.A;
+                    GameObject collider = GameObjectManager.GetObject(colliderID);
+                    
+                    // Process powerup collisions
+                    Powerup powerup = collider as Powerup;
+                    if (powerup != null)
+                    {
+                        player.ApplyPowerup(powerup.Type);
+                        GameObjectManager.DestroyObject(colliderID);
+                    }
+
+                }
+
+
             }
 
             base.Update(gameTime);
@@ -105,15 +125,9 @@ namespace ScrollingShooter
             float elapsedGameTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
             
             spriteBatch.Begin();
-            player.Draw(elapsedGameTime, spriteBatch);
 
-            // Draw a SprayShotPowerup
-            shotgunPowerup.Draw((float)gameTime.ElapsedGameTime.TotalSeconds, spriteBatch);
+            GameObjectManager.Draw(elapsedGameTime, spriteBatch);
 
-            foreach (Projectile projectile in projectiles)
-            {
-                projectile.Draw(elapsedGameTime, spriteBatch);
-            }
             spriteBatch.End();
 
             base.Draw(gameTime);

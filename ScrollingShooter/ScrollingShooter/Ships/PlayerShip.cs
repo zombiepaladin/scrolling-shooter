@@ -6,6 +6,14 @@ using Microsoft.Xna.Framework.Input;
 namespace ScrollingShooter
 {
     /// <summary>
+    /// The different types of player ships available in the game
+    /// </summary>
+    public enum PlayerShipType
+    {
+        Shrike,
+    }
+
+    /// <summary>
     /// Represents the five possible steering states for our ships
     /// </summary>
     enum SteeringState
@@ -15,17 +23,6 @@ namespace ScrollingShooter
         Straight = 2,
         Right = 3,
         HardRight = 4,
-    }
-
-    /// <summary>
-    /// Represents all the possible powerups our ship might pick up; uses
-    /// a bitmask so multiple powerups can be represented with a single variable
-    /// </summary>
-    public enum Powerups
-    {
-        None = 0,
-        Fireball = 0x1,
-        ShotgunPowerup = 0x2,
     }
 
     /// <summary>
@@ -65,8 +62,8 @@ namespace ScrollingShooter
         // The current steering state of the ship
         SteeringState steeringState = SteeringState.Straight;
 
-        // The powerups equipped on this ship
-        Powerups powerups = Powerups.None;
+        // The PowerupType equipped on this ship
+        PowerupType PowerupType = PowerupType.None;
 
 
         /// <summary>
@@ -80,13 +77,20 @@ namespace ScrollingShooter
 
 
         /// <summary>
+        /// Creates a new player ship instance
+        /// </summary>
+        /// <param name="id">the unique id of the player ship</param>
+        public PlayerShip(uint id) : base(id) { }
+
+
+        /// <summary>
         /// Applies the specified powerup to the ship
         /// </summary>
         /// <param name="powerup">the indicated powerup</param>
-        public void ApplyPowerup(Powerups powerup)
+        public void ApplyPowerup(PowerupType powerup)
         {
-            // Store the new powerup in the powerups bitmask
-            this.powerups |= powerup;
+            // Store the new powerup in the PowerupType bitmask
+            this.PowerupType |= powerup;
         }
 
 
@@ -147,27 +151,34 @@ namespace ScrollingShooter
             // Fire weapons
             if (currentKeyboardState.IsKeyDown(Keys.Space))
             {
+                uint[] ids = ScrollingShooterGame.GameObjectManager.QueryRegion(new Rectangle(0, 0, 100, 100));
+                string label = "";
+                foreach (uint id in ids)
+                    label += id + "-";
+                label = "";
+                //ScrollingShooterGame.Game.Window.Title = label;
                 // Streaming weapons
 
                 // Default gun
-                if (defaultGunTimer > 0.25f && powerups == 0)
+                if (defaultGunTimer > 0.25f)
                 {
-                    ScrollingShooterGame.Game.projectiles.Add(new Bullet(ScrollingShooterGame.Game.Content, position));
+                    ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.Bullet, position);
                     defaultGunTimer = 0f;
                 }
 
                 // Fire-once weapons
                 if (oldKeyboardState.IsKeyUp(Keys.Space))
                 {
-                    if ((int)(powerups & Powerups.Fireball) == 0x1)
+
+                    if ((PowerupType & PowerupType.Fireball) > 0)
                         TriggerFireball();
 
                     // Fires a shotgun shot if the shotgun powerup is active and half a second has passed since the last shot
-                    else if ((int)(powerups & Powerups.ShotgunPowerup) == 0x2 &&
+                    else if ((int)(PowerupType & PowerupType.ShotgunPowerup) == 0x2 &&
                              defaultGunTimer > 0.5f)
                     {
                         TriggerShotgun();
-                        defaultGunTimer = 0f;
+                        defaultGunTimer = 0;
                     }
                 }
             }
@@ -184,7 +195,7 @@ namespace ScrollingShooter
         /// <param name="spriteBatch">An already-initialized spritebatch, ready for Draw() commands</param>
         public override void Draw(float elaspedTime, SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(spriteSheet, Bounds, spriteBounds[(int)steeringState], Color.White);
+            spriteBatch.Draw(spriteSheet, Bounds, spriteBounds[(int)steeringState], Color.White, 0f, new Vector2(Bounds.Width / 2, Bounds.Height / 2), SpriteEffects.None, 1f);
         }
 
 
@@ -194,7 +205,7 @@ namespace ScrollingShooter
         /// </summary>
         void TriggerFireball()
         {
-            // TODO: Fire fireball
+            ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.Fireball, position);
         }
 
         /// <summary>
@@ -203,11 +214,7 @@ namespace ScrollingShooter
         /// </summary>
         void TriggerShotgun()
         {
-            ScrollingShooterGame.Game.projectiles.Add(new ShotgunBullet(ScrollingShooterGame.Game.Content, position, BulletDirection.Straight));
-            ScrollingShooterGame.Game.projectiles.Add(new ShotgunBullet(ScrollingShooterGame.Game.Content, position, BulletDirection.Left));
-            ScrollingShooterGame.Game.projectiles.Add(new ShotgunBullet(ScrollingShooterGame.Game.Content, position, BulletDirection.Right));
-            ScrollingShooterGame.Game.projectiles.Add(new ShotgunBullet(ScrollingShooterGame.Game.Content, position, BulletDirection.HardLeft));
-            ScrollingShooterGame.Game.projectiles.Add(new ShotgunBullet(ScrollingShooterGame.Game.Content, position, BulletDirection.HardRight));
+            ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.ShotgunBullet, position);
         }
     }
 }

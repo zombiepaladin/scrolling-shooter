@@ -14,7 +14,8 @@ namespace ScrollingShooter
         /// </summary>
         /// <param name="contentManager">A ContentManager to load resources with</param>
         /// <param name="position">The position of the shotgun powerup within the world</param>
-        public ShotgunPowerup(ContentManager contentManager, Vector2 position)
+        public ShotgunPowerup(uint id, ContentManager contentManager, Vector2 position)
+            : base(id)
         {
             this.spriteSource = new Rectangle(97, 142, 22, 23);
             this.spriteSheet = contentManager.Load<Texture2D>("Spritesheets/tyrian.shp.010008");

@@ -23,14 +23,13 @@ namespace ScrollingShooter
             this.spriteBounds = new Rectangle(24, 23, 53, 58);
 
             //set to 0 for x & y to test
+            //don't actually want the shield to deviate from
+            // the player ship's position
             this.velocity = new Vector2(0, 0);
 
             //test an offset position (ghetto)
             this.position.X = playerPosition.X - 14;
             this.position.Y = playerPosition.Y - 15;
         }
-
-        ///write out some test methods
-        string test = "test for changes.";
     }
 }

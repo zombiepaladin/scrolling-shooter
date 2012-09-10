@@ -62,6 +62,7 @@
       <Name>newsh%28.shp.000000</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
+      <ProcessorParameters_ColorKeyColor>191, 220, 191, 255</ProcessorParameters_ColorKeyColor>
     </Compile>
     <Compile Include="Spritesheets\newsh%40.shp.000000.png">
       <Name>newsh%40.shp.000000</Name>
@@ -82,6 +83,7 @@
       <Name>newsh2.shp.000000</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
+      <ProcessorParameters_ColorKeyColor>191, 220, 191, 255</ProcessorParameters_ColorKeyColor>
     </Compile>
     <Compile Include="Spritesheets\newsh3.shp.000000.png">
       <Name>newsh3.shp.000000</Name>
@@ -232,11 +234,13 @@
       <Name>tyrian.shp.000000</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
+      <ProcessorParameters_ColorKeyColor>191, 220, 191, 255</ProcessorParameters_ColorKeyColor>
     </Compile>
     <Compile Include="Spritesheets\tyrian.shp.007D3C.png">
       <Name>tyrian.shp.007D3C</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
+      <ProcessorParameters_ColorKeyColor>191, 220, 191, 255</ProcessorParameters_ColorKeyColor>
     </Compile>
     <Compile Include="Spritesheets\tyrian.shp.010008.png">
       <Name>tyrian.shp.010008</Name>
@@ -252,6 +256,7 @@
       <Name>tyrian.shp.01D8A7</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
+      <ProcessorParameters_ColorKeyColor>191, 220, 191, 255</ProcessorParameters_ColorKeyColor>
     </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />

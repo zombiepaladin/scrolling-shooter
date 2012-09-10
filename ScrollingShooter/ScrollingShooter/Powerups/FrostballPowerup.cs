@@ -14,7 +14,7 @@ namespace ScrollingShooter
         /// </summary>
         /// <param name="contentManager">A ContentManager to load resources with</param>
         /// <param name="position">The position the frostball powerup in the world</param>
-        public FrostballPowerup(ContentManager contentManager, Vector2 position)
+        public FrostballPowerup(uint id, ContentManager contentManager, Vector2 position) : base(id)
         {
             this.spriteSource = new Rectangle(0, 170, 23, 23);
             this.spriteSheet = contentManager.Load<Texture2D>("Spritesheets/tyrian.shp.010008");

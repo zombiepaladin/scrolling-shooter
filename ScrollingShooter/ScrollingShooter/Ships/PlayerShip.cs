@@ -158,18 +158,18 @@ namespace ScrollingShooter
                 label = "";
                 //ScrollingShooterGame.Game.Window.Title = label;
                 // Streaming weapons
-                if (powerups == Powerups.BubbleBeam)
+                if (this.PowerupType == PowerupType.BubbleBeam)
                 {
                     if (defaultGunTimer > BubbleBullet.FIRE_INTERVAL_MS)
                     {
-                        ScrollingShooterGame.Game.projectiles.Add(new BubbleBullet(ScrollingShooterGame.Game.Content, position));
+                        ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.BubbleBullet, position);
                         defaultGunTimer = 0f;
                     }
                 }
                 // Default gun
                 else if (defaultGunTimer > 0.25f)
                 {
-                    ScrollingShooterGame.Game.projectiles.Add(new Bullet(ScrollingShooterGame.Game.Content, position));
+                    ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.Bullet, position);
                     defaultGunTimer = 0f;
                 }
 
@@ -205,7 +205,11 @@ namespace ScrollingShooter
         void TriggerFireball()
         {
             ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.Fireball, position);
-            ScrollingShooterGame.Game.projectiles.Add(new Fireball(ScrollingShooterGame.Game.Content, position));
+        }
+
+        public Vector2 GetPosition()
+        {
+            return position;
         }
     }
 }

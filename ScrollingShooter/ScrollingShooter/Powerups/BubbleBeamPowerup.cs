@@ -24,7 +24,8 @@ namespace ScrollingShooter
         /// </summary>
         /// <param name="contentManager">ContentManager to load resources with.</param>
         /// <param name="position">Starting position for the power up.</param>
-        public BubbleBeamPowerup(ContentManager contentManager, Vector2 position)
+        public BubbleBeamPowerup(uint id, ContentManager contentManager, Vector2 position)
+            : base(id)
         {
             this.spriteSource = SPRITE_SOURCE;
             this.spriteSheet = contentManager.Load<Texture2D>(SPRITE_SHEET);

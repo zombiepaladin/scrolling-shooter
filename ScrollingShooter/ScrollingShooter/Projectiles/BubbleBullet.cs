@@ -25,7 +25,8 @@ namespace ScrollingShooter
         /// </summary>
         /// <param name="content">A ContentManager to load content from</param>
         /// <param name="position">Starting position on the screen</param>
-        public BubbleBullet(ContentManager content, Vector2 position)
+        public BubbleBullet(uint id, ContentManager content, Vector2 position)
+            : base(id)
         {
             this.spriteSheet = content.Load<Texture2D>(SPRITESHEET);
             this.spriteBounds = SPRITEBOUNDS;

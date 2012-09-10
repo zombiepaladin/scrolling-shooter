@@ -57,9 +57,10 @@ namespace ScrollingShooter
 
             // TODO: use this.Content to load your game content here
             player = GameObjectManager.CreatePlayerShip(PlayerShipType.Shrike, new Vector2(300, 300));
-            player.ApplyPowerup(PowerupType.Fireball);
+            player.ApplyPowerup(PowerupType.BubbleBeam);
 
             GameObjectManager.CreateEnemy(EnemyType.Dart, new Vector2(200, 200));
+            GameObjectManager.CreateEnemy(EnemyType.Seed, new Vector2(500));
         }
 
         /// <summary>
@@ -104,11 +105,6 @@ namespace ScrollingShooter
             spriteBatch.Begin();
 
             GameObjectManager.Draw(elapsedGameTime, spriteBatch);
-
-            foreach (Powerup powerup in powerups)
-            {
-                powerup.Draw(elapsedGameTime, spriteBatch);
-            }
 
             spriteBatch.End();
 

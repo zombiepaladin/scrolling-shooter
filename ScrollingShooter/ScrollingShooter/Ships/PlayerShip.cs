@@ -26,6 +26,17 @@ namespace ScrollingShooter
     }
 
     /// <summary>
+    /// Represents all the possible powerups our ship might pick up; uses
+    /// a bitmask so multiple powerups can be represented with a single variable
+    /// </summary>
+    public enum Powerups
+    {
+        None = 0,
+        Fireball = 0x1,
+        TriShield = 0x128
+    }
+
+    /// <summary>
     /// A base class for all player ships
     /// </summary>
     public abstract class PlayerShip : GameObject
@@ -91,6 +102,13 @@ namespace ScrollingShooter
         {
             // Store the new powerup in the PowerupType bitmask
             this.PowerupType |= powerup;
+
+            switch (powerup)
+            {
+                case PowerupType.TriShield:
+                    ApplyTriShield();
+                    break;
+            }
         }
 
 
@@ -198,6 +216,16 @@ namespace ScrollingShooter
         void TriggerFireball()
         {
             ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.Fireball, position);
+        }
+
+        /// <summary>
+        /// A helper function that initializes the tri-shield.
+        /// Creates three trishield balls.
+        /// </summary>
+        void ApplyTriShield()
+        {
+            //Create three balls, each at different rotations around the ship
+            ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.TrishieldBall, new Vector2(Bounds.Center.X, Bounds.Center.Y));
         }
     }
 }

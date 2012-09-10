@@ -6,6 +6,14 @@ using Microsoft.Xna.Framework.Input;
 namespace ScrollingShooter
 {
     /// <summary>
+    /// The different types of player ships available in the game
+    /// </summary>
+    public enum PlayerShipType
+    {
+        Shrike,
+    }
+
+    /// <summary>
     /// Represents the five possible steering states for our ships
     /// </summary>
     enum SteeringState
@@ -65,8 +73,8 @@ namespace ScrollingShooter
         // The current steering state of the ship
         SteeringState steeringState = SteeringState.Straight;
 
-        // The powerups equipped on this ship
-        Powerups powerups = Powerups.None;
+        // The PowerupType equipped on this ship
+        PowerupType PowerupType = PowerupType.None;
 
 
         /// <summary>
@@ -80,17 +88,24 @@ namespace ScrollingShooter
 
 
         /// <summary>
+        /// Creates a new player ship instance
+        /// </summary>
+        /// <param name="id">the unique id of the player ship</param>
+        public PlayerShip(uint id) : base(id) { }
+
+
+        /// <summary>
         /// Applies the specified powerup to the ship
         /// </summary>
         /// <param name="powerup">the indicated powerup</param>
-        public void ApplyPowerup(Powerups powerup)
+        public void ApplyPowerup(PowerupType powerup)
         {
-            // Store the new powerup in the powerups bitmask
-            this.powerups |= powerup;
+            // Store the new powerup in the PowerupType bitmask
+            this.PowerupType |= powerup;
 
             switch (powerup)
             {
-                case Powerups.TriShield:
+                case PowerupType.TriShield:
                     ApplyTriShield();
                     break;
             }
@@ -154,12 +169,18 @@ namespace ScrollingShooter
             // Fire weapons
             if (currentKeyboardState.IsKeyDown(Keys.Space))
             {
+                uint[] ids = ScrollingShooterGame.GameObjectManager.QueryRegion(new Rectangle(0, 0, 100, 100));
+                string label = "";
+                foreach (uint id in ids)
+                    label += id + "-";
+                label = "";
+                //ScrollingShooterGame.Game.Window.Title = label;
                 // Streaming weapons
 
                 // Default gun
                 if (defaultGunTimer > 0.25f)
                 {
-                    ScrollingShooterGame.Game.projectiles.Add(new Bullet(ScrollingShooterGame.Game.Content, position));
+                    ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.Bullet, position);
                     defaultGunTimer = 0f;
                 }
 
@@ -167,7 +188,7 @@ namespace ScrollingShooter
                 if (oldKeyboardState.IsKeyUp(Keys.Space))
                 {
 
-                    if ((powerups & Powerups.Fireball) > 0)
+                    if ((PowerupType & PowerupType.Fireball) > 0)
                         TriggerFireball();
                 }
             }
@@ -184,7 +205,7 @@ namespace ScrollingShooter
         /// <param name="spriteBatch">An already-initialized spritebatch, ready for Draw() commands</param>
         public override void Draw(float elaspedTime, SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(spriteSheet, Bounds, spriteBounds[(int)steeringState], Color.White);
+            spriteBatch.Draw(spriteSheet, Bounds, spriteBounds[(int)steeringState], Color.White, 0f, new Vector2(Bounds.Width / 2, Bounds.Height / 2), SpriteEffects.None, 1f);
         }
 
 
@@ -194,7 +215,7 @@ namespace ScrollingShooter
         /// </summary>
         void TriggerFireball()
         {
-            // TODO: Fire fireball
+            ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.Fireball, position);
         }
 
         /// <summary>
@@ -204,11 +225,7 @@ namespace ScrollingShooter
         void ApplyTriShield()
         {
             //Create three balls, each at different rotations around the ship
-            for(int i = 0; i < 3; i++)
-            {
-                ScrollingShooterGame.Game.projectiles.Add(new TriShieldBall(ScrollingShooterGame.Game.Content,
-                    2 * MathHelper.Pi / 3 * i, this));
-            }
+            ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.TrishieldBall, new Vector2(Bounds.Center.X, Bounds.Center.Y));
         }
     }
 }

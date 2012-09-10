@@ -107,11 +107,16 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GameObject.cs" />
-    <Compile Include="Powerups\Railgun.cs" />
+    <Compile Include="Enemies\BladeSpinner.cs" />
+    <Compile Include="Enemies\Dart.cs" />
+    <Compile Include="Enemies\Enemy.cs" />
+    <Compile Include="GameObjects\BoundingBox.cs" />
+    <Compile Include="GameObjects\CollisionPair.cs" />
+    <Compile Include="GameObjects\GameObject.cs" />
+    <Compile Include="GameObjects\GameObjectManager.cs" />
     <Compile Include="Projectiles\Bullet.cs" />
+    <Compile Include="Projectiles\Fireball.cs" />
     <Compile Include="Projectiles\Projectile.cs" />
-    <Compile Include="Projectiles\RGSabot.cs" />
     <Compile Include="Ships\PlayerShip.cs" />
     <Compile Include="Powerups\FireballPowerup.cs" />
     <Compile Include="Powerups\Powerup.cs" />

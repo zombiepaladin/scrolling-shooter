@@ -107,13 +107,17 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+<<<<<<< HEAD
+    <Compile Include="GameObject.cs" />
+    <Compile Include="Powerups\MulticannonPowerup.cs" />
+=======
     <Compile Include="Enemies\Dart.cs" />
     <Compile Include="Enemies\Enemy.cs" />
-    <Compile Include="Powerups\MulticannonPowerup.cs" />
     <Compile Include="GameObjects\BoundingBox.cs" />
     <Compile Include="GameObjects\CollisionPair.cs" />
     <Compile Include="GameObjects\GameObject.cs" />
     <Compile Include="GameObjects\GameObjectManager.cs" />
+>>>>>>> upstream/master
     <Compile Include="Projectiles\Bullet.cs" />
     <Compile Include="Projectiles\Cannonball.cs" />
     <Compile Include="Projectiles\Fireball.cs" />

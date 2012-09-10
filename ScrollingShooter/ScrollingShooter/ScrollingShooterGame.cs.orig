@@ -18,8 +18,12 @@ namespace ScrollingShooter
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+<<<<<<< HEAD
+        PlayerShip player;
         Vector2 position;
         MulticannonPowerup multicannon;
+=======
+>>>>>>> upstream/master
 
         public static GameObjectManager GameObjectManager;
         
@@ -62,13 +66,21 @@ namespace ScrollingShooter
             GameObjectManager = new GameObjectManager(Content);
 
             // TODO: use this.Content to load your game content here
+<<<<<<< HEAD
+            player = new ShrikeShip(Content);
+
+            // Create a Multicannon Powerup
+            multicannon = new MulticannonPowerup(Content, position);
+
+            // Apply Multicannon Powerup
+            player.ApplyPowerup(Powerups.Multicannon);
+=======
             player = GameObjectManager.CreatePlayerShip(PlayerShipType.Shrike, new Vector2(300, 300));
             GameObjectManager.CreatePowerup(PowerupType.Fireball, new Vector2(100, 200));
             //player.ApplyPowerup(PowerupType.Fireball);
 
             GameObjectManager.CreateEnemy(EnemyType.Dart, new Vector2(200, 200));
-            // Apply Multicannon Powerup
-            player.ApplyPowerup(Powerups.Multicannon);
+>>>>>>> upstream/master
         }
 
         /// <summary>
@@ -134,11 +146,18 @@ namespace ScrollingShooter
             
             spriteBatch.Begin();
 
+<<<<<<< HEAD
             // Draws multicannon powerup F
             multicannon.Draw((float)gameTime.ElapsedGameTime.TotalSeconds, spriteBatch);
 
+            foreach (Projectile projectile in projectiles)
+            {
+                projectile.Draw(elapsedGameTime, spriteBatch);
+            }
+=======
             GameObjectManager.Draw(elapsedGameTime, spriteBatch);
 
+>>>>>>> upstream/master
             spriteBatch.End();
 
             base.Draw(gameTime);

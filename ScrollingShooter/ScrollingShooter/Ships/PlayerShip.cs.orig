@@ -26,7 +26,20 @@ namespace ScrollingShooter
     }
 
     /// <summary>
+<<<<<<< HEAD
+    /// Represents all the possible powerups our ship might pick up; uses
+    /// a bitmask so multiple powerups can be represented with a single variable
+    /// </summary>
+    public enum Powerups
+    {
+        None = 0,
+        Fireball = 0x1,
         Multicannon = 0x2,
+    }
+
+    /// <summary>
+=======
+>>>>>>> upstream/master
     /// A base class for all player ships
     /// </summary>
     public abstract class PlayerShip : GameObject
@@ -101,6 +114,16 @@ namespace ScrollingShooter
         /// <param name="elapsedTime"></param>
         public override void Update(float elapsedTime)
         {
+<<<<<<< HEAD
+
+            if ((powerups & Powerups.Fireball) > 0)
+                TriggerFireball();
+
+            if ((powerups & Powerups.Multicannon) > 0)
+                TriggerMulticannon();
+        }
+    }
+=======
             KeyboardState currentKeyboardState = Keyboard.GetState();
 
             // Update timers
@@ -173,11 +196,9 @@ namespace ScrollingShooter
 
                     if ((PowerupType & PowerupType.Fireball) > 0)
                         TriggerFireball();
-
-            if ((powerups & Powerups.Multicannon) > 0)
-                TriggerMulticannon();
                 }
             }
+>>>>>>> upstream/master
                     
             // store the current keyboard state for next frame
             oldKeyboardState = currentKeyboardState;

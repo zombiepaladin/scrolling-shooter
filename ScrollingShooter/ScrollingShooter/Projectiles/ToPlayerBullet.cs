@@ -25,9 +25,14 @@ namespace ScrollingShooter
             this.velocity = toPlayerVelocity();
         }
 
+        /// <summary>
+        /// Creates a velocity that is in the direction of the player.
+        /// </summary>
+        /// <returns>A new velocity</returns>
         private Vector2 toPlayerVelocity()
         {
             //Don't want to deal with trig. Just fire in one of eight directions.
+            //Will add trig functions soon.
             PlayerShip player = ScrollingShooterGame.Game.player;
             Vector2 positionVector = position - player.GetPosition();
 

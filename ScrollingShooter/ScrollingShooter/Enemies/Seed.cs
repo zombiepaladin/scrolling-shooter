@@ -6,6 +6,105 @@ using Microsoft.Xna.Framework.Graphics;
 namespace ScrollingShooter
 {
     /// <summary>
+    /// Handles drawing the explosion after the seed ship is destoryed.
+    /// </summary>
+    class Explosion : GameObject
+    {
+        private const string SPRITESHEET = "Spritesheets/newsh6.shp.000000";
+        private const float STATE_TIME = .1f;
+        //Bounds for the rightside of the explosion.
+        private static readonly Rectangle[] RIGHT_BOUNDS = new Rectangle[] 
+        {
+            new Rectangle(0, 112, 11, 26),
+            new Rectangle(11, 112, 11, 26),
+            new Rectangle(22, 112, 11, 26),
+            new Rectangle(33, 112, 11, 26),
+            new Rectangle(44, 112, 11, 26),
+            new Rectangle(55, 112, 11, 26),
+            new Rectangle(66, 112, 11, 26),
+            new Rectangle(77, 112, 11, 26),
+            new Rectangle(88, 112, 11, 26),
+            new Rectangle(99, 112, 11, 26),
+            new Rectangle(110, 112, 11, 26),
+            new Rectangle(121, 112, 11, 26),
+            new Rectangle(132, 112, 11, 26),
+        };
+
+        //Bounds for the leftside of the explosion.
+        private static readonly Rectangle[] LEFT_BOUNDS = new Rectangle[]
+        {
+            new Rectangle(0, 141, 11, 26),
+            new Rectangle(11, 141, 11, 26),
+            new Rectangle(22, 141, 11, 26),
+            new Rectangle(33, 141, 11, 26),
+            new Rectangle(44, 141, 11, 26),
+            new Rectangle(55, 141, 11, 26),
+            new Rectangle(66, 141, 11, 26),
+            new Rectangle(77, 141, 11, 26),
+            new Rectangle(88, 141, 11, 26),
+            new Rectangle(99, 141, 11, 26),
+            new Rectangle(110, 141, 11, 26),
+            new Rectangle(121, 141, 11, 26),
+            new Rectangle(132, 141, 11, 26),
+        };
+
+        private Vector2 _position;
+        private Texture2D _spritesheet;
+        private float _timer = 0f;
+        private int index = 0;
+
+        /// <summary>
+        /// Creates a new explosion.
+        /// </summary>
+        /// <param name="content">ContentManager to load resources with.</param>
+        /// <param name="position">Position to create the ship at.</param>
+        /// <param name="id">Unique ID of the ship.</param>
+        public Explosion(uint id, ContentManager content, Vector2 position)
+            : base(id)
+        {
+            _spritesheet = content.Load<Texture2D>(SPRITESHEET);
+            this._position = position;
+        }
+
+        /// <summary>
+        /// Draws the explosion on the spritebatch
+        /// </summary>
+        /// <param name="elapsedtime">Time since last call</param>
+        /// <param name="spritebatch">spritebatch to draw on.</param>
+        public override void Draw(float elapsedtime, SpriteBatch spritebatch)
+        {
+            _timer += elapsedtime;
+            if (_timer >= STATE_TIME)
+            {
+                index++;
+                _timer = 0f;
+            }
+            if (index < RIGHT_BOUNDS.Length)
+            {
+                spritebatch.Draw(_spritesheet, new Rectangle((int)_position.X, (int)_position.Y, RIGHT_BOUNDS[index].Width, RIGHT_BOUNDS[index].Height), RIGHT_BOUNDS[index], Color.White);
+                spritebatch.Draw(_spritesheet, new Rectangle((int)_position.X + RIGHT_BOUNDS[index].Width, (int)_position.Y, LEFT_BOUNDS[index].Width, LEFT_BOUNDS[index].Height), RIGHT_BOUNDS[index], Color.White);
+            }
+        }
+
+        /// <summary>
+        /// Bounds of the explosion.
+        /// </summary>
+        public override Rectangle Bounds
+        {
+            get { return new Rectangle((int)_position.X, (int)_position.Y, RIGHT_BOUNDS[index].Width + LEFT_BOUNDS[index].Width, RIGHT_BOUNDS[index].Height); }
+        }
+
+        /// <summary>
+        /// Does nothing
+        /// </summary>
+        /// <param name="elapsedTime">Time since last call.</param>
+        public override void Update(float elapsedTime)
+        {
+            //Do nothing.
+        }
+    }
+
+    /// <summary>
     /// A small fast ship that is invincible until it fires.
     /// </summary>
     public class Seed : Enemy
@@ -16,7 +115,8 @@ namespace ScrollingShooter
         private enum SeedState {
             Closed = 2,
             Opening = 1,
-            Open = 0
+            Open = 0,
+            Destroyed = 4,
         }
 
         //Constants
@@ -38,6 +138,7 @@ namespace ScrollingShooter
         private float _timer = 0f;
         private bool _opening = false;
         private int firedBullets = 0;
+        private Explosion explosion;
 
         /// <summary>
         /// Current bounds of the ship
@@ -59,6 +160,8 @@ namespace ScrollingShooter
             this._position = position;
 
             this._spritesheet = content.Load<Texture2D>(SPRITESHEET);
+
+            explosion = new Explosion(id, content, position);
         }
 
         /// <summary>
@@ -110,6 +213,9 @@ namespace ScrollingShooter
                         _state = SeedState.Opening;
                     }
                     break;
+                case SeedState.Destroyed:
+                    //Do nothing for now.
+                    break;
                 default:
                     throw new Exception("Unknown state!");
             }
@@ -122,7 +228,10 @@ namespace ScrollingShooter
         /// <param name="spriteBatch">SpriteBatch to draw too.</param>
         public override void Draw(float elapsedTime, SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(_spritesheet, Bounds, SPRITEBOUNDS[(int)_state], Color.White);
+            if (_state != SeedState.Destroyed)
+                spriteBatch.Draw(_spritesheet, Bounds, SPRITEBOUNDS[(int)_state], Color.White);
+            else
+                explosion.Draw(elapsedTime, spriteBatch);
         }
     }
 }

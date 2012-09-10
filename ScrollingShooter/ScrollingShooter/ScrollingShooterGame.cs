@@ -18,8 +18,6 @@ namespace ScrollingShooter
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        Vector2 position;
-        MulticannonPowerup multicannon;
 
         public static GameObjectManager GameObjectManager;
         
@@ -43,10 +41,6 @@ namespace ScrollingShooter
         {
             // TODO: Add your initialization logic here
 
-            //TODO: Remove. Currently exists to display powerup.
-            position.X = 30;
-            position.Y = 50;
-
             base.Initialize();
         }
 
@@ -63,12 +57,10 @@ namespace ScrollingShooter
 
             // TODO: use this.Content to load your game content here
             player = GameObjectManager.CreatePlayerShip(PlayerShipType.Shrike, new Vector2(300, 300));
-            GameObjectManager.CreatePowerup(PowerupType.Fireball, new Vector2(100, 200));
-            //player.ApplyPowerup(PowerupType.Fireball);
+            player.ApplyPowerup(PowerupType.Fireball);
 
-            GameObjectManager.CreateEnemy(EnemyType.Dart, new Vector2(200, 200));
-            // Apply Multicannon Powerup
-            player.ApplyPowerup(Powerups.Multicannon);
+            // Create a Green Goblin enemy
+            GameObjectManager.CreateEnemy(EnemyType.GreenGoblin, new Vector2(200, -150));
         }
 
         /// <summary>
@@ -96,28 +88,6 @@ namespace ScrollingShooter
             
             GameObjectManager.Update(elapsedTime);
 
-            // Process collisions
-            foreach (CollisionPair pair in GameObjectManager.Collisions)
-            {
-                // Player collisions
-                if (pair.A == player.ID || pair.B == player.ID)
-                {
-                    uint colliderID = (pair.A == player.ID) ? pair.B : pair.A;
-                    GameObject collider = GameObjectManager.GetObject(colliderID);
-                    
-                    // Process powerup collisions
-                    Powerup powerup = collider as Powerup;
-                    if (powerup != null)
-                    {
-                        player.ApplyPowerup(powerup.Type);
-                        GameObjectManager.DestroyObject(colliderID);
-                    }
-
-                }
-
-
-            }
-
             base.Update(gameTime);
         }
 
@@ -133,9 +103,6 @@ namespace ScrollingShooter
             float elapsedGameTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
             
             spriteBatch.Begin();
-
-            // Draws multicannon powerup F
-            multicannon.Draw((float)gameTime.ElapsedGameTime.TotalSeconds, spriteBatch);
 
             GameObjectManager.Draw(elapsedGameTime, spriteBatch);
 

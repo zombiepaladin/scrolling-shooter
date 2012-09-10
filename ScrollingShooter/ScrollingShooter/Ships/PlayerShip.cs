@@ -26,7 +26,6 @@ namespace ScrollingShooter
     }
 
     /// <summary>
-        Multicannon = 0x2,
     /// A base class for all player ships
     /// </summary>
     public abstract class PlayerShip : GameObject
@@ -107,11 +106,11 @@ namespace ScrollingShooter
             defaultGunTimer += elapsedTime;
 
             // Steer the ship up or down according to user input
-            if(currentKeyboardState.IsKeyDown(Keys.Up))
+            if (currentKeyboardState.IsKeyDown(Keys.Up))
             {
                 position.Y -= elapsedTime * velocity.Y;
-            } 
-            else if(currentKeyboardState.IsKeyDown(Keys.Down))
+            }
+            else if (currentKeyboardState.IsKeyDown(Keys.Down))
             {
                 position.Y += elapsedTime * velocity.Y;
             }
@@ -173,12 +172,9 @@ namespace ScrollingShooter
 
                     if ((PowerupType & PowerupType.Fireball) > 0)
                         TriggerFireball();
-
-            if ((powerups & Powerups.Multicannon) > 0)
-                TriggerMulticannon();
                 }
             }
-                    
+
             // store the current keyboard state for next frame
             oldKeyboardState = currentKeyboardState;
         }
@@ -191,7 +187,8 @@ namespace ScrollingShooter
         /// <param name="spriteBatch">An already-initialized spritebatch, ready for Draw() commands</param>
         public override void Draw(float elaspedTime, SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(spriteSheet, Bounds, spriteBounds[(int)steeringState], Color.White, 0f, new Vector2(Bounds.Width / 2, Bounds.Height / 2), SpriteEffects.None, 1f);
+            //spriteBatch.Draw(spriteSheet, Bounds, spriteBounds[(int)steeringState], Color.White);
+            spriteBatch.Draw(spriteSheet, Bounds, spriteBounds[(int)steeringState], Color.White, MathHelper.PiOver4, new Vector2(Bounds.Width / 2, Bounds.Height / 2), SpriteEffects.None, 1f);
         }
 
 
@@ -202,25 +199,6 @@ namespace ScrollingShooter
         void TriggerFireball()
         {
             ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.Fireball, position);
-        }
-
-        /// <summary>
-        /// A helper function that fires cannons from the ship, 
-        /// corresponding to the multicannon powerup
-        /// </summary>
-        void TriggerMulticannon()
-        {
-            // Left side cannon       
-            Vector2 cannonLeft = position;
-            // Right side cannon
-            Vector2 cannonRight = position;
-
-            // Cannon position based on ship's position
-            cannonLeft.X -= 10;
-            cannonRight.X += 20;
-
-            ScrollingShooterGame.Game.projectiles.Add(new Cannonball(ScrollingShooterGame.Game.Content, cannonLeft));
-            ScrollingShooterGame.Game.projectiles.Add(new Cannonball(ScrollingShooterGame.Game.Content, cannonRight));
         }
     }
 }

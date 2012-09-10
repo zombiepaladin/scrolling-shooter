@@ -301,6 +301,32 @@ namespace ScrollingShooter
 
 
         /// <summary>
+        /// Factory method for spawning an enemy projectile
+        /// </summary>
+        /// <param name="projectileType">The type of enemy projectile to create</param>
+        /// <param name="position">The position of the enemy projectile in the game world</param>
+        /// <returns>The game object id of the projectile</returns>
+        public EnemyProjectile CreateEnemyProjectile(EnemyProjectileType enemyProjectileType, Vector2 position)
+        {
+            EnemyProjectile projectile;
+            uint id = NextID();
+
+            switch (enemyProjectileType)
+            {
+                case EnemyProjectileType.Flameball:
+                    projectile = new EnemyFlameball(id, content, position);
+                    break;
+
+                default:
+                    throw new NotImplementedException("The projectile type " + Enum.GetName(typeof(ProjectileType), enemyProjectileType) + " is not supported");
+            }
+
+            QueueGameObjectForCreation(projectile);
+            return projectile;
+        }
+
+
+        /// <summary>
         /// Factory method for spawning enemies.
         /// </summary>
         /// <param name="enemyType">The type of enemy to spawn</param>
@@ -316,7 +342,11 @@ namespace ScrollingShooter
                 case EnemyType.Dart:
                     enemy = new Dart(id, content, position);
                     break;
-                
+
+                case EnemyType.GreenGoblin:
+                    enemy = new GreenGoblin(id, content, position);
+                    break;
+
                 default:
                     throw new NotImplementedException("The enemy type " + Enum.GetName(typeof(EnemyType), enemyType) + " is not supported");
             }

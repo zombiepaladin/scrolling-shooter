@@ -59,36 +59,37 @@ namespace ScrollingShooter
             spriteBounds[(int)DartSteeringState.Right].Height = 28;
 
             steeringState = DartSteeringState.Straight;
+         
         }
 
-/// <summary>
-/// Updates the Dart ship
-/// </summary>
-/// <param name="elapsedTime">The in-game time between the previous and current frame</param>
-public override void  Update(float elapsedTime)
-{
-    // Sense the player's position
-    PlayerShip player = ScrollingShooterGame.Game.player;
-    Vector2 playerPosition = new Vector2(player.Bounds.Center.X, player.Bounds.Center.Y);
+        /// <summary>
+        /// Updates the Dart ship
+        /// </summary>
+        /// <param name="elapsedTime">The in-game time between the previous and current frame</param>
+        public override void  Update(float elapsedTime)
+        {
+            // Sense the player's position
+            PlayerShip player = ScrollingShooterGame.Game.player;
+            Vector2 playerPosition = new Vector2(player.Bounds.Center.X, player.Bounds.Center.Y);
 
-    // Get a vector from our position to the player's position
-    Vector2 toPlayer = playerPosition - this.position;
+            // Get a vector from our position to the player's position
+            Vector2 toPlayer = playerPosition - this.position;
 
-    if(toPlayer.LengthSquared() < 40000)
-    {
-        // We sense the player's ship!                  
-        // Get a normalized steering vector
-        toPlayer.Normalize();
+            if(toPlayer.LengthSquared() < 40000)
+            {
+                // We sense the player's ship!                  
+                // Get a normalized steering vector
+                toPlayer.Normalize();
 
-        // Steer towards them!
-        this.position += toPlayer * elapsedTime * 100;
+                // Steer towards them!
+                //this.position += toPlayer * elapsedTime * 100;
 
-        // Change the steering state to reflect our direction
-        if (toPlayer.X < -0.5f) steeringState = DartSteeringState.Left;
-        else if (toPlayer.X > 0.5f) steeringState = DartSteeringState.Right;
-        else steeringState = DartSteeringState.Straight;
-    }                        
-}
+                // Change the steering state to reflect our direction
+                if (toPlayer.X < -0.5f) steeringState = DartSteeringState.Left;
+                else if (toPlayer.X > 0.5f) steeringState = DartSteeringState.Right;
+                else steeringState = DartSteeringState.Straight;
+            }                        
+        }
 
         /// <summary>
         /// Draw the Dart ship on-screen
@@ -97,7 +98,7 @@ public override void  Update(float elapsedTime)
         /// <param name="spriteBatch">An already initialized SpriteBatch, ready for Draw() commands</param>
         public override void Draw(float elapsedTime, SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(spritesheet, Bounds, spriteBounds[(int)steeringState], Color.White);
+            spriteBatch.Draw(spritesheet, Bounds, spriteBounds[(int)steeringState], Color.White, 0f, new Vector2(Bounds.Width / 2, Bounds.Height / 2), SpriteEffects.None, 1f);
         }
 
     }

@@ -6,6 +6,14 @@ using Microsoft.Xna.Framework.Input;
 namespace ScrollingShooter
 {
     /// <summary>
+    /// The different types of player ships available in the game
+    /// </summary>
+    public enum PlayerShipType
+    {
+        Shrike,
+    }
+
+    /// <summary>
     /// Represents the five possible steering states for our ships
     /// </summary>
     enum SteeringState
@@ -15,16 +23,6 @@ namespace ScrollingShooter
         Straight = 2,
         Right = 3,
         HardRight = 4,
-    }
-
-    /// <summary>
-    /// Represents all the possible powerups our ship might pick up; uses
-    /// a bitmask so multiple powerups can be represented with a single variable
-    /// </summary>
-    public enum Powerups
-    {
-        None = 0,
-        Fireball = 0x1,
     }
 
     /// <summary>
@@ -64,8 +62,8 @@ namespace ScrollingShooter
         // The current steering state of the ship
         SteeringState steeringState = SteeringState.Straight;
 
-        // The powerups equipped on this ship
-        Powerups powerups = Powerups.None;
+        // The PowerupType equipped on this ship
+        PowerupType PowerupType = PowerupType.None;
 
 
         /// <summary>
@@ -79,94 +77,107 @@ namespace ScrollingShooter
 
 
         /// <summary>
+        /// Creates a new player ship instance
+        /// </summary>
+        /// <param name="id">the unique id of the player ship</param>
+        public PlayerShip(uint id) : base(id) { }
+
+
+        /// <summary>
         /// Applies the specified powerup to the ship
         /// </summary>
         /// <param name="powerup">the indicated powerup</param>
-        public void ApplyPowerup(Powerups powerup)
+        public void ApplyPowerup(PowerupType powerup)
         {
-            // Store the new powerup in the powerups bitmask
-            this.powerups |= powerup;
+            // Store the new powerup in the PowerupType bitmask
+            this.PowerupType |= powerup;
         }
 
 
-/// <summary>
-/// Updates the ship
-/// </summary>
-/// <param name="elapsedTime"></param>
-public override void Update(float elapsedTime)
-{
-    KeyboardState currentKeyboardState = Keyboard.GetState();
-
-    // Update timers
-    defaultGunTimer += elapsedTime;
-
-    // Steer the ship up or down according to user input
-    if(currentKeyboardState.IsKeyDown(Keys.Up))
-    {
-        position.Y -= elapsedTime * velocity.Y;
-    } 
-    else if(currentKeyboardState.IsKeyDown(Keys.Down))
-    {
-        position.Y += elapsedTime * velocity.Y;
-    }
-
-    // Steer the ship left or right according to user input
-    steeringState = SteeringState.Straight;
-
-    if (currentKeyboardState.IsKeyDown(Keys.Left))
-    {
-        if (currentKeyboardState.IsKeyDown(Keys.LeftShift) ||
-            currentKeyboardState.IsKeyDown(Keys.RightShift))
+        /// <summary>
+        /// Updates the ship
+        /// </summary>
+        /// <param name="elapsedTime"></param>
+        public override void Update(float elapsedTime)
         {
-            steeringState = SteeringState.HardLeft;
-            position.X -= elapsedTime * 2 * velocity.X;
+            KeyboardState currentKeyboardState = Keyboard.GetState();
 
-        }
-        else
-        {
-            steeringState = SteeringState.Left;
-            position.X -= elapsedTime * velocity.X;
-        }
-    }
-    else if (currentKeyboardState.IsKeyDown(Keys.Right))
-    {
-        if (currentKeyboardState.IsKeyDown(Keys.LeftShift) ||
-            currentKeyboardState.IsKeyDown(Keys.RightShift))
-        {
-            position.X += elapsedTime * 2 * velocity.X;
-            steeringState = SteeringState.HardRight;
-        }
-        else
-        {
-            position.X += elapsedTime * velocity.X;
-            steeringState = SteeringState.Right;
-        }
-    }
+            // Update timers
+            defaultGunTimer += elapsedTime;
 
-    // Fire weapons
-    if (currentKeyboardState.IsKeyDown(Keys.Space))
-    {
-        // Streaming weapons
+            // Steer the ship up or down according to user input
+            if(currentKeyboardState.IsKeyDown(Keys.Up))
+            {
+                position.Y -= elapsedTime * velocity.Y;
+            } 
+            else if(currentKeyboardState.IsKeyDown(Keys.Down))
+            {
+                position.Y += elapsedTime * velocity.Y;
+            }
 
-        // Default gun
-        if (defaultGunTimer > 0.25f)
-        {
-            ScrollingShooterGame.Game.projectiles.Add(new Bullet(ScrollingShooterGame.Game.Content, position));
-            defaultGunTimer = 0f;
-        }
+            // Steer the ship left or right according to user input
+            steeringState = SteeringState.Straight;
 
-        // Fire-once weapons
-        if (oldKeyboardState.IsKeyUp(Keys.Space))
-        {
+            if (currentKeyboardState.IsKeyDown(Keys.Left))
+            {
+                if (currentKeyboardState.IsKeyDown(Keys.LeftShift) ||
+                    currentKeyboardState.IsKeyDown(Keys.RightShift))
+                {
+                    steeringState = SteeringState.HardLeft;
+                    position.X -= elapsedTime * 2 * velocity.X;
 
-            if ((powerups & Powerups.Fireball) > 0)
-                TriggerFireball();
-        }
-    }
+                }
+                else
+                {
+                    steeringState = SteeringState.Left;
+                    position.X -= elapsedTime * velocity.X;
+                }
+            }
+            else if (currentKeyboardState.IsKeyDown(Keys.Right))
+            {
+                if (currentKeyboardState.IsKeyDown(Keys.LeftShift) ||
+                    currentKeyboardState.IsKeyDown(Keys.RightShift))
+                {
+                    position.X += elapsedTime * 2 * velocity.X;
+                    steeringState = SteeringState.HardRight;
+                }
+                else
+                {
+                    position.X += elapsedTime * velocity.X;
+                    steeringState = SteeringState.Right;
+                }
+            }
+
+            // Fire weapons
+            if (currentKeyboardState.IsKeyDown(Keys.Space))
+            {
+                uint[] ids = ScrollingShooterGame.GameObjectManager.QueryRegion(new Rectangle(0, 0, 100, 100));
+                string label = "";
+                foreach (uint id in ids)
+                    label += id + "-";
+                label = "";
+                //ScrollingShooterGame.Game.Window.Title = label;
+                // Streaming weapons
+
+                // Default gun
+                if (defaultGunTimer > 0.25f)
+                {
+                    ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.Bullet, position);
+                    defaultGunTimer = 0f;
+                }
+
+                // Fire-once weapons
+                if (oldKeyboardState.IsKeyUp(Keys.Space))
+                {
+
+                    if ((PowerupType & PowerupType.Fireball) > 0)
+                        TriggerFireball();
+                }
+            }
                     
-    // store the current keyboard state for next frame
-    oldKeyboardState = currentKeyboardState;
-}
+            // store the current keyboard state for next frame
+            oldKeyboardState = currentKeyboardState;
+        }
 
 
         /// <summary>
@@ -176,7 +187,7 @@ public override void Update(float elapsedTime)
         /// <param name="spriteBatch">An already-initialized spritebatch, ready for Draw() commands</param>
         public override void Draw(float elaspedTime, SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(spriteSheet, Bounds, spriteBounds[(int)steeringState], Color.White);
+            spriteBatch.Draw(spriteSheet, Bounds, spriteBounds[(int)steeringState], Color.White, 0f, new Vector2(Bounds.Width / 2, Bounds.Height / 2), SpriteEffects.None, 1f);
         }
 
 
@@ -186,8 +197,7 @@ public override void Update(float elapsedTime)
         /// </summary>
         void TriggerFireball()
         {
-            // TODO: Fire fireball
-            ScrollingShooterGame.Game.projectiles.Add(new Fireball(ScrollingShooterGame.Game.Content, position));
+            ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.Fireball, position);
         }
     }
 }

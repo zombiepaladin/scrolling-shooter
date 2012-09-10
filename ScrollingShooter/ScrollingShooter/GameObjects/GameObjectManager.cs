@@ -25,7 +25,6 @@ namespace ScrollingShooter
         Dictionary<uint,BoundingBox> boundingBoxes;
 
         List<Bound> horizontalAxis;
-
         List<Bound> verticalAxis;
 
         HashSet<CollisionPair> horizontalOverlaps;
@@ -451,10 +450,9 @@ namespace ScrollingShooter
 
         
         /// <summary>
-        /// Adds a GameObject to the GameObjectManager
+        /// Helper method that adds a GameObject to the GameObjectManager
         /// </summary>
-        /// <param name="gameObject"></param>
-        /// <returns></returns>
+        /// <param name="gameObject">The Game Object to add</param>
         private void AddGameObject(GameObject gameObject)
         {
             uint id = gameObject.ID;
@@ -488,6 +486,7 @@ namespace ScrollingShooter
                 verticalOverlaps.Add(new CollisionPair(id, verticalAxis[i].Box.GameObjectID));
             }
         }
+
 
         /// <summary>
         /// Updates the position of a GameObject within the axis

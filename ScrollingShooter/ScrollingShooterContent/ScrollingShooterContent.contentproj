@@ -57,6 +57,7 @@
       <Name>newsh%24.shp.000000</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
+      <ProcessorParameters_ColorKeyColor>191, 220, 191, 255</ProcessorParameters_ColorKeyColor>
     </Compile>
     <Compile Include="Spritesheets\newsh%28.shp.000000.png">
       <Name>newsh%28.shp.000000</Name>
@@ -102,6 +103,7 @@
       <Name>newsh6.shp.000000</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
+      <ProcessorParameters_ColorKeyColor>191, 220, 191, 255</ProcessorParameters_ColorKeyColor>
     </Compile>
     <Compile Include="Spritesheets\newsh7.shp.000000.png">
       <Name>newsh7.shp.000000</Name>
@@ -147,6 +149,7 @@
       <Name>newshf.shp.000000</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
+      <ProcessorParameters_ColorKeyColor>191, 220, 191, 255</ProcessorParameters_ColorKeyColor>
     </Compile>
     <Compile Include="Spritesheets\newshg.shp.000000.png">
       <Name>newshg.shp.000000</Name>
@@ -237,6 +240,7 @@
       <Name>tyrian.shp.007D3C</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
+      <ProcessorParameters_ColorKeyColor>191, 220, 191, 255</ProcessorParameters_ColorKeyColor>
     </Compile>
     <Compile Include="Spritesheets\tyrian.shp.010008.png">
       <Name>tyrian.shp.010008</Name>

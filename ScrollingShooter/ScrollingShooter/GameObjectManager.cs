@@ -345,6 +345,9 @@ namespace ScrollingShooter
                 case ProjectileType.Fireball:
                     projectile = new Fireball(id, content, position);
                     break;
+                case ProjectileType.Bomb:
+                    projectile = new Bomb(id, content, position, true);
+                    break;
 
                 default:
                     throw new NotImplementedException("The projectile type " + Enum.GetName(typeof(ProjectileType), projectileType) + " is not supported");
@@ -353,6 +356,40 @@ namespace ScrollingShooter
             QueueGameObjectForCreation(projectile);
             return projectile;
         }
+
+        /// <summary>
+        /// Factory method for spawning a projectile
+        /// </summary>
+        /// <param name="projectileType">The type of projectile to create</param>
+        /// <param name="position">The position of the projectile in the game world</param>
+        /// <param name="position">The direction of the projectile</param>
+        /// <returns>The game object id of the projectile</returns>
+        public Projectile CreateProjectile(ProjectileType projectileType, Vector2 position, bool direction)
+        {
+            Projectile projectile;
+            uint id = NextID();
+
+            switch (projectileType)
+            {
+                case ProjectileType.Bullet:
+                    projectile = new Bullet(id, content, position);
+                    break;
+
+                case ProjectileType.Fireball:
+                    projectile = new Fireball(id, content, position);
+                    break;
+                case ProjectileType.Bomb:
+                    projectile = new Bomb(id, content, position,direction);
+                    break;
+
+                default:
+                    throw new NotImplementedException("The projectile type " + Enum.GetName(typeof(ProjectileType), projectileType) + " is not supported");
+            }
+
+            QueueGameObjectForCreation(projectile);
+            return projectile;
+        }
+
 
         /// <summary>
         /// Factory method for spawning enemies.
@@ -369,6 +406,9 @@ namespace ScrollingShooter
             {
                 case EnemyType.Dart:
                     enemy = new Dart(id, content, position);
+                    break;
+                case EnemyType.Bomber:
+                    enemy = new Bomber(id, content, position);
                     break;
                 
                 default:

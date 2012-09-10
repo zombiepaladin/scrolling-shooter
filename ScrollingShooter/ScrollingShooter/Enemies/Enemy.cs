@@ -11,6 +11,8 @@ namespace ScrollingShooter
     public enum EnemyType
     {
         Dart,
+        Bomber,
+
     }
 
     public abstract class Enemy : GameObject

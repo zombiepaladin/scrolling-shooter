@@ -11,6 +11,7 @@ namespace ScrollingShooter
     {
         None = 0,
         Fireball = 0x1,
+        Bomb = 0x40,
     }
 
     /// <summary>

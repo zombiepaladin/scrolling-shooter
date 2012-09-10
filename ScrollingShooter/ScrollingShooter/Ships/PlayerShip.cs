@@ -164,11 +164,11 @@ namespace ScrollingShooter
             if (currentKeyboardState.IsKeyDown(Keys.B))
             {
                 //checks if player has the bomb power up
-                if ((powerups & Powerups.Bomb) > 0)
+                if ((PowerupType & PowerupType.Bomb) > 0)
                 {
                     if (bombTimer > 1.5f)
                     {
-                        ScrollingShooterGame.Game.projectiles.Add(new Bomb(ScrollingShooterGame.Game.Content, position));
+                        ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.Bomb, position);
                         bombTimer = 0f;
                     }
                 }

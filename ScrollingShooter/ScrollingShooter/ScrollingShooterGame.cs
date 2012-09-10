@@ -24,8 +24,6 @@ namespace ScrollingShooter
         
         public PlayerShip player;
         public static ScrollingShooterGame Game;
-        //TODO(temporary -> remove): temporary field
-        BombPowerUp bomb;
         
         public ScrollingShooterGame()
         {
@@ -63,8 +61,11 @@ namespace ScrollingShooter
             player.ApplyPowerup(PowerupType.Fireball);
 
             GameObjectManager.CreateEnemy(EnemyType.Dart, new Vector2(200, 200));
-            //TODO(temporary -> remove): creates bomb PowerUp 
-            bomb = new BombPowerUp(Content,new Vector2(150,150));
+            GameObjectManager.CreateEnemy(EnemyType.Bomber, new Vector2(200, 0));
+            GameObjectManager.CreateEnemy(EnemyType.Bomber, new Vector2(250, 0));
+            GameObjectManager.CreateEnemy(EnemyType.Bomber, new Vector2(300, 0));
+            GameObjectManager.CreateEnemy(EnemyType.Bomber, new Vector2(350, 0));
+            GameObjectManager.CreateEnemy(EnemyType.Bomber, new Vector2(400, 0));
         }
 
         /// <summary>
@@ -107,8 +108,6 @@ namespace ScrollingShooter
             float elapsedGameTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
             
             spriteBatch.Begin();
-            ////TODO(temporary -> remove):Draw BombPowerUp on the screen
-            bomb.Draw(elapsedGameTime, spriteBatch);
             GameObjectManager.Draw(elapsedGameTime, spriteBatch);
 
             spriteBatch.End();

@@ -3,6 +3,18 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace ScrollingShooter
 {
+    public enum ProjectileType
+    {
+        // Player projectiles
+        Bullet,
+        Fireball,
+
+        // Enemy projectiles start with an index of 100;
+        // this allows us to differentiate between projectiles
+        // without needing a second base class
+
+    }
+
     /// <summary>
     /// A base class for all projectiles
     /// </summary>
@@ -38,6 +50,12 @@ namespace ScrollingShooter
         {
             get { return new Rectangle((int)position.X, (int)position.Y, spriteBounds.Width, spriteBounds.Height); }
         }
+
+        /// <summary>
+        /// Creates a new instance of a projectile
+        /// </summary>
+        /// <param name="id">The unique id of the projectile</param>
+        public Projectile(uint id) : base(id) { }
 
         /// <summary>
         /// Updates the projectile

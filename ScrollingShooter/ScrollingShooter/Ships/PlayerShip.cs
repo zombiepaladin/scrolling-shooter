@@ -1,10 +1,18 @@
-﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
 
 namespace ScrollingShooter
 {
+    /// <summary>
+    /// The different types of player ships available in the game
+    /// </summary>
+    public enum PlayerShipType
+    {
+        Shrike,
+    }
+
     /// <summary>
     /// Represents the five possible steering states for our ships
     /// </summary>
@@ -15,17 +23,6 @@ namespace ScrollingShooter
         Straight = 2,
         Right = 3,
         HardRight = 4,
-    }
-
-    /// <summary>
-    /// Represents all the possible powerups our ship might pick up; uses
-    /// a bitmask so multiple powerups can be represented with a single variable
-    /// </summary>
-    public enum Powerups
-    {
-        None = 0,
-        Fireball = 0x1,
-        BubbleBeam = 0x2,
     }
 
     /// <summary>
@@ -65,8 +62,8 @@ namespace ScrollingShooter
         // The current steering state of the ship
         SteeringState steeringState = SteeringState.Straight;
 
-        // The powerups equipped on this ship
-        Powerups powerups = Powerups.None;
+        // The PowerupType equipped on this ship
+        PowerupType PowerupType = PowerupType.None;
 
 
         /// <summary>
@@ -80,13 +77,20 @@ namespace ScrollingShooter
 
 
         /// <summary>
+        /// Creates a new player ship instance
+        /// </summary>
+        /// <param name="id">the unique id of the player ship</param>
+        public PlayerShip(uint id) : base(id) { }
+
+
+        /// <summary>
         /// Applies the specified powerup to the ship
         /// </summary>
         /// <param name="powerup">the indicated powerup</param>
-        public void ApplyPowerup(Powerups powerup)
+        public void ApplyPowerup(PowerupType powerup)
         {
-            // Store the new powerup in the powerups bitmask
-            this.powerups |= powerup;
+            // Store the new powerup in the PowerupType bitmask
+            this.PowerupType |= powerup;
         }
 
 
@@ -147,6 +151,12 @@ namespace ScrollingShooter
             // Fire weapons
             if (currentKeyboardState.IsKeyDown(Keys.Space))
             {
+                uint[] ids = ScrollingShooterGame.GameObjectManager.QueryRegion(new Rectangle(0, 0, 100, 100));
+                string label = "";
+                foreach (uint id in ids)
+                    label += id + "-";
+                label = "";
+                //ScrollingShooterGame.Game.Window.Title = label;
                 // Streaming weapons
                 if (powerups == Powerups.BubbleBeam)
                 {
@@ -166,7 +176,7 @@ namespace ScrollingShooter
                 // Fire-once weapons
                 if (oldKeyboardState.IsKeyUp(Keys.Space))
                 {
-                    if ((powerups & Powerups.Fireball) > 0)
+                    if ((PowerupType & PowerupType.Fireball) > 0)
                         TriggerFireball();
                 }
             }
@@ -183,7 +193,8 @@ namespace ScrollingShooter
         /// <param name="spriteBatch">An already-initialized spritebatch, ready for Draw() commands</param>
         public override void Draw(float elaspedTime, SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(spriteSheet, Bounds, spriteBounds[(int)steeringState], Color.White);
+            //spriteBatch.Draw(spriteSheet, Bounds, spriteBounds[(int)steeringState], Color.White);
+            spriteBatch.Draw(spriteSheet, Bounds, spriteBounds[(int)steeringState], Color.White, MathHelper.PiOver4, new Vector2(Bounds.Width / 2, Bounds.Height / 2), SpriteEffects.None, 1f);
         }
 
 
@@ -193,7 +204,7 @@ namespace ScrollingShooter
         /// </summary>
         void TriggerFireball()
         {
-            // TODO: Fire fireball
+            ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.Fireball, position);
             ScrollingShooterGame.Game.projectiles.Add(new Fireball(ScrollingShooterGame.Game.Content, position));
         }
     }

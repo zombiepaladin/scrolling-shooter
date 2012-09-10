@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ProjectGuid>{268B1713-BD39-49CB-BEFD-DB11C562192C}</ProjectGuid>
@@ -111,6 +111,7 @@
     <Compile Include="Enemies\Enemy.cs" />
     <Compile Include="Enemies\Seed.cs" />
     <Compile Include="GameObject.cs" />
+    <Compile Include="GameObjectManager.cs" />
     <Compile Include="Powerups\BubbleBeamPowerup.cs" />
     <Compile Include="Projectiles\BubbleBullet.cs" />
     <Compile Include="Projectiles\Bullet.cs" />

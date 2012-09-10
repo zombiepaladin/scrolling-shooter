@@ -3,9 +3,6 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace ScrollingShooter
 {
-    /// <summary>
-    /// The different types of projectiles available in the game
-    /// </summary>
     public enum ProjectileType
     {
         // Player projectiles
@@ -15,7 +12,7 @@ namespace ScrollingShooter
         // Enemy projectiles start with an index of 100;
         // this allows us to differentiate between projectiles
         // without needing a second base class
-
+        JetMinionBullet = 100,
     }
 
     /// <summary>
@@ -74,7 +71,6 @@ namespace ScrollingShooter
         /// <param name="spriteBatch">An already-initialized SpriteBatch, ready for Draw() commands</param>
         public override void Draw(float elapsedTime, SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(spriteSheet, Bounds, spriteBounds, Color.White, 0f, new Vector2(Bounds.Width / 2, Bounds.Height / 2), SpriteEffects.None, 1f);
         }
     }
 }

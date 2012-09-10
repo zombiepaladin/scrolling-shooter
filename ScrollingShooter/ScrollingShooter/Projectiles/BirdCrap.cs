@@ -18,7 +18,7 @@ namespace ScrollingShooter
         /// </summary>
         /// <param name="content">A content manager to load content from</param>
         /// <param name="position">A positon on the screen</param>
-        public BirdCrap(ContentManager content, Vector2 position)
+        public BirdCrap(uint id, ContentManager content, Vector2 position):base(id)
         {
             this.spriteSheet = content.Load<Texture2D>("Spritesheets/birdcrapsprite");
             this.spriteBounds = this.spriteBounds = new Rectangle(0, 0, 9, 13);

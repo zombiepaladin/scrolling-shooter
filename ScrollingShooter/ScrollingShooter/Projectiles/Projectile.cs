@@ -8,7 +8,8 @@ namespace ScrollingShooter
         // Player projectiles
         Bullet,
         Fireball,
-
+        BirdCrap,
+        EBullet = 100,
         // Enemy projectiles start with an index of 100;
         // this allows us to differentiate between projectiles
         // without needing a second base class

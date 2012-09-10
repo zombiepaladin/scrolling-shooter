@@ -18,7 +18,7 @@ namespace ScrollingShooter
         /// </summary>
         /// <param name="contentManager">A content manager for content</param>
         /// <param name="position">a postion on the screen</param>
-        public BirdcrapPowerup(ContentManager contentManager, Vector2 position)
+        public BirdcrapPowerup(uint id, ContentManager contentManager, Vector2 position):base(id)
         {
             this.spriteSource = new Rectangle(48, 120, 23, 23);
             this.spriteSheet = contentManager.Load<Texture2D>("Spritesheets/tyrian.shp.010008");

@@ -87,6 +87,7 @@
       <Name>newsh3.shp.000000</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
+      <ProcessorParameters_ColorKeyColor>191, 220, 191, 255</ProcessorParameters_ColorKeyColor>
     </Compile>
     <Compile Include="Spritesheets\newsh4.shp.000000.png">
       <Name>newsh4.shp.000000</Name>
@@ -147,6 +148,7 @@
       <Name>newshf.shp.000000</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
+      <ProcessorParameters_ColorKeyColor>191, 220, 191, 255</ProcessorParameters_ColorKeyColor>
     </Compile>
     <Compile Include="Spritesheets\newshg.shp.000000.png">
       <Name>newshg.shp.000000</Name>

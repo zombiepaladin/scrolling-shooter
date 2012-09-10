@@ -107,9 +107,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Enemies\Turret.cs" />
+    <Compile Include="Enemies\Dart.cs" />
+    <Compile Include="Enemies\Enemy.cs" />
     <Compile Include="GameObject.cs" />
     <Compile Include="Powerups\EnergyBlastPowerup.cs" />
     <Compile Include="Projectiles\Bullet.cs" />
+    <Compile Include="Projectiles\EnemyBullet.cs" />
     <Compile Include="Projectiles\EnergyBlast.cs" />
     <Compile Include="Projectiles\Fireball.cs" />
     <Compile Include="Projectiles\Projectile.cs" />

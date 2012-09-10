@@ -291,6 +291,10 @@ namespace ScrollingShooter
                     projectile = new Fireball(id, content, position);
                     break;
 
+                case ProjectileType.ArrowProjectile:
+                    projectile = new ArrowProjectile(id, content, position);
+                    break;
+
                 default:
                     throw new NotImplementedException("The projectile type " + Enum.GetName(typeof(ProjectileType), projectileType) + " is not supported");
             }
@@ -316,7 +320,9 @@ namespace ScrollingShooter
                 case EnemyType.Dart:
                     enemy = new Dart(id, content, position);
                     break;
-                
+                case EnemyType.Arrow:
+                    enemy = new Arrow(id, content, position);
+                    break;
                 default:
                     throw new NotImplementedException("The enemy type " + Enum.GetName(typeof(EnemyType), enemyType) + " is not supported");
             }

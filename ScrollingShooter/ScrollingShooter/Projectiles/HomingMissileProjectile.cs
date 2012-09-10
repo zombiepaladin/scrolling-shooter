@@ -82,7 +82,7 @@ namespace ScrollingShooter
         /// <param name="content">A ContentManager to load content from</param>
         /// <param name="newPosition">A position on the screen</param>
         /// <param name="missileLevel">The level of the missile powerup when this missile was shot</param>
-        public HomingMissileProjectile(ContentManager content, Vector2 newPosition, short missileLevel)
+        public HomingMissileProjectile(ContentManager content, Vector2 newPosition, short missileLevel, uint id):base(id)
         {
             Initialize(content, newPosition, missileLevel, 1);
         }
@@ -96,7 +96,7 @@ namespace ScrollingShooter
         /// <param name="newPosition">A position on the screen</param>
         /// <param name="missileLevel">The level of the missile powerup when this missile was shot</param>
         /// <param name="randomSeedModifier">Indicates the modifier to the random seed for calculating position, 1 is default</param>
-        public HomingMissileProjectile(ContentManager content, Vector2 newPosition, short missileLevel, int randomSeedModifier)
+        public HomingMissileProjectile(ContentManager content, Vector2 newPosition, short missileLevel, int randomSeedModifier, uint id):base(id)
         {
             Initialize(content, newPosition, missileLevel, randomSeedModifier);
         }
@@ -267,6 +267,7 @@ namespace ScrollingShooter
             {
                 this.TrackTarget(lockedTarget);
                 //Will need to call AdjustRotation() here
+                this.AdjustRotation();
             }
             //Will need to call the Update function for the explosion and smoke stream classes here (explosion only if this.isAlive == false)
 

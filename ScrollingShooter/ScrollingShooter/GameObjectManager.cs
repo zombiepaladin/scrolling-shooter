@@ -314,7 +314,7 @@ namespace ScrollingShooter
             switch (playerShipType)
             {
                 case PlayerShipType.Shrike:
-                    playerShip = new ShrikeShip(id, content);
+                    playerShip = new ShrikeShip(id, content, position);
                     break;
 
                 default:
@@ -346,6 +346,10 @@ namespace ScrollingShooter
                     projectile = new Fireball(id, content, position);
                     break;
 
+                case ProjectileType.JetMinionBullet:
+                    projectile = new JetMinionBullet(id, content, position);
+                    break;
+
                 default:
                     throw new NotImplementedException("The projectile type " + Enum.GetName(typeof(ProjectileType), projectileType) + " is not supported");
             }
@@ -371,6 +375,10 @@ namespace ScrollingShooter
                     enemy = new Dart(id, content, position);
                     break;
                 
+                case EnemyType.JetMinion:
+                    enemy = new JetMinion(id, content, position);
+                    break;
+
                 default:
                     throw new NotImplementedException("The enemy type " + Enum.GetName(typeof(EnemyType), enemyType) + " is not supported");
             }

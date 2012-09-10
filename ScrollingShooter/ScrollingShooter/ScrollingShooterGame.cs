@@ -59,7 +59,11 @@ namespace ScrollingShooter
             player = GameObjectManager.CreatePlayerShip(PlayerShipType.Shrike, new Vector2(300, 300));
             player.ApplyPowerup(PowerupType.Fireball);
 
-            GameObjectManager.CreateEnemy(EnemyType.Dart, new Vector2(200, 200));
+            //GameObjectManager.CreateEnemy(EnemyType.Dart, new Vector2(200, 200));
+            
+            //REMOVE
+            GameObjectManager.CreateEnemy(EnemyType.JetMinion, new Vector2(0, 0));
+
         }
 
         /// <summary>

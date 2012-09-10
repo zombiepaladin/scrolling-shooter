@@ -28,7 +28,7 @@ namespace ScrollingShooter
         /// </summary>
         /// <param name="contentManager">A ContentManager to load resources with</param>
         /// <param name="position">The position the homing missile powerup in the world</param>
-        public HomingMissilesPowerup(ContentManager contentManager, Vector2 position)
+        public HomingMissilesPowerup(ContentManager contentManager, Vector2 position, uint id):base(id)
         {
             this.spriteSource = new Rectangle(74, 171, 20, 21);
             this.spriteSheet = contentManager.Load<Texture2D>("Spritesheets/tyrian.shp.010008");

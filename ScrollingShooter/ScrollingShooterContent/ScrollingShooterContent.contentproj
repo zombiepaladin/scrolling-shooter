@@ -41,7 +41,13 @@
       <Private>False</Private>
     </Reference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Compile Include="debugFont.spritefont">
+      <Name>debugFont</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+    </Compile>
+  </ItemGroup>
   <ItemGroup>
     <Compile Include="Spritesheets\destruct_sprites.png">
       <Name>destruct_sprites</Name>
@@ -102,6 +108,7 @@
       <Name>newsh6.shp.000000</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
+      <ProcessorParameters_ColorKeyColor>191, 220, 191, 255</ProcessorParameters_ColorKeyColor>
     </Compile>
     <Compile Include="Spritesheets\newsh7.shp.000000.png">
       <Name>newsh7.shp.000000</Name>
@@ -162,6 +169,7 @@
       <Name>newshi.shp.000000</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
+      <ProcessorParameters_ColorKeyColor>191, 220, 191, 255</ProcessorParameters_ColorKeyColor>
     </Compile>
     <Compile Include="Spritesheets\newshj.shp.000000.png">
       <Name>newshj.shp.000000</Name>
@@ -232,6 +240,7 @@
       <Name>tyrian.shp.000000</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
+      <ProcessorParameters_ColorKeyColor>191, 220, 191, 255</ProcessorParameters_ColorKeyColor>
     </Compile>
     <Compile Include="Spritesheets\tyrian.shp.007D3C.png">
       <Name>tyrian.shp.007D3C</Name>
@@ -242,6 +251,7 @@
       <Name>tyrian.shp.010008</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
+      <ProcessorParameters_ColorKeyColor>191, 220, 191, 255</ProcessorParameters_ColorKeyColor>
     </Compile>
     <Compile Include="Spritesheets\tyrian.shp.01673F.png">
       <Name>tyrian.shp.01673F</Name>

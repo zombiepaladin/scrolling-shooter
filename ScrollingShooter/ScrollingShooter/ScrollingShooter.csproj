@@ -109,6 +109,7 @@
   <ItemGroup>
     <Compile Include="Enemies\Dart.cs" />
     <Compile Include="Enemies\Enemy.cs" />
+    <Compile Include="Enemies\Seed.cs" />
     <Compile Include="GameObject.cs" />
     <Compile Include="Powerups\BubbleBeamPowerup.cs" />
     <Compile Include="Projectiles\BubbleBullet.cs" />

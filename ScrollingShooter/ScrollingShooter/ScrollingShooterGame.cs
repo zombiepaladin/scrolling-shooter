@@ -19,9 +19,6 @@ namespace ScrollingShooter
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         PlayerShip player;
-        PlayerShip extra1;
-        PlayerShip extra2;
-        Powerup multi;
 
         public List<Projectile> projectiles = new List<Projectile>();
         public static ScrollingShooterGame Game;
@@ -57,13 +54,7 @@ namespace ScrollingShooter
 
             // TODO: use this.Content to load your game content here
             player = new ShrikeShip(Content);
-            extra1 = new MultiShip(Content);
-            extra1.SetPosition(-15, 0);
-            extra2 = new MultiShip(Content);
-            extra2.SetPosition(26, 0);
-            multi = new MultipleShipPowerup(Content, new Vector2(300, 300));
             player.ApplyPowerup(Powerups.Fireball);
-            player.ApplyPowerup(Powerups.MultipleShips);
         }
 
         /// <summary>
@@ -90,8 +81,6 @@ namespace ScrollingShooter
             float elapsedTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
             player.Update(elapsedTime);
-            extra1.Update(elapsedTime);
-            extra2.Update(elapsedTime);
 
             foreach(Projectile projectile in projectiles)
             {
@@ -114,15 +103,11 @@ namespace ScrollingShooter
             
             spriteBatch.Begin();
             player.Draw(elapsedGameTime, spriteBatch);
-            extra1.Draw(elapsedGameTime, spriteBatch);
-            extra2.Draw(elapsedGameTime, spriteBatch);
-            multi.Draw(elapsedGameTime, spriteBatch);
-            
+
             foreach (Projectile projectile in projectiles)
             {
                 projectile.Draw(elapsedGameTime, spriteBatch);
             }
-
             spriteBatch.End();
 
             base.Draw(gameTime);

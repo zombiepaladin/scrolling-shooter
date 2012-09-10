@@ -237,13 +237,11 @@
       <Name>tyrian.shp.007D3C</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
-      <ProcessorParameters_ColorKeyColor>191, 220, 191, 255</ProcessorParameters_ColorKeyColor>
     </Compile>
     <Compile Include="Spritesheets\tyrian.shp.010008.png">
       <Name>tyrian.shp.010008</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
-      <ProcessorParameters_ColorKeyColor>191, 220, 191, 255</ProcessorParameters_ColorKeyColor>
     </Compile>
     <Compile Include="Spritesheets\tyrian.shp.01673F.png">
       <Name>tyrian.shp.01673F</Name>

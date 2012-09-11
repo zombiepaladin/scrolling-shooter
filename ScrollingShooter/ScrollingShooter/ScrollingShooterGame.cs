@@ -58,9 +58,11 @@ namespace ScrollingShooter
             // TODO: use this.Content to load your game content here
             player = GameObjectManager.CreatePlayerShip(PlayerShipType.Shrike, new Vector2(300, 300));
             GameObjectManager.CreatePowerup(PowerupType.Fireball, new Vector2(100, 200));
+            GameObjectManager.CreatePowerup(PowerupType.Blades, new Vector2(200, 400));
             //player.ApplyPowerup(PowerupType.Fireball);
 
-            GameObjectManager.CreateEnemy(EnemyType.Dart, new Vector2(200, 200));
+            //GameObjectManager.CreateEnemy(EnemyType.Dart, new Vector2(200, 200));
+            
         }
 
         /// <summary>
@@ -72,6 +74,9 @@ namespace ScrollingShooter
             // TODO: Unload any non ContentManager content here
         }
 
+        //REMOVE THIS: this is for test
+        private DateTime defaultEnemyTimer = DateTime.Now;
+
         /// <summary>
         /// Allows the game to run logic such as updating the world,
         /// checking for collisions, gathering input, and playing audio.
@@ -82,6 +87,14 @@ namespace ScrollingShooter
             // Allows the game to exit
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
+            
+            //TEST
+            if (defaultEnemyTimer.AddSeconds(2) < DateTime.Now)
+            {
+                GameObjectManager.CreateEnemy(EnemyType.Kamikaze, new Vector2(200, 0));
+                defaultEnemyTimer = DateTime.Now;
+            }
+
 
             // TODO: Add your update logic here
             float elapsedTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
@@ -103,6 +116,15 @@ namespace ScrollingShooter
                     {
                         player.ApplyPowerup(powerup.Type);
                         GameObjectManager.DestroyObject(colliderID);
+                    }
+
+                    // Process kamakaze collisions
+                    Enemy enemy = collider as Enemy;
+                    if (enemy != null)
+                    {
+                        //Player take damage
+                        GameObjectManager.DestroyObject(colliderID);
+                        GameObjectManager.CreateExplosion(colliderID);
                     }
 
                 }

@@ -217,6 +217,15 @@ namespace ScrollingShooter
             createdGameObjects.Enqueue(go);
         }
 
+        public Explosion CreateExplosion(uint colliderID)
+        {
+            Explosion ex;
+            uint id = NextID();
+            Vector2 pos = new Vector2(GetObject(colliderID).Bounds.X, GetObject(colliderID).Bounds.Y);
+            ex = new Explosion(id, pos, content);
+            QueueGameObjectForCreation(ex);
+            return ex;
+        }
 
         /// <summary>
         /// Factory method to create a player ship
@@ -260,6 +269,9 @@ namespace ScrollingShooter
                 case PowerupType.Fireball:
                     powerup = new FireballPowerup(id, content, position);
                     break;
+                case PowerupType.Blades:
+                    powerup = new BladesPowerup(id, content, position);
+                    break;
 
                 default:
                     throw new NotImplementedException("The powerup type " + Enum.GetName(typeof(ProjectileType), powerupType) + " is not supported");
@@ -276,7 +288,7 @@ namespace ScrollingShooter
         /// <param name="projectileType">The type of projectile to create</param>
         /// <param name="position">The position of the projectile in the game world</param>
         /// <returns>The game object id of the projectile</returns>
-        public Projectile CreateProjectile(ProjectileType projectileType, Vector2 position)
+        public Projectile CreateProjectile(ProjectileType projectileType, Vector2 position, PlayerShip player)
         {
             Projectile projectile;
             uint id = NextID();
@@ -289,6 +301,9 @@ namespace ScrollingShooter
 
                 case ProjectileType.Fireball:
                     projectile = new Fireball(id, content, position);
+                    break;
+                case ProjectileType.Blades:
+                    projectile = new Blades(id, content, player);
                     break;
 
                 default:
@@ -315,6 +330,9 @@ namespace ScrollingShooter
             {
                 case EnemyType.Dart:
                     enemy = new Dart(id, content, position);
+                    break;
+                case EnemyType.Kamikaze:
+                    enemy = new Kamikaze(id, content, position);
                     break;
                 
                 default:
@@ -561,6 +579,5 @@ namespace ScrollingShooter
         }
 
         #endregion
-
     }
 }

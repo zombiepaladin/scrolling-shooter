@@ -58,9 +58,15 @@ namespace ScrollingShooter
             // TODO: use this.Content to load your game content here
             player = GameObjectManager.CreatePlayerShip(PlayerShipType.Shrike, new Vector2(300, 300));
             GameObjectManager.CreatePowerup(PowerupType.Fireball, new Vector2(100, 200));
+            
+            //added my EightBallShield
+            GameObjectManager.CreatePowerup(PowerupType.EightBallShield, new Vector2(50, 50));
+
             //player.ApplyPowerup(PowerupType.Fireball);
 
             GameObjectManager.CreateEnemy(EnemyType.Dart, new Vector2(200, 200));
+            //add in panzer tank
+            GameObjectManager.CreateEnemy(EnemyType.Panzer, new Vector2(300, 100));
         }
 
         /// <summary>

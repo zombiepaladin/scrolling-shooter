@@ -11,6 +11,7 @@ namespace ScrollingShooter
     {
         None = 0,
         Fireball = 0x1,
+        Freezewave = 0x32,
     }
 
     /// <summary>

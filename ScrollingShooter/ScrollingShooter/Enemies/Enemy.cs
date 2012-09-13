@@ -11,6 +11,8 @@ namespace ScrollingShooter
     public enum EnemyType
     {
         Dart,
+        Arrow,
+        LavaFighter,
     }
 
     /// <summary>

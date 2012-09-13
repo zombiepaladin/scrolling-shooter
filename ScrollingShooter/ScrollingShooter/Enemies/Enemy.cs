@@ -12,6 +12,7 @@ namespace ScrollingShooter
     {
         Dart,
         Arrow,
+        LavaFighter,
     }
 
     /// <summary>

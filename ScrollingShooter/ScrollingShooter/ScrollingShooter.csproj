@@ -110,6 +110,7 @@
     <Compile Include="Enemies\Arrow.cs" />
     <Compile Include="Enemies\Dart.cs" />
     <Compile Include="Enemies\Enemy.cs" />
+    <Compile Include="Enemies\LavaFighter.cs" />
     <Compile Include="GameObjects\BoundingBox.cs" />
     <Compile Include="GameObjects\CollisionPair.cs" />
     <Compile Include="GameObjects\GameObject.cs" />

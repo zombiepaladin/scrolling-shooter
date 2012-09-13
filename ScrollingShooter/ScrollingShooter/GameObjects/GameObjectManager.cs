@@ -260,7 +260,9 @@ namespace ScrollingShooter
                 case PowerupType.Fireball:
                     powerup = new FireballPowerup(id, content, position);
                     break;
-
+                case PowerupType.Freezewave:
+                    powerup = new FreezewavePowerup(id, content, position);
+                    break;
                 default:
                     throw new NotImplementedException("The powerup type " + Enum.GetName(typeof(ProjectileType), powerupType) + " is not supported");
             }
@@ -322,6 +324,9 @@ namespace ScrollingShooter
                     break;
                 case EnemyType.Arrow:
                     enemy = new Arrow(id, content, position);
+                    break;
+                case EnemyType.LavaFighter:
+                    enemy = new LavaFighter(id, content, position);
                     break;
                 default:
                     throw new NotImplementedException("The enemy type " + Enum.GetName(typeof(EnemyType), enemyType) + " is not supported");

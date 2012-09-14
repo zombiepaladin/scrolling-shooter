@@ -24,13 +24,13 @@ namespace ScrollingShooter
         /// <param name="content">A ContentManager to load content from</param>
         /// <param name="rotation">The rotation that it's at around the player (0-2*PI)</param>
         /// <param name="player">Reference back to the player</param>
-        public Blades(uint id, ContentManager content, PlayerShip player) : base (id)
+        public Blades(uint id, ContentManager content) : base (id)
         {
             this.spriteSheet = content.Load<Texture2D>("Spritesheets/newsh#.shp.000000");
 
             this.spriteBounds = new Rectangle(148, 67, 43, 35);
- 
-            this.player = player;
+
+            this.player = ScrollingShooterGame.Game.player;
 
             this.BladeTimer = 0;
         }

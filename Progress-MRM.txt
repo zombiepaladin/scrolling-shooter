@@ -5,15 +5,15 @@ Stardate 66168.4:
 -Added jzavala 1 and 2.
 -Added xrt1986 1 and 2.
 -Khrijunk 1 and 2.
--Borzen 1 and 2. (however, I couldn't get the powerup to work)
+-Borzen 1 and 2.
+-zutsori 1 and 2.
 
 
 Still to commit:
 -Versaiteis (has merge errors)
 -barg5633 (has merge errors)
 -everix1992 (has merge errors)
--sfike
--zutsori
+-sfike (has merge errors)
 -abelli
 -jshaw2
 -dkellycollins

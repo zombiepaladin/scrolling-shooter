@@ -10,12 +10,13 @@ namespace ScrollingShooter
     public enum PowerupType
     {
         None = 0,
-        Fireball = 0x1,
-        Blades = 0x2,
-        EightBallShield = 0x4,
-        Frostball = 0x8,
-        Birdcrap = 0x16,
-        TriShield = 0x128
+        Fireball = 1,
+        Blades = 2,
+        EightBallShield = 4,
+        Frostball = 8,
+        Birdcrap = 16,
+        DroneWave = 32,
+        TriShield = 128
     }
 
     /// <summary>

@@ -192,10 +192,16 @@ namespace ScrollingShooter
 
                         if ((PowerupType & PowerupType.Fireball) > 0)
                             TriggerFireball();
+
+                         if ((PowerupType & PowerupType.DroneWave) > 0)
+                        {
+                            TriggerDroneWave();
+                        }
                     }
 
                     if ((PowerupType & PowerupType.Frostball) > 0)
                         TriggerFrostball();
+
                     if ((PowerupType & PowerupType.Birdcrap) > 0)
                     {
                         TriggerBirdcrap();
@@ -285,6 +291,14 @@ namespace ScrollingShooter
         {
             //Create three balls, each at different rotations around the ship
             ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.TrishieldBall, new Vector2(Bounds.Center.X, Bounds.Center.Y));
+        }
+
+        /// <summary>
+        /// A helper function that fires a wide drone wave from the ship, corresponding to the fireball powerup.
+        /// </summary>
+        void TriggerDroneWave()
+        {
+            ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.DroneWave, new Vector2(position.X, position.Y));
         }
     }
 }

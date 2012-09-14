@@ -18,7 +18,8 @@ namespace ScrollingShooter
         BladeSpinner,
         DeerTickDown,
         DeerTickRight,
-        DeerTickLeft
+        DeerTickLeft,
+        Turret
     }
 
     /// <summary>

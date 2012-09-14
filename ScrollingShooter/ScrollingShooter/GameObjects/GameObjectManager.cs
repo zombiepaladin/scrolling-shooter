@@ -279,6 +279,14 @@ namespace ScrollingShooter
                     powerup = new TriShieldPowerup(id, content, position);
                     break;
 
+                case PowerupType.DroneWave:
+                    powerup = new DroneWavePowerup(id, content, position);
+                    break;
+
+                case PowerupType.Birdcrap:
+                    powerup = new BirdcrapPowerup(id, content, position);
+                    break;
+
                 default:
                     throw new NotImplementedException("The powerup type " + Enum.GetName(typeof(ProjectileType), powerupType) + " is not supported");
             }
@@ -340,6 +348,31 @@ namespace ScrollingShooter
 
                 case ProjectileType.GenericEnemyBullet:
                     projectile = new GenericEnemyBullet(id, content, position);
+                    break;
+
+                case ProjectileType.DroneWave:                    
+                    // waveIndex helps draw the wave to the left and right of the ship, while waveSpacing holds the vector difference of space between each drone.
+                    // Drone count is managed by 2*i.
+                    Vector2 waveIndex = new Vector2(-1, 1);
+                    Vector2 waveSpacing = new Vector2(40,30);
+                    for (int i = 0; i < 5; i++)
+                    {
+                        projectile = new DroneWave(id, content, position + waveSpacing * waveIndex * i);
+                        QueueGameObjectForCreation(projectile);
+                        id = NextID();
+                        projectile = new DroneWave(id, content, position + waveSpacing * i);
+                        QueueGameObjectForCreation(projectile);
+                        id = NextID();
+                    }
+                    
+                    projectile = new DroneWave(id, content, position + waveSpacing * waveIndex * 6);
+                    QueueGameObjectForCreation(projectile);
+                    id = NextID();
+                    projectile = new DroneWave(id, content, position + waveSpacing * 6);
+                    
+                    break;
+                case ProjectileType.TurretFireball:
+                    projectile = new TurretFireball(id, content, position);
                     break;
 
                 default:
@@ -421,6 +454,10 @@ namespace ScrollingShooter
                     enemy = new DeerTick(id, content, position, DeerTickDirection.Right);
                     break;
                 
+                case EnemyType.Turret:
+                    enemy = new Turret(id, content, position);
+                    break;
+
                 default:
                     throw new NotImplementedException("The enemy type " + Enum.GetName(typeof(EnemyType), enemyType) + " is not supported");
             }

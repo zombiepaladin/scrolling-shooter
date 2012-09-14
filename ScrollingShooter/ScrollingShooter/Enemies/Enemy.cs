@@ -11,6 +11,9 @@ namespace ScrollingShooter
     public enum EnemyType
     {
         Dart,
+        DeerTickDown,
+        DeerTickRight,
+        DeerTickLeft
     }
 
     /// <summary>

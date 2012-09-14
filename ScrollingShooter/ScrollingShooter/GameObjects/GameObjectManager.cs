@@ -261,6 +261,10 @@ namespace ScrollingShooter
                     powerup = new FireballPowerup(id, content, position);
                     break;
 
+                case PowerupType.TriShield:
+                    powerup = new TriShieldPowerup(id, content, position);
+                    break;
+
                 default:
                     throw new NotImplementedException("The powerup type " + Enum.GetName(typeof(ProjectileType), powerupType) + " is not supported");
             }
@@ -291,6 +295,21 @@ namespace ScrollingShooter
                     projectile = new Fireball(id, content, position);
                     break;
 
+                    //This method doesn't fit the trishield very well, so this code is a bit poor in quality.
+                case ProjectileType.TrishieldBall:
+                    for (int i = 0; i < 2; i++)
+                    {
+                        projectile = new TriShieldBall(id, content, 2 * MathHelper.Pi / 3 * i);
+                        QueueGameObjectForCreation(projectile);
+                        id = NextID();
+                    }
+                    projectile = new TriShieldBall(id, content, 4 * MathHelper.Pi / 3);
+                    break;
+
+                case ProjectileType.GenericEnemyBullet:
+                    projectile = new GenericEnemyBullet(id, content, position);
+                    break;
+
                 default:
                     throw new NotImplementedException("The projectile type " + Enum.GetName(typeof(ProjectileType), projectileType) + " is not supported");
             }
@@ -315,6 +334,18 @@ namespace ScrollingShooter
             {
                 case EnemyType.Dart:
                     enemy = new Dart(id, content, position);
+                    break;
+
+                case EnemyType.DeerTickDown:
+                    enemy = new DeerTick(id, content, position, DeerTickDirection.Straight);
+                    break;
+
+                case EnemyType.DeerTickLeft:
+                    enemy = new DeerTick(id, content, position, DeerTickDirection.Left);
+                    break;
+
+                case EnemyType.DeerTickRight:
+                    enemy = new DeerTick(id, content, position, DeerTickDirection.Right);
                     break;
                 
                 default:

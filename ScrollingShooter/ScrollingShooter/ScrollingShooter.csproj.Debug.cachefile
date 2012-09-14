@@ -1,5 +1,11 @@
+Content\Tilesets\shapes).xnb
+Content\Tilesets\shapesw.xnb
+Content\Tilesets\shapesx.xnb
+Content\Tilesets\shapesy.xnb
+Content\Tilesets\shapesz.xnb
 Content\Spritesheets\destruct_sprites.xnb
 Content\Spritesheets\newsh#.shp.000000.xnb
+Content\Spritesheets\newsh$.shp.000000.xnb
 Content\Spritesheets\newsh(.shp.000000.xnb
 Content\Spritesheets\newsh@.shp.000000.xnb
 Content\Spritesheets\newsh0.shp.000000.xnb
@@ -8,6 +14,7 @@ Content\Spritesheets\newsh2.shp.000000.xnb
 Content\Spritesheets\newsh3.shp.000000.xnb
 Content\Spritesheets\newsh4.shp.000000.xnb
 Content\Spritesheets\newsh5.shp.000000.xnb
+Content\Spritesheets\newsh6.shp.000000.xnb
 Content\Spritesheets\newsh7.shp.000000.xnb
 Content\Spritesheets\newsh8.shp.000000.xnb
 Content\Spritesheets\newsh9.shp.000000.xnb
@@ -16,6 +23,7 @@ Content\Spritesheets\newshb.shp.000000.xnb
 Content\Spritesheets\newshc.shp.000000.xnb
 Content\Spritesheets\newshd.shp.000000.xnb
 Content\Spritesheets\newshe.shp.000000.xnb
+Content\Spritesheets\newshf.shp.000000.xnb
 Content\Spritesheets\newshg.shp.000000.xnb
 Content\Spritesheets\newshh.shp.000000.xnb
 Content\Spritesheets\newshi.shp.000000.xnb
@@ -33,10 +41,9 @@ Content\Spritesheets\newshu.shp.000000.xnb
 Content\Spritesheets\newshv.shp.000000.xnb
 Content\Spritesheets\newsh^.shp.000000.xnb
 Content\Spritesheets\tyrian.shp.000000.xnb
+Content\Spritesheets\tyrian.shp.007D3C.xnb
 Content\Spritesheets\tyrian.shp.010008.xnb
 Content\Spritesheets\tyrian.shp.01673F.xnb
 Content\Spritesheets\tyrian.shp.01D8A7.xnb
-Content\Spritesheets\newsh$.shp.000000.xnb
-Content\Spritesheets\newshf.shp.000000.xnb
-Content\Spritesheets\tyrian.shp.007D3C.xnb
-Content\Spritesheets\newsh6.shp.000000.xnb
+Content\Tilemaps\example.xnb
+Content\Tilesets\shapes)_0.xnb

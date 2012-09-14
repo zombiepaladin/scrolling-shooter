@@ -9,129 +9,6 @@ using Microsoft.Xna.Framework.Graphics;
 namespace ScrollingShooter
 {
     /// <summary>
-    /// Represents the possible types of bounds
-    /// </summary>
-    public enum BoundType
-    {
-        Min,
-        Max,
-    }
-
-    /// <summary>
-    /// A struct representing a bound in an axis list
-    /// </summary>
-    public class Bound : IComparable<Bound>
-    {
-        public BoundingBox Box;
-        public float Value;
-        public BoundType Type;
-
-        /// <summary>
-        /// Creates a new Bound
-        /// </summary>
-        /// <param name="box">The bounding box for this bound</param>
-        /// <param name="value">The value of the bound</param>
-        /// <param name="type">The type of the bound, min or max</param>
-        public Bound(BoundingBox box, float value, BoundType type)
-        {
-            this.Box = box;
-            this.Value = value;
-            this.Type = type;
-        }
-
-        /// <summary>
-        /// Compares this bound with another bound.  Bounds are
-        /// equivalent if they are the same type and have the same value.
-        /// Min bounds always come before max bounds.
-        /// </summary>
-        /// <param name="otherBound"></param>
-        /// <returns></returns>
-        public int CompareTo(Bound otherBound)
-        {
-            return this.Type.CompareTo(otherBound.Type) + this.Value.CompareTo(otherBound.Value);
-        }
-    }
-
-    /// <summary>
-    /// Creates a bounding box structure, holding the four bounds of a game object
-    /// </summary>
-    public class BoundingBox
-    {
-        public Bound Bottom;
-        public Bound Top;
-        public Bound Left;
-        public Bound Right;
-        public uint GameObjectID;
-        
-        /// <summary>
-        /// Creates a bounding box from a bounding rectangle
-        /// </summary>
-        /// <param name="gameObjectID">The game object this bounding box belongs to</param>
-        /// <param name="rectangle">A bounding rectangle for the game object</param>
-        public BoundingBox(uint gameObjectID, Rectangle rectangle)
-        {
-            this.GameObjectID = gameObjectID;
-            this.Top = new Bound(this, rectangle.Top, BoundType.Min);
-            this.Left = new Bound(this, rectangle.Left, BoundType.Min);
-            this.Bottom = new Bound(this, rectangle.Bottom, BoundType.Max);
-            this.Right = new Bound(this, rectangle.Right, BoundType.Max);
-        }
-
-        /// <summary>
-        /// Converts a bounding box to a rectangle
-        /// </summary>
-        /// <returns>The bouding rectangle</returns>
-        public Rectangle ToRectange()
-        {
-            return new Rectangle() {
-                Y = (int)this.Top.Value,
-                X = (int)this.Left.Value,
-                Width = (int)(this.Right.Value - this.Left.Value),
-                Height = (int)(this.Bottom.Value - this.Top.Value),
-            };
-        }
-    }
-
-    /// <summary>
-    /// A structure representing a collision pair
-    /// </summary>
-    struct CollisionPair : IComparable<CollisionPair>
-    {
-        public readonly uint A;
-        public readonly uint B;
-
-        /// <summary>
-        /// Constructs a collision pair.  The lower id always comes first 
-        /// </summary>
-        /// <param name="A"></param>
-        /// <param name="B"></param>
-        public CollisionPair(uint A, uint B)
-        {
-            if (A < B)
-            {
-                this.A = A;
-                this.B = B;
-            }
-            else
-            {
-                this.A = B;
-                this.B = A;
-            }
-        }
-
-        /// <summary>
-        /// Compares this to another collision pair
-        /// </summary>
-        /// <param name="pair">The pair to compare to</param>
-        /// <returns></returns>
-        public int CompareTo(CollisionPair pair)
-        {
-            return this.A.CompareTo(pair.A) + this.B.CompareTo(pair.B);
-        }
-    }
-
-
-    /// <summary>
     /// A class for managing game objects
     /// </summary>
     public class GameObjectManager
@@ -148,10 +25,12 @@ namespace ScrollingShooter
         Dictionary<uint,BoundingBox> boundingBoxes;
 
         List<Bound> horizontalAxis;
-
         List<Bound> verticalAxis;
 
+        HashSet<CollisionPair> horizontalOverlaps;
+        HashSet<CollisionPair> verticalOverlaps;
         HashSet<CollisionPair> collisions;
+
 
         /// <summary>
         /// Constructs a new GameObjectManager instance
@@ -170,9 +49,16 @@ namespace ScrollingShooter
             horizontalAxis = new List<Bound>();
             verticalAxis = new List<Bound>();
 
+            horizontalOverlaps = new HashSet<CollisionPair>();
+            verticalOverlaps = new HashSet<CollisionPair>();
             collisions = new HashSet<CollisionPair>();
         }
 
+
+        /// <summary>
+        /// Updates the GameObjectManager, and all objects in the game
+        /// </summary>
+        /// <param name="elapsedTime">The time between this and the previous frame</param>
         public void Update(float elapsedTime)
         {
             // Add newly created game objects
@@ -202,16 +88,14 @@ namespace ScrollingShooter
 
             // Update our axis lists
             UpdateAxisLists();
-
-            // REMOVE: Test code to see what collisions are added to our list
-            string colliders = "";
-            foreach (CollisionPair pair in collisions)
-            {
-                colliders += pair.A + "-" + pair.B + "-";
-            }
-            ScrollingShooterGame.Game.Window.Title = colliders;
         }
 
+
+        /// <summary>
+        /// Draws all game Objects
+        /// </summary>
+        /// <param name="elapsedTime"></param>
+        /// <param name="spriteBatch"></param>
         public void Draw(float elapsedTime, SpriteBatch spriteBatch)
         {
             foreach (GameObject go in gameObjects.Values)
@@ -224,6 +108,15 @@ namespace ScrollingShooter
         #region Query Methods
 
         /// <summary>
+        /// A HashSet containing all unique collisions for
+        /// the current frame
+        /// </summary>
+        public HashSet<CollisionPair> Collisions
+        {
+            get { return collisions; }
+        }
+
+        /// <summary>
         /// Returns the GameObject instance corresponding to the specified 
         /// game object id
         /// </summary>
@@ -232,6 +125,19 @@ namespace ScrollingShooter
         public GameObject GetObject(uint id)
         {
             return gameObjects[id];
+        }
+
+
+        /// <summary>
+        /// Removes the indicated game object from the game
+        /// </summary>
+        /// <param name="id">The game object's ID</param>
+        /// <returns>The specified GameObject</returns>
+        public GameObject DestroyObject(uint id)
+        {
+            GameObject go = gameObjects[id];
+            destroyedGameObjects.Enqueue(go);
+            return go;
         }
 
 
@@ -293,12 +199,24 @@ namespace ScrollingShooter
         /// Helper method that provides the next unique game object ID
         /// </summary>
         /// <returns>The next unique game object id</returns>
-        public uint NextID()
+        private uint NextID()
         {
             uint id = objectCount;
             objectCount++;
             return id;
         }
+
+
+        /// <summary>
+        /// Helper method for enqueueing our game object for creation at the 
+        /// start of the next update cycle.  
+        /// </summary>
+        /// <param name="go">The ready-to-spawn game object</param>
+        private void QueueGameObjectForCreation(GameObject go)
+        {
+            createdGameObjects.Enqueue(go);
+        }
+
 
         /// <summary>
         /// Factory method to create a player ship
@@ -324,6 +242,33 @@ namespace ScrollingShooter
             QueueGameObjectForCreation(playerShip);
             return playerShip;
         }
+
+
+        /// <summary>
+        /// Factory method for spawning a projectile
+        /// </summary>
+        /// <param name="projectileType">The type of projectile to create</param>
+        /// <param name="position">The position of the projectile in the game world</param>
+        /// <returns>The game object id of the projectile</returns>
+        public Powerup CreatePowerup(PowerupType powerupType, Vector2 position)
+        {
+            Powerup powerup;
+            uint id = NextID();
+
+            switch (powerupType)
+            {
+                case PowerupType.Fireball:
+                    powerup = new FireballPowerup(id, content, position);
+                    break;
+
+                default:
+                    throw new NotImplementedException("The powerup type " + Enum.GetName(typeof(ProjectileType), powerupType) + " is not supported");
+            }
+
+            QueueGameObjectForCreation(powerup);
+            return powerup;
+        }
+
 
         /// <summary>
         /// Factory method for spawning a projectile
@@ -448,12 +393,13 @@ namespace ScrollingShooter
                         // when a Max bound passes a min, we remove it from 
                         // the collision set
                         collisions.Remove(new CollisionPair(horizontalAxis[j].Box.GameObjectID, bound.Box.GameObjectID));
+                        horizontalOverlaps.Remove(new CollisionPair(horizontalAxis[j].Box.GameObjectID, bound.Box.GameObjectID));
                     } 
                     else if(horizontalAxis[j].Type == BoundType.Max && bound.Type == BoundType.Min)  
                     {
                         // when a Min bound passes a Max, we add it to the 
                         // potential collision set
-                        overlaps.Add(new CollisionPair(horizontalAxis[j].Box.GameObjectID, bound.Box.GameObjectID));
+                        horizontalOverlaps.Add(new CollisionPair(horizontalAxis[j].Box.GameObjectID, bound.Box.GameObjectID));
                     }
 
                     // Shift the elment at j up the list by one index
@@ -478,12 +424,13 @@ namespace ScrollingShooter
                         // when a Max bound passes a min, we remove it from 
                         // the collision set
                         collisions.Remove(new CollisionPair(verticalAxis[j].Box.GameObjectID, bound.Box.GameObjectID));
+                        verticalOverlaps.Remove(new CollisionPair(verticalAxis[j].Box.GameObjectID, bound.Box.GameObjectID));
                     }
                     else if (verticalAxis[j].Type == BoundType.Max && bound.Type == BoundType.Min)
                     {
                         // when a Min bound passes a Max, we add it to the 
                         // potential collision set
-                        overlaps.Add(new CollisionPair(verticalAxis[j].Box.GameObjectID, bound.Box.GameObjectID));
+                        verticalOverlaps.Add(new CollisionPair(verticalAxis[j].Box.GameObjectID, bound.Box.GameObjectID));
                     }
 
                     // Shift the elment at j up the list by one index
@@ -494,16 +441,15 @@ namespace ScrollingShooter
             }
 
             // Check the potential overlaps for intersection
-            foreach (CollisionPair pair in overlaps)
+            foreach (CollisionPair pair in verticalOverlaps)
             {
-                GameObject A = GetObject(pair.A);
-                GameObject B = GetObject(pair.B);
-                if (A.Bounds.Intersects(B.Bounds))
-                {
-                    collisions.Add(pair);
-                }
+                    GameObject A = GetObject(pair.A);
+                    GameObject B = GetObject(pair.B);
+                    if (A.Bounds.Intersects(B.Bounds))
+                    {
+                        collisions.Add(pair);
+                    }
             }
-
         }
 
 
@@ -541,21 +487,11 @@ namespace ScrollingShooter
             return index;
         }
 
+        
         /// <summary>
-        /// Enqueue our game object for creation at the start of the next update
-        /// cycle.  
+        /// Helper method that adds a GameObject to the GameObjectManager
         /// </summary>
-        /// <param name="go">The ready-to-spawn game object</param>
-        private void QueueGameObjectForCreation(GameObject go)
-        {
-            createdGameObjects.Enqueue(go);
-        }
-
-        /// <summary>
-        /// Adds a GameObject to the GameObjectManager
-        /// </summary>
-        /// <param name="gameObject"></param>
-        /// <returns></returns>
+        /// <param name="gameObject">The Game Object to add</param>
         private void AddGameObject(GameObject gameObject)
         {
             uint id = gameObject.ID;
@@ -573,10 +509,9 @@ namespace ScrollingShooter
 
             // Grab any game object ids for game objects whose bounds fall
             // between the min and max bounds of our new game object
-            HashSet<uint> overlaps = new HashSet<uint>();
             for (int i = leftIndex + 1; i < rightIndex; i++)
             {
-                overlaps.Add(horizontalAxis[i].Box.GameObjectID);
+                horizontalOverlaps.Add(new CollisionPair(id, horizontalAxis[i].Box.GameObjectID));
             }
 
             // Store the new game object's bounds in our vertical axis list
@@ -584,14 +519,13 @@ namespace ScrollingShooter
             int bottomIndex = InsertBoundIntoAxis(verticalAxis, box.Bottom);
 
             // Grab any game object ids for game objects whose bounds fall
-            // between the min and max of our new game object - if they are
-            // already on our overlap list, we know there is a collision!
+            // between the min and max of our new game object
             for (int i = topIndex + 1; i < bottomIndex; i++)
             {
-                if (overlaps.Contains(verticalAxis[i].Box.GameObjectID))
-                    collisions.Add(new CollisionPair(id, verticalAxis[i].Box.GameObjectID));
+                verticalOverlaps.Add(new CollisionPair(id, verticalAxis[i].Box.GameObjectID));
             }
         }
+
 
         /// <summary>
         /// Updates the position of a GameObject within the axis
@@ -625,13 +559,31 @@ namespace ScrollingShooter
             gameObjects.Remove(id);
 
             // Remove the game object from our collection of collisions
-            int i = 0;
-            while (i < collisions.Count)
+            int i = collisions.Count - 1;
+            while (i >= 0)
             {
                 CollisionPair pair = collisions.ElementAt(i);
                 if (pair.A == id || pair.B == id)
                     collisions.Remove(pair);
-                i++;
+                i--;
+            }
+
+            // Remove the game object from our collection of overlaps
+            i = horizontalOverlaps.Count - 1;
+            while (i >= 0)
+            {
+                CollisionPair pair = horizontalOverlaps.ElementAt(i);
+                if (pair.A == id || pair.B == id)
+                    horizontalOverlaps.Remove(pair);
+                i--;
+            }
+            i = verticalOverlaps.Count - 1;
+            while (i >= 0)
+            {
+                CollisionPair pair = verticalOverlaps.ElementAt(i);
+                if (pair.A == id || pair.B == id)
+                    verticalOverlaps.Remove(pair);
+                i--;
             }
 
             // Grab the game object's bounding box

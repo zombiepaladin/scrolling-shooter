@@ -14,6 +14,7 @@ namespace ScrollingShooter
         Blades = 0x2,
         EightBallShield = 0x4,
         Frostball = 0x8,
+        Birdcrap = 0x16,
         TriShield = 0x128
     }
 

@@ -179,14 +179,6 @@ namespace ScrollingShooter
                 // Fire weapons
                 if (currentKeyboardState.IsKeyDown(Keys.Space))
                 {
-                    uint[] ids = ScrollingShooterGame.GameObjectManager.QueryRegion(new Rectangle(0, 0, 100, 100));
-                    string label = "";
-                    foreach (uint id in ids)
-                        label += id + "-";
-                    label = "";
-                    //ScrollingShooterGame.Game.Window.Title = label;
-                    // Streaming weapons
-
                     // Default gun
                     if (defaultGunTimer > 0.25f)
                     {
@@ -204,6 +196,10 @@ namespace ScrollingShooter
 
                     if ((PowerupType & PowerupType.Frostball) > 0)
                         TriggerFrostball();
+                    if ((PowerupType & PowerupType.Birdcrap) > 0)
+                    {
+                        TriggerBirdcrap();
+                    }
                 }
             }
                     
@@ -230,6 +226,14 @@ namespace ScrollingShooter
         void TriggerFireball()
         {
             ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.Fireball, position);
+        }
+                /// <summary>
+        /// A helper that fires birdcrap from the ship. Coraspondes to the birdcrap power up.
+        /// </summary>
+        void TriggerBirdcrap()
+        {
+            //TODO:Create effect and calculations when colides with enemy ship, the event will determin if the enimy is "blind" or if his ship will crash. Also when audio is implemented it will make a pooping sound and splat sounds.
+            ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.BirdCrap, position);
         }
 
         /// <summary>

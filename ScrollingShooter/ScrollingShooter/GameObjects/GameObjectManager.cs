@@ -275,7 +275,6 @@ namespace ScrollingShooter
                 case PowerupType.EightBallShield: //added EightBallShield
                     powerup = new EightBallShieldPowerup(id, content, position);
                     break;
-
                 case PowerupType.TriShield:
                     powerup = new TriShieldPowerup(id, content, position);
                     break;
@@ -311,6 +310,13 @@ namespace ScrollingShooter
                     break;
                 case ProjectileType.Blades:
                     projectile = new Blades(id, content);
+                    break;
+
+                case ProjectileType.BirdCrap:
+                    projectile = new BirdCrap(id, content, position);
+                    break;
+                case ProjectileType.EBullet:
+                    projectile = new EBullet(id, content, position);
                     break;
 
                 case ProjectileType.Frostball:
@@ -384,6 +390,9 @@ namespace ScrollingShooter
             {
                 case EnemyType.Dart:
                     enemy = new Dart(id, content, position);
+                    break;
+                case EnemyType.StdBaddy:
+                    enemy = new StdBaddy(id, content, position);
                     break;
 
                 case EnemyType.beamShip:

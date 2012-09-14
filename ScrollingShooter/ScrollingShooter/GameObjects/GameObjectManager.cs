@@ -217,6 +217,15 @@ namespace ScrollingShooter
             createdGameObjects.Enqueue(go);
         }
 
+        public Explosion CreateExplosion(uint colliderID)
+        {
+            Explosion ex;
+            uint id = NextID();
+            Vector2 pos = new Vector2(GetObject(colliderID).Bounds.X, GetObject(colliderID).Bounds.Y);
+            ex = new Explosion(id, pos, content);
+            QueueGameObjectForCreation(ex);
+            return ex;
+        }
 
         /// <summary>
         /// Factory method to create a player ship
@@ -260,6 +269,9 @@ namespace ScrollingShooter
                 case PowerupType.Fireball:
                     powerup = new FireballPowerup(id, content, position);
                     break;
+                case PowerupType.Blades:
+                    powerup = new BladesPowerup(id, content, position);
+                    break;
                 case PowerupType.EightBallShield: //added EightBallShield
                     powerup = new EightBallShieldPowerup(id, content, position);
                     break;
@@ -296,6 +308,9 @@ namespace ScrollingShooter
 
                 case ProjectileType.Fireball:
                     projectile = new Fireball(id, content, position);
+                    break;
+                case ProjectileType.Blades:
+                    projectile = new Blades(id, content);
                     break;
 
                     //This method doesn't fit the trishield very well, so this code is a bit poor in quality.
@@ -361,6 +376,9 @@ namespace ScrollingShooter
             {
                 case EnemyType.Dart:
                     enemy = new Dart(id, content, position);
+                    break;
+                case EnemyType.Kamikaze:
+                    enemy = new Kamikaze(id, content, position);
                     break;
                 case EnemyType.Panzer:
                     enemy = new Panzer(id, content, position);
@@ -626,6 +644,5 @@ namespace ScrollingShooter
         }
 
         #endregion
-
     }
 }

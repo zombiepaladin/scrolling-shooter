@@ -33,6 +33,9 @@ namespace ScrollingShooter
     {
         float defaultGunTimer = 0;
 
+        //Timer for how longs the blades have been active.
+        float bladesPowerupTimer = 0;
+
         /// <summary>
         /// The velocity of the ship - varies from ship to ship
         /// </summary>
@@ -92,8 +95,13 @@ namespace ScrollingShooter
         {
             // Store the new powerup in the PowerupType bitmask
             this.PowerupType |= powerup;
+
+            //Apply special logic for powerups here
             switch (powerup)
             {
+                case PowerupType.Blades:
+                    ApplyBlades();
+                    break;
                 case PowerupType.Fireball:
                     break;
                 case PowerupType.EightBallShield:
@@ -119,6 +127,7 @@ namespace ScrollingShooter
 
             // Update timers
             defaultGunTimer += elapsedTime;
+            bladesPowerupTimer += elapsedTime;
 
             // Steer the ship up or down according to user input
             if(currentKeyboardState.IsKeyDown(Keys.Up))
@@ -163,30 +172,39 @@ namespace ScrollingShooter
                 }
             }
 
-            // Fire weapons
-            if (currentKeyboardState.IsKeyDown(Keys.Space))
+            if (bladesPowerupTimer > 10.0f && (PowerupType & PowerupType.Blades) > 0)
             {
-                uint[] ids = ScrollingShooterGame.GameObjectManager.QueryRegion(new Rectangle(0, 0, 100, 100));
-                string label = "";
-                foreach (uint id in ids)
-                    label += id + "-";
-                label = "";
-                //ScrollingShooterGame.Game.Window.Title = label;
-                // Streaming weapons
+                unApplyBlades();
+            }
 
-                // Default gun
-                if (defaultGunTimer > 0.25f)
+            if ((PowerupType & PowerupType.Blades) == 0)
+            {
+
+                // Fire weapons
+                if (currentKeyboardState.IsKeyDown(Keys.Space))
                 {
-                    ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.Bullet, position);
-                    defaultGunTimer = 0f;
-                }
+                    uint[] ids = ScrollingShooterGame.GameObjectManager.QueryRegion(new Rectangle(0, 0, 100, 100));
+                    string label = "";
+                    foreach (uint id in ids)
+                        label += id + "-";
+                    label = "";
+                    //ScrollingShooterGame.Game.Window.Title = label;
+                    // Streaming weapons
 
-                // Fire-once weapons
-                if (oldKeyboardState.IsKeyUp(Keys.Space))
-                {
+                    // Default gun
+                    if (defaultGunTimer > 0.25f)
+                    {
+                        ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.Bullet, position);
+                        defaultGunTimer = 0f;
+                    }
 
-                    if ((PowerupType & PowerupType.Fireball) > 0)
-                        TriggerFireball();
+                    // Fire-once weapons
+                    if (oldKeyboardState.IsKeyUp(Keys.Space))
+                    {
+
+                        if ((PowerupType & PowerupType.Fireball) > 0)
+                            TriggerFireball();
+                    }
                 }
             }
                     
@@ -214,6 +232,30 @@ namespace ScrollingShooter
         {
             ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.Fireball, position);
         }
+
+        /// <summary>
+        /// A helper function that initializes the blades powerup.
+        /// //Puts a giant spinning blade over player position and doubles the players velocity.
+        /// </summary>
+        void ApplyBlades()
+        {
+            ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.Blades, position);
+            this.velocity *= 2;
+            bladesPowerupTimer = 0;
+            //TO DO: make player invulerable for 10 secs, since not implemented yet.
+        }
+
+        /// <summary>
+        /// A helper function that will remove the Blade powerup and restore defaults.
+        /// </summary>
+        void unApplyBlades()
+        {
+            this.PowerupType = this.PowerupType ^= PowerupType.Blades;
+            this.velocity /= 2;
+            bladesPowerupTimer = 0;
+            //TO DO: make player vulerable again, since not implemented yet.
+        }
+
 
         /// <summary>
         /// Helper function to create an eightballshield around the ship

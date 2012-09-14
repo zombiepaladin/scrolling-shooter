@@ -11,7 +11,8 @@ namespace ScrollingShooter
     {
         None = 0,
         Fireball = 0x1,
-        EightBallShield = 0x2,
+        Blades = 0x2,
+        EightBallShield = 0x4,
         TriShield = 0x128
     }
 

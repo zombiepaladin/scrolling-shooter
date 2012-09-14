@@ -11,6 +11,7 @@ namespace ScrollingShooter
         // Player projectiles
         Bullet,
         Fireball,
+        Blades,
         TrishieldBall,
 
         // Enemy projectiles start with an index of 100;

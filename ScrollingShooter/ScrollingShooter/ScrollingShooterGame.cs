@@ -61,6 +61,7 @@ namespace ScrollingShooter
             //player.ApplyPowerup(PowerupType.Fireball);
 
             GameObjectManager.CreateEnemy(EnemyType.Dart, new Vector2(200, 200));
+            
         }
 
         /// <summary>
@@ -103,6 +104,16 @@ namespace ScrollingShooter
                     {
                         player.ApplyPowerup(powerup.Type);
                         GameObjectManager.DestroyObject(colliderID);
+                    }
+
+                    //NOTE: Apply to more than the kamikaze enemy?
+                    // Process kamakaze collisions
+                    Enemy enemy = collider as Enemy;
+                    if (enemy != null && enemy.GetType() == typeof(Kamikaze))
+                    {
+                        //Player take damage
+                        GameObjectManager.DestroyObject(colliderID);
+                        GameObjectManager.CreateExplosion(colliderID);
                     }
 
                 }

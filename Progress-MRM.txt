@@ -9,6 +9,7 @@ Stardate 66168.4:
 -zutsori 1 and 2.
 -jshaw2 1 and 2.
 -nstanley 1 and 2. (doesn't seem to implement freezewave in the playership class. Gonna leave that alone for now. Also grabbed a few references to his next lava enemy)
+-malinajirka 1 and 2. (modified by making a new enum projectile value: enemybomb)
 
 
 Still to commit:
@@ -19,4 +20,3 @@ Still to commit:
 -abelli (has merge errors)
 -dkellycollins
 -drymph
--malinajirka

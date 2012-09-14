@@ -18,6 +18,7 @@ namespace ScrollingShooter
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        
 
         public static GameObjectManager GameObjectManager;
         
@@ -136,7 +137,6 @@ namespace ScrollingShooter
             float elapsedGameTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
             
             spriteBatch.Begin();
-
             GameObjectManager.Draw(elapsedGameTime, spriteBatch);
 
 

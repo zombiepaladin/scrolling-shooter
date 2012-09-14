@@ -19,6 +19,7 @@ namespace ScrollingShooter
         EnergyBlast = 64,
         TriShield = 128,
         Freezewave = 256,
+        Bomb = 512,
     }
 
     /// <summary>

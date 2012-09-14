@@ -294,6 +294,10 @@ namespace ScrollingShooter
                     powerup = new EnergyBlastPowerup(id, content, position);
                     break;
 
+                case PowerupType.Bomb:
+                    powerup = new BombPowerUp(id, content, position);
+                    break;
+
                 default:
                     throw new NotImplementedException("The powerup type " + Enum.GetName(typeof(ProjectileType), powerupType) + " is not supported");
             }
@@ -322,6 +326,9 @@ namespace ScrollingShooter
 
                 case ProjectileType.Fireball:
                     projectile = new Fireball(id, content, position);
+                    break;
+                case ProjectileType.Bomb:
+                    projectile = new Bomb(id, content, position, true);
                     break;
                 case ProjectileType.Blades:
                     projectile = new Blades(id, content);
@@ -404,6 +411,9 @@ namespace ScrollingShooter
 
                     projectile = new EnemyBullet(id, content, position, bulletVel * toPlayer);
                     break;
+                case ProjectileType.EnemyBomb:
+                    projectile = new Bomb(id, content, position, false);
+                    break;
                 default:
                     throw new NotImplementedException("The projectile type " + Enum.GetName(typeof(ProjectileType), projectileType) + " is not supported");
             }
@@ -452,6 +462,9 @@ namespace ScrollingShooter
             {
                 case EnemyType.Dart:
                     enemy = new Dart(id, content, position);
+                    break;
+                case EnemyType.Bomber:
+                    enemy = new Bomber(id, content, position);
                     break;
                 case EnemyType.Arrow:
                     enemy = new Arrow(id, content, position);

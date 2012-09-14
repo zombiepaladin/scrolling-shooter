@@ -11,6 +11,7 @@ namespace ScrollingShooter
         // Player projectiles
         Bullet,
         Fireball,
+        Bomb,
         Frostball,
         Blades,
         TrishieldBall,
@@ -25,6 +26,7 @@ namespace ScrollingShooter
         TurretFireball = 102,
         EnemyBullet = 103,
         ArrowProjectile = 104,
+        EnemyBomb = 105,
         GenericEnemyBullet = 109,
     }
 
@@ -76,6 +78,7 @@ namespace ScrollingShooter
         {
             position += velocity * elapsedTime;
         }
+
 
         /// <summary>
         /// Draws the projectile on-screen

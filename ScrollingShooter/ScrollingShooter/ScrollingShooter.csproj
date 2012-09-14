@@ -107,6 +107,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Enemies\Bomber.cs" />
     <Compile Include="Enemies\Arrow.cs" />
     <Compile Include="Enemies\beamShip.cs" />
     <Compile Include="Effects\Explosion.cs" />
@@ -135,6 +136,8 @@
     <Compile Include="Projectiles\BirdCrap.cs" />
     <Compile Include="Powerups\DroneWavePowerup.cs" />
     <Compile Include="Powerups\EnergyBlastPowerup.cs" />
+    <Compile Include="Powerups\BombPowerUp.cs" />
+    <Compile Include="Projectiles\Bomb.cs" />
     <Compile Include="Projectiles\Bullet.cs" />
     <Compile Include="Projectiles\EnemyBullet.cs" />
     <Compile Include="Projectiles\EnergyBlast.cs" />

@@ -8,7 +8,6 @@ Content\Spritesheets\eightballshield.xnb
 Content\Spritesheets\EBullet.xnb
 Content\Spritesheets\birdcrapsprite.xnb
 Content\Spritesheets\newsh#.shp.000000.xnb
-Content\Spritesheets\newsh$.shp.000000.xnb
 Content\Spritesheets\newsh(.shp.000000.xnb
 Content\Spritesheets\newsh@.shp.000000.xnb
 Content\Spritesheets\newsh0.shp.000000.xnb
@@ -16,7 +15,6 @@ Content\Spritesheets\newsh1.shp.000000.xnb
 Content\Spritesheets\newsh2.shp.000000.xnb
 Content\Spritesheets\newsh4.shp.000000.xnb
 Content\Spritesheets\newsh5.shp.000000.xnb
-Content\Spritesheets\newsh6.shp.000000.xnb
 Content\Spritesheets\newsh7.shp.000000.xnb
 Content\Spritesheets\newsh8.shp.000000.xnb
 Content\Spritesheets\newsh9.shp.000000.xnb
@@ -42,9 +40,11 @@ Content\Spritesheets\newshu.shp.000000.xnb
 Content\Spritesheets\newshv.shp.000000.xnb
 Content\Spritesheets\newsh^.shp.000000.xnb
 Content\Spritesheets\tyrian.shp.000000.xnb
-Content\Spritesheets\tyrian.shp.01673F.xnb
-Content\Spritesheets\tyrian.shp.01D8A7.xnb
-Content\Spritesheets\tyrian.shp.007D3C.xnb
 Content\Spritesheets\tyrian.shp.010008.xnb
-Content\Spritesheets\newshf.shp.000000.xnb
+Content\Spritesheets\tyrian.shp.01673F.xnb
 Content\Spritesheets\newsh3.shp.000000.xnb
+Content\Spritesheets\tyrian.shp.01D8A7.xnb
+Content\Spritesheets\newsh$.shp.000000.xnb
+Content\Spritesheets\newshf.shp.000000.xnb
+Content\Spritesheets\tyrian.shp.007D3C.xnb
+Content\Spritesheets\newsh6.shp.000000.xnb

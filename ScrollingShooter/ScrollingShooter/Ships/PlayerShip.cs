@@ -36,6 +36,7 @@ namespace ScrollingShooter
         /// Timer for the default gun
         /// </summary>
         public float defaultGunTimer = 5;
+        float bombTimer = 1.5f;
 
         //Timer for how longs the blades have been active.
         float bladesPowerupTimer = 0;
@@ -140,6 +141,7 @@ namespace ScrollingShooter
             defaultGunTimer += elapsedTime;
             bladesPowerupTimer += elapsedTime;
             energyBlastTimer -= elapsedTime;
+            bombTimer += elapsedTime;
 
             // Steer the ship up or down according to user input
             if(currentKeyboardState.IsKeyDown(Keys.Up))
@@ -183,7 +185,19 @@ namespace ScrollingShooter
                     steeringState = SteeringState.Right;
                 }
             }
-
+            // Fire bomb
+            if (currentKeyboardState.IsKeyDown(Keys.B))
+            {
+                //checks if player has the bomb power up
+                if ((PowerupType & PowerupType.Bomb) > 0)
+                {
+                    if (bombTimer > 1.5f)
+                    {
+                        ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.Bomb, position);
+                        bombTimer = 0f;
+                    }
+                }
+            }
             if (bladesPowerupTimer > 10.0f && (PowerupType & PowerupType.Blades) > 0)
             {
                 unApplyBlades();
@@ -235,6 +249,8 @@ namespace ScrollingShooter
                     {
                         TriggerBirdcrap();
                     }
+                     if ((PowerupType & PowerupType.Bomb) > 0)
+                        TriggerBomb();
                 }
             }
                     
@@ -261,6 +277,10 @@ namespace ScrollingShooter
         void TriggerFireball()
         {
             ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.Fireball, position);
+        }
+        void TriggerBomb()
+        {
+            // TODO: Fire Bomb
         }
                 /// <summary>
         /// A helper that fires birdcrap from the ship. Coraspondes to the birdcrap power up.

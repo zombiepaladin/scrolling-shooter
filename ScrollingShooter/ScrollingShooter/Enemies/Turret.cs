@@ -43,7 +43,7 @@ namespace ScrollingShooter
         /// </summary>
         /// <param name="content">Content Manager</param>
         /// <param name="position">The turrets sitting position.</param>
-        public Turret(ContentManager content, Vector2 position)
+        public Turret(uint id, ContentManager content, Vector2 position) : base (id)
         {
             this.position = position;
 
@@ -122,7 +122,7 @@ namespace ScrollingShooter
                 // Turret firing speed can be adjusted here.
                 if (turretGunTimer > 1.75f)
                 {
-                    ScrollingShooterGame.Game.projectiles.Add(new TurretFireball(ScrollingShooterGame.Game.Content, position));
+                    ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.TurretFireball, new Vector2(position.X, position.Y));
                     turretGunTimer = 0f;
                 }
 

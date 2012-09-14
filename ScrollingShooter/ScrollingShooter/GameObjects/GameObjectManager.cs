@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -334,6 +334,10 @@ namespace ScrollingShooter
             {
                 case EnemyType.Dart:
                     enemy = new Dart(id, content, position);
+                    break;
+
+                case EnemyType.BladeSpinner:
+                    enemy = new BladeSpinner(id, content, position);
                     break;
 
                 case EnemyType.DeerTickDown:

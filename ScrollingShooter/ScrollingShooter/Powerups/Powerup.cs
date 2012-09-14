@@ -17,8 +17,8 @@ namespace ScrollingShooter
         Birdcrap = 16,
         DroneWave = 32,
         EnergyBlast = 64,
-        TriShield = 128
-        Freezewave = 0x32,
+        TriShield = 128,
+        Freezewave = 256,
     }
 
     /// <summary>

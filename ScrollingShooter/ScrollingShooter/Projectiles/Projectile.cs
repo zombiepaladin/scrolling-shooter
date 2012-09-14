@@ -11,7 +11,6 @@ namespace ScrollingShooter
         // Player projectiles
         Bullet,
         Fireball,
-        ArrowProjectile,
         Frostball,
         Blades,
         TrishieldBall,
@@ -25,7 +24,8 @@ namespace ScrollingShooter
         EBullet = 101,
         TurretFireball = 102,
         EnemyBullet = 103,
-        GenericEnemyBullet = 109
+        ArrowProjectile = 104,
+        GenericEnemyBullet = 109,
     }
 
     /// <summary>

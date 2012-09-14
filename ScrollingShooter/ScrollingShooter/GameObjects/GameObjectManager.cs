@@ -456,9 +456,6 @@ namespace ScrollingShooter
                 case EnemyType.Arrow:
                     enemy = new Arrow(id, content, position);
                     break;
-                case EnemyType.LavaFighter:
-                    enemy = new LavaFighter(id, content, position);
-                    break;
                 case EnemyType.StdBaddy:
                     enemy = new StdBaddy(id, content, position);
                     break;

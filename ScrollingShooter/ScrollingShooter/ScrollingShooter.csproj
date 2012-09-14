@@ -114,7 +114,6 @@
     <Compile Include="Enemies\DeerTick.cs" />
     <Compile Include="Enemies\Dart.cs" />
     <Compile Include="Enemies\Enemy.cs" />
-    <Compile Include="Enemies\LavaFighter.cs" />
     <Compile Include="Enemies\JTurret.cs" />
     <Compile Include="Enemies\Turret.cs" />
     <Compile Include="Enemies\StdBaddy.cs" />

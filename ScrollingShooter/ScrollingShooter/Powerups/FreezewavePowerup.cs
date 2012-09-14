@@ -13,6 +13,7 @@ namespace ScrollingShooter
         /// <param name="position">Where the powerup is drawn on screen</param>
         public FreezewavePowerup(uint id, ContentManager contentManager, Vector2 position) : base(id)
         {
+            this.type = PowerupType.Freezewave;
             this.spriteSource = new Rectangle(168, 114, 23, 23);
             this.spriteSheet = contentManager.Load<Texture2D>("Spritesheets/tyrian.shp.010008");
             this.spriteBounds = new Rectangle((int)position.X, (int)position.Y, 23, 23);

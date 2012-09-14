@@ -11,7 +11,11 @@ namespace ScrollingShooter
         // Player projectiles
         Bullet,
         Fireball,
+<<<<<<< HEAD
         ShotgunBullet
+=======
+
+>>>>>>> upstream/master
         // Enemy projectiles start with an index of 100;
         // this allows us to differentiate between projectiles
         // without needing a second base class

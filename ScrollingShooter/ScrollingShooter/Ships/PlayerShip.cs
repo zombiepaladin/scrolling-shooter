@@ -206,6 +206,7 @@ namespace ScrollingShooter
         void TriggerFireball()
         {
             ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.Fireball, position);
+<<<<<<< HEAD
         }
 
         /// <summary>
@@ -215,6 +216,8 @@ namespace ScrollingShooter
         void TriggerShotgun()
         {
             ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.ShotgunBullet, position);
+=======
+>>>>>>> upstream/master
         }
     }
 }

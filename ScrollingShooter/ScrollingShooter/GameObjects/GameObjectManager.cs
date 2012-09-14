@@ -260,9 +260,12 @@ namespace ScrollingShooter
                 case PowerupType.Fireball:
                     powerup = new FireballPowerup(id, content, position);
                     break;
+<<<<<<< HEAD
                 case PowerupType.ShotgunPowerup:
                     powerup = new ShotgunPowerup(id, content, position);
                     break;
+=======
+>>>>>>> upstream/master
 
                 default:
                     throw new NotImplementedException("The powerup type " + Enum.GetName(typeof(ProjectileType), powerupType) + " is not supported");
@@ -294,6 +297,7 @@ namespace ScrollingShooter
                     projectile = new Fireball(id, content, position);
                     break;
 
+<<<<<<< HEAD
                 case ProjectileType.ShotgunBullet:
                     projectile = new ShotgunBullet(id, content, position, BulletDirection.Straight);
                     QueueGameObjectForCreation(new ShotgunBullet(NextID(), content, position, BulletDirection.Left));
@@ -302,6 +306,8 @@ namespace ScrollingShooter
                     QueueGameObjectForCreation(new ShotgunBullet(NextID(), content, position, BulletDirection.HardRight));
                     break;
 
+=======
+>>>>>>> upstream/master
                 default:
                     throw new NotImplementedException("The projectile type " + Enum.GetName(typeof(ProjectileType), projectileType) + " is not supported");
             }

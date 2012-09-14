@@ -11,7 +11,10 @@ namespace ScrollingShooter
     {
         None = 0,
         Fireball = 0x1,
+<<<<<<< HEAD
         ShotgunPowerup = 0x2,
+=======
+>>>>>>> upstream/master
     }
 
     /// <summary>

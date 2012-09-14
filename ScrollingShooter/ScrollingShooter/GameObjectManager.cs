@@ -301,6 +301,33 @@ namespace ScrollingShooter
         }
 
         /// <summary>
+        /// Factory method to create a powerup object.
+        /// </summary>
+        /// <param name="powerupType">What powerup to create.</param>
+        /// <param name="position">Starting position of the powerup.</param>
+        /// <returns>A reference to th newly created powerup.</returns>
+        public Powerup CreatePowerup(PowerupType powerupType, Vector2 position)
+        {
+            Powerup powerup;
+            uint id = NextID();
+
+            switch (powerupType)
+            {
+                case PowerupType.BubbleBeam:
+                    powerup = new BubbleBeamPowerup(id, content, position);
+                    break;
+                case PowerupType.Fireball:
+                    powerup = new FireballPowerup(id, content, position);
+                    break;
+                default:
+                    throw new Exception("Unexpected powerup type.");
+            }
+
+            QueueGameObjectForCreation(powerup);
+            return powerup;
+        }
+
+        /// <summary>
         /// Factory method to create a player ship
         /// </summary>
         /// <param name="playerShipType">The type of player ship to create</param>

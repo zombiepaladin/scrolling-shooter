@@ -61,13 +61,6 @@ namespace ScrollingShooter
             //player.ApplyPowerup(PowerupType.Fireball);
 
             GameObjectManager.CreateEnemy(EnemyType.Dart, new Vector2(200, 200));
-
-            //Create 2 of the 3 Deer Tick types to demonstrate what they do.
-            GameObjectManager.CreateEnemy(EnemyType.DeerTickDown, new Vector2(100, 0));
-            GameObjectManager.CreateEnemy(EnemyType.DeerTickLeft, new Vector2(400, 300));
-
-            //Add in a trishield powerup here so it'll be drawn on the screen
-            GameObjectManager.CreatePowerup(PowerupType.TriShield, new Vector2(300, 200));
         }
 
         /// <summary>

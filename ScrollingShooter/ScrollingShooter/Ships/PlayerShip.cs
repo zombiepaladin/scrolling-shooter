@@ -26,17 +26,6 @@ namespace ScrollingShooter
     }
 
     /// <summary>
-    /// Represents all the possible powerups our ship might pick up; uses
-    /// a bitmask so multiple powerups can be represented with a single variable
-    /// </summary>
-    public enum Powerups
-    {
-        None = 0,
-        Fireball = 0x1,
-        TriShield = 0x128
-    }
-
-    /// <summary>
     /// A base class for all player ships
     /// </summary>
     public abstract class PlayerShip : GameObject

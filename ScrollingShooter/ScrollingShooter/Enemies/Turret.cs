@@ -1,4 +1,4 @@
-﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 
@@ -122,7 +122,7 @@ namespace ScrollingShooter
                 // Turret firing speed can be adjusted here.
                 if (turretGunTimer > 1.75f)
                 {
-                    ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.TurretFireball, new Vector2(position.X, position.Y));
+                    ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.TurretFireball, position);
                     turretGunTimer = 0f;
                 }
 

@@ -16,6 +16,7 @@ namespace ScrollingShooter
         Frostball = 8,
         Birdcrap = 16,
         DroneWave = 32,
+        EnergyBlast = 64,
         TriShield = 128
     }
 

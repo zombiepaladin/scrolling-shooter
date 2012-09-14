@@ -61,7 +61,7 @@ namespace ScrollingShooter
             //player.ApplyPowerup(PowerupType.Fireball);
 
             GameObjectManager.CreateEnemy(EnemyType.Dart, new Vector2(200, 200));
-            
+
         }
 
         /// <summary>
@@ -138,6 +138,7 @@ namespace ScrollingShooter
             spriteBatch.Begin();
 
             GameObjectManager.Draw(elapsedGameTime, spriteBatch);
+
 
             spriteBatch.End();
 

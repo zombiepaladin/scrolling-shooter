@@ -113,6 +113,7 @@
     <Compile Include="Enemies\DeerTick.cs" />
     <Compile Include="Enemies\Dart.cs" />
     <Compile Include="Enemies\Enemy.cs" />
+    <Compile Include="Enemies\JTurret.cs" />
     <Compile Include="Enemies\Turret.cs" />
     <Compile Include="Enemies\StdBaddy.cs" />
     <Compile Include="Enemies\Kamikaze.cs" />
@@ -130,7 +131,10 @@
     <Compile Include="Powerups\BirdcrapPowerup.cs" />
     <Compile Include="Projectiles\BirdCrap.cs" />
     <Compile Include="Powerups\DroneWavePowerup.cs" />
+    <Compile Include="Powerups\EnergyBlastPowerup.cs" />
     <Compile Include="Projectiles\Bullet.cs" />
+    <Compile Include="Projectiles\EnemyBullet.cs" />
+    <Compile Include="Projectiles\EnergyBlast.cs" />
     <Compile Include="Projectiles\DroneWave.cs" />
     <Compile Include="Projectiles\EBullet.cs" />
     <Compile Include="Projectiles\GenericEnemyBullet.cs" />

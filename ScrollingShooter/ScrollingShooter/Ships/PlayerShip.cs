@@ -31,10 +31,25 @@ namespace ScrollingShooter
     /// </summary>
     public abstract class PlayerShip : GameObject
     {
-        float defaultGunTimer = 0;
+        // Timers
+        /// <summary>
+        /// Timer for the default gun
+        /// </summary>
+        public float defaultGunTimer = 5;
 
         //Timer for how longs the blades have been active.
         float bladesPowerupTimer = 0;
+
+        /// <summary>
+        /// Timer for the energy blast gun
+        /// </summary>
+        public float energyBlastTimer = 0;
+
+        // Powerup Levels
+        /// <summary>
+        /// Level of the energy blast powerup
+        /// </summary>
+        public int energyBlastLevel = 0;
 
         /// <summary>
         /// The velocity of the ship - varies from ship to ship
@@ -124,6 +139,7 @@ namespace ScrollingShooter
             // Update timers
             defaultGunTimer += elapsedTime;
             bladesPowerupTimer += elapsedTime;
+            energyBlastTimer -= elapsedTime;
 
             // Steer the ship up or down according to user input
             if(currentKeyboardState.IsKeyDown(Keys.Up))
@@ -172,6 +188,10 @@ namespace ScrollingShooter
             {
                 unApplyBlades();
             }
+            
+            // Used to test the energy blast powerup levels
+            //if (currentKeyboardState.IsKeyDown(Keys.F) && oldKeyboardState.IsKeyUp(Keys.F))
+            //    energyBlastLevel++;
 
             if ((PowerupType & PowerupType.Blades) == 0)
             {
@@ -185,6 +205,15 @@ namespace ScrollingShooter
                         ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.Bullet, position);
                         defaultGunTimer = 0f;
                     }
+                        
+                    // Energy Blast Gun
+                    if (((PowerupType & PowerupType.EnergyBlast) > 0) && energyBlastTimer < 0)
+                    {
+                        TriggerEnergyBlast();
+                    }
+                    
+                    // store the current keyboard state for next frame
+                    oldKeyboardState = currentKeyboardState;
 
                     // Fire-once weapons
                     if (oldKeyboardState.IsKeyUp(Keys.Space))
@@ -272,6 +301,7 @@ namespace ScrollingShooter
             this.velocity /= 2;
             bladesPowerupTimer = 0;
             //TO DO: make player vulerable again, since not implemented yet.
+
         }
 
 
@@ -299,6 +329,36 @@ namespace ScrollingShooter
         void TriggerDroneWave()
         {
             ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.DroneWave, new Vector2(position.X, position.Y));
+        }
+
+        /// <summary>
+        /// A helper function that fires an energy blast from the ship, 
+        /// corresponding to the energy blast powerup
+        /// </summary>
+        void TriggerEnergyBlast()
+        {
+            // Set the offset depending on which sprite we are using, note blastWidth is the sprite's width/2 as found in the EnergyBlast class
+            int blastWidth = 4;
+            energyBlastTimer = 0.5f;
+            if (energyBlastLevel == 1)
+            {
+                blastWidth = 6;
+                energyBlastTimer = 0.4f;
+            }
+            else if (energyBlastLevel == 2)
+            {
+                blastWidth = 5;
+                energyBlastTimer = 0.3f;
+            }
+            else if (energyBlastLevel >= 3)
+            {
+                blastWidth = 11;
+                energyBlastTimer = 0.25f;
+            }
+            Vector2 position = new Vector2(this.position.X + this.Bounds.Width / 2 - blastWidth, this.position.Y);
+
+            ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.EnergyBlast, position);
+            //ScrollingShooterGame.Game.projectiles.Add(new EnergyBlast(ScrollingShooterGame.Game.Content, position, energyBlastLevel));
         }
     }
 }

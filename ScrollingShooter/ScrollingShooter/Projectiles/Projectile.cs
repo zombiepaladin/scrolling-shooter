@@ -16,12 +16,14 @@ namespace ScrollingShooter
         TrishieldBall,
         BirdCrap,
         DroneWave,
+        EnergyBlast,
         // Enemy projectiles start with an index of 100;
         // this allows us to differentiate between projectiles
         // without needing a second base class
         BlueBeam = 100,
         EBullet = 101,
         TurretFireball = 102,
+        EnemyBullet = 103,
         GenericEnemyBullet = 109
     }
 

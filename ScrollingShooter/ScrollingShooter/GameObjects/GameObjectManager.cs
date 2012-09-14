@@ -287,6 +287,10 @@ namespace ScrollingShooter
                     powerup = new BirdcrapPowerup(id, content, position);
                     break;
 
+                case PowerupType.EnergyBlast:
+                    powerup = new EnergyBlastPowerup(id, content, position);
+                    break;
+
                 default:
                     throw new NotImplementedException("The powerup type " + Enum.GetName(typeof(ProjectileType), powerupType) + " is not supported");
             }
@@ -375,6 +379,24 @@ namespace ScrollingShooter
                     projectile = new TurretFireball(id, content, position);
                     break;
 
+                case ProjectileType.EnergyBlast:
+
+                    projectile = new EnergyBlast(id, content, position, ScrollingShooterGame.Game.player.energyBlastLevel);
+                    break;
+                case ProjectileType.EnemyBullet:
+
+                    // Bullet velocity
+                    float bulletVel = 200f;
+
+                    //ScrollingShooterGame.Game.projectiles.Add(new EnemyBullet(ScrollingShooterGame.Game.Content, this.position + offset, bulletVel * toPlayer));
+
+                    Vector2 toPlayer = (new Vector2(ScrollingShooterGame.Game.player.Bounds.Center.X,
+                        ScrollingShooterGame.Game.player.Bounds.Center.Y) - position);
+
+                    toPlayer.Normalize();
+
+                    projectile = new EnemyBullet(id, content, position, bulletVel * toPlayer);
+                    break;
                 default:
                     throw new NotImplementedException("The projectile type " + Enum.GetName(typeof(ProjectileType), projectileType) + " is not supported");
             }
@@ -456,6 +478,10 @@ namespace ScrollingShooter
                 
                 case EnemyType.Turret:
                     enemy = new Turret(id, content, position);
+                    break;
+
+                case EnemyType.JTurret:
+                    enemy = new JTurret(id, content, position);
                     break;
 
                 default:

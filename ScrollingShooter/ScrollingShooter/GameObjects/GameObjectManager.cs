@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -260,6 +260,9 @@ namespace ScrollingShooter
                 case PowerupType.Fireball:
                     powerup = new FireballPowerup(id, content, position);
                     break;
+                case PowerupType.EightBallShield: //added EightBallShield
+                    powerup = new EightBallShieldPowerup(id, content, position);
+                    break;
 
                 case PowerupType.TriShield:
                     powerup = new TriShieldPowerup(id, content, position);
@@ -318,7 +321,31 @@ namespace ScrollingShooter
             return projectile;
         }
 
+        /// <summary>
+        /// Factory method for spawning a shield
+        /// </summary>
+        /// <param name="shieldType">The type of shield to create</param>
+        /// <param name="position">Position of the shield in the game world</param>
+        /// <param name="playerShip">The Player</param>
+        /// <returns>The game object id of the projectile</returns>
+        public Shield CreateShield(ShieldType shieldType, Vector2 position,
+            PlayerShip playerShip)
+        {
+            Shield shield;
+            uint id = NextID();
 
+            switch (shieldType)
+            {
+                case ShieldType.EightBallShield:
+                    shield = new EightBallShield(id, content, position, playerShip);
+                    break;
+                default:
+                    throw new NotImplementedException("EightBallShield failed.");
+            }
+
+            QueueGameObjectForCreation(shield);
+            return shield;
+        }
         /// <summary>
         /// Factory method for spawning enemies.
         /// </summary>
@@ -334,6 +361,9 @@ namespace ScrollingShooter
             {
                 case EnemyType.Dart:
                     enemy = new Dart(id, content, position);
+                    break;
+                case EnemyType.Panzer:
+                    enemy = new Panzer(id, content, position);
                     break;
 
                 case EnemyType.BladeSpinner:

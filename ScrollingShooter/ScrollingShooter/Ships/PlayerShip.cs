@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
+using System;
 
 namespace ScrollingShooter
 {
@@ -91,13 +92,20 @@ namespace ScrollingShooter
         {
             // Store the new powerup in the PowerupType bitmask
             this.PowerupType |= powerup;
-
             switch (powerup)
             {
+                case PowerupType.Fireball:
+                    break;
+                case PowerupType.EightBallShield:
+                    TriggerEightBallShield();
+                    break;
                 case PowerupType.TriShield:
                     ApplyTriShield();
                     break;
+                default:
+                    throw new NotImplementedException("Apply Powerup has crashed.");
             }
+
         }
 
 
@@ -205,6 +213,14 @@ namespace ScrollingShooter
         void TriggerFireball()
         {
             ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.Fireball, position);
+        }
+
+        /// <summary>
+        /// Helper function to create an eightballshield around the ship
+        /// </summary>
+        void TriggerEightBallShield()
+        {
+            ScrollingShooterGame.GameObjectManager.CreateShield(ShieldType.EightBallShield, position, this);
         }
 
         /// <summary>

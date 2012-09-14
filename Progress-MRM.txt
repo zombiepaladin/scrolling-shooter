@@ -4,12 +4,12 @@ Stardate 66168.4:
 -Added mahart assignment 2 (but not 1. Still, it looks like it added the files for it, just not the implementation)
 -Added jzavala 1 and 2.
 -Added xrt1986 1 and 2.
+-Khrijunk 1 and 2.
 
 
 Still to commit:
--Versaiteis
--barg5633
--Khrijunk
+-Versaiteis (has merge errors)
+-barg5633 (has merge errors)
 -everix1992
 -Borzen
 -sfike

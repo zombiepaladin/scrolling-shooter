@@ -241,7 +241,7 @@ namespace ScrollingShooter
             switch (playerShipType)
             {
                 case PlayerShipType.Shrike:
-                    playerShip = new ShrikeShip(id, content);
+                    playerShip = new ShrikeShip(id, content, position);
                     break;
 
                 default:
@@ -313,6 +313,14 @@ namespace ScrollingShooter
                     projectile = new Blades(id, content);
                     break;
 
+                case ProjectileType.Frostball:
+                    projectile = new Frostball(id, content, position);
+                    break;
+
+                case ProjectileType.BlueBeam:
+                    projectile = new blueBeam(id, content, position);
+                    break;
+
                     //This method doesn't fit the trishield very well, so this code is a bit poor in quality.
                 case ProjectileType.TrishieldBall:
                     for (int i = 0; i < 2; i++)
@@ -376,6 +384,10 @@ namespace ScrollingShooter
             {
                 case EnemyType.Dart:
                     enemy = new Dart(id, content, position);
+                    break;
+
+                case EnemyType.beamShip:
+                    enemy = new beamShip(id, content, position);
                     break;
                 case EnemyType.Kamikaze:
                     enemy = new Kamikaze(id, content, position);

@@ -107,6 +107,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Enemies\beamShip.cs" />
     <Compile Include="Effects\Explosion.cs" />
     <Compile Include="Enemies\BladeSpinner.cs" />
     <Compile Include="Enemies\DeerTick.cs" />
@@ -122,9 +123,12 @@
     <Compile Include="Projectiles\Blades.cs" />
     <Compile Include="Powerups\EightBallShieldPowerup.cs" />
     <Compile Include="Powerups\TriShieldPowerup.cs" />
+    <Compile Include="Powerups\FrostballPowerup.cs" />
+    <Compile Include="Projectiles\blueBeam.cs" />
     <Compile Include="Projectiles\Bullet.cs" />
     <Compile Include="Projectiles\GenericEnemyBullet.cs" />
     <Compile Include="Projectiles\Fireball.cs" />
+    <Compile Include="Projectiles\Frostball.cs" />
     <Compile Include="Projectiles\TriShieldBall.cs" />
     <Compile Include="Projectiles\Projectile.cs" />
     <Compile Include="Shields\EightBallShield.cs" />

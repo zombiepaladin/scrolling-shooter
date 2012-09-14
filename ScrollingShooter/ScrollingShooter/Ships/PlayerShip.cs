@@ -102,16 +102,12 @@ namespace ScrollingShooter
                 case PowerupType.Blades:
                     ApplyBlades();
                     break;
-                case PowerupType.Fireball:
-                    break;
                 case PowerupType.EightBallShield:
                     TriggerEightBallShield();
                     break;
                 case PowerupType.TriShield:
                     ApplyTriShield();
                     break;
-                default:
-                    throw new NotImplementedException("Apply Powerup has crashed.");
             }
 
         }
@@ -205,6 +201,9 @@ namespace ScrollingShooter
                         if ((PowerupType & PowerupType.Fireball) > 0)
                             TriggerFireball();
                     }
+
+                    if ((PowerupType & PowerupType.Frostball) > 0)
+                        TriggerFrostball();
                 }
             }
                     
@@ -231,6 +230,15 @@ namespace ScrollingShooter
         void TriggerFireball()
         {
             ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.Fireball, position);
+        }
+
+        /// <summary>
+        /// A helper function that fires a frostball from the ship, 
+        /// corresponding to the frostball powerup
+        /// </summary>
+        void TriggerFrostball()
+        {
+            ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.Frostball, position);
         }
 
         /// <summary>

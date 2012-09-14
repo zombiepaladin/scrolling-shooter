@@ -107,12 +107,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Enemies\Arrow.cs" />
     <Compile Include="Enemies\beamShip.cs" />
     <Compile Include="Effects\Explosion.cs" />
     <Compile Include="Enemies\BladeSpinner.cs" />
     <Compile Include="Enemies\DeerTick.cs" />
     <Compile Include="Enemies\Dart.cs" />
     <Compile Include="Enemies\Enemy.cs" />
+    <Compile Include="Enemies\LavaFighter.cs" />
     <Compile Include="Enemies\JTurret.cs" />
     <Compile Include="Enemies\Turret.cs" />
     <Compile Include="Enemies\StdBaddy.cs" />
@@ -122,6 +124,8 @@
     <Compile Include="GameObjects\CollisionPair.cs" />
     <Compile Include="GameObjects\GameObject.cs" />
     <Compile Include="GameObjects\GameObjectManager.cs" />
+    <Compile Include="Powerups\FreezewavePowerup.cs" />
+    <Compile Include="Projectiles\ArrowProjectile.cs" />
     <Compile Include="Powerups\BladesPowerUp.cs" />
     <Compile Include="Projectiles\Blades.cs" />
     <Compile Include="Powerups\EightBallShieldPowerup.cs" />
@@ -139,6 +143,7 @@
     <Compile Include="Projectiles\EBullet.cs" />
     <Compile Include="Projectiles\GenericEnemyBullet.cs" />
     <Compile Include="Projectiles\Fireball.cs" />
+    <Compile Include="Projectiles\FreezewaveProjectile.cs" />
     <Compile Include="Projectiles\Frostball.cs" />
     <Compile Include="Projectiles\TriShieldBall.cs" />
     <Compile Include="Projectiles\Projectile.cs" />

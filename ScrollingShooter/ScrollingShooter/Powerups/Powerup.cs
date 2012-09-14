@@ -18,6 +18,7 @@ namespace ScrollingShooter
         DroneWave = 32,
         EnergyBlast = 64,
         TriShield = 128
+        Freezewave = 0x32,
     }
 
     /// <summary>

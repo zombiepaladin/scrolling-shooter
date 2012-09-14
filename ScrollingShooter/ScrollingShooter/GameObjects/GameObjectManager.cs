@@ -269,6 +269,9 @@ namespace ScrollingShooter
                 case PowerupType.Fireball:
                     powerup = new FireballPowerup(id, content, position);
                     break;
+                case PowerupType.Freezewave:
+                    powerup = new FreezewavePowerup(id, content, position);
+                    break;
                 case PowerupType.Blades:
                     powerup = new BladesPowerup(id, content, position);
                     break;
@@ -322,6 +325,10 @@ namespace ScrollingShooter
                     break;
                 case ProjectileType.Blades:
                     projectile = new Blades(id, content);
+                    break;
+
+                case ProjectileType.ArrowProjectile:
+                    projectile = new ArrowProjectile(id, content, position);
                     break;
 
                 case ProjectileType.BirdCrap:
@@ -445,6 +452,12 @@ namespace ScrollingShooter
             {
                 case EnemyType.Dart:
                     enemy = new Dart(id, content, position);
+                    break;
+                case EnemyType.Arrow:
+                    enemy = new Arrow(id, content, position);
+                    break;
+                case EnemyType.LavaFighter:
+                    enemy = new LavaFighter(id, content, position);
                     break;
                 case EnemyType.StdBaddy:
                     enemy = new StdBaddy(id, content, position);

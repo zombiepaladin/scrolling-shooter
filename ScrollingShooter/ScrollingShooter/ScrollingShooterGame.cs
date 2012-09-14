@@ -61,7 +61,8 @@ namespace ScrollingShooter
             //player.ApplyPowerup(PowerupType.Fireball);
 
             GameObjectManager.CreateEnemy(EnemyType.Dart, new Vector2(200, 200));
-
+            GameObjectManager.CreateEnemy(EnemyType.Arrow, new Vector2(400, 100));
+            GameObjectManager.CreateEnemy(EnemyType.LavaFighter, new Vector2(300, 300));
         }
 
         /// <summary>

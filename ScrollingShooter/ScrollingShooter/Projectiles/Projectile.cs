@@ -11,6 +11,7 @@ namespace ScrollingShooter
         // Player projectiles
         Bullet,
         Fireball,
+        ArrowProjectile,
         Frostball,
         Blades,
         TrishieldBall,

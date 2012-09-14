@@ -206,7 +206,6 @@ namespace ScrollingShooter
             return id;
         }
 
-
         /// <summary>
         /// Helper method for enqueueing our game object for creation at the 
         /// start of the next update cycle.  
@@ -217,6 +216,32 @@ namespace ScrollingShooter
             createdGameObjects.Enqueue(go);
         }
 
+        /// <summary>
+        /// Factory method to create a powerup object.
+        /// </summary>
+        /// <param name="powerupType">What powerup to create.</param>
+        /// <param name="position">Starting position of the powerup.</param>
+        /// <returns>A reference to th newly created powerup.</returns>
+        public Powerup CreatePowerup(PowerupType powerupType, Vector2 position)
+        {
+            Powerup powerup;
+            uint id = NextID();
+
+            switch (powerupType)
+            {
+                case PowerupType.BubbleBeam:
+                    powerup = new BubbleBeamPowerup(id, content, position);
+                    break;
+                case PowerupType.Fireball:
+                    powerup = new FireballPowerup(id, content, position);
+                    break;
+                default:
+                    throw new NotImplementedException("The powerup type " + Enum.GetName(typeof(ProjectileType), powerupType) + " is not supported");
+            }
+
+            QueueGameObjectForCreation(powerup);
+            return powerup;
+        }
 
         /// <summary>
         /// Factory method to create a player ship
@@ -243,33 +268,6 @@ namespace ScrollingShooter
             return playerShip;
         }
 
-
-        /// <summary>
-        /// Factory method for spawning a projectile
-        /// </summary>
-        /// <param name="projectileType">The type of projectile to create</param>
-        /// <param name="position">The position of the projectile in the game world</param>
-        /// <returns>The game object id of the projectile</returns>
-        public Powerup CreatePowerup(PowerupType powerupType, Vector2 position)
-        {
-            Powerup powerup;
-            uint id = NextID();
-
-            switch (powerupType)
-            {
-                case PowerupType.Fireball:
-                    powerup = new FireballPowerup(id, content, position);
-                    break;
-
-                default:
-                    throw new NotImplementedException("The powerup type " + Enum.GetName(typeof(ProjectileType), powerupType) + " is not supported");
-            }
-
-            QueueGameObjectForCreation(powerup);
-            return powerup;
-        }
-
-
         /// <summary>
         /// Factory method for spawning a projectile
         /// </summary>
@@ -290,7 +288,14 @@ namespace ScrollingShooter
                 case ProjectileType.Fireball:
                     projectile = new Fireball(id, content, position);
                     break;
+                case ProjectileType.BubbleBullet:
+                    projectile = new BubbleBullet(id, content, position);
+                    break;
 
+                case ProjectileType.ToPlayerBullet:
+                    projectile = new ToPlayerBullet(id, content, position);
+                    break;
+                
                 default:
                     throw new NotImplementedException("The projectile type " + Enum.GetName(typeof(ProjectileType), projectileType) + " is not supported");
             }
@@ -316,7 +321,9 @@ namespace ScrollingShooter
                 case EnemyType.Dart:
                     enemy = new Dart(id, content, position);
                     break;
-                
+                case EnemyType.Seed:
+                    enemy = new Seed(id, content, position);
+                    break;
                 default:
                     throw new NotImplementedException("The enemy type " + Enum.GetName(typeof(EnemyType), enemyType) + " is not supported");
             }

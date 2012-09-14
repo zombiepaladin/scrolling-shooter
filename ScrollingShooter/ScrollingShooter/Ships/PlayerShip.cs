@@ -158,9 +158,16 @@ namespace ScrollingShooter
                 label = "";
                 //ScrollingShooterGame.Game.Window.Title = label;
                 // Streaming weapons
-
+                if (this.PowerupType == PowerupType.BubbleBeam)
+                {
+                    if (defaultGunTimer > BubbleBullet.FIRE_INTERVAL_MS)
+                    {
+                        ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.BubbleBullet, position);
+                        defaultGunTimer = 0f;
+                    }
+                }
                 // Default gun
-                if (defaultGunTimer > 0.25f)
+                else if (defaultGunTimer > 0.25f)
                 {
                     ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.Bullet, position);
                     defaultGunTimer = 0f;
@@ -169,7 +176,6 @@ namespace ScrollingShooter
                 // Fire-once weapons
                 if (oldKeyboardState.IsKeyUp(Keys.Space))
                 {
-
                     if ((PowerupType & PowerupType.Fireball) > 0)
                         TriggerFireball();
                 }
@@ -198,6 +204,11 @@ namespace ScrollingShooter
         void TriggerFireball()
         {
             ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.Fireball, position);
+        }
+
+        public Vector2 GetPosition()
+        {
+            return position;
         }
     }
 }

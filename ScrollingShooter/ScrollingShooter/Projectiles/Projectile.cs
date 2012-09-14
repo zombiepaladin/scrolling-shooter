@@ -11,11 +11,23 @@ namespace ScrollingShooter
         // Player projectiles
         Bullet,
         Fireball,
-
+        Bomb,
+        Frostball,
+        Blades,
+        TrishieldBall,
+        BirdCrap,
+        DroneWave,
+        EnergyBlast,
         // Enemy projectiles start with an index of 100;
         // this allows us to differentiate between projectiles
         // without needing a second base class
-
+        BlueBeam = 100,
+        EBullet = 101,
+        TurretFireball = 102,
+        EnemyBullet = 103,
+        ArrowProjectile = 104,
+        EnemyBomb = 105,
+        GenericEnemyBullet = 109,
     }
 
     /// <summary>
@@ -66,6 +78,7 @@ namespace ScrollingShooter
         {
             position += velocity * elapsedTime;
         }
+
 
         /// <summary>
         /// Draws the projectile on-screen

@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
+using System;
 
 namespace ScrollingShooter
 {
@@ -30,7 +31,26 @@ namespace ScrollingShooter
     /// </summary>
     public abstract class PlayerShip : GameObject
     {
-        float defaultGunTimer = 0;
+        // Timers
+        /// <summary>
+        /// Timer for the default gun
+        /// </summary>
+        public float defaultGunTimer = 5;
+        float bombTimer = 1.5f;
+
+        //Timer for how longs the blades have been active.
+        float bladesPowerupTimer = 0;
+
+        /// <summary>
+        /// Timer for the energy blast gun
+        /// </summary>
+        public float energyBlastTimer = 0;
+
+        // Powerup Levels
+        /// <summary>
+        /// Level of the energy blast powerup
+        /// </summary>
+        public int energyBlastLevel = 0;
 
         /// <summary>
         /// The velocity of the ship - varies from ship to ship
@@ -91,6 +111,21 @@ namespace ScrollingShooter
         {
             // Store the new powerup in the PowerupType bitmask
             this.PowerupType |= powerup;
+
+            //Apply special logic for powerups here
+            switch (powerup)
+            {
+                case PowerupType.Blades:
+                    ApplyBlades();
+                    break;
+                case PowerupType.EightBallShield:
+                    TriggerEightBallShield();
+                    break;
+                case PowerupType.TriShield:
+                    ApplyTriShield();
+                    break;
+            }
+
         }
 
 
@@ -104,6 +139,9 @@ namespace ScrollingShooter
 
             // Update timers
             defaultGunTimer += elapsedTime;
+            bladesPowerupTimer += elapsedTime;
+            energyBlastTimer -= elapsedTime;
+            bombTimer += elapsedTime;
 
             // Steer the ship up or down according to user input
             if(currentKeyboardState.IsKeyDown(Keys.Up))
@@ -147,31 +185,72 @@ namespace ScrollingShooter
                     steeringState = SteeringState.Right;
                 }
             }
-
-            // Fire weapons
-            if (currentKeyboardState.IsKeyDown(Keys.Space))
+            // Fire bomb
+            if (currentKeyboardState.IsKeyDown(Keys.B))
             {
-                uint[] ids = ScrollingShooterGame.GameObjectManager.QueryRegion(new Rectangle(0, 0, 100, 100));
-                string label = "";
-                foreach (uint id in ids)
-                    label += id + "-";
-                label = "";
-                //ScrollingShooterGame.Game.Window.Title = label;
-                // Streaming weapons
-
-                // Default gun
-                if (defaultGunTimer > 0.25f)
+                //checks if player has the bomb power up
+                if ((PowerupType & PowerupType.Bomb) > 0)
                 {
-                    ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.Bullet, position);
-                    defaultGunTimer = 0f;
+                    if (bombTimer > 1.5f)
+                    {
+                        ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.Bomb, position);
+                        bombTimer = 0f;
+                    }
                 }
+            }
+            if (bladesPowerupTimer > 10.0f && (PowerupType & PowerupType.Blades) > 0)
+            {
+                unApplyBlades();
+            }
+            
+            // Used to test the energy blast powerup levels
+            //if (currentKeyboardState.IsKeyDown(Keys.F) && oldKeyboardState.IsKeyUp(Keys.F))
+            //    energyBlastLevel++;
 
-                // Fire-once weapons
-                if (oldKeyboardState.IsKeyUp(Keys.Space))
+            if ((PowerupType & PowerupType.Blades) == 0)
+            {
+
+                // Fire weapons
+                if (currentKeyboardState.IsKeyDown(Keys.Space))
                 {
+                    // Default gun
+                    if (defaultGunTimer > 0.25f)
+                    {
+                        ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.Bullet, position);
+                        defaultGunTimer = 0f;
+                    }
+                        
+                    // Energy Blast Gun
+                    if (((PowerupType & PowerupType.EnergyBlast) > 0) && energyBlastTimer < 0)
+                    {
+                        TriggerEnergyBlast();
+                    }
+                    
+                    // store the current keyboard state for next frame
+                    oldKeyboardState = currentKeyboardState;
 
-                    if ((PowerupType & PowerupType.Fireball) > 0)
-                        TriggerFireball();
+                    // Fire-once weapons
+                    if (oldKeyboardState.IsKeyUp(Keys.Space))
+                    {
+
+                        if ((PowerupType & PowerupType.Fireball) > 0)
+                            TriggerFireball();
+
+                         if ((PowerupType & PowerupType.DroneWave) > 0)
+                        {
+                            TriggerDroneWave();
+                        }
+                    }
+
+                    if ((PowerupType & PowerupType.Frostball) > 0)
+                        TriggerFrostball();
+
+                    if ((PowerupType & PowerupType.Birdcrap) > 0)
+                    {
+                        TriggerBirdcrap();
+                    }
+                     if ((PowerupType & PowerupType.Bomb) > 0)
+                        TriggerBomb();
                 }
             }
                     
@@ -198,6 +277,108 @@ namespace ScrollingShooter
         void TriggerFireball()
         {
             ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.Fireball, position);
+        }
+        void TriggerBomb()
+        {
+            // TODO: Fire Bomb
+        }
+                /// <summary>
+        /// A helper that fires birdcrap from the ship. Coraspondes to the birdcrap power up.
+        /// </summary>
+        void TriggerBirdcrap()
+        {
+            //TODO:Create effect and calculations when colides with enemy ship, the event will determin if the enimy is "blind" or if his ship will crash. Also when audio is implemented it will make a pooping sound and splat sounds.
+            ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.BirdCrap, position);
+        }
+
+        /// <summary>
+        /// A helper function that fires a frostball from the ship, 
+        /// corresponding to the frostball powerup
+        /// </summary>
+        void TriggerFrostball()
+        {
+            ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.Frostball, position);
+        }
+
+        /// <summary>
+        /// A helper function that initializes the blades powerup.
+        /// //Puts a giant spinning blade over player position and doubles the players velocity.
+        /// </summary>
+        void ApplyBlades()
+        {
+            ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.Blades, position);
+            this.velocity *= 2;
+            bladesPowerupTimer = 0;
+            //TO DO: make player invulerable for 10 secs, since not implemented yet.
+        }
+
+        /// <summary>
+        /// A helper function that will remove the Blade powerup and restore defaults.
+        /// </summary>
+        void unApplyBlades()
+        {
+            this.PowerupType = this.PowerupType ^= PowerupType.Blades;
+            this.velocity /= 2;
+            bladesPowerupTimer = 0;
+            //TO DO: make player vulerable again, since not implemented yet.
+
+        }
+
+
+        /// <summary>
+        /// Helper function to create an eightballshield around the ship
+        /// </summary>
+        void TriggerEightBallShield()
+        {
+            ScrollingShooterGame.GameObjectManager.CreateShield(ShieldType.EightBallShield, position, this);
+        }
+
+        /// <summary>
+        /// A helper function that initializes the tri-shield.
+        /// Creates three trishield balls.
+        /// </summary>
+        void ApplyTriShield()
+        {
+            //Create three balls, each at different rotations around the ship
+            ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.TrishieldBall, new Vector2(Bounds.Center.X, Bounds.Center.Y));
+        }
+
+        /// <summary>
+        /// A helper function that fires a wide drone wave from the ship, corresponding to the fireball powerup.
+        /// </summary>
+        void TriggerDroneWave()
+        {
+            ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.DroneWave, new Vector2(position.X, position.Y));
+        }
+
+        /// <summary>
+        /// A helper function that fires an energy blast from the ship, 
+        /// corresponding to the energy blast powerup
+        /// </summary>
+        void TriggerEnergyBlast()
+        {
+            // Set the offset depending on which sprite we are using, note blastWidth is the sprite's width/2 as found in the EnergyBlast class
+            int blastWidth = 4;
+            energyBlastTimer = 0.5f;
+            if (energyBlastLevel == 1)
+            {
+                blastWidth = 6;
+                energyBlastTimer = 0.4f;
+            }
+            else if (energyBlastLevel == 2)
+            {
+                blastWidth = 5;
+                energyBlastTimer = 0.3f;
+            }
+            else if (energyBlastLevel >= 3)
+            {
+                blastWidth = 11;
+                energyBlastTimer = 0.25f;
+            }
+            Vector2 position = new Vector2(this.position.X + this.Bounds.Width / 2 - blastWidth, this.position.Y);
+
+            ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.EnergyBlast, position);
+            //ScrollingShooterGame.Game.projectiles.Add(new EnergyBlast(ScrollingShooterGame.Game.Content, position, energyBlastLevel));
         }
     }
 }

@@ -94,6 +94,28 @@ namespace ScrollingShooter
             
             GameObjectManager.Update(elapsedTime);
 
+            // Process collisions
+            foreach (CollisionPair pair in GameObjectManager.Collisions)
+            {
+                // Player collisions
+                if (pair.A == player.ID || pair.B == player.ID)
+                {
+                    uint colliderID = (pair.A == player.ID) ? pair.B : pair.A;
+                    GameObject collider = GameObjectManager.GetObject(colliderID);
+                    
+                    // Process powerup collisions
+                    Powerup powerup = collider as Powerup;
+                    if (powerup != null)
+                    {
+                        player.ApplyPowerup(powerup.Type);
+                        GameObjectManager.DestroyObject(colliderID);
+                    }
+
+                }
+
+
+            }
+
             base.Update(gameTime);
         }
 

@@ -112,6 +112,10 @@
     <Compile Include="Enemies\Seed.cs" />
     <Compile Include="GameObject.cs" />
     <Compile Include="GameObjectManager.cs" />
+    <Compile Include="GameObjects\BoundingBox.cs" />
+    <Compile Include="GameObjects\CollisionPair.cs" />
+    <Compile Include="GameObjects\GameObject.cs" />
+    <Compile Include="GameObjects\GameObjectManager.cs" />
     <Compile Include="Powerups\BubbleBeamPowerup.cs" />
     <Compile Include="Projectiles\BubbleBullet.cs" />
     <Compile Include="Projectiles\Bullet.cs" />

@@ -43,6 +43,15 @@ namespace ScrollingShooter
         }
 
         /// <summary>
+        /// The type of powerup this powerup is
+        /// </summary>
+        protected PowerupType type;
+        public PowerupType Type
+        {
+            get { return type; }
+        }
+
+        /// <summary>
         /// Creates a new instance of a powerup
         /// </summary>
         /// <param name="id">The powerup's unique id</param>
@@ -69,7 +78,7 @@ namespace ScrollingShooter
         /// </param>
         public override void Draw(float elaspedTime, SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(spriteSheet, spriteBounds, spriteSource, Color.White);
+            spriteBatch.Draw(spriteSheet, Bounds, spriteSource, Color.White, 0f, new Vector2(Bounds.Width / 2, Bounds.Height / 2), SpriteEffects.None, 1f);
         }
     }
 }

@@ -14,6 +14,9 @@ namespace ScrollingShooter
         Seed,
     }
 
+    /// <summary>
+    /// A base class for enemies in the game
+    /// </summary>
     public abstract class Enemy : GameObject
     {
         public Enemy(uint id) : base(id) { }

@@ -13,7 +13,7 @@ namespace ScrollingShooter
         /// <param name="content">Content manager to load the spritesheet</param>
         /// <param name="position">Position to spawn at</param>
         /// <param name="power">The power level of this blast</param>
-        public EnergyBlast(ContentManager content, Vector2 position, int power)
+        public EnergyBlast(uint id, ContentManager content, Vector2 position, int power) : base (id)
         {
             this.spriteSheet = content.Load<Texture2D>("Spritesheets/tyrian.shp.01D8A7");
 

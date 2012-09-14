@@ -15,7 +15,7 @@ namespace ScrollingShooter
         /// <param name="content">A ContentManager to load content from</param>
         /// <param name="position">A position on the screen</param>
         /// <param name="velocity">A velocity for the bullet</param>
-        public EnemyBullet(ContentManager content, Vector2 position, Vector2 velocity)
+        public EnemyBullet(uint id, ContentManager content, Vector2 position, Vector2 velocity) : base (id)
         {   
             this.spriteSheet = content.Load<Texture2D>("Spritesheets/tyrian.shp.000000");
 

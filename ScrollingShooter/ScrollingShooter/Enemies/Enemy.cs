@@ -18,6 +18,15 @@ namespace ScrollingShooter
     /// </summary>
     public abstract class Enemy : GameObject
     {
+        /// <summary>
+        /// The enemy's health
+        /// </summary>
+        public float Health;
+
+        /// <summary>
+        /// Constructs a new enemy
+        /// </summary>
+        /// <param name="id">The unique id of the enemy instance</param>
         public Enemy(uint id) : base(id) { }
     }
 }

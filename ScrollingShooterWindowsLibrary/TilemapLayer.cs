@@ -8,7 +8,7 @@
         /// <summary>
         /// The current scrolling offset in the y axis
         /// </summary>
-        public float ScrollOffset = 0;
+        public float ScrollOffset;
 
         /// <summary>
         /// The speed at which this layer scrolls

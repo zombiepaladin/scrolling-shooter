@@ -328,7 +328,18 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Tilemaps\" />
+    <ProjectReference Include="..\..\ScrollingShooterContentPipeline\ScrollingShooterContentPipeline.csproj">
+      <Project>{178E30B3-9F27-4FF1-B6A0-4866B6FA0875}</Project>
+      <Name>ScrollingShooterContentPipeline</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Tilemaps\example.tmx">
+      <Name>example</Name>
+      <Importer>TmxImporter</Importer>
+      <Processor>TilemapProcessor</Processor>
+      <SubType>Designer</SubType>
+    </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />
   <!--  To modify your build process, add your task inside one of the targets below and uncomment it. 

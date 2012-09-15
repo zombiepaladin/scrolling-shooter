@@ -17,8 +17,8 @@ Stardate 66171.1:
 -drymph 1 and 2. (enemy comes from either left or right, so I made 2 enemy types: drillleft and drillright)
 -Versaiteis 2 (included files for 1 but no implementation. Enemy AI is also wonky, needs fixing)
 -barge5633 2 (didn't include 1 at all)
+-everix1992 1 and 2. (enemy doesn't explode)
 
 Still to commit:
--everix1992 (has merge errors)
 -sfike (has merge errors)
 -abelli (has merge errors)

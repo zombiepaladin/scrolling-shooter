@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
 using System;
+using System.Collections.Generic;
 
 namespace ScrollingShooter
 {
@@ -37,7 +38,7 @@ namespace ScrollingShooter
         /// </summary>
         public float defaultGunTimer = 5;
         float bombTimer = 1.5f;
-
+        
         //Timer for how longs the blades have been active.
         float bladesPowerupTimer = 0;
 
@@ -45,6 +46,21 @@ namespace ScrollingShooter
         /// Timer for the energy blast gun
         /// </summary>
         public float energyBlastTimer = 0;
+        
+        /// <summary>
+        /// Timer to adjust refire rate of railgun
+        /// </summary>
+        float railgunTimer = 0;
+
+        /// <summary>
+        /// Rectangle to draw the railgun when the powerup is enabled
+        /// </summary>
+        protected Rectangle railgunSpriteBounds = new Rectangle(146, 55, 8, 33);
+
+        public Rectangle RailgunBounds
+        {
+            get { return new Rectangle((int)(position.X + (Bounds.Width / 2) - 4), (int)(position.Y - (Bounds.Height / 2)), railgunSpriteBounds.Width, railgunSpriteBounds.Height); }
+        }
 
         // Powerup Levels
         /// <summary>
@@ -61,7 +77,7 @@ namespace ScrollingShooter
         /// The position of the ship in the game world.  We use a Vector2 for position 
         /// rather than a Rectangle, as floats allow us to move less than a pixel
         /// </summary>
-        protected Vector2 position;
+        protected Vector2 position = new Vector2(300,300);
 
         /// <summary>
         /// The spritesheet our ship is found upon
@@ -85,6 +101,10 @@ namespace ScrollingShooter
         // The PowerupType equipped on this ship
         PowerupType PowerupType = PowerupType.None;
 
+        /// This drunk status of the ship.  If the bool is true, movements are reversed, and damage is doubled.
+        /// The drunk counter represents how many more frame updates before the player is sober again.
+        bool drunk = false;
+        int drunkCounter = 0;
 
         /// <summary>
         /// The bounding rectangle for the ship.  Generated from the animation frame and the ship's
@@ -99,6 +119,7 @@ namespace ScrollingShooter
         /// <summary>
         /// Creates a new player ship instance
         /// </summary>
+        
         /// <param name="id">the unique id of the player ship</param>
         public PlayerShip(uint id) : base(id) { }
 
@@ -109,6 +130,15 @@ namespace ScrollingShooter
         /// <param name="powerup">the indicated powerup</param>
         public void ApplyPowerup(PowerupType powerup)
         {
+            //Meteor triggers on pickup, no need to store it.
+            //Alternatively, it could be stored and triggered on a custom key
+            //Another alternative - Store it as a once-per-press powerup, and remove it after the first press
+            if ((powerup & PowerupType.MeteorPowerup) > 0)
+            {
+                TriggerMeteor();
+                return;
+            }
+
             // Store the new powerup in the PowerupType bitmask
             this.PowerupType |= powerup;
 
@@ -124,8 +154,10 @@ namespace ScrollingShooter
                 case PowerupType.TriShield:
                     ApplyTriShield();
                     break;
+                case PowerupType.Ale:
+                    GetDrunk();
+                    break;
             }
-
         }
 
 
@@ -142,47 +174,105 @@ namespace ScrollingShooter
             bladesPowerupTimer += elapsedTime;
             energyBlastTimer -= elapsedTime;
             bombTimer += elapsedTime;
+            railgunTimer += elapsedTime;
 
-            // Steer the ship up or down according to user input
-            if(currentKeyboardState.IsKeyDown(Keys.Up))
+            if(!drunk)
             {
-                position.Y -= elapsedTime * velocity.Y;
-            } 
-            else if(currentKeyboardState.IsKeyDown(Keys.Down))
-            {
-                position.Y += elapsedTime * velocity.Y;
+                // Steer the ship up or down according to user input
+                if(currentKeyboardState.IsKeyDown(Keys.Up))
+                {
+                    position.Y -= elapsedTime * velocity.Y;
+                } 
+                else if(currentKeyboardState.IsKeyDown(Keys.Down))
+                {
+                    position.Y += elapsedTime * velocity.Y;
+                }
+
+                // Steer the ship left or right according to user input
+                steeringState = SteeringState.Straight;
+
+                if (currentKeyboardState.IsKeyDown(Keys.Left))
+                {
+                    if (currentKeyboardState.IsKeyDown(Keys.LeftShift) ||
+                        currentKeyboardState.IsKeyDown(Keys.RightShift))
+                    {
+                        steeringState = SteeringState.HardLeft;
+                        position.X -= elapsedTime * 2 * velocity.X;
+
+                    }
+                    else
+                    {
+                        steeringState = SteeringState.Left;
+                        position.X -= elapsedTime * velocity.X;
+                    }
+                }
+                else if (currentKeyboardState.IsKeyDown(Keys.Right))
+                {
+                    if (currentKeyboardState.IsKeyDown(Keys.LeftShift) ||
+                        currentKeyboardState.IsKeyDown(Keys.RightShift))
+                    {
+                        position.X += elapsedTime * 2 * velocity.X;
+                        steeringState = SteeringState.HardRight;
+                    }
+                    else
+                    {
+                        position.X += elapsedTime * velocity.X;
+                        steeringState = SteeringState.Right;
+                    }
+                }
             }
 
-            // Steer the ship left or right according to user input
-            steeringState = SteeringState.Straight;
-
-            if (currentKeyboardState.IsKeyDown(Keys.Left))
+            //Player is drunk and movements are reversed.
+            else
             {
-                if (currentKeyboardState.IsKeyDown(Keys.LeftShift) ||
-                    currentKeyboardState.IsKeyDown(Keys.RightShift))
+                //Decrease drunkCounter and make the player sober if their drunk time is up.
+                drunkCounter--;
+                if (drunkCounter == 0)
                 {
-                    steeringState = SteeringState.HardLeft;
-                    position.X -= elapsedTime * 2 * velocity.X;
+                    SoberUp();
+                }
+                // Steer the ship up or down according to user input
+                if (currentKeyboardState.IsKeyDown(Keys.Up))
+                {
+                    position.Y += elapsedTime * velocity.Y;
+                }
 
-                }
-                else
+                else if (currentKeyboardState.IsKeyDown(Keys.Down))
                 {
-                    steeringState = SteeringState.Left;
-                    position.X -= elapsedTime * velocity.X;
+                    position.Y -= elapsedTime * velocity.Y;
                 }
-            }
-            else if (currentKeyboardState.IsKeyDown(Keys.Right))
-            {
-                if (currentKeyboardState.IsKeyDown(Keys.LeftShift) ||
-                    currentKeyboardState.IsKeyDown(Keys.RightShift))
+
+                // Steer the ship left or right according to user input
+                steeringState = SteeringState.Straight;
+
+                if (currentKeyboardState.IsKeyDown(Keys.Left))
                 {
-                    position.X += elapsedTime * 2 * velocity.X;
-                    steeringState = SteeringState.HardRight;
+                    if (currentKeyboardState.IsKeyDown(Keys.LeftShift) ||
+                        currentKeyboardState.IsKeyDown(Keys.RightShift))
+                    {
+                        steeringState = SteeringState.HardLeft;
+                        position.X += elapsedTime * 2 * velocity.X;
+
+                    }
+                    else
+                    {
+                        steeringState = SteeringState.Left;
+                        position.X += elapsedTime * velocity.X;
+                    }
                 }
-                else
+                else if (currentKeyboardState.IsKeyDown(Keys.Right))
                 {
-                    position.X += elapsedTime * velocity.X;
-                    steeringState = SteeringState.Right;
+                    if (currentKeyboardState.IsKeyDown(Keys.LeftShift) ||
+                        currentKeyboardState.IsKeyDown(Keys.RightShift))
+                    {
+                        position.X -= elapsedTime * 2 * velocity.X;
+                        steeringState = SteeringState.HardRight;
+                    }
+                    else
+                    {
+                        position.X -= elapsedTime * velocity.X;
+                        steeringState = SteeringState.Right;
+                    }
                 }
             }
             // Fire bomb
@@ -213,11 +303,40 @@ namespace ScrollingShooter
                 // Fire weapons
                 if (currentKeyboardState.IsKeyDown(Keys.Space))
                 {
+                    // Streaming weapons
+                    if ((PowerupType & PowerupType.BubbleBeam) > 0)
+                    {
+                        if (defaultGunTimer > BubbleBullet.FIRE_INTERVAL_MS)
+                        {
+                            ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.BubbleBullet, position);
+                            defaultGunTimer = 0f;
+                        }
+                    }
+
+                    // Fires a shotgun shot if the shotgun powerup is active and half a second has passed since the last shot
+                    if ((PowerupType & PowerupType.ShotgunPowerup) > 0 &&
+                             defaultGunTimer > 0.5f)
+                    {
+                        TriggerShotgun();
+                        defaultGunTimer = 0;
+                    }
+
                     // Default gun
                     if (defaultGunTimer > 0.25f)
                     {
                         ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.Bullet, position);
                         defaultGunTimer = 0f;
+                    }
+
+
+                    //Conditionals to fire railgun.
+                    if ((PowerupType & PowerupType.Railgun) > 0)
+                    {
+                        if (railgunTimer > 3.0f)
+                        {
+                            TriggerRailgun();
+                            railgunTimer = 0f;
+                        }
                     }
                         
                     // Energy Blast Gun
@@ -226,9 +345,6 @@ namespace ScrollingShooter
                         TriggerEnergyBlast();
                     }
                     
-                    // store the current keyboard state for next frame
-                    oldKeyboardState = currentKeyboardState;
-
                     // Fire-once weapons
                     if (oldKeyboardState.IsKeyUp(Keys.Space))
                     {
@@ -266,6 +382,8 @@ namespace ScrollingShooter
         /// <param name="spriteBatch">An already-initialized spritebatch, ready for Draw() commands</param>
         public override void Draw(float elaspedTime, SpriteBatch spriteBatch)
         {
+            if ((PowerupType & PowerupType.Railgun) > 0)
+                spriteBatch.Draw(spriteSheet, RailgunBounds, railgunSpriteBounds, Color.White);
             spriteBatch.Draw(spriteSheet, Bounds, spriteBounds[(int)steeringState], Color.White, 0f, new Vector2(Bounds.Width / 2, Bounds.Height / 2), SpriteEffects.None, 1f);
         }
 
@@ -277,6 +395,83 @@ namespace ScrollingShooter
         void TriggerFireball()
         {
             ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.Fireball, position);
+        }
+
+        /// <summary>
+        /// Fires the railgun sabot round from the ship,
+        /// corresponding to the railgun powerup
+        /// </summary>
+        void TriggerRailgun()
+        {
+            ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.RGSabot, 
+                new Vector2(position.X + (Bounds.Width / 2) - 4, position.Y));
+            //Simuated recoil
+            position.Y += 10;
+        }
+		
+		
+		/// <summary>
+        /// A helper function that starts a meteor storm,
+        /// corresponding to the meteor powerup
+        /// </summary>
+        void TriggerMeteor()
+        {
+            //TODO: Constantly do a tiny amount of damage to all enemies during the storm.
+			
+			//Reduce object creation by creating variables before loop.
+			Vector2 position = new Vector2();
+            Random rand = new Random();
+			
+			//Add a bunch of decorative meteors
+			for (int i = 0; i < 300; i++)
+			{
+                position.X = rand.Next(800);
+                position.Y = -rand.Next(4000) - 200;
+
+                ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.Meteor, position);
+
+			}
+			//Add a few large meteors
+            for (int i = 0; i < 10; i++)
+            {
+                position.X = 50 + rand.Next(800);
+                position.Y = -rand.Next(8000) - 1000;
+
+                ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.BigMeteor, position);
+            }
+        }
+
+        /// <summary>
+        /// A helper function that shoots a spray shot from the ship
+        /// when the spray shot powerup is active
+        /// </summary>
+        void TriggerShotgun()
+        {
+            ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.ShotgunBullet, position);
+        }
+
+        /// <summary>
+        /// Makes the player drunk.  If the player is already drunk the player is just made drunk for longer.  The drunk counter is
+        /// increased by a random number.  Time to be drunk is between 5 and 10 seconds.
+        /// </summary>
+        void GetDrunk()
+        {
+            drunk = true;
+            Random drunkRand = new Random();
+            drunkCounter += drunkRand.Next(300, 600);
+        }
+
+        /// <summary>
+        /// Makes the player sober.  Activated when the drunk time has run out.
+        /// </summary>
+        void SoberUp()
+        {
+            drunk = false;
+        }
+
+        public Vector2 GetPosition()
+        {
+            return position;
         }
         void TriggerBomb()
         {

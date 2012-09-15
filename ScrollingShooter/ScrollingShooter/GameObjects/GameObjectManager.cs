@@ -206,7 +206,6 @@ namespace ScrollingShooter
             return id;
         }
 
-
         /// <summary>
         /// Helper method for enqueueing our game object for creation at the 
         /// start of the next update cycle.  
@@ -252,7 +251,6 @@ namespace ScrollingShooter
             return playerShip;
         }
 
-
         /// <summary>
         /// Factory method for spawning a projectile
         /// </summary>
@@ -268,6 +266,9 @@ namespace ScrollingShooter
             {
                 case PowerupType.Fireball:
                     powerup = new FireballPowerup(id, content, position);
+                    break;
+                case PowerupType.BubbleBeam:
+                    powerup = new BubbleBeamPowerup(id, content, position);
                     break;
                 case PowerupType.Freezewave:
                     powerup = new FreezewavePowerup(id, content, position);
@@ -296,6 +297,26 @@ namespace ScrollingShooter
 
                 case PowerupType.Bomb:
                     powerup = new BombPowerUp(id, content, position);
+                    break;
+
+                case PowerupType.Ale:
+                    powerup = new AlePowerup(id, content, position);
+                    break;
+
+                case PowerupType.ShotgunPowerup:
+                    powerup = new ShotgunPowerup(id, content, position);
+                    break;
+
+                case PowerupType.MeteorPowerup:
+                    powerup = new MeteorPowerup(id, content, position);
+                    break;
+
+                case PowerupType.Railgun:
+                    powerup = new Railgun(id, content, position);
+                    break;
+
+                case PowerupType.HomingMissiles:
+                    powerup = new HomingMissilesPowerup(id, content, position);
                     break;
 
                 default:
@@ -327,6 +348,9 @@ namespace ScrollingShooter
                 case ProjectileType.Fireball:
                     projectile = new Fireball(id, content, position);
                     break;
+                case ProjectileType.BubbleBullet:
+                    projectile = new BubbleBullet(id, content, position);
+                    break;
                 case ProjectileType.Bomb:
                     projectile = new Bomb(id, content, position, true);
                     break;
@@ -334,6 +358,14 @@ namespace ScrollingShooter
                     projectile = new Blades(id, content);
                     break;
 
+                case ProjectileType.DroneLaser:
+                    projectile = new DroneLaser(id, content, position);
+                    break;
+
+                case ProjectileType.ToPlayerBullet:
+                    projectile = new ToPlayerBullet(id, content, position);
+                    break;
+                
                 case ProjectileType.ArrowProjectile:
                     projectile = new ArrowProjectile(id, content, position);
                     break;
@@ -393,6 +425,10 @@ namespace ScrollingShooter
                     projectile = new TurretFireball(id, content, position);
                     break;
 
+                case ProjectileType.JetMinionBullet:
+                    projectile = new JetMinionBullet(id, content, position);
+                    break;
+
                 case ProjectileType.EnergyBlast:
 
                     projectile = new EnergyBlast(id, content, position, ScrollingShooterGame.Game.player.energyBlastLevel);
@@ -414,6 +450,30 @@ namespace ScrollingShooter
                 case ProjectileType.EnemyBomb:
                     projectile = new Bomb(id, content, position, false);
                     break;
+                case ProjectileType.ShotgunBullet:
+                    projectile = new ShotgunBullet(id, content, position, BulletDirection.Straight);
+                    QueueGameObjectForCreation(new ShotgunBullet(NextID(), content, position, BulletDirection.Left));
+                    QueueGameObjectForCreation(new ShotgunBullet(NextID(), content, position, BulletDirection.Right));
+                    QueueGameObjectForCreation(new ShotgunBullet(NextID(), content, position, BulletDirection.HardLeft));
+                    QueueGameObjectForCreation(new ShotgunBullet(NextID(), content, position, BulletDirection.HardRight));
+                    break;
+
+                case ProjectileType.Meteor:
+                    projectile = new Meteor(id, content, position);
+                    break;
+
+                case ProjectileType.BigMeteor:
+                    projectile = new BigMeteor(id, content, position);
+                    break;
+
+                case ProjectileType.EnemyFlameball:
+                    projectile = new EnemyFlameball(id, content, position);
+                    break;
+
+                case ProjectileType.RGSabot:
+                    projectile = new RGSabot(id, content, position);
+                    break;
+
                 default:
                     throw new NotImplementedException("The projectile type " + Enum.GetName(typeof(ProjectileType), projectileType) + " is not supported");
             }
@@ -447,6 +507,7 @@ namespace ScrollingShooter
             QueueGameObjectForCreation(shield);
             return shield;
         }
+
         /// <summary>
         /// Factory method for spawning enemies.
         /// </summary>
@@ -462,6 +523,24 @@ namespace ScrollingShooter
             {
                 case EnemyType.Dart:
                     enemy = new Dart(id, content, position);
+                    break;
+
+                case EnemyType.GreenGoblin:
+                    enemy = new GreenGoblin(id, content, position);
+                    break;
+
+
+                case EnemyType.LaserDrone:
+                    enemy = new LaserDrone(id, content, position);
+                    break;
+                case EnemyType.Cobalt:
+                    enemy = new Cobalt(id, content, position);
+                    break;
+                case EnemyType.JetMinion:
+                    enemy = new JetMinion(id, content, position);
+                    break;
+                case EnemyType.Seed:
+                    enemy = new Seed(id, content, position);
                     break;
                 case EnemyType.Bomber:
                     enemy = new Bomber(id, content, position);
@@ -505,6 +584,18 @@ namespace ScrollingShooter
 
                 case EnemyType.JTurret:
                     enemy = new JTurret(id, content, position);
+                    break;
+
+                case EnemyType.DrillLeft:
+                    enemy = new Drill(id, content, true);
+                    break;
+
+                case EnemyType.DrillRight:
+                    enemy = new Drill(id, content, false);
+                    break;
+
+                case EnemyType.SuicideBomber:
+                    enemy = new SuicideBomber(id, content, position);
                     break;
 
                 default:

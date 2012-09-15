@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+using ScrollingShooterWindowsLibrary;
 
 namespace ScrollingShooter
 {
@@ -18,13 +19,13 @@ namespace ScrollingShooter
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        
 
+        public static ScrollingShooterGame Game;
         public static GameObjectManager GameObjectManager;
         
         public PlayerShip player;
-        public static ScrollingShooterGame Game;
-        
+        public Tilemap tilemap;
+
         public ScrollingShooterGame()
         {
             Game = this;
@@ -61,8 +62,10 @@ namespace ScrollingShooter
             GameObjectManager.CreatePowerup(PowerupType.Fireball, new Vector2(100, 200));
             //player.ApplyPowerup(PowerupType.Fireball);
 
-            GameObjectManager.CreateEnemy(EnemyType.Dart, new Vector2(200, 200));
+            tilemap = Content.Load<Tilemap>("Tilemaps/example");
+            tilemap.Scrolling = true;
 
+            GameObjectManager.CreateEnemy(EnemyType.Dart, new Vector2(200, 200));
         }
 
         /// <summary>
@@ -87,6 +90,8 @@ namespace ScrollingShooter
 
             // TODO: Add your update logic here
             float elapsedTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+            tilemap.Update(elapsedTime);
             
             GameObjectManager.Update(elapsedTime);
 
@@ -137,6 +142,8 @@ namespace ScrollingShooter
             float elapsedGameTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
             
             spriteBatch.Begin();
+            tilemap.Draw(elapsedGameTime, spriteBatch);
+
             GameObjectManager.Draw(elapsedGameTime, spriteBatch);
 
 

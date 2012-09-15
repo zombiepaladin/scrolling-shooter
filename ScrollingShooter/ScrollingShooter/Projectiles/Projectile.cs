@@ -11,6 +11,8 @@ namespace ScrollingShooter
         // Player projectiles
         Bullet,
         Fireball,
+        ShotgunBullet,
+        BubbleBullet,
         Bomb,
         Frostball,
         Blades,
@@ -18,6 +20,8 @@ namespace ScrollingShooter
         BirdCrap,
         DroneWave,
         EnergyBlast,
+        Meteor,
+        BigMeteor,
         // Enemy projectiles start with an index of 100;
         // this allows us to differentiate between projectiles
         // without needing a second base class
@@ -27,7 +31,12 @@ namespace ScrollingShooter
         EnemyBullet = 103,
         ArrowProjectile = 104,
         EnemyBomb = 105,
+        ToPlayerBullet = 106,
+        JetMinionBullet = 107,
+        EnemyFlameball = 108,
         GenericEnemyBullet = 109,
+        DroneLaser = 110,
+        RGSabot = 111,
     }
 
     /// <summary>
@@ -35,6 +44,8 @@ namespace ScrollingShooter
     /// </summary>
     public abstract class Projectile : GameObject
     {
+        public static int POWER_LEVEL = 1;
+
         /// <summary>
         /// The projectile's velocity
         /// </summary>

@@ -107,7 +107,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Bosses\Boss.cs" />
     <Compile Include="Enemies\Bomber.cs" />
+    <Compile Include="Enemies\Drill.cs" />
     <Compile Include="Enemies\Arrow.cs" />
     <Compile Include="Enemies\beamShip.cs" />
     <Compile Include="Effects\Explosion.cs" />
@@ -115,6 +117,10 @@
     <Compile Include="Enemies\DeerTick.cs" />
     <Compile Include="Enemies\Dart.cs" />
     <Compile Include="Enemies\Enemy.cs" />
+    <Compile Include="Enemies\GreenGoblin.cs" />
+    <Compile Include="Enemies\LaserDrone.cs" />
+    <Compile Include="Enemies\SuicideBomber.cs" />
+    <Compile Include="Enemies\Seed.cs" />
     <Compile Include="Enemies\JTurret.cs" />
     <Compile Include="Enemies\Turret.cs" />
     <Compile Include="Enemies\StdBaddy.cs" />
@@ -124,10 +130,17 @@
     <Compile Include="GameObjects\CollisionPair.cs" />
     <Compile Include="GameObjects\GameObject.cs" />
     <Compile Include="GameObjects\GameObjectManager.cs" />
+    <Compile Include="Animation.cs" />
+    <Compile Include="Powerups\Railgun.cs" />
+    <Compile Include="Powerups\ShotgunPowerup.cs" />
+    <Compile Include="Powerups\BubbleBeamPowerup.cs" />
+    <Compile Include="Projectiles\BubbleBullet.cs" />
     <Compile Include="Powerups\FreezewavePowerup.cs" />
+    <Compile Include="Enemies\JetMinion.cs" />
     <Compile Include="Projectiles\ArrowProjectile.cs" />
     <Compile Include="Powerups\BladesPowerUp.cs" />
     <Compile Include="Projectiles\Blades.cs" />
+    <Compile Include="Powerups\HomingMissilesPowerup.cs" />
     <Compile Include="Powerups\EightBallShieldPowerup.cs" />
     <Compile Include="Powerups\TriShieldPowerup.cs" />
     <Compile Include="Powerups\FrostballPowerup.cs" />
@@ -138,17 +151,29 @@
     <Compile Include="Powerups\EnergyBlastPowerup.cs" />
     <Compile Include="Powerups\BombPowerUp.cs" />
     <Compile Include="Projectiles\Bomb.cs" />
+    <Compile Include="Powerups\AlePowerup.cs" />
+    <Compile Include="Enemies\Cobalt.cs" />
+    <Compile Include="Powerups\MeteorPowerup.cs" />
+    <Compile Include="Projectiles\BigMeteor.cs" />
     <Compile Include="Projectiles\Bullet.cs" />
+    <Compile Include="Projectiles\EnemyFlameball.cs" />
+    <Compile Include="Projectiles\DroneLaser.cs" />
     <Compile Include="Projectiles\EnemyBullet.cs" />
     <Compile Include="Projectiles\EnergyBlast.cs" />
     <Compile Include="Projectiles\DroneWave.cs" />
     <Compile Include="Projectiles\EBullet.cs" />
     <Compile Include="Projectiles\GenericEnemyBullet.cs" />
     <Compile Include="Projectiles\Fireball.cs" />
+    <Compile Include="Projectiles\Meteor.cs" />
     <Compile Include="Projectiles\FreezewaveProjectile.cs" />
+    <Compile Include="Projectiles\HomingMissileProjectile.cs" />
+    <Compile Include="Projectiles\JetMinionBullet.cs" />
     <Compile Include="Projectiles\Frostball.cs" />
+    <Compile Include="Projectiles\RGSabot.cs" />
     <Compile Include="Projectiles\TriShieldBall.cs" />
     <Compile Include="Projectiles\Projectile.cs" />
+    <Compile Include="Projectiles\ShotgunBullet.cs" />
+    <Compile Include="Projectiles\ToPlayerBullet.cs" />
     <Compile Include="Projectiles\TurretFireball.cs" />
     <Compile Include="Shields\EightBallShield.cs" />
     <Compile Include="Shields\Shield.cs" />
@@ -165,6 +190,10 @@
     <Content Include="GameThumbnail.png" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\ScrollingShooterWindowsLibrary\ScrollingShooterWindowsLibrary.csproj">
+      <Project>{57AE1B90-1244-4AAC-97E8-0EC2D5B94872}</Project>
+      <Name>ScrollingShooterWindowsLibrary</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ScrollingShooterContent\ScrollingShooterContent.contentproj">
       <Name>ScrollingShooterContent</Name>
       <XnaReferenceType>Content</XnaReferenceType>

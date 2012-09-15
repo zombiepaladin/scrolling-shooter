@@ -20,6 +20,12 @@ namespace ScrollingShooter
         TriShield = 128,
         Freezewave = 256,
         Bomb = 512,
+        BubbleBeam = 1024,
+        Ale = 2048,
+        HomingMissiles = 4096,
+        ShotgunPowerup = 8192,
+        MeteorPowerup = 16384,
+        Railgun = 32768,
     }
 
     /// <summary>

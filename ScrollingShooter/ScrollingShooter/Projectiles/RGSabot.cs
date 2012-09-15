@@ -19,7 +19,7 @@ namespace ScrollingShooter
             get { return new Rectangle((int)(position.X-2), (int)(position.Y-2), effectSpriteBounds.Width, effectSpriteBounds.Height); }
         }
 
-        public RGSabot(ContentManager content, Vector2 position)
+        public RGSabot(uint id, ContentManager content, Vector2 position) : base (id)
         {
             this.spriteSheet = content.Load<Texture2D>("Spritesheets/tyrian.shp.01D8A7");
 

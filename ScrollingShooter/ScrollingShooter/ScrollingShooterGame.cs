@@ -112,6 +112,16 @@ namespace ScrollingShooter
                         GameObjectManager.DestroyObject(colliderID);
                     }
 
+                    //NOTE: Apply to more than the kamikaze enemy?
+                    // Process kamakaze collisions
+                    Enemy enemy = collider as Enemy;
+                    if (enemy != null && enemy.GetType() == typeof(Kamikaze))
+                    {
+                        //Player take damage
+                        GameObjectManager.DestroyObject(colliderID);
+                        GameObjectManager.CreateExplosion(colliderID);
+                    }
+
                 }
 
 
@@ -132,10 +142,10 @@ namespace ScrollingShooter
             float elapsedGameTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
             
             spriteBatch.Begin();
-
             tilemap.Draw(elapsedGameTime, spriteBatch);
 
             GameObjectManager.Draw(elapsedGameTime, spriteBatch);
+
 
             spriteBatch.End();
 

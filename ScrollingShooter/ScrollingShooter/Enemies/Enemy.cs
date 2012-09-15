@@ -1,4 +1,4 @@
-﻿using System;
+﻿﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,6 +11,27 @@ namespace ScrollingShooter
     public enum EnemyType
     {
         Dart,
+        GreenGoblin,
+        LaserDrone,
+		Cobalt,
+        JetMinion,
+        Seed,
+        Bomber,
+        Arrow,
+        LavaFighter,
+        StdBaddy,
+        beamShip,
+        Kamikaze,
+        Panzer,
+        BladeSpinner,
+        DeerTickDown,
+        DeerTickRight,
+        DeerTickLeft,
+        Turret,
+        JTurret,
+        DrillLeft,
+        DrillRight,
+        SuicideBomber
     }
 
     /// <summary>

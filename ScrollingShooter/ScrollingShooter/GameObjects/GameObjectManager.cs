@@ -299,6 +299,10 @@ namespace ScrollingShooter
                     powerup = new BombPowerUp(id, content, position);
                     break;
 
+                case PowerupType.Ale:
+                    powerup = new AlePowerup(id, content, position);
+                    break;
+
                 default:
                     throw new NotImplementedException("The powerup type " + Enum.GetName(typeof(ProjectileType), powerupType) + " is not supported");
             }
@@ -516,6 +520,14 @@ namespace ScrollingShooter
 
                 case EnemyType.JTurret:
                     enemy = new JTurret(id, content, position);
+                    break;
+
+                case EnemyType.DrillLeft:
+                    enemy = new Drill(id, content, true);
+                    break;
+
+                case EnemyType.DrillRight:
+                    enemy = new Drill(id, content, false);
                     break;
 
                 default:

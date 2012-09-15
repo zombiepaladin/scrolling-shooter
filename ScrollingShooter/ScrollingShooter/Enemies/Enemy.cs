@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,7 +24,9 @@ namespace ScrollingShooter
         DeerTickRight,
         DeerTickLeft,
         Turret,
-        JTurret
+        JTurret,
+        DrillLeft,
+        DrillRight
     }
 
     /// <summary>

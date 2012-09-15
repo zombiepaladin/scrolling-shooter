@@ -21,6 +21,7 @@ namespace ScrollingShooter
         Freezewave = 256,
         Bomb = 512,
         BubbleBeam = 1024,
+        Ale = 2048,
     }
 
     /// <summary>

@@ -30,6 +30,7 @@ namespace ScrollingShooter
         /// <param name="position">The position the homing missile powerup in the world</param>
         public HomingMissilesPowerup(ContentManager contentManager, Vector2 position, uint id):base(id)
         {
+            this.type = PowerupType.HomingMissiles;
             this.spriteSource = new Rectangle(74, 171, 20, 21);
             this.spriteSheet = contentManager.Load<Texture2D>("Spritesheets/tyrian.shp.010008");
             this.spriteBounds = new Rectangle((int)position.X, (int)position.Y, 20, 21);

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="16" height="250" tilewidth="24" tileheight="28">
+ <tileset firstgid="1" name="shapes)" tilewidth="24" tileheight="28">
+  <image source="../Tilesets/shapes).png" trans="bfdcbf" width="240" height="1708"/>
+ </tileset>
+ <tileset firstgid="611" name="shapesFinalLvlMod" tilewidth="24" tileheight="28">
+  <image source="../Tilesets/shapesFinalLvlMod.png" trans="bfdcbf" width="240" height="1932"/>
+ </tileset>
+ <tileset firstgid="1301" name="shapesw" tilewidth="24" tileheight="28">
+  <image source="../Tilesets/shapesw.png" trans="bfdcbf" width="240" height="1652"/>
+ </tileset>
+ <tileset firstgid="1891" name="shapesx" tilewidth="24" tileheight="28">
+  <image source="../Tilesets/shapesx.png" trans="bfdcbf" width="240" height="1932"/>
+ </tileset>
+ <tileset firstgid="2581" name="shapesy" tilewidth="24" tileheight="28">
+  <image source="../Tilesets/shapesy.png" trans="bfdcbf" width="240" height="1876"/>
+ </tileset>
+ <tileset firstgid="3251" name="shapesz" tilewidth="24" tileheight="28">
+  <image source="../Tilesets/shapesz.png" trans="bfdcbf" width="240" height="1736"/>
+ </tileset>
+ <tileset firstgid="3871" name="shapeszFinalLvlMod" tilewidth="24" tileheight="28">
+  <image source="../Tilesets/shapeszFinalLvlMod.png" trans="bfdcbf" width="240" height="1736"/>
+ </tileset>
+ <tileset firstgid="4491" name="shapesx" tilewidth="24" tileheight="28">
+  <image source="../../../../scrolling-shooter V1.2/ScrollingShooter/ScrollingShooterContent/Tileset/shapesx.png" trans="bfdcbf" width="240" height="1932"/>
+ </tileset>
+ <tileset firstgid="5181" name="shapes)" tilewidth="24" tileheight="28">
+  <image source="../../../../scrolling-shooter V1.2/ScrollingShooter/ScrollingShooterContent/Tileset/shapes).png" trans="bfdcbf" width="240" height="1708"/>
+ </tileset>
+ <tileset firstgid="5791" name="shapesz" tilewidth="24" tileheight="28">
+  <image source="../../../../scrolling-shooter V1.2/ScrollingShooter/ScrollingShooterContent/Tileset/shapesz.png" trans="bfdcbf" width="240" height="1736"/>
+ </tileset>
+ <layer name="Bottom" width="16" height="250">
+  <data encoding="base64" compression="zlib">
+   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
+  </data>
+ </layer>
+</map>

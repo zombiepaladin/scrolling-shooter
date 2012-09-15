@@ -91,7 +91,7 @@ namespace ScrollingShooter
             // Make sure the player is within range
             if (playerDistance < 60 && gunTimer > 0.20 && playerPosition.Y > (this.position.Y + 30))
             {
-                ScrollingShooterGame.GameObjectManager.CreateEnemyProjectile(EnemyProjectileType.Flameball, position);
+                ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.EnemyFlameball, position);
                 gunTimer = 0;
             }
 

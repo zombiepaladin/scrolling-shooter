@@ -7,7 +7,7 @@ namespace ScrollingShooter
     /// <summary>
     /// A enemy fired flameball 
     /// </summary>
-    public class EnemyFlameball : EnemyProjectile
+    public class EnemyFlameball : Projectile
     {
         /// <summary>
         /// Creates a new enemy flameball
@@ -21,7 +21,7 @@ namespace ScrollingShooter
 
             this.spriteBounds = new Rectangle(203, 56, 13, 14);
 
-            this.velocity = new Vector2(0, -250);
+            this.velocity = new Vector2(0, 250);
 
             this.position = position;
         }

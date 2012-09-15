@@ -315,6 +315,10 @@ namespace ScrollingShooter
                     powerup = new Railgun(id, content, position);
                     break;
 
+                case PowerupType.HomingMissiles:
+                    powerup = new HomingMissilesPowerup(id, content, position);
+                    break;
+
                 default:
                     throw new NotImplementedException("The powerup type " + Enum.GetName(typeof(ProjectileType), powerupType) + " is not supported");
             }

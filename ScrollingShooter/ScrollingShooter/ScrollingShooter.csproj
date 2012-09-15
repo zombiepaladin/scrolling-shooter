@@ -126,12 +126,15 @@
     <Compile Include="GameObjects\CollisionPair.cs" />
     <Compile Include="GameObjects\GameObject.cs" />
     <Compile Include="GameObjects\GameObjectManager.cs" />
+    <Compile Include="Animation.cs" />
     <Compile Include="Powerups\BubbleBeamPowerup.cs" />
     <Compile Include="Projectiles\BubbleBullet.cs" />
     <Compile Include="Powerups\FreezewavePowerup.cs" />
+    <Compile Include="Enemies\JetMinion.cs" />
     <Compile Include="Projectiles\ArrowProjectile.cs" />
     <Compile Include="Powerups\BladesPowerUp.cs" />
     <Compile Include="Projectiles\Blades.cs" />
+    <Compile Include="Powerups\HomingMissilesPowerup.cs" />
     <Compile Include="Powerups\EightBallShieldPowerup.cs" />
     <Compile Include="Powerups\TriShieldPowerup.cs" />
     <Compile Include="Powerups\FrostballPowerup.cs" />
@@ -151,6 +154,8 @@
     <Compile Include="Projectiles\GenericEnemyBullet.cs" />
     <Compile Include="Projectiles\Fireball.cs" />
     <Compile Include="Projectiles\FreezewaveProjectile.cs" />
+    <Compile Include="Projectiles\HomingMissileProjectile.cs" />
+    <Compile Include="Projectiles\JetMinionBullet.cs" />
     <Compile Include="Projectiles\Frostball.cs" />
     <Compile Include="Projectiles\TriShieldBall.cs" />
     <Compile Include="Projectiles\Projectile.cs" />

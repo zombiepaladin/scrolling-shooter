@@ -12,7 +12,6 @@ namespace ScrollingShooter
         Bullet,
         Fireball,
         BubbleBullet,
-
         Bomb,
         Frostball,
         Blades,
@@ -30,6 +29,7 @@ namespace ScrollingShooter
         ArrowProjectile = 104,
         EnemyBomb = 105,
         ToPlayerBullet = 106,
+        JetMinionBullet = 107,
         GenericEnemyBullet = 109,
     }
 

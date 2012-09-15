@@ -22,6 +22,7 @@ namespace ScrollingShooter
         Bomb = 512,
         BubbleBeam = 1024,
         Ale = 2048,
+        HomingMissiles = 4096,
     }
 
     /// <summary>

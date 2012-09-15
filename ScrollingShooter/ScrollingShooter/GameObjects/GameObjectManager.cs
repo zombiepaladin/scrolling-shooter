@@ -405,6 +405,10 @@ namespace ScrollingShooter
                     projectile = new TurretFireball(id, content, position);
                     break;
 
+                case ProjectileType.JetMinionBullet:
+                    projectile = new JetMinionBullet(id, content, position);
+                    break;
+
                 case ProjectileType.EnergyBlast:
 
                     projectile = new EnergyBlast(id, content, position, ScrollingShooterGame.Game.player.energyBlastLevel);
@@ -474,6 +478,9 @@ namespace ScrollingShooter
             {
                 case EnemyType.Dart:
                     enemy = new Dart(id, content, position);
+                    break;
+                case EnemyType.JetMinion:
+                    enemy = new JetMinion(id, content, position);
                     break;
                 case EnemyType.Seed:
                     enemy = new Seed(id, content, position);

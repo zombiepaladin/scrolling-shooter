@@ -11,6 +11,8 @@ namespace ScrollingShooter
         // Player projectiles
         Bullet,
         Fireball,
+        BubbleBullet,
+
         Bomb,
         Frostball,
         Blades,
@@ -27,6 +29,7 @@ namespace ScrollingShooter
         EnemyBullet = 103,
         ArrowProjectile = 104,
         EnemyBomb = 105,
+        ToPlayerBullet = 106,
         GenericEnemyBullet = 109,
     }
 
@@ -35,6 +38,8 @@ namespace ScrollingShooter
     /// </summary>
     public abstract class Projectile : GameObject
     {
+        public static int POWER_LEVEL = 1;
+
         /// <summary>
         /// The projectile's velocity
         /// </summary>

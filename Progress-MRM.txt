@@ -10,6 +10,7 @@ Stardate 66168.4:
 -jshaw2 1 and 2.
 -nstanley 1 and 2. (doesn't seem to implement freezewave in the playership class. Gonna leave that alone for now. Also grabbed a few references to his next lava enemy)
 -malinajirka 1 and 2. (modified by making a new enum projectile value: enemybomb)
+-dkellycollins 1 and 2. (bubblebullet is set to an empty square, is invisible)
 
 
 Still to commit:
@@ -18,5 +19,4 @@ Still to commit:
 -everix1992 (has merge errors)
 -sfike (has merge errors)
 -abelli (has merge errors)
--dkellycollins
 -drymph

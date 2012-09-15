@@ -115,6 +115,7 @@
     <Compile Include="Enemies\DeerTick.cs" />
     <Compile Include="Enemies\Dart.cs" />
     <Compile Include="Enemies\Enemy.cs" />
+    <Compile Include="Enemies\Seed.cs" />
     <Compile Include="Enemies\JTurret.cs" />
     <Compile Include="Enemies\Turret.cs" />
     <Compile Include="Enemies\StdBaddy.cs" />
@@ -124,6 +125,8 @@
     <Compile Include="GameObjects\CollisionPair.cs" />
     <Compile Include="GameObjects\GameObject.cs" />
     <Compile Include="GameObjects\GameObjectManager.cs" />
+    <Compile Include="Powerups\BubbleBeamPowerup.cs" />
+    <Compile Include="Projectiles\BubbleBullet.cs" />
     <Compile Include="Powerups\FreezewavePowerup.cs" />
     <Compile Include="Projectiles\ArrowProjectile.cs" />
     <Compile Include="Powerups\BladesPowerUp.cs" />
@@ -149,6 +152,7 @@
     <Compile Include="Projectiles\Frostball.cs" />
     <Compile Include="Projectiles\TriShieldBall.cs" />
     <Compile Include="Projectiles\Projectile.cs" />
+    <Compile Include="Projectiles\ToPlayerBullet.cs" />
     <Compile Include="Projectiles\TurretFireball.cs" />
     <Compile Include="Shields\EightBallShield.cs" />
     <Compile Include="Shields\Shield.cs" />

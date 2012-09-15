@@ -206,7 +206,6 @@ namespace ScrollingShooter
             return id;
         }
 
-
         /// <summary>
         /// Helper method for enqueueing our game object for creation at the 
         /// start of the next update cycle.  
@@ -252,7 +251,6 @@ namespace ScrollingShooter
             return playerShip;
         }
 
-
         /// <summary>
         /// Factory method for spawning a projectile
         /// </summary>
@@ -268,6 +266,9 @@ namespace ScrollingShooter
             {
                 case PowerupType.Fireball:
                     powerup = new FireballPowerup(id, content, position);
+                    break;
+                case PowerupType.BubbleBeam:
+                    powerup = new BubbleBeamPowerup(id, content, position);
                     break;
                 case PowerupType.Freezewave:
                     powerup = new FreezewavePowerup(id, content, position);
@@ -327,6 +328,9 @@ namespace ScrollingShooter
                 case ProjectileType.Fireball:
                     projectile = new Fireball(id, content, position);
                     break;
+                case ProjectileType.BubbleBullet:
+                    projectile = new BubbleBullet(id, content, position);
+                    break;
                 case ProjectileType.Bomb:
                     projectile = new Bomb(id, content, position, true);
                     break;
@@ -334,6 +338,10 @@ namespace ScrollingShooter
                     projectile = new Blades(id, content);
                     break;
 
+                case ProjectileType.ToPlayerBullet:
+                    projectile = new ToPlayerBullet(id, content, position);
+                    break;
+                
                 case ProjectileType.ArrowProjectile:
                     projectile = new ArrowProjectile(id, content, position);
                     break;
@@ -462,6 +470,9 @@ namespace ScrollingShooter
             {
                 case EnemyType.Dart:
                     enemy = new Dart(id, content, position);
+                    break;
+                case EnemyType.Seed:
+                    enemy = new Seed(id, content, position);
                     break;
                 case EnemyType.Bomber:
                     enemy = new Bomber(id, content, position);

@@ -213,6 +213,16 @@ namespace ScrollingShooter
                 // Fire weapons
                 if (currentKeyboardState.IsKeyDown(Keys.Space))
                 {
+                    // Streaming weapons
+                    if ((PowerupType & PowerupType.BubbleBeam) > 0)
+                    {
+                        if (defaultGunTimer > BubbleBullet.FIRE_INTERVAL_MS)
+                        {
+                            ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.BubbleBullet, position);
+                            defaultGunTimer = 0f;
+                        }
+                    }
+
                     // Default gun
                     if (defaultGunTimer > 0.25f)
                     {
@@ -277,6 +287,11 @@ namespace ScrollingShooter
         void TriggerFireball()
         {
             ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.Fireball, position);
+        }
+
+        public Vector2 GetPosition()
+        {
+            return position;
         }
         void TriggerBomb()
         {

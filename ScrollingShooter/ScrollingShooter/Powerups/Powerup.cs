@@ -20,6 +20,7 @@ namespace ScrollingShooter
         TriShield = 128,
         Freezewave = 256,
         Bomb = 512,
+        BubbleBeam = 1024,
     }
 
     /// <summary>

@@ -303,6 +303,10 @@ namespace ScrollingShooter
                     powerup = new AlePowerup(id, content, position);
                     break;
 
+                case PowerupType.ShotgunPowerup:
+                    powerup = new ShotgunPowerup(id, content, position);
+                    break;
+
                 default:
                     throw new NotImplementedException("The powerup type " + Enum.GetName(typeof(ProjectileType), powerupType) + " is not supported");
             }
@@ -430,6 +434,13 @@ namespace ScrollingShooter
                 case ProjectileType.EnemyBomb:
                     projectile = new Bomb(id, content, position, false);
                     break;
+                case ProjectileType.ShotgunBullet:
+                    projectile = new ShotgunBullet(id, content, position, BulletDirection.Straight);
+                    QueueGameObjectForCreation(new ShotgunBullet(NextID(), content, position, BulletDirection.Left));
+                    QueueGameObjectForCreation(new ShotgunBullet(NextID(), content, position, BulletDirection.Right));
+                    QueueGameObjectForCreation(new ShotgunBullet(NextID(), content, position, BulletDirection.HardLeft));
+                    QueueGameObjectForCreation(new ShotgunBullet(NextID(), content, position, BulletDirection.HardRight));
+                    break;
                 default:
                     throw new NotImplementedException("The projectile type " + Enum.GetName(typeof(ProjectileType), projectileType) + " is not supported");
             }
@@ -538,6 +549,10 @@ namespace ScrollingShooter
 
                 case EnemyType.DrillRight:
                     enemy = new Drill(id, content, false);
+                    break;
+
+                case EnemyType.SuicideBomber:
+                    enemy = new SuicideBomber(id, content, position);
                     break;
 
                 default:

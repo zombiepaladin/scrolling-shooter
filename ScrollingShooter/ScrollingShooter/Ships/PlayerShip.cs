@@ -285,6 +285,14 @@ namespace ScrollingShooter
                         }
                     }
 
+                    // Fires a shotgun shot if the shotgun powerup is active and half a second has passed since the last shot
+                    if ((PowerupType & PowerupType.ShotgunPowerup) > 0 &&
+                             defaultGunTimer > 0.5f)
+                    {
+                        TriggerShotgun();
+                        defaultGunTimer = 0;
+                    }
+
                     // Default gun
                     if (defaultGunTimer > 0.25f)
                     {
@@ -349,6 +357,15 @@ namespace ScrollingShooter
         void TriggerFireball()
         {
             ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.Fireball, position);
+        }
+
+        /// <summary>
+        /// A helper function that shoots a spray shot from the ship
+        /// when the spray shot powerup is active
+        /// </summary>
+        void TriggerShotgun()
+        {
+            ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.ShotgunBullet, position);
         }
 
         /// <summary>

@@ -146,6 +146,7 @@
     <Compile Include="Powerups\BombPowerUp.cs" />
     <Compile Include="Projectiles\Bomb.cs" />
     <Compile Include="Powerups\AlePowerup.cs" />
+    <Compile Include="Enemies\Cobalt.cs" />
     <Compile Include="Projectiles\Bullet.cs" />
     <Compile Include="Projectiles\EnemyBullet.cs" />
     <Compile Include="Projectiles\EnergyBlast.cs" />

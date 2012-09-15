@@ -479,6 +479,9 @@ namespace ScrollingShooter
                 case EnemyType.Dart:
                     enemy = new Dart(id, content, position);
                     break;
+                case EnemyType.Cobalt:
+                    enemy = new Cobalt(id, content, position);
+                    break;
                 case EnemyType.JetMinion:
                     enemy = new JetMinion(id, content, position);
                     break;

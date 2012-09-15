@@ -18,7 +18,7 @@ namespace ScrollingShooter
         /// </summary>
         /// <param name="content">A ContentManager to load content from</param>
         /// <param name="position">A position on the screen</param>
-        public BigMeteor(ContentManager content, Vector2 position) : base(content, position)
+        public BigMeteor(uint id, ContentManager content, Vector2 position) : base(id, content, position)
         {
             //Different sprite - Have to use a right-facing meteor and rotate it 90 degrees, the down-facing meteor has a weird border that shows up
             this.spriteBounds = new Rectangle(108, 183, 12, 12);

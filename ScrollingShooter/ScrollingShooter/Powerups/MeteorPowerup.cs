@@ -16,8 +16,9 @@ namespace ScrollingShooter
         /// <summary>
         /// Creates a new meteor powerup
         /// </summary>
-        public MeteorPowerup(ContentManager contentManager, Vector2 position)
+        public MeteorPowerup(uint id, ContentManager contentManager, Vector2 position) : base (id)
         {
+            this.type = PowerupType.MeteorPowerup;
             this.spriteSource = new Rectangle(194, 171, 20, 21);
             this.spriteSheet = contentManager.Load<Texture2D>("Spritesheets/tyrian.shp.010008");
             this.spriteBounds = new Rectangle((int)position.X, (int)position.Y, 20, 21);

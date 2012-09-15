@@ -22,7 +22,8 @@ namespace ScrollingShooter
         /// </summary>
         /// <param name="content">A ContentManager to load content from</param>
         /// <param name="position">A position on the screen</param>
-        public Meteor(ContentManager content, Vector2 position)
+        public Meteor(uint id, ContentManager content, Vector2 position)
+            : base(id)
         {   
             this.spriteSheet = content.Load<Texture2D>("Spritesheets/tyrian.shp.000000");
 

@@ -19,6 +19,4 @@ Stardate 66171.1:
 -Versaiteis 2 (included files for 1 but no implementation. Enemy AI is also wonky, needs fixing)
 -barge5633 2 (didn't include 1 at all)
 -everix1992 1 and 2. (enemy doesn't explode)
-
-Still to commit:
--abelli (has merge errors)
+-abelli 2. (committed files for 1, but no implementation)

@@ -458,6 +458,10 @@ namespace ScrollingShooter
                     projectile = new BigMeteor(id, content, position);
                     break;
 
+                case ProjectileType.EnemyFlameball:
+                    projectile = new EnemyFlameball(id, content, position);
+                    break;
+
                 default:
                     throw new NotImplementedException("The projectile type " + Enum.GetName(typeof(ProjectileType), projectileType) + " is not supported");
             }
@@ -491,6 +495,7 @@ namespace ScrollingShooter
             QueueGameObjectForCreation(shield);
             return shield;
         }
+
         /// <summary>
         /// Factory method for spawning enemies.
         /// </summary>
@@ -507,6 +512,11 @@ namespace ScrollingShooter
                 case EnemyType.Dart:
                     enemy = new Dart(id, content, position);
                     break;
+
+                case EnemyType.GreenGoblin:
+                    enemy = new GreenGoblin(id, content, position);
+                    break;
+
 
                 case EnemyType.LaserDrone:
                     enemy = new LaserDrone(id, content, position);

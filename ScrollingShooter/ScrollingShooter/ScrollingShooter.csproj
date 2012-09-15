@@ -116,6 +116,7 @@
     <Compile Include="Enemies\DeerTick.cs" />
     <Compile Include="Enemies\Dart.cs" />
     <Compile Include="Enemies\Enemy.cs" />
+    <Compile Include="Enemies\GreenGoblin.cs" />
     <Compile Include="Enemies\LaserDrone.cs" />
     <Compile Include="Enemies\SuicideBomber.cs" />
     <Compile Include="Enemies\Seed.cs" />
@@ -153,6 +154,7 @@
     <Compile Include="Powerups\MeteorPowerup.cs" />
     <Compile Include="Projectiles\BigMeteor.cs" />
     <Compile Include="Projectiles\Bullet.cs" />
+    <Compile Include="Projectiles\EnemyFlameball.cs" />
     <Compile Include="Projectiles\DroneLaser.cs" />
     <Compile Include="Projectiles\EnemyBullet.cs" />
     <Compile Include="Projectiles\EnergyBlast.cs" />

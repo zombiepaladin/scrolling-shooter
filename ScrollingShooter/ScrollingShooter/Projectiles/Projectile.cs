@@ -25,7 +25,6 @@ namespace ScrollingShooter
         // Enemy projectiles start with an index of 100;
         // this allows us to differentiate between projectiles
         // without needing a second base class
-        DroneLaser = 567,
         BlueBeam = 100,
         EBullet = 101,
         TurretFireball = 102,
@@ -34,7 +33,9 @@ namespace ScrollingShooter
         EnemyBomb = 105,
         ToPlayerBullet = 106,
         JetMinionBullet = 107,
+        EnemyFlameball = 108,
         GenericEnemyBullet = 109,
+        DroneLaser = 110,
     }
 
     /// <summary>

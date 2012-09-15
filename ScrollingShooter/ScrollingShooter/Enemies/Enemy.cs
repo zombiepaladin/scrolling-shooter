@@ -11,6 +11,7 @@ namespace ScrollingShooter
     public enum EnemyType
     {
         Dart,
+        GreenGoblin,
         LaserDrone,
 		Cobalt,
         JetMinion,

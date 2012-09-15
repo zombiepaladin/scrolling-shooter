@@ -15,10 +15,9 @@ Stardate 66171.1:
 -----------------
 -dkellycollins 1 and 2. (bubblebullet is set to an empty square, is invisible)
 -drymph 1 and 2. (enemy comes from either left or right, so I made 2 enemy types: drillleft and drillright)
-
+-Versaiteis 2 (included files for 1 but no implementation. Enemy AI is also wonky, needs fixing)
 
 Still to commit:
--Versaiteis (has merge errors)
 -barg5633 (has merge errors)
 -everix1992 (has merge errors)
 -sfike (has merge errors)

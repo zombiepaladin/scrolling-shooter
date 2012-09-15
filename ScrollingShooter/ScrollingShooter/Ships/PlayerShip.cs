@@ -46,6 +46,21 @@ namespace ScrollingShooter
         /// Timer for the energy blast gun
         /// </summary>
         public float energyBlastTimer = 0;
+        
+        /// <summary>
+        /// Timer to adjust refire rate of railgun
+        /// </summary>
+        float railgunTimer = 0;
+
+        /// <summary>
+        /// Rectangle to draw the railgun when the powerup is enabled
+        /// </summary>
+        protected Rectangle railgunSpriteBounds = new Rectangle(146, 55, 8, 33);
+
+        public Rectangle RailgunBounds
+        {
+            get { return new Rectangle((int)(position.X + (Bounds.Width / 2) - 4), (int)(position.Y - (Bounds.Height / 2)), railgunSpriteBounds.Width, railgunSpriteBounds.Height); }
+        }
 
         // Powerup Levels
         /// <summary>
@@ -159,6 +174,7 @@ namespace ScrollingShooter
             bladesPowerupTimer += elapsedTime;
             energyBlastTimer -= elapsedTime;
             bombTimer += elapsedTime;
+            railgunTimer += elapsedTime;
 
             if(!drunk)
             {
@@ -220,6 +236,7 @@ namespace ScrollingShooter
                 {
                     position.Y += elapsedTime * velocity.Y;
                 }
+
                 else if (currentKeyboardState.IsKeyDown(Keys.Down))
                 {
                     position.Y -= elapsedTime * velocity.Y;
@@ -310,6 +327,17 @@ namespace ScrollingShooter
                         ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.Bullet, position);
                         defaultGunTimer = 0f;
                     }
+
+
+                    //Conditionals to fire railgun.
+                    if ((PowerupType & PowerupType.Railgun) > 0)
+                    {
+                        if (railgunTimer > 3.0f)
+                        {
+                            TriggerRailgun();
+                            railgunTimer = 0f;
+                        }
+                    }
                         
                     // Energy Blast Gun
                     if (((PowerupType & PowerupType.EnergyBlast) > 0) && energyBlastTimer < 0)
@@ -357,6 +385,8 @@ namespace ScrollingShooter
         /// <param name="spriteBatch">An already-initialized spritebatch, ready for Draw() commands</param>
         public override void Draw(float elaspedTime, SpriteBatch spriteBatch)
         {
+            if ((PowerupType & PowerupType.Railgun) > 0)
+                spriteBatch.Draw(spriteSheet, RailgunBounds, railgunSpriteBounds, Color.White);
             spriteBatch.Draw(spriteSheet, Bounds, spriteBounds[(int)steeringState], Color.White, 0f, new Vector2(Bounds.Width / 2, Bounds.Height / 2), SpriteEffects.None, 1f);
         }
 
@@ -368,6 +398,18 @@ namespace ScrollingShooter
         void TriggerFireball()
         {
             ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.Fireball, position);
+        }
+
+        /// <summary>
+        /// Fires the railgun sabot round from the ship,
+        /// corresponding to the railgun powerup
+        /// </summary>
+        void TriggerRailgun()
+        {
+            ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.RGSabot, 
+                new Vector2(position.X + (Bounds.Width / 2) - 4, position.Y));
+            //Simuated recoil
+            position.Y += 10;
         }
 		
 		

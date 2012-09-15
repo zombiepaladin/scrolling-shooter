@@ -1,7 +1,7 @@
 Stardate 66168.4:
 -----------------
 -MatthewMcHaney merged completely (1 & 2)
--Added mahart assignment 2 (but not 1. Still, it looks like it added the files for it, just not the implementation)
+-Added mahart assignment 1 and 2.
 -Added jzavala 1 and 2.
 -Added xrt1986 1 and 2.
 -Khrijunk 1 and 2.

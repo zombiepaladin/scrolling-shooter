@@ -25,6 +25,7 @@ namespace ScrollingShooter
         HomingMissiles = 4096,
         ShotgunPowerup = 8192,
         MeteorPowerup = 16384,
+        Railgun = 32768,
     }
 
     /// <summary>

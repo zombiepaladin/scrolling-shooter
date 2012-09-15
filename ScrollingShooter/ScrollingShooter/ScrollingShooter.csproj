@@ -130,6 +130,7 @@
     <Compile Include="GameObjects\GameObject.cs" />
     <Compile Include="GameObjects\GameObjectManager.cs" />
     <Compile Include="Animation.cs" />
+    <Compile Include="Powerups\Railgun.cs" />
     <Compile Include="Powerups\ShotgunPowerup.cs" />
     <Compile Include="Powerups\BubbleBeamPowerup.cs" />
     <Compile Include="Projectiles\BubbleBullet.cs" />
@@ -167,6 +168,7 @@
     <Compile Include="Projectiles\HomingMissileProjectile.cs" />
     <Compile Include="Projectiles\JetMinionBullet.cs" />
     <Compile Include="Projectiles\Frostball.cs" />
+    <Compile Include="Projectiles\RGSabot.cs" />
     <Compile Include="Projectiles\TriShieldBall.cs" />
     <Compile Include="Projectiles\Projectile.cs" />
     <Compile Include="Projectiles\ShotgunBullet.cs" />

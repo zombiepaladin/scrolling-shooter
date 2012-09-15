@@ -311,6 +311,10 @@ namespace ScrollingShooter
                     powerup = new MeteorPowerup(id, content, position);
                     break;
 
+                case PowerupType.Railgun:
+                    powerup = new Railgun(id, content, position);
+                    break;
+
                 default:
                     throw new NotImplementedException("The powerup type " + Enum.GetName(typeof(ProjectileType), powerupType) + " is not supported");
             }
@@ -460,6 +464,10 @@ namespace ScrollingShooter
 
                 case ProjectileType.EnemyFlameball:
                     projectile = new EnemyFlameball(id, content, position);
+                    break;
+
+                case ProjectileType.RGSabot:
+                    projectile = new RGSabot(id, content, position);
                     break;
 
                 default:

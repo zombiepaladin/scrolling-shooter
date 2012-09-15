@@ -18,6 +18,7 @@ namespace ScrollingShooter
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+
         
 
         public static GameObjectManager GameObjectManager;
@@ -57,11 +58,18 @@ namespace ScrollingShooter
             GameObjectManager = new GameObjectManager(Content);
 
             // TODO: use this.Content to load your game content here
+<<<<<<< HEAD
             player = GameObjectManager.CreatePlayerShip(PlayerShipType.Shrike, new Vector2(300, 300));
             GameObjectManager.CreatePowerup(PowerupType.Fireball, new Vector2(100, 200));
             //player.ApplyPowerup(PowerupType.Fireball);
 
-            GameObjectManager.CreateEnemy(EnemyType.Dart, new Vector2(200, 200));
+            //GameObjectManager.CreateEnemy(EnemyType.Dart, new Vector2(200, 200));
+            GameObjectManager.CreateEnemy(EnemyType.LaserDrone, new Vector2(200, 200));
+=======
+            player = new ShrikeShip(Content);
+            player.ApplyPowerup(Powerups.Fireball);
+            testPowerup = new MeteorPowerup(Content, new Vector2(100, 100));
+>>>>>>> c05db2d76088445962246bf03891ccb9b1e207e9
         }
 
         /// <summary>

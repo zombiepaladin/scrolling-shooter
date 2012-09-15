@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
 using System;
+using System.Collections.Generic;
 
 namespace ScrollingShooter
 {
@@ -103,6 +104,7 @@ namespace ScrollingShooter
         /// <summary>
         /// Creates a new player ship instance
         /// </summary>
+        
         /// <param name="id">the unique id of the player ship</param>
         public PlayerShip(uint id) : base(id) { }
 
@@ -113,6 +115,15 @@ namespace ScrollingShooter
         /// <param name="powerup">the indicated powerup</param>
         public void ApplyPowerup(PowerupType powerup)
         {
+            //Meteor triggers on pickup, no need to store it.
+            //Alternatively, it could be stored and triggered on a custom key
+            //Another alternative - Store it as a once-per-press powerup, and remove it after the first press
+            if ((powerup & PowerupType.MeteorPowerup) > 0)
+            {
+                TriggerMeteor();
+                return;
+            }
+
             // Store the new powerup in the PowerupType bitmask
             this.PowerupType |= powerup;
 
@@ -357,6 +368,38 @@ namespace ScrollingShooter
         void TriggerFireball()
         {
             ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.Fireball, position);
+        }
+		
+		
+		/// <summary>
+        /// A helper function that starts a meteor storm,
+        /// corresponding to the meteor powerup
+        /// </summary>
+        void TriggerMeteor()
+        {
+            //TODO: Constantly do a tiny amount of damage to all enemies during the storm.
+			
+			//Reduce object creation by creating variables before loop.
+			Vector2 position = new Vector2();
+            Random rand = new Random();
+			
+			//Add a bunch of decorative meteors
+			for (int i = 0; i < 300; i++)
+			{
+                position.X = rand.Next(800);
+                position.Y = -rand.Next(4000) - 200;
+
+                ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.Meteor, position);
+
+			}
+			//Add a few large meteors
+            for (int i = 0; i < 10; i++)
+            {
+                position.X = 50 + rand.Next(800);
+                position.Y = -rand.Next(8000) - 1000;
+
+                ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.BigMeteor, position);
+            }
         }
 
         /// <summary>

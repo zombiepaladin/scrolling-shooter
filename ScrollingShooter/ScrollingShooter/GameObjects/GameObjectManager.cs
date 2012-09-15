@@ -307,6 +307,10 @@ namespace ScrollingShooter
                     powerup = new ShotgunPowerup(id, content, position);
                     break;
 
+                case PowerupType.MeteorPowerup:
+                    powerup = new MeteorPowerup(id, content, position);
+                    break;
+
                 default:
                     throw new NotImplementedException("The powerup type " + Enum.GetName(typeof(ProjectileType), powerupType) + " is not supported");
             }
@@ -344,6 +348,10 @@ namespace ScrollingShooter
                     break;
                 case ProjectileType.Blades:
                     projectile = new Blades(id, content);
+                    break;
+
+                case ProjectileType.DroneLaser:
+                    projectile = new DroneLaser(id, content, position);
                     break;
 
                 case ProjectileType.ToPlayerBullet:
@@ -441,6 +449,15 @@ namespace ScrollingShooter
                     QueueGameObjectForCreation(new ShotgunBullet(NextID(), content, position, BulletDirection.HardLeft));
                     QueueGameObjectForCreation(new ShotgunBullet(NextID(), content, position, BulletDirection.HardRight));
                     break;
+
+                case ProjectileType.Meteor:
+                    projectile = new Meteor(id, content, position);
+                    break;
+
+                case ProjectileType.BigMeteor:
+                    projectile = new BigMeteor(id, content, position);
+                    break;
+
                 default:
                     throw new NotImplementedException("The projectile type " + Enum.GetName(typeof(ProjectileType), projectileType) + " is not supported");
             }
@@ -489,6 +506,10 @@ namespace ScrollingShooter
             {
                 case EnemyType.Dart:
                     enemy = new Dart(id, content, position);
+                    break;
+
+                case EnemyType.LaserDrone:
+                    enemy = new LaserDrone(id, content, position);
                     break;
                 case EnemyType.Cobalt:
                     enemy = new Cobalt(id, content, position);

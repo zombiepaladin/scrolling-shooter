@@ -473,6 +473,9 @@ namespace ScrollingShooter
                 case ProjectileType.RGSabot:
                     projectile = new RGSabot(id, content, position);
                     break;
+                case ProjectileType.FreezewaveProjectile:
+                    projectile = new FreezewaveProjectile(id, content, position);
+                    break;
 
                 default:
                     throw new NotImplementedException("The projectile type " + Enum.GetName(typeof(ProjectileType), projectileType) + " is not supported");

@@ -48,10 +48,31 @@
       <Processor>TextureProcessor</Processor>
       <ProcessorParameters_ColorKeyColor>191, 220, 191, 255</ProcessorParameters_ColorKeyColor>
     </Compile>
-  </ItemGroup>
-  <ItemGroup>
+    <Compile Include="Tilemaps\AlienBase2.tmx">
+      <Name>AlienBase2</Name>
+      <Importer>TmxImporter</Importer>
+      <Processor>TilemapProcessor</Processor>
+    </Compile>
+    <Compile Include="Tilesets\bossFloorTexture.png">
+      <Name>bossFloorTexture</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <ProcessorParameters_ColorKeyColor>191, 220, 191, 255</ProcessorParameters_ColorKeyColor>
+    </Compile>
+    <Compile Include="Tilesets\newshn.shp.000000.png">
+      <Name>newshn.shp.000000</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <ProcessorParameters_ColorKeyColor>191, 220, 191, 255</ProcessorParameters_ColorKeyColor>
+    </Compile>
     <Compile Include="Tilesets\shapes%29.png">
       <Name>shapes%29</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <ProcessorParameters_ColorKeyColor>191, 220, 191, 255</ProcessorParameters_ColorKeyColor>
+    </Compile>
+    <Compile Include="Tilesets\shapesFinalLvlMod.png">
+      <Name>shapesFinalLvlMod</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <ProcessorParameters_ColorKeyColor>191, 220, 191, 255</ProcessorParameters_ColorKeyColor>
@@ -76,6 +97,12 @@
     </Compile>
     <Compile Include="Tilesets\shapesz.png">
       <Name>shapesz</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <ProcessorParameters_ColorKeyColor>191, 220, 191, 255</ProcessorParameters_ColorKeyColor>
+    </Compile>
+    <Compile Include="Tilesets\shapeszFinalLvlMod.png">
+      <Name>shapeszFinalLvlMod</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <ProcessorParameters_ColorKeyColor>191, 220, 191, 255</ProcessorParameters_ColorKeyColor>
@@ -362,6 +389,13 @@
       <Name>EBullet</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Tilemaps\example2.tmx">
+      <Name>example2</Name>
+      <Importer>TmxImporter</Importer>
+      <Processor>TilemapProcessor</Processor>
     </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />

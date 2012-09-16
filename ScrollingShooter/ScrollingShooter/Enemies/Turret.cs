@@ -1,4 +1,3 @@
-﻿using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
@@ -6,157 +5,139 @@ using Microsoft.Xna.Framework.Content;
 namespace ScrollingShooter
 {
     /// <summary>
-    /// An enemy turret that turns to the player and fires at them
+    /// Enum to hold the 8 turret directions.
+    /// </summary>
+    enum TurretSteeringState
+    {
+        TopLeft = 0,
+        Top = 1,
+        TopRight = 2,
+        Right = 3,
+        BottomRight = 4,
+        Bottom = 5,
+        BottomLeft = 6,
+        Left = 7,
+    }
+
+    /// <summary>
+    /// Basic turret class.
     /// </summary>
     public class Turret : Enemy
-    {   
-        // Turret Variables
-        /// <summary>
-        /// spritesheet with the turret texture
-        /// </summary>
+    {
         Texture2D spritesheet;
-
-        /// <summary>
-        /// Position of the turret
-        /// </summary>
         Vector2 position;
+        Rectangle[] spriteBounds = new Rectangle[8];
+        TurretSteeringState steeringState = TurretSteeringState.Bottom;
+        float turretGunTimer = 0;
 
         /// <summary>
-        /// Bounds of the turret on the spritesheet
-        /// </summary>
-        Rectangle spriteBounds = new Rectangle();
-
-        /// <summary>
-        /// Offset from the center to the tip of the left barrel and subtract half the width of the bullet (2.5f)
-        /// </summary>
-        Vector2 offsetLeft;
-
-        /// <summary>
-        /// Offset from the center to the tip of the right barrel and subtract half the width of the bullet (2.5f)
-        /// </summary>
-        Vector2 offsetRight;
-
-        /// <summary>
-        /// Int to determine which cannon we are firing from: 0 = right barrel, 1 = left barrel
-        /// </summary>
-        int barrel = 0; 
-
-        /// <summary>
-        /// Rotation of the turret
-        /// </summary>
-        float alpha;
-
-        /// <summary>
-        /// Shot delay of the turret
-        /// </summary>
-        float shotDelay;
-
-        /// <summary>
-        /// The bounding rectangle of the Dart
+        /// Not sure if this is needed for a moving turret.
         /// </summary>
         public override Rectangle Bounds
         {
-            get { return new Rectangle((int)position.X, (int)position.Y, spriteBounds.Width, spriteBounds.Height); }
+            get { return new Rectangle((int)position.X, (int)position.Y, spriteBounds[(int)steeringState].Width, spriteBounds[(int)steeringState].Height); }
         }
 
         /// <summary>
-        /// Creates a new instance of an enemy turret
+        /// New turret class.
         /// </summary>
-        /// <param name="content">A ContentManager to load resources with</param>
-        /// <param name="position">The position of the turret in the game world</param>
-        public Turret(ContentManager content, Vector2 position)
+        /// <param name="content">Content Manager</param>
+        /// <param name="position">The turrets sitting position.</param>
+        public Turret(uint id, ContentManager content, Vector2 position) : base (id)
         {
             this.position = position;
 
-            spritesheet = content.Load<Texture2D>("Spritesheets/newsh3.shp.000000");
+            spritesheet = content.Load<Texture2D>("Spritesheets/newshp.shp.000000");
 
-            spriteBounds.X = 161;
-            spriteBounds.Y = 62;
-            spriteBounds.Width = 14;
-            spriteBounds.Height = 19;
+            spriteBounds[(int)TurretSteeringState.TopLeft].X = 144;
+            spriteBounds[(int)TurretSteeringState.TopLeft].Y = 0;
+            spriteBounds[(int)TurretSteeringState.TopLeft].Width = 24;
+            spriteBounds[(int)TurretSteeringState.TopLeft].Height = 28;
 
-            alpha = 0;
+            spriteBounds[(int)TurretSteeringState.Top].X = 168;
+            spriteBounds[(int)TurretSteeringState.Top].Y = 0;
+            spriteBounds[(int)TurretSteeringState.Top].Width = 24;
+            spriteBounds[(int)TurretSteeringState.Top].Height = 28;
 
-            shotDelay = 0;
+            spriteBounds[(int)TurretSteeringState.TopRight].X = 192;
+            spriteBounds[(int)TurretSteeringState.TopRight].Y = 0;
+            spriteBounds[(int)TurretSteeringState.TopRight].Width = 24;
+            spriteBounds[(int)TurretSteeringState.TopRight].Height = 28;
 
-            // Offset from the center to the tip of the left barrel and subtract half the width of the bullet (2.5f) and half the width of the turret
-            offsetLeft = new Vector2(-4 - 2f, (float)this.Bounds.Height / 2);
+            spriteBounds[(int)TurretSteeringState.Right].X = 192;
+            spriteBounds[(int)TurretSteeringState.Right].Y = 28;
+            spriteBounds[(int)TurretSteeringState.Right].Width = 24;
+            spriteBounds[(int)TurretSteeringState.Right].Height = 28;
 
-            // Offset from the center to the tip of the right barrel and subtract half the width of the bullet (2.5f) and half the width of the turret
-            offsetRight = new Vector2(4 - 2f, (float)this.Bounds.Height / 2);
+            spriteBounds[(int)TurretSteeringState.BottomRight].X = 192;
+            spriteBounds[(int)TurretSteeringState.BottomRight].Y = 56;
+            spriteBounds[(int)TurretSteeringState.BottomRight].Width = 24;
+            spriteBounds[(int)TurretSteeringState.BottomRight].Height = 28;
+
+            spriteBounds[(int)TurretSteeringState.Bottom].X = 168;
+            spriteBounds[(int)TurretSteeringState.Bottom].Y = 56;
+            spriteBounds[(int)TurretSteeringState.Bottom].Width = 24;
+            spriteBounds[(int)TurretSteeringState.Bottom].Height = 28;
+
+            spriteBounds[(int)TurretSteeringState.BottomLeft].X = 144;
+            spriteBounds[(int)TurretSteeringState.BottomLeft].Y = 56;
+            spriteBounds[(int)TurretSteeringState.BottomLeft].Width = 24;
+            spriteBounds[(int)TurretSteeringState.BottomLeft].Height = 28;
+
+            spriteBounds[(int)TurretSteeringState.Left].X = 144;
+            spriteBounds[(int)TurretSteeringState.Left].Y = 28;
+            spriteBounds[(int)TurretSteeringState.Left].Width = 24;
+            spriteBounds[(int)TurretSteeringState.Left].Height = 28;
+
+            steeringState = TurretSteeringState.Bottom;
         }
 
         /// <summary>
-        /// Updates the Turret
+        /// It's update function that shoots out TurretFireballs if the PlayerShip
+        /// is in range.
         /// </summary>
-        /// <param name="elapsedTime">The in-game time between the previous and current frame</param>
-        public override void  Update(float elapsedTime)
+        /// <param name="elapsedTime">Elapsed time of the update.</param>
+        public override void Update(float elapsedTime)
         {
-            // Update the shot timer
-            shotDelay += elapsedTime;
-
-            // Sense the player's position
             PlayerShip player = ScrollingShooterGame.Game.player;
             Vector2 playerPosition = new Vector2(player.Bounds.Center.X, player.Bounds.Center.Y);
 
-            // Get a vector from our position to the player's position
             Vector2 toPlayer = playerPosition - this.position;
+            turretGunTimer+=elapsedTime;
 
-            if(toPlayer.LengthSquared() < 150000)
+            if (toPlayer.LengthSquared() < 95000)
             {
-                // TODO: Figure out why the bullet spawn doesn't always match up perfectly with the cannon barrel
-
-                // We sense the player's ship!                  
-                // Get a normalized turning vector
                 toPlayer.Normalize();
 
-                // Rotate towards them!
-                this.alpha = (float)Math.Atan2(toPlayer.Y, toPlayer.X) - MathHelper.PiOver2;
+                // Unit vector numbers. Should turn evenly in 8 directions.
+                if (toPlayer.X > 0.92f) steeringState = TurretSteeringState.Right;
+                else if (toPlayer.X < -0.92f) steeringState = TurretSteeringState.Left;
+                else if (-toPlayer.Y > 0.92f) steeringState = TurretSteeringState.Top;
+                else if (-toPlayer.Y < -0.92f) steeringState = TurretSteeringState.Bottom;
+                else if (toPlayer.X > 0.38f && -toPlayer.Y > 0.38f) steeringState = TurretSteeringState.TopRight;
+                else if (toPlayer.X > 0.38f && -toPlayer.Y < -0.38f) steeringState = TurretSteeringState.BottomRight;
+                else if (toPlayer.X < -0.38f && -toPlayer.Y > 0.38f) steeringState = TurretSteeringState.TopLeft;
+                else steeringState = TurretSteeringState.BottomLeft;
 
-                // If it is time to shoot, fire a bullet towards the player
-                if (shotDelay > 1f)
+                // Turret firing speed can be adjusted here.
+                if (turretGunTimer > 1.75f)
                 {
-                    // Rotation Matrix to get the rotated offset vectors
-                    Matrix rotMatrix = Matrix.CreateRotationZ(alpha);
-
-                    // Offset vector that adjusts according to which barrel we are using
-                    Vector2 offset;
-
-                    // Bullet velocity
-                    float bulletVel = 200f;
-
-                    // Figure out which barrel we are using and offset it with the toPlayer direction vector
-                    if (barrel == 0)
-                    {
-                        offset = Vector2.Transform(offsetRight, rotMatrix);
-                        barrel = 1;
-                    }
-                    else
-                    {
-                        offset = Vector2.Transform(offsetLeft, rotMatrix);
-                        barrel = 0;
-                    }
-
-                    // Spawn the bullet
-                    // TODO: Add this to the enemy projectiles list once it's created
-                    ScrollingShooterGame.Game.projectiles.Add(new EnemyBullet(ScrollingShooterGame.Game.Content, this.position + offset, bulletVel * toPlayer));
-
-                    // Reset the shot delay
-                    shotDelay = 0;
+                    ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.TurretFireball, position);
+                    turretGunTimer = 0f;
                 }
 
-            }                        
+               
+            }
         }
 
         /// <summary>
-        /// Draw the turret on-screen
+        /// Draw function.
         /// </summary>
-        /// <param name="elapsedTime">The in-game time between the previous and current frame</param>
-        /// <param name="spriteBatch">An already initialized SpriteBatch, ready for Draw() commands</param>
+        /// <param name="elapsedTime">Game elapsed time.</param>
+        /// <param name="spriteBatch">Game spritebatch.</param>
         public override void Draw(float elapsedTime, SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(spritesheet, Bounds, spriteBounds, Color.White, alpha, new Vector2(spriteBounds.Width / 2, spriteBounds.Height / 2), SpriteEffects.None, 0f);
+            spriteBatch.Draw(spritesheet, Bounds, spriteBounds[(int)steeringState], Color.White);
         }
-
     }
 }

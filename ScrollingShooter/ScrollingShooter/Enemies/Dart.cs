@@ -1,4 +1,4 @@
-﻿using Microsoft.Xna.Framework;
+﻿﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 
@@ -37,7 +37,7 @@ namespace ScrollingShooter
         /// </summary>
         /// <param name="content">A ContentManager to load resources with</param>
         /// <param name="position">The position of the Dart ship in the game world</param>
-        public Dart(ContentManager content, Vector2 position)
+        public Dart(uint id, ContentManager content, Vector2 position) : base (id)
         {
             this.position = position;
 
@@ -59,6 +59,7 @@ namespace ScrollingShooter
             spriteBounds[(int)DartSteeringState.Right].Height = 28;
 
             steeringState = DartSteeringState.Straight;
+         
         }
 
         /// <summary>
@@ -81,7 +82,7 @@ namespace ScrollingShooter
                 toPlayer.Normalize();
 
                 // Steer towards them!
-                this.position += toPlayer * elapsedTime * 100;
+                //this.position += toPlayer * elapsedTime * 100;
 
                 // Change the steering state to reflect our direction
                 if (toPlayer.X < -0.5f) steeringState = DartSteeringState.Left;
@@ -97,7 +98,7 @@ namespace ScrollingShooter
         /// <param name="spriteBatch">An already initialized SpriteBatch, ready for Draw() commands</param>
         public override void Draw(float elapsedTime, SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(spritesheet, Bounds, spriteBounds[(int)steeringState], Color.White);
+            spriteBatch.Draw(spritesheet, Bounds, spriteBounds[(int)steeringState], Color.White, 0f, new Vector2(Bounds.Width / 2, Bounds.Height / 2), SpriteEffects.None, 1f);
         }
 
     }

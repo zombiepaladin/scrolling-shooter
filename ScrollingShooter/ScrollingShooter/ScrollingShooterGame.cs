@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+using ScrollingShooterWindowsLibrary;
 
 namespace ScrollingShooter
 {
@@ -18,12 +19,13 @@ namespace ScrollingShooter
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        public PlayerShip player;
 
-        public List<Projectile> projectiles = new List<Projectile>();
-        public List<Enemy> enemies = new List<Enemy>();
         public static ScrollingShooterGame Game;
-        
+        public static GameObjectManager GameObjectManager;
+
+        public PlayerShip player;
+        public Tilemap tilemap;
+
         public ScrollingShooterGame()
         {
             Game = this;
@@ -53,11 +55,25 @@ namespace ScrollingShooter
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
+            GameObjectManager = new GameObjectManager(Content);
+
             // TODO: use this.Content to load your game content here
-            player = new ShrikeShip(Content);
-            player.ApplyPowerup(Powerups.Fireball);
-            enemies.Add(new Dart(Content, new Vector2(100, 100)));
-            enemies.Add(new Turret(Content, new Vector2(200, 100)));
+            player = GameObjectManager.CreatePlayerShip(PlayerShipType.Shrike, new Vector2(300, 300));
+
+            tilemap = Content.Load<Tilemap>("Tilemaps/example");
+            tilemap.Scrolling = true;
+
+            GameObjectManager.CreatePowerup(PowerupType.TriShield, new Vector2(100, 200));
+            GameObjectManager.CreatePowerup(PowerupType.Railgun, new Vector2(100, 300));
+            GameObjectManager.CreatePowerup(PowerupType.ShotgunPowerup, new Vector2(500, 300));
+
+            GameObjectManager.CreateEnemy(EnemyType.DeerTickDown, new Vector2(200, 200));
+            GameObjectManager.CreateEnemy(EnemyType.TurretSingle, new Vector2(300, 300));
+            GameObjectManager.CreateEnemy(EnemyType.TurretDouble, new Vector2(150, 300));
+            GameObjectManager.CreateEnemy(EnemyType.TurretTower, new Vector2(400, 100));
+            GameObjectManager.CreateEnemy(EnemyType.DeerTickLeft, new Vector2(100, 100));
+            GameObjectManager.CreateEnemy(EnemyType.DeerTickRight, new Vector2(200, 100));
+            GameObjectManager.CreateEnemy(EnemyType.Turret, new Vector2(300, 100));
         }
 
         /// <summary>
@@ -83,16 +99,40 @@ namespace ScrollingShooter
             // TODO: Add your update logic here
             float elapsedTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-            player.Update(elapsedTime);
+            tilemap.Update(elapsedTime);
 
-            foreach(Projectile projectile in projectiles)
-            {
-                projectile.Update(elapsedTime);
-            }
+            GameObjectManager.Update(elapsedTime);
 
-            foreach (Enemy enemy in enemies)
+            // Process collisions
+            foreach (CollisionPair pair in GameObjectManager.Collisions)
             {
-                enemy.Update(elapsedTime);
+                // Player collisions
+                if (pair.A == player.ID || pair.B == player.ID)
+                {
+                    uint colliderID = (pair.A == player.ID) ? pair.B : pair.A;
+                    GameObject collider = GameObjectManager.GetObject(colliderID);
+
+                    // Process powerup collisions
+                    Powerup powerup = collider as Powerup;
+                    if (powerup != null)
+                    {
+                        player.ApplyPowerup(powerup.Type);
+                        GameObjectManager.DestroyObject(colliderID);
+                    }
+
+                    //NOTE: Apply to more than the kamikaze enemy?
+                    // Process kamakaze collisions
+                    Enemy enemy = collider as Enemy;
+                    if (enemy != null && enemy.GetType() == typeof(Kamikaze))
+                    {
+                        //Player take damage
+                        GameObjectManager.DestroyObject(colliderID);
+                        GameObjectManager.CreateExplosion(colliderID);
+                    }
+
+                }
+
+
             }
 
             base.Update(gameTime);
@@ -108,19 +148,12 @@ namespace ScrollingShooter
 
             // TODO: Add your drawing code here
             float elapsedGameTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
-            
+
             spriteBatch.Begin();
-            player.Draw(elapsedGameTime, spriteBatch);
+            tilemap.Draw(elapsedGameTime, spriteBatch);
 
-            foreach (Projectile projectile in projectiles)
-            {
-                projectile.Draw(elapsedGameTime, spriteBatch);
-            }
-
-            foreach (Enemy enemy in enemies)
-            {
-                enemy.Draw(elapsedGameTime, spriteBatch);
-            }
+            GameObjectManager.Draw(elapsedGameTime, spriteBatch);
+            
             spriteBatch.End();
 
             base.Draw(gameTime);

@@ -14,8 +14,10 @@ namespace ScrollingShooter
         /// </summary>
         /// <param name="contentManager">A ContentManager to load resources with</param>
         /// <param name="position">The position the energy blast powerup spawns at in the world</param>
-        public EnergyBlastPowerup(ContentManager contentManager, Vector2 position)
+        public EnergyBlastPowerup(uint id, ContentManager contentManager, Vector2 position)
+            :base(id)
         {
+            this.type = PowerupType.EnergyBlast;
             this.spriteSource = new Rectangle(98, 115, 20, 21);
             this.spriteSheet = contentManager.Load<Texture2D>("Spritesheets/tyrian.shp.010008");
             this.spriteBounds = new Rectangle((int)position.X, (int)position.Y, 20, 21);

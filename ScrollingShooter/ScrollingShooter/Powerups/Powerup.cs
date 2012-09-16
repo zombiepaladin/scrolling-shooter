@@ -10,11 +10,22 @@ namespace ScrollingShooter
     public enum PowerupType
     {
         None = 0,
-        Fireball = 0x1,
-<<<<<<< HEAD
-        ShotgunPowerup = 0x2,
-=======
->>>>>>> upstream/master
+        Fireball = 1,
+        Blades = 2,
+        EightBallShield = 4,
+        Frostball = 8,
+        Birdcrap = 16,
+        DroneWave = 32,
+        EnergyBlast = 64,
+        TriShield = 128,
+        Freezewave = 256,
+        Bomb = 512,
+        BubbleBeam = 1024,
+        Ale = 2048,
+        HomingMissiles = 4096,
+        ShotgunPowerup = 8192,
+        MeteorPowerup = 16384,
+        Railgun = 32768,
     }
 
     /// <summary>

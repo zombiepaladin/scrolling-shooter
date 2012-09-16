@@ -1,4 +1,4 @@
-﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 
@@ -94,18 +94,18 @@ namespace ScrollingShooter
             explosionTimer += elapsedTime;
             if (explosionState == ExplosionState.Finished)
             {
-                // TODO: Delete explosion object
+                ScrollingShooterGame.GameObjectManager.DestroyObject(this.ID);
             }
 
             else if (explosionState == ExplosionState.Stage11)
             {
-                if (explosionTimer > 0.25f)
+                if (explosionTimer > 0.01f)
                 {
                     explosionState++;
                     explosionTimer = 0;
                 }
             }
-            else if (explosionTimer >= 0.1f)
+            else if (explosionTimer >= 0.01f)
             {
                 explosionState++;
                 explosionTimer = 0;
@@ -120,7 +120,6 @@ namespace ScrollingShooter
         /// <param name="spriteBatch">An already initialized SpriteBatch, ready for Draw() commands</param>
         public override void Draw(float elapsedTime, SpriteBatch spriteBatch)
         {
-            //TODO: Remove if statement when explosion is deleted upon completion
             if (explosionState != ExplosionState.Finished)
             {
                 spriteBatch.Draw(spriteSheet, ExplosionBounds(0), spriteBounds[0, (int)explosionState], Color.White);

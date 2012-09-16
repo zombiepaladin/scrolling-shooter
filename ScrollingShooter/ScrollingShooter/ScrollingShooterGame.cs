@@ -66,6 +66,13 @@ namespace ScrollingShooter
             tilemap.Scrolling = true;
 
             GameObjectManager.CreateEnemy(EnemyType.Dart, new Vector2(200, 200));
+
+            //test out new panzer personality
+            GameObjectManager.CreateEnemy(EnemyType.Panzer, new Vector2(100, 100));
+            //test out panzer2 functionality
+            GameObjectManager.CreateEnemy(EnemyType.Panzer2, new Vector2(200, 100));
+            //test out lavabug
+            GameObjectManager.CreateEnemy(EnemyType.Lavabug, new Vector2(100, 75));
         }
 
         /// <summary>

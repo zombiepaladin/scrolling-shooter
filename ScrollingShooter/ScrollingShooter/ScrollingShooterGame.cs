@@ -59,14 +59,14 @@ namespace ScrollingShooter
 
             // TODO: use this.Content to load your game content here
             player = GameObjectManager.CreatePlayerShip(PlayerShipType.Shrike, new Vector2(300, 300));
-            GameObjectManager.CreatePowerup(PowerupType.Fireball, new Vector2(100, 200));
+            GameObjectManager.CreatePowerup(PowerupType.ShotgunPowerup, new Vector2(100, 200));
             //player.ApplyPowerup(PowerupType.Fireball);
 
             tilemap = Content.Load<Tilemap>("Tilemaps/example");
-            tilemap.Scrolling = true;
+            tilemap.Scrolling = false;
 
-            GameObjectManager.CreateEnemy(EnemyType.Dart, new Vector2(200, 200));
-            GameObjectManager.CreateBoss(Bosses.EnemyType.Blimp, new Vector2(300, 300));
+            //GameObjectManager.CreateEnemy(EnemyType.Arrow, new Vector2(200, 200));
+            GameObjectManager.CreateBoss(Bosses.EnemyType.Blimp, new Vector2(25, 25));
         }
 
         /// <summary>
@@ -116,7 +116,7 @@ namespace ScrollingShooter
                     //NOTE: Apply to more than the kamikaze enemy?
                     // Process kamakaze collisions
                     Enemy enemy = collider as Enemy;
-                    if (enemy != null && enemy.GetType() == typeof(Kamikaze))
+                    if (enemy != null && (enemy.GetType() == typeof(Kamikaze) || enemy.GetType() == typeof(SuicideBomber)))
                     {
                         //Player take damage
                         GameObjectManager.DestroyObject(colliderID);

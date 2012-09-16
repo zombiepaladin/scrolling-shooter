@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="16" height="160" tilewidth="24" tileheight="28">
+ <tileset firstgid="1" name="shapesz" tilewidth="24" tileheight="28">
+  <image source="C:/Users/Andrew Bellinder/Favorites/scrolling-shooter/ScrollingShooter/ScrollingShooterContent/Tilesets/shapesz.png" width="240" height="1736"/>
+ </tileset>
+ <tileset firstgid="621" name="shapesx" tilewidth="24" tileheight="28">
+  <image source="C:/Users/Andrew Bellinder/Favorites/scrolling-shooter/ScrollingShooter/ScrollingShooterContent/Tilesets/shapesx.png" width="240" height="1932"/>
+ </tileset>
+ <tileset firstgid="1311" name="shapes)" tilewidth="24" tileheight="28">
+  <image source="C:/Users/Andrew Bellinder/Favorites/scrolling-shooter/ScrollingShooter/ScrollingShooterContent/Tilesets/shapes).png" width="240" height="1708"/>
+ </tileset>
+ <tileset firstgid="1921" name="shapesy" tilewidth="24" tileheight="28">
+  <image source="C:/Users/Andrew Bellinder/Favorites/scrolling-shooter/ScrollingShooter/ScrollingShooterContent/Tilesets/shapesy.png" width="240" height="1876"/>
+ </tileset>
+ <layer name="Ground" width="16" height="160">
+  <data encoding="base64" compression="zlib">
+   eJztmMtqFEEUhqtlAgO25g2SiC5MgsFcVJDES1oD6owK0QcwE7MR3JkIBqKCrrytvK00mihk7c6VG3WpLjXv4t/0NBwOVdUnVdPTM5NefHT1qfr7P1V1uqaZWaVUBGYdrzVQ97i6+pb+pX+v+kuImD/NR0Jdo3NZj1bNv2h/n/0fCpQ6ECTPS9vSePycEbRHg+R5aVsa74T5l/7t9R/A3g967P9haIeD7p1/6Z+P/1EwDiYc/U+Cb2Da0f8cOA/mHP0vgyvgapeuf+kvu07g7JoEU4Gb7zR0M+BUkN/8T4MzGZy1PPcCuJjBJYu/VO/rb5rnjFAv8Sn1+ennwTVHrquk3ui7kNYQr8kai9fI+MjSn8bSa8TuaywWabxpTnU2do8nIwVz3EN7Agx76EdLfc/rQ0vcpo/7+8F+zTNCoX4f2Nth+rBN+pg+ULHsSZY+VOb9k+p96qdIva3+pHpT/ewGva3+pP4Um/57Vakf4GfVTf8Lut/gj6P+L3T/wHZVP4dOrD+f868V+l6qvzz0vvUjoaj6y/r9CXPWZ+XfCr1P/fHaKap+XPRUo2vTmE3P689FT/dvt+l5/bn4m/ayXfWXhfT9oX30WyFLrzv/6LeCy/lBvxU6+fwq+vfXZ/+7ST+pkv9gDmKxDvUlcUk7/u/lGLhRSXI4gvhYs0/Sjr0Xob1VSXKY2iGx921o74BlsOLAXbAG7oMHDjwEDcICu6fxBdLP7xusj4/hfTH3wKpmnMmDtx+Bx+AJeEp4RsbcbLJkyCO+vgSvCK9Jjlyvy+sdeE9Yb8Y/gI9gA2wa5mDCtJ66ffki4LOlz5ZTGtsCz8ELw37b8m409W/A2x3M/RPJ8aslf10uqac0R90abFXMueneF92a6d4RPu4/SR1cSA==
+  </data>
+ </layer>
+ <layer name="Sky" width="16" height="160">
+  <data encoding="base64" compression="zlib">
+   eJztmttvDVEUhw/BqTt1v0Xi8kBaqu5NaUsRqn2heOtDPSChSUmQIG5B4pKQ0P+n/xBJiZAU34mzZc7O3nPWWqdH55zML/keZs/85sy0s/Zaa88UCo2nDtgHnUZ/F0xCd3l7a4vO3w+n4HR5exf+3cpzOHXi2w8HjP5ufMfguNFf0pkavNXUA73Qlxibx+/NF/7mWTgHA+XtpfiWwfIUf1ti3wW4CMPl7XXsWw8bIv6DjB+qcm3b2L89ckwP4711/HtKNFUsFL7Ct+Lf7e9FnX+a43/B75KPe5kDc4X3tIDjitACC2ERLIYlQv8KjlsJrbAKVsMaWCv0b+S4TbAZthj+Dzvw7Kzj/0871/jK4lwzyvZV4TlDc81Nxm7BmPG67uK7B/cN/sd4nsBTeAbPDed4jecNvIV3Bv9HPJ9gYpbnDaeRGq7jGt7rcMN4jnF8t+GO0f8A30N4FPC3M7YH9kJH5PwvGH8JrwL7DzN2BI5CV8r1vWffh8D+PsZOwEnoN9zfAJ7zMAhDBv8wnktwGa5k5FlrRrXV8Ld19Yc1h7v6o5Fy+Geu8Uvi/kI5PC1v/sD7M+EP5XBp3gzNEZq8GZojNDV6bI6Q1uj5HJFrpqWp70LK67ts1Xe56i8/f2tVkb+V8vO3Vn7+1irrPXhWNGV8NpymDX639uaekaSq1ZjJtTf3jPyToMZMrr25Z8RJWmO6tTf/GdGuE4X0v9ZmQv2BtMaMrU9Ka8y09UlpjenX61r59fpsyr8Xbd/l34ul7/JjUtN3hWJSs3Yaiklp3+UUi8mSJDFRigdr3+Xiwdp3uXjI+67mluadky//nZP2fUrFOyfhnODLxZh2LcbXTOTJNEnWWNMkXWONKatrrHkPLeuhY7El6qGNseWU9diqR08pjdVYTymN1VhPKY3VWE8pjdVYT5nn3OaSNjdXKDJ/SGuH0Pwh+V7FKTR/VPteRaK071WcQnlb8x7Lz9uS72iS8vO29juaLNTfjdgX/wHNGqlO
+  </data>
+ </layer>
+ <objectgroup name="Ships" width="16" height="160">
+  <object name="Suicide Bomber " x="290" y="4220" width="32" height="33"/>
+  <object x="208" y="4469" height="1"/>
+  <object name="Player Start" x="173" y="4430" width="59" height="19"/>
+  <object name="Green Goblin" x="52" y="3962" width="38" height="35"/>
+  <object name="Green Goblin" x="124" y="3960" width="38" height="35"/>
+  <object name="Green Goblin" x="196" y="3959" width="38" height="35"/>
+  <object name="Green Goblin" x="268" y="3958" width="38" height="35"/>
+  <object name="Suicide Bomber " x="30" y="4140" width="32" height="33"/>
+  <object name="Turret" x="41" y="3596" width="28" height="21"/>
+  <object name="Turret" x="252" y="3689" width="28" height="21"/>
+  <object name="Dart" x="109" y="3787" width="34" height="28"/>
+  <object name="Dart" x="341" y="3793" width="34" height="28"/>
+  <object name="Dart" x="242" y="3444"/>
+  <object name="Green Goblin" x="48" y="3292" width="38" height="35"/>
+  <object name="Green Goblin" x="72" y="3199" width="38" height="35"/>
+  <object name="Green Goblin" x="139" y="3253" width="38" height="35"/>
+  <object name="Green Goblin" x="224" y="3178" width="38" height="35"/>
+  <object name="Green Goblin" x="278" y="3213" width="38" height="35"/>
+  <object name="StdBaddy" x="14" y="2859" width="19" height="19"/>
+  <object name="StdBaddy" x="71" y="2858" width="19" height="19"/>
+  <object name="StdBaddy" x="147" y="2858" width="19" height="19"/>
+  <object name="StdBaddy" x="201" y="2857" width="19" height="19"/>
+  <object name="Kamikaze" x="263" y="2777"/>
+  <object name="Kamikaze" x="340" y="2781"/>
+  <object name="Cobalt" x="118" y="2582"/>
+  <object name="Cobalt" x="284" y="2583"/>
+  <object name="Arrow" x="35" y="2316"/>
+  <object name="Arrow" x="345" y="2317"/>
+  <object name="Zepplin Boss" x="131" y="146" width="129" height="197"/>
+  <object name="Player Stop" x="8" y="56" width="373" height="31"/>
+  <object name="Turret" x="185" y="2088" width="28" height="21"/>
+  <object name="Turret" x="41" y="2079" width="28" height="21"/>
+  <object name="Turret" x="331" y="2086" width="28" height="21"/>
+  <object name="StdBaddy" x="35" y="630" width="19" height="19"/>
+  <object name="StdBaddy" x="107" y="630" width="19" height="19"/>
+  <object name="StdBaddy" x="179" y="630" width="19" height="19"/>
+  <object name="StdBaddy" x="254" y="627" width="19" height="19"/>
+  <object name="StdBaddy" x="327" y="630" width="19" height="19"/>
+  <object name="Green Goblin" x="26" y="1626" width="38" height="35"/>
+  <object name="Green Goblin" x="316" y="1614" width="38" height="35"/>
+  <object name="Green Goblin" x="174" y="1705" width="38" height="35"/>
+  <object name="Arrow" x="144" y="1503"/>
+  <object name="Arrow" x="276" y="1505"/>
+  <object name="Suicide Bomber " x="13" y="1088" width="32" height="33"/>
+  <object name="Suicide Bomber " x="342" y="1087" width="32" height="33"/>
+  <object name="Cobalt" x="105" y="873"/>
+  <object name="Cobalt" x="240" y="873"/>
+  <object name="Turret" x="328" y="1234" width="28" height="21"/>
+  <object name="Turret" x="57" y="1163" width="28" height="21"/>
+ </objectgroup>
+</map>

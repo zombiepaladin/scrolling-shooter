@@ -118,6 +118,7 @@
     <Compile Include="Enemies\Enemy.cs" />
     <Compile Include="Enemies\GreenGoblin.cs" />
     <Compile Include="Enemies\LaserDrone.cs" />
+    <Compile Include="Enemies\LavaFighter.cs" />
     <Compile Include="Enemies\SuicideBomber.cs" />
     <Compile Include="Enemies\Seed.cs" />
     <Compile Include="Enemies\JTurret.cs" />

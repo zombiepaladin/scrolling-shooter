@@ -13,7 +13,7 @@ namespace ScrollingShooter
         Straight = 1,
         Right = 2,
     }
-    class LavaFighter : Enemy
+    public class LavaFighter : Enemy
     {
         Texture2D spritesheet;
         Vector2 position;
@@ -39,19 +39,19 @@ namespace ScrollingShooter
         {
             this.position = position;
 
-            spritesheet = content.Load<Texture2D>("Spritesheets/newsh$.shp.000000");
+            spritesheet = content.Load<Texture2D>("Spritesheets/newshe.shp.000000");
 
-            spriteBounds[(int)LavaFighterSteeringState.Left].X = 5;
+            spriteBounds[(int)LavaFighterSteeringState.Left].X = 76;
             spriteBounds[(int)LavaFighterSteeringState.Left].Y = 197;
             spriteBounds[(int)LavaFighterSteeringState.Left].Width = 20;
             spriteBounds[(int)LavaFighterSteeringState.Left].Height = 28;
 
-            spriteBounds[(int)LavaFighterSteeringState.Straight].X = 52;
+            spriteBounds[(int)LavaFighterSteeringState.Straight].X = 51;
             spriteBounds[(int)LavaFighterSteeringState.Straight].Y = 197;
             spriteBounds[(int)LavaFighterSteeringState.Straight].Width = 20;
             spriteBounds[(int)LavaFighterSteeringState.Straight].Height = 28;
 
-            spriteBounds[(int)LavaFighterSteeringState.Right].X = 101;
+            spriteBounds[(int)LavaFighterSteeringState.Right].X = 28;
             spriteBounds[(int)LavaFighterSteeringState.Right].Y = 197;
             spriteBounds[(int)LavaFighterSteeringState.Right].Width = 20;
             spriteBounds[(int)LavaFighterSteeringState.Right].Height = 28;
@@ -72,17 +72,16 @@ namespace ScrollingShooter
             PlayerShip player = ScrollingShooterGame.Game.player;
             Vector2 playerPosition = new Vector2(player.Bounds.Center.X, player.Bounds.Center.Y);
 
+
             // Get a vector from our position to the player's position
             Vector2 toPlayer = playerPosition - this.position;
+            this.position.Y += elapsedTime * 100;
 
-            if (toPlayer.LengthSquared() < 20000)
+            if (toPlayer.LengthSquared() < 60000)
             {
                 // We sense the player's ship!                  
                 // Get a normalized steering vector
                 toPlayer.Normalize();
-
-                // Steer towards them!
-                this.position += toPlayer * elapsedTime * 120;
 
                 // Change the steering state to reflect our direction
                 if (toPlayer.X < -0.5f)
@@ -108,6 +107,16 @@ namespace ScrollingShooter
                 else
                     steeringState = LavaFighterSteeringState.Straight;
             }
+        }
+
+        /// <summary>
+        /// Draw the Arrow ship on-screen
+        /// </summary>
+        /// <param name="elapsedTime">The in-game time between the previous and current frame</param>
+        /// <param name="spriteBatch">An already initialized SpriteBatch, ready for Draw() commands</param>
+        public override void Draw(float elapsedTime, SpriteBatch spriteBatch)
+        {
+            spriteBatch.Draw(spritesheet, Bounds, spriteBounds[(int)steeringState], Color.White, 0f, new Vector2(Bounds.Width / 2, Bounds.Height / 2), SpriteEffects.FlipVertically, 1f);
         }
     }
 }

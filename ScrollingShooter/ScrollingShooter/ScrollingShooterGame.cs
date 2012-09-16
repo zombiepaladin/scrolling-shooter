@@ -63,6 +63,8 @@ namespace ScrollingShooter
             //player.ApplyPowerup(PowerupType.Fireball);
 
             GameObjectManager.CreateEnemy(EnemyType.Dart, new Vector2(200, 200));
+            for(int i = 0; i < 16; ++i)
+                GameObjectManager.CreateEnemy(EnemyType.LavaFighter, new Vector2(i*50+30,30));
         }
 
         /// <summary>
@@ -116,7 +118,13 @@ namespace ScrollingShooter
                         GameObjectManager.DestroyObject(colliderID);
                         GameObjectManager.CreateExplosion(colliderID);
                     }
-
+                    Enemy enemy2 = collider as Enemy;
+                    if (enemy2 != null && enemy2.GetType() == typeof(LavaFighter))
+                    {
+                        //Player take damage
+                        GameObjectManager.DestroyObject(colliderID);
+                        GameObjectManager.CreateExplosion(colliderID);
+                    }
                 }
 
 

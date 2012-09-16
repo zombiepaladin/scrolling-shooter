@@ -597,6 +597,10 @@ namespace ScrollingShooter
                 case EnemyType.SuicideBomber:
                     enemy = new SuicideBomber(id, content, position);
                     break;
+                
+                case EnemyType.LavaFighter:
+                    enemy = new LavaFighter(id, content, position);
+                    break;
 
                 default:
                     throw new NotImplementedException("The enemy type " + Enum.GetName(typeof(EnemyType), enemyType) + " is not supported");

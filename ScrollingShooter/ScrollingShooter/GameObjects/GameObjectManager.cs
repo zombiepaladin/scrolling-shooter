@@ -474,6 +474,14 @@ namespace ScrollingShooter
                     projectile = new RGSabot(id, content, position);
                     break;
 
+                case ProjectileType.EnemyPsyBall:
+                    projectile = new EnemyPsiBall(id, content, position);
+                    break;
+
+                case ProjectileType.EnemyLightningZap:
+                    projectile = new EnemyLightningZap(id, content, position);
+                    break;
+
                 default:
                     throw new NotImplementedException("The projectile type " + Enum.GetName(typeof(ProjectileType), projectileType) + " is not supported");
             }
@@ -596,6 +604,14 @@ namespace ScrollingShooter
 
                 case EnemyType.SuicideBomber:
                     enemy = new SuicideBomber(id, content, position);
+                    break;
+
+                case EnemyType.BrainBoss:
+                    enemy = new BrainBoss(id, content, position);
+                    break;
+
+                case EnemyType.BrainBossPsyEmitter:
+                    enemy = new BrainBossPsiEmitter(id, content, position);
                     break;
 
                 default:

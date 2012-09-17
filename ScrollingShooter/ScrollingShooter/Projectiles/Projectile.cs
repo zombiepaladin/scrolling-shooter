@@ -37,6 +37,8 @@ namespace ScrollingShooter
         GenericEnemyBullet = 109,
         DroneLaser = 110,
         RGSabot = 111,
+        EnemyPsyBall = 163,
+        EnemyLightningZap = 164,
     }
 
     /// <summary>

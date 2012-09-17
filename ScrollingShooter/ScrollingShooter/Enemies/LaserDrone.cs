@@ -33,17 +33,17 @@ namespace ScrollingShooter
         /// <summary>
         /// The time in seconds to recharge the laser.
         /// </summary>
-        private const float RECHARGE_TIME = 5;
+        private const float RECHARGE_TIME = 5f;
 
         /// <summary>
         /// The time in seconds the laser lasts.
         /// </summary>
-        private const float FIRE_TIME = 3.5f;
+        private const float FIRE_TIME = 2f;
 
         /// <summary>
         /// The top speed that the drone moves.
         /// </summary>
-        private const float MAX_MOVE_SPEED = 200;
+        private const float MAX_MOVE_SPEED = 175;
 
         // LaserDrone state variables
         Texture2D spritesheet;
@@ -120,14 +120,13 @@ namespace ScrollingShooter
         public override void Update(float elapsedTime)
         {
             // Sense the player's position
-            PlayerShip player = ScrollingShooterGame.Game.player;
-            Vector2 playerPosition = new Vector2(player.Bounds.Center.X, player.Bounds.Center.Y);
+            Vector2 playerPosition = new Vector2(ScrollingShooterGame.Game.player.Bounds.Center.X, ScrollingShooterGame.Game.player.Bounds.Center.Y);
 
             switch (aiState)
             {
                 case AIState.Chasing:
                     getInPosition(playerPosition, elapsedTime);
-                    if (Math.Abs(playerPosition.X - Bounds.Center.X) < 40 && Bounds.Center.Y < playerPosition.Y)
+                    if (Math.Abs(playerPosition.X - (position.X + 34)) < 75 && Bounds.Center.Y < playerPosition.Y)
                     {
                         //transition to firing state
                         fireTimeRemaining = FIRE_TIME;
@@ -191,16 +190,16 @@ namespace ScrollingShooter
         /// <param name="elapsedTime">The point that the ship should target</param>
         private void getInPosition(Vector2 point, float elapsedTime)
         {
-            //Try to stay ~100 away from the player in Y direction
-            if (point.Y < position.Y + 150 && position.Y > 10)
+            //Try to stay away from the player in Y direction
+            if (point.Y < Bounds.Center.Y + 200 && Bounds.Center.Y > 10)
                 position.Y -= currentSpeed * elapsedTime;
-            else if (point.Y > position.Y + 175)
+            else if (point.Y > Bounds.Center.Y + 200)
                 position.Y += currentSpeed * elapsedTime;
 
             //Try to get infront of the player
-            if (Math.Abs(point.X - Bounds.Center.X) > 10)
+            if (Math.Abs(point.X - (position.X + 34)) > 10)
             {
-                if (point.X < Bounds.Center.X)
+                if (point.X < (position.X + 34))
                     position.X -= currentSpeed * elapsedTime;
                 else
                     position.X += currentSpeed * elapsedTime;

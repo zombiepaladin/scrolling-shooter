@@ -31,7 +31,9 @@ namespace ScrollingShooter
         JTurret,
         DrillLeft,
         DrillRight,
-        SuicideBomber
+        SuicideBomber,
+        BrainBoss,
+        BrainBossPsyEmitter,
     }
 
     /// <summary>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="16" height="160" tilewidth="24" tileheight="28">
+ <tileset firstgid="1" name="shapes)" tilewidth="24" tileheight="28">
+  <image source="../../../Remastered Tyrian Graphics/shapes).png" width="240" height="1708"/>
+ </tileset>
+ <tileset firstgid="611" name="shapesw" tilewidth="24" tileheight="28">
+  <image source="../../../Remastered Tyrian Graphics/shapesw.png" width="240" height="1652"/>
+ </tileset>
+ <tileset firstgid="1201" name="shapesx" tilewidth="24" tileheight="28">
+  <image source="../../../Remastered Tyrian Graphics/shapesx.png" width="240" height="1932"/>
+ </tileset>
+ <tileset firstgid="1891" name="shapesy" tilewidth="24" tileheight="28">
+  <image source="../../../Remastered Tyrian Graphics/shapesy.png" width="240" height="1876"/>
+ </tileset>
+ <tileset firstgid="2561" name="shapesz" tilewidth="24" tileheight="28">
+  <image source="../../../Remastered Tyrian Graphics/shapesz.png" width="240" height="1736"/>
+ </tileset>
+ <tileset firstgid="3181" name="Black" tilewidth="24" tileheight="28">
+  <image source="../../../Remastered Tyrian Graphics/Black.png" width="24" height="28"/>
+ </tileset>
+ <tileset firstgid="3182" name="shapesz" tilewidth="24" tileheight="28">
+  <image source="../../../Remastered Tyrian Graphics/shapesz.png" trans="000000" width="240" height="1736"/>
+ </tileset>
+ <tileset firstgid="3802" name="DarkMoon" tilewidth="24" tileheight="28">
+  <image source="../../../Remastered Tyrian Graphics/DarkMoon.png" width="24" height="28"/>
+ </tileset>
+ <tileset firstgid="3803" name="ToDark" tilewidth="24" tileheight="28">
+  <image source="../../../Remastered Tyrian Graphics/ToDark.png" width="24" height="28"/>
+ </tileset>
+ <tileset firstgid="3804" name="shapesw" tilewidth="24" tileheight="28">
+  <image source="../../../Remastered Tyrian Graphics/shapesw.png" trans="000000" width="240" height="1652"/>
+ </tileset>
+ <layer name="Space" width="16" height="160">
+  <data encoding="base64" compression="zlib">
+   eJzt0LENADAIwDBmxAE8yf8rZ6CqHrxHmYqYj3XeN7zMPwAAAAAAAAAAgBsLmAi5jw==
+  </data>
+ </layer>
+ <layer name="Moon" width="16" height="160">
+  <data encoding="base64" compression="zlib">
+   eJzt1kuKwmAMB/Duy3ipwoxLdanjEVx35esinkFwXI4ufRyhbl35OoMRWiihqZkvlvnUf+AHWhLaJuGjSS0IEgAAAAB4GjujxYfNxMh6fwCLidF/Pz/Y9MMgGDDDUJ83Ik0SpW6/xwX1Ul52Pa+snufFpMd0C+q1ea9AO1OJdqb36u/NVPLOsyqb04Ecc04FvS7r85n9v7BZa+uj0L961/fnu1a2Z3uS5Gw92B+fZbutOXuawpkfKc6ObPb8eizMlOdL9X+9Hzwv7a5KedpdlfKkXeW0eaCzNkJUGzPq8Q+ZO/b6l+qmZOlYv0rnvKl41u/ynpZAjxBVBvbLr/ikb5wvUg/d6hvpt1bLsb5NdR3y7Vj/6PC9H74/HwKBQOTjCjTacNQ=
+  </data>
+ </layer>
+ <layer name="Tunnel_Wall" width="16" height="160">
+  <data encoding="base64" compression="zlib">
+   eJztlksOgjAURZkbErfmPtQ6UnFb+Bn5G6G78jW0SdO0+iBqIDknOSltuFBaaJlPi8KIS6cJtPWF00SldSWuxY1YuXIbHFeu7tuqoM2WO3Ff6jyIMbW0XZReE/nzl/N38ZHxqcin7vGOseTrzJwelXntPJEfZr6R9psifyrT3znX6D8nuWto+zDk92oMebsnpNZ+uybG69+vs34d/pTNPbN2vHL97jveXfqdynfZ5/+Vn01aNf8KTeIcLwAAAAAAAAAAAAAAAAAAgOUFmChUfg==
+  </data>
+ </layer>
+</map>

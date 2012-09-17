@@ -108,6 +108,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Bosses\Boss.cs" />
+    <Compile Include="Bosses\MBCloseC.cs" />
+    <Compile Include="Bosses\MoonBoss.cs" />
     <Compile Include="Enemies\Bomber.cs" />
     <Compile Include="Enemies\Drill.cs" />
     <Compile Include="Enemies\Arrow.cs" />
@@ -164,6 +166,7 @@
     <Compile Include="Projectiles\EBullet.cs" />
     <Compile Include="Projectiles\GenericEnemyBullet.cs" />
     <Compile Include="Projectiles\Fireball.cs" />
+    <Compile Include="Projectiles\Laser.cs" />
     <Compile Include="Projectiles\Meteor.cs" />
     <Compile Include="Projectiles\FreezewaveProjectile.cs" />
     <Compile Include="Projectiles\HomingMissileProjectile.cs" />

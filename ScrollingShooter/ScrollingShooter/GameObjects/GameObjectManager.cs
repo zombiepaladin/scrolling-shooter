@@ -473,7 +473,9 @@ namespace ScrollingShooter
                 case ProjectileType.RGSabot:
                     projectile = new RGSabot(id, content, position);
                     break;
-
+                case ProjectileType.BirdWrath:
+                    projectile = new BirdWrath(id, content, position);
+                    break;
                 default:
                     throw new NotImplementedException("The projectile type " + Enum.GetName(typeof(ProjectileType), projectileType) + " is not supported");
             }
@@ -597,7 +599,9 @@ namespace ScrollingShooter
                 case EnemyType.SuicideBomber:
                     enemy = new SuicideBomber(id, content, position);
                     break;
-
+                case EnemyType.Bird:
+                    enemy = new Bird(id, content, position);
+                    break;
                 default:
                     throw new NotImplementedException("The enemy type " + Enum.GetName(typeof(EnemyType), enemyType) + " is not supported");
             }

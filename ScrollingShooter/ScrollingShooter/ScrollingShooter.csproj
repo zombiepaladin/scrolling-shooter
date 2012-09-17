@@ -107,6 +107,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Bosses\Bird.cs" />
     <Compile Include="Bosses\Boss.cs" />
     <Compile Include="Enemies\Bomber.cs" />
     <Compile Include="Enemies\Drill.cs" />
@@ -130,12 +131,11 @@
     <Compile Include="GameObjects\CollisionPair.cs" />
     <Compile Include="GameObjects\GameObject.cs" />
     <Compile Include="GameObjects\GameObjectManager.cs" />
-<<<<<<< HEAD
-=======
     <Compile Include="Animation.cs" />
     <Compile Include="Powerups\Railgun.cs" />
     <Compile Include="Powerups\ShotgunPowerup.cs" />
     <Compile Include="Powerups\BubbleBeamPowerup.cs" />
+    <Compile Include="Projectiles\BirdWrath.cs" />
     <Compile Include="Projectiles\BubbleBullet.cs" />
     <Compile Include="Powerups\FreezewavePowerup.cs" />
     <Compile Include="Enemies\JetMinion.cs" />
@@ -157,7 +157,6 @@
     <Compile Include="Enemies\Cobalt.cs" />
     <Compile Include="Powerups\MeteorPowerup.cs" />
     <Compile Include="Projectiles\BigMeteor.cs" />
->>>>>>> upstream/master
     <Compile Include="Projectiles\Bullet.cs" />
     <Compile Include="Projectiles\EnemyFlameball.cs" />
     <Compile Include="Projectiles\DroneLaser.cs" />

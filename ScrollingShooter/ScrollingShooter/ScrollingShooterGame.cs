@@ -19,7 +19,6 @@ namespace ScrollingShooter
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        
 
         public static ScrollingShooterGame Game;
         public static GameObjectManager GameObjectManager;
@@ -67,11 +66,6 @@ namespace ScrollingShooter
             tilemap.Scrolling = true;
 
             GameObjectManager.CreateEnemy(EnemyType.Dart, new Vector2(200, 200));
-            GameObjectManager.CreateEnemy(EnemyType.Bomber, new Vector2(200, 0));
-            GameObjectManager.CreateEnemy(EnemyType.Bomber, new Vector2(250, 0));
-            GameObjectManager.CreateEnemy(EnemyType.Bomber, new Vector2(300, 0));
-            GameObjectManager.CreateEnemy(EnemyType.Bomber, new Vector2(350, 0));
-            GameObjectManager.CreateEnemy(EnemyType.Bomber, new Vector2(400, 0));
         }
 
         /// <summary>
@@ -118,6 +112,16 @@ namespace ScrollingShooter
                         GameObjectManager.DestroyObject(colliderID);
                     }
 
+                    //NOTE: Apply to more than the kamikaze enemy?
+                    // Process kamakaze collisions
+                    Enemy enemy = collider as Enemy;
+                    if (enemy != null && enemy.GetType() == typeof(Kamikaze))
+                    {
+                        //Player take damage
+                        GameObjectManager.DestroyObject(colliderID);
+                        GameObjectManager.CreateExplosion(colliderID);
+                    }
+
                 }
 
 
@@ -141,6 +145,7 @@ namespace ScrollingShooter
             tilemap.Draw(elapsedGameTime, spriteBatch);
 
             GameObjectManager.Draw(elapsedGameTime, spriteBatch);
+
 
             spriteBatch.End();
 

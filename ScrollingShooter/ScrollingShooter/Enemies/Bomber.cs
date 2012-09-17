@@ -203,7 +203,7 @@ namespace ScrollingShooter
                     {
                         if (bombTimer > 1.5f)
                         {
-                            ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.Bomb, position, false);
+                            ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.EnemyBomb, position);
                             bombTimer = 0f;
                         }
                     }

@@ -59,7 +59,7 @@ namespace ScrollingShooter
 
         public Rectangle RailgunBounds
         {
-            get { return new Rectangle((int)(position.X + (Bounds.Width / 2) - 4), (int)(position.Y - (Bounds.Height / 2)), railgunSpriteBounds.Width, railgunSpriteBounds.Height); }
+            get { return new Rectangle((int)(position.X - 3), (int)(position.Y - (Bounds.Height)), railgunSpriteBounds.Width, railgunSpriteBounds.Height); }
         }
 
         // Powerup Levels
@@ -404,9 +404,9 @@ namespace ScrollingShooter
         void TriggerRailgun()
         {
             ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.RGSabot, 
-                new Vector2(position.X + (Bounds.Width / 2) - 4, position.Y));
+                new Vector2(position.X-4, position.Y));
             //Simuated recoil
-            position.Y += 10;
+            position.Y += 20;
         }
 		
 		

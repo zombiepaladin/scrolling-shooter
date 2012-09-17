@@ -7,7 +7,6 @@ namespace ScrollingShooter
     /// <summary>
     /// Class Representing the Railgun Powerup
     /// Written by Matt Hart
-    /// Note:  Under current build, you must "collide" with the powerup to activate it
     /// </summary>
     class Railgun : Powerup
     {

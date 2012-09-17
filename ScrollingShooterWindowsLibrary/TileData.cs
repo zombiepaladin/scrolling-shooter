@@ -5,12 +5,12 @@ namespace ScrollingShooterWindowsLibrary
     /// <summary>
     /// A structure representing a tile in the game world
     /// </summary>
-    public class TileData
+    public struct TileData
     {
         /// <summary>
         /// The Tile's ID
         /// </summary>
-        public int TileID;
+        public uint TileID;
 
         /// <summary>
         /// Indicates the sprite's orientation

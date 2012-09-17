@@ -6,12 +6,12 @@ namespace ScrollingShooterWindowsLibrary
     /// <summary>
     /// A structure representing a tile in a tileset
     /// </summary>
-    public class Tile
+    public struct Tile
     {
         /// <summary>
-        /// The texture this tile is found in
+        /// The ID of the texture this tile is found in
         /// </summary>
-        public Texture2D Texture;
+        public int TextureID;
 
         /// <summary>
         /// The source rectangle of the tile within

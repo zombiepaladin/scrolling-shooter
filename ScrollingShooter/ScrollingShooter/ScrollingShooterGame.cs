@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+using ScrollingShooterWindowsLibrary;
 
 namespace ScrollingShooter
 {
@@ -19,11 +20,12 @@ namespace ScrollingShooter
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
+        public static ScrollingShooterGame Game;
         public static GameObjectManager GameObjectManager;
         
         public PlayerShip player;
-        public static ScrollingShooterGame Game;
-        
+        public Tilemap tilemap;
+
         public ScrollingShooterGame()
         {
             Game = this;
@@ -57,16 +59,13 @@ namespace ScrollingShooter
 
             // TODO: use this.Content to load your game content here
             player = GameObjectManager.CreatePlayerShip(PlayerShipType.Shrike, new Vector2(300, 300));
-            
+            GameObjectManager.CreatePowerup(PowerupType.Fireball, new Vector2(100, 200));
+            //player.ApplyPowerup(PowerupType.Fireball);
+
+            tilemap = Content.Load<Tilemap>("Tilemaps/example");
+            tilemap.Scrolling = true;
 
             GameObjectManager.CreateEnemy(EnemyType.Dart, new Vector2(200, 200));
-
-            //For Assignment 2 only - DKC
-            GameObjectManager.CreateEnemy(EnemyType.Seed, new Vector2(500));
-
-            //For Assignment 1 only - DKC
-            player.ApplyPowerup(PowerupType.BubbleBeam);
-            GameObjectManager.CreatePowerup(PowerupType.BubbleBeam, new Vector2(250));
         }
 
         /// <summary>
@@ -91,6 +90,8 @@ namespace ScrollingShooter
 
             // TODO: Add your update logic here
             float elapsedTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+            tilemap.Update(elapsedTime);
             
             GameObjectManager.Update(elapsedTime);
 
@@ -109,6 +110,16 @@ namespace ScrollingShooter
                     {
                         player.ApplyPowerup(powerup.Type);
                         GameObjectManager.DestroyObject(colliderID);
+                    }
+
+                    //NOTE: Apply to more than the kamikaze enemy?
+                    // Process kamakaze collisions
+                    Enemy enemy = collider as Enemy;
+                    if (enemy != null && enemy.GetType() == typeof(Kamikaze))
+                    {
+                        //Player take damage
+                        GameObjectManager.DestroyObject(colliderID);
+                        GameObjectManager.CreateExplosion(colliderID);
                     }
 
                 }
@@ -131,8 +142,10 @@ namespace ScrollingShooter
             float elapsedGameTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
             
             spriteBatch.Begin();
+            tilemap.Draw(elapsedGameTime, spriteBatch);
 
             GameObjectManager.Draw(elapsedGameTime, spriteBatch);
+
 
             spriteBatch.End();
 

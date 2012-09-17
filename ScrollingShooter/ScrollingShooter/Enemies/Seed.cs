@@ -8,7 +8,7 @@ namespace ScrollingShooter
     /// <summary>
     /// Handles drawing the explosion after the seed ship is destoryed.
     /// </summary>
-    class Explosion : GameObject
+    class SeedExplosion : GameObject
     {
         private const string SPRITESHEET = "Spritesheets/newsh6.shp.000000";
         private const float STATE_TIME = .1f;
@@ -59,7 +59,7 @@ namespace ScrollingShooter
         /// <param name="content">ContentManager to load resources with.</param>
         /// <param name="position">Position to create the ship at.</param>
         /// <param name="id">Unique ID of the ship.</param>
-        public Explosion(uint id, ContentManager content, Vector2 position)
+        public SeedExplosion(uint id, ContentManager content, Vector2 position)
             : base(id)
         {
             _spritesheet = content.Load<Texture2D>(SPRITESHEET);
@@ -138,7 +138,7 @@ namespace ScrollingShooter
         private float _timer = 0f;
         private bool _opening = false;
         private int firedBullets = 0;
-        private Explosion explosion;
+        private SeedExplosion explosion;
 
         /// <summary>
         /// Current bounds of the ship
@@ -161,7 +161,7 @@ namespace ScrollingShooter
 
             this._spritesheet = content.Load<Texture2D>(SPRITESHEET);
 
-            explosion = new Explosion(id, content, position);
+            explosion = new SeedExplosion(id, content, position);
         }
 
         /// <summary>

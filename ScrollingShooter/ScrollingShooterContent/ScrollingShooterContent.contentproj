@@ -42,6 +42,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Spritesheets\birdcrapsprite.png">
+      <Name>birdcrapsprite</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <ProcessorParameters_ColorKeyColor>191, 220, 191, 255</ProcessorParameters_ColorKeyColor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
     <Compile Include="Tilesets\shapes%29.png">
       <Name>shapes%29</Name>
       <Importer>TextureImporter</Importer>
@@ -276,7 +284,7 @@
       <Name>newsht.shp.000000</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
-      <ProcessorParameters_ColorKeyColor>191, 200, 191, 255</ProcessorParameters_ColorKeyColor>
+      <ProcessorParameters_ColorKeyColor>191, 220, 191, 255</ProcessorParameters_ColorKeyColor>
     </Compile>
     <Compile Include="Spritesheets\newshu.shp.000000.png">
       <Name>newshu.shp.000000</Name>
@@ -329,8 +337,35 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <ProjectReference Include="..\..\ScrollingShooterContentPipeline\ScrollingShooterContentPipeline.csproj">
+      <Project>{178E30B3-9F27-4FF1-B6A0-4866B6FA0875}</Project>
+      <Name>ScrollingShooterContentPipeline</Name>
+    </ProjectReference>
     <Compile Include="Tilemaps\moon.tmx">
       <Name>moon</Name>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Tilemaps\example.tmx">
+      <Name>example</Name>
+      <Importer>TmxImporter</Importer>
+      <Processor>TilemapProcessor</Processor>
+      <SubType>Designer</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Spritesheets\eightballshield.png">
+      <Name>eightballshield</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <ProcessorParameters_ColorKeyColor>191, 220, 191, 255</ProcessorParameters_ColorKeyColor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Spritesheets\EBullet.png">
+      <Name>EBullet</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />

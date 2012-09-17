@@ -74,6 +74,16 @@ namespace ScrollingShooterContentPipeline
         public TilemapLayerContent[] Layers;
 
         /// <summary>
+        /// The total number of game object groups in our tilemap
+        /// </summary>
+        public int GameObjectGroupCount;
+
+        /// <summary>
+        /// The game object groups in our tilemap
+        /// </summary>
+        public GameObjectGroupContent[] GameObjectGroups;
+
+        /// <summary>
         /// The properties defined on this tilemap.  These are loaded
         /// from the tmx file, and should be converted to more efficient 
         /// and meaningful variables in the TilemapProcessor 

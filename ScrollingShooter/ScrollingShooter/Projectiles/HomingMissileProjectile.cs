@@ -71,6 +71,7 @@ namespace ScrollingShooter
         /// </summary>
         private int targetVectorScalar;
 
+        private float rotation;
         #endregion
 
         #region Constructors
@@ -82,23 +83,9 @@ namespace ScrollingShooter
         /// <param name="content">A ContentManager to load content from</param>
         /// <param name="newPosition">A position on the screen</param>
         /// <param name="missileLevel">The level of the missile powerup when this missile was shot</param>
-        public HomingMissileProjectile(ContentManager content, Vector2 newPosition, short missileLevel, uint id):base(id)
+        public HomingMissileProjectile(ContentManager content, Vector2 newPosition, uint id):base(id)
         {
-            Initialize(content, newPosition, missileLevel, 1);
-        }
-
-        /// <summary>
-        /// An overridden constructor that ceates a new missile and requires a seed value, use this
-        /// when making quick successive calls to the constructor (the interative variable makes a 
-        /// good seed modifier)
-        /// </summary>
-        /// <param name="content">A ContentManager to load content from</param>
-        /// <param name="newPosition">A position on the screen</param>
-        /// <param name="missileLevel">The level of the missile powerup when this missile was shot</param>
-        /// <param name="randomSeedModifier">Indicates the modifier to the random seed for calculating position, 1 is default</param>
-        public HomingMissileProjectile(ContentManager content, Vector2 newPosition, short missileLevel, int randomSeedModifier, uint id):base(id)
-        {
-            Initialize(content, newPosition, missileLevel, randomSeedModifier);
+            Initialize(content, newPosition, PlayerShip.HomingMissileLevel, (int)id);
         }
 
         #endregion
@@ -208,6 +195,9 @@ namespace ScrollingShooter
             //Make sure to mark this instance as alive before we push it into the world
             this.isAlive = true;
 
+            //We'll initialize the rotation to 0.0, don't worry, it'll get changed later
+            rotation = 0f;
+
         }
 
         /// <summary>
@@ -242,8 +232,11 @@ namespace ScrollingShooter
         /// </summary>
         private void AdjustRotation()
         {
-            //TODO: code to adjust the rotation of the sprite image, may require the 
-            //calculating of a Dot product or Rotation matrix or both
+            //Pretty simple, tan(theta) = opposite / adjacent right? same thing here
+            float angleBetween = (float)Math.Atan2((double)velocity.Y, (double)velocity.X);
+
+            //Since our graphic is originally facing up at vector (0,-1), we need to offset it a little
+            rotation = angleBetween + MathHelper.PiOver2;
         }
 
         #endregion
@@ -284,7 +277,8 @@ namespace ScrollingShooter
             //Will need to call the Draw function for the explosion and smoke stream classes here (explosion only if this.isAlive == false)
             if (isAlive)
             {
-                base.Draw(elapsedTime, spriteBatch);
+                //need to do our own draw function if we are to include rotation
+                spriteBatch.Draw(spriteSheet, position, spriteBounds, Color.White, rotation, new Vector2(spriteBounds.Width / 2, spriteBounds.Y / 2), 1f, SpriteEffects.None, 0);
             }
         }
 

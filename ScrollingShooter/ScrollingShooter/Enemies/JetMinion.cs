@@ -3,7 +3,7 @@
 //Date: 9/8/2012
 //Time: 11:09 A.M.
 //
-//The Jet Minion is a simple enemy that strafes a certain difference
+//The Jet Minion is a simple enemy that strafes a certain distance
 //away from the player and attempts to shoot them down, after a certain
 //amount of time the minion will leave. If the minion becomes damaged, 
 //fire rate will increase
@@ -36,7 +36,8 @@ enum GunState
 {
     LEFT = 0,
     REST = 1,
-    RIGHT = 2
+    RIGHT = 2,
+    DESTROYED = 3
 }
 namespace ScrollingShooter
 {
@@ -727,7 +728,7 @@ namespace ScrollingShooter
             {
                 case JetMinionBehaviourState.SEEKSTRAFE:
 
-                    Vector2 targetPosition = new Vector2(playerPosition.X, playerPosition.Y - StrafeDistance);
+                    Vector2 targetPosition = new Vector2(playerPosition.X, playerPosition.Y - StrafeDistance - Bounds.Height);
                     Vector2 directionToTarget = targetPosition - Position;
                     directionToTarget.Normalize();
 

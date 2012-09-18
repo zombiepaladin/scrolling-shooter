@@ -32,13 +32,18 @@ namespace ScrollingShooter
     /// </summary>
     public abstract class PlayerShip : GameObject
     {
+        public static short HomingMissileLevel = 0;
+
         // Timers
         /// <summary>
         /// Timer for the default gun
         /// </summary>
         public float defaultGunTimer = 5;
         float bombTimer = 1.5f;
-        
+
+        private float homingMissileFireRate = 3;
+        private float homingMissileTimer = 0;
+
         //Timer for how longs the blades have been active.
         float bladesPowerupTimer = 0;
 
@@ -137,6 +142,12 @@ namespace ScrollingShooter
             {
                 TriggerMeteor();
                 return;
+            }
+
+            //This will level us up if we hit another homing missile
+            if ((powerup & PowerupType.HomingMissiles) > 0)
+            {
+                HomingMissileLevel = (short)MathHelper.Min(HomingMissileLevel + 1, 3);
             }
 
             // Store the new powerup in the PowerupType bitmask
@@ -326,6 +337,17 @@ namespace ScrollingShooter
                     {
                         ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.Bullet, position);
                         defaultGunTimer = 0f;
+                    }
+
+                    if((PowerupType & PowerupType.HomingMissiles) > 0)
+                    {
+                        if (homingMissileTimer <= 0)
+                        {
+                            homingMissileTimer = homingMissileFireRate;
+                            TriggerHomingMissile();
+                        }
+
+                        homingMissileTimer -= elapsedTime;
                     }
 
 
@@ -574,6 +596,39 @@ namespace ScrollingShooter
 
             ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.EnergyBlast, position);
             //ScrollingShooterGame.Game.projectiles.Add(new EnergyBlast(ScrollingShooterGame.Game.Content, position, energyBlastLevel));
+        }
+
+        /// <summary>
+        /// Handles the firing of a homing missile
+        /// </summary>
+        void TriggerHomingMissile()
+        {
+            switch (HomingMissileLevel)
+            {
+                case 1:
+                    ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.HomingMissile, position);
+                    ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.HomingMissile, position);
+                    ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.HomingMissile, position);
+                    break;
+                case 2:
+                    ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.HomingMissile, position);
+                    ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.HomingMissile, position);
+                    ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.HomingMissile, position);
+                    ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.HomingMissile, position);
+                    ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.HomingMissile, position);
+                    break;
+                case 3:
+                    ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.HomingMissile, position);
+                    ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.HomingMissile, position);
+                    ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.HomingMissile, position);
+                    ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.HomingMissile, position);
+                    ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.HomingMissile, position);
+                    ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.HomingMissile, position);
+                    ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.HomingMissile, position);
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }

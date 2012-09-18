@@ -216,6 +216,25 @@ namespace ScrollingShooter
             createdGameObjects.Enqueue(go);
         }
 
+        public Boss CreateBoss(BossType bossType, Vector2 position)
+        {
+            Boss boss;
+            uint id = NextID();
+
+            switch (bossType)
+            {
+                case BossType.TwinJetManager:
+                    boss = new TwinJetManager(id, content, position);
+                    break;
+                
+                default:
+                    throw new NotImplementedException("The boss type " + Enum.GetName(typeof(BossType), bossType) + " is not supported");
+            }
+
+            QueueGameObjectForCreation(boss);
+            return boss;
+        }
+
         public Explosion CreateExplosion(uint colliderID)
         {
             Explosion ex;
@@ -326,7 +345,6 @@ namespace ScrollingShooter
             QueueGameObjectForCreation(powerup);
             return powerup;
         }
-
 
         /// <summary>
         /// Factory method for spawning a projectile
@@ -474,6 +492,18 @@ namespace ScrollingShooter
                     projectile = new RGSabot(id, content, position);
                     break;
 
+                case ProjectileType.TwinJetBullet:
+                    projectile = new Boss_TwinJetBullet(id, content, position);
+                    break;
+
+                case ProjectileType.TwinJetMissile:
+                    projectile = new Boss_TwinJetMissile(id, content, position);
+                    break;
+
+                case ProjectileType.HomingMissile:
+                    projectile = new HomingMissileProjectile(content, position, id);
+                    break;
+
                 default:
                     throw new NotImplementedException("The projectile type " + Enum.GetName(typeof(ProjectileType), projectileType) + " is not supported");
             }
@@ -596,6 +626,10 @@ namespace ScrollingShooter
 
                 case EnemyType.SuicideBomber:
                     enemy = new SuicideBomber(id, content, position);
+                    break;
+
+                case EnemyType.TwinJet:
+                    enemy = new TwinJet(id, content, position);
                     break;
 
                 default:

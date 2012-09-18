@@ -22,6 +22,8 @@ namespace ScrollingShooter
         EnergyBlast,
         Meteor,
         BigMeteor,
+        HomingMissile,
+
         // Enemy projectiles start with an index of 100;
         // this allows us to differentiate between projectiles
         // without needing a second base class
@@ -37,6 +39,8 @@ namespace ScrollingShooter
         GenericEnemyBullet = 109,
         DroneLaser = 110,
         RGSabot = 111,
+        TwinJetBullet = 112,
+        TwinJetMissile = 113
     }
 
     /// <summary>

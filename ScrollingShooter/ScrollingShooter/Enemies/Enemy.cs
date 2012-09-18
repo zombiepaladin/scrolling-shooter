@@ -31,7 +31,8 @@ namespace ScrollingShooter
         JTurret,
         DrillLeft,
         DrillRight,
-        SuicideBomber
+        SuicideBomber,
+        TwinJet
     }
 
     /// <summary>

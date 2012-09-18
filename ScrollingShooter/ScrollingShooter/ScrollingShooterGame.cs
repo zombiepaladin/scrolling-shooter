@@ -63,17 +63,18 @@ namespace ScrollingShooter
             tilemap = Content.Load<Tilemap>("Tilemaps/example");
             tilemap.Scrolling = true;
 
-            GameObjectManager.CreatePowerup(PowerupType.TriShield, new Vector2(100, 200));
-            GameObjectManager.CreatePowerup(PowerupType.Railgun, new Vector2(100, 300));
-            GameObjectManager.CreatePowerup(PowerupType.ShotgunPowerup, new Vector2(500, 300));
+            GameObjectManager.CreatePowerup(PowerupType.EnergyBlast, new Vector2(400, 250));
+            GameObjectManager.CreatePowerup(PowerupType.EnergyBlast, new Vector2(400, 300));
+            GameObjectManager.CreatePowerup(PowerupType.EnergyBlast, new Vector2(400, 350));
+            GameObjectManager.CreatePowerup(PowerupType.EnergyBlast, new Vector2(400, 400));
 
-            GameObjectManager.CreateEnemy(EnemyType.DeerTickDown, new Vector2(200, 200));
             GameObjectManager.CreateEnemy(EnemyType.TurretSingle, new Vector2(300, 300));
-            GameObjectManager.CreateEnemy(EnemyType.TurretDouble, new Vector2(150, 300));
+            GameObjectManager.CreateEnemy(EnemyType.TurretDouble, new Vector2(150, 100));
+            GameObjectManager.CreateEnemy(EnemyType.TurretDouble, new Vector2(300, 100));
+            GameObjectManager.CreateEnemy(EnemyType.TurretDouble, new Vector2(450, 100));
+            GameObjectManager.CreateEnemy(EnemyType.TurretDouble, new Vector2(600, 100));
             GameObjectManager.CreateEnemy(EnemyType.TurretTower, new Vector2(400, 100));
-            GameObjectManager.CreateEnemy(EnemyType.DeerTickLeft, new Vector2(100, 100));
-            GameObjectManager.CreateEnemy(EnemyType.DeerTickRight, new Vector2(200, 100));
-            GameObjectManager.CreateEnemy(EnemyType.Turret, new Vector2(300, 100));
+            GameObjectManager.CreateEnemy(EnemyType.Kamikaze, new Vector2(200, 100));
         }
 
         /// <summary>
@@ -106,30 +107,89 @@ namespace ScrollingShooter
             // Process collisions
             foreach (CollisionPair pair in GameObjectManager.Collisions)
             {
+                GameObject objectA = GameObjectManager.GetObject(pair.A);
+                GameObject objectB = GameObjectManager.GetObject(pair.B);
+
                 // Player collisions
-                if (pair.A == player.ID || pair.B == player.ID)
+                if (objectA.objectType == ObjectType.player || objectB.objectType == ObjectType.player)
                 {
-                    uint colliderID = (pair.A == player.ID) ? pair.B : pair.A;
-                    GameObject collider = GameObjectManager.GetObject(colliderID);
+                    PlayerShip player = ((objectA.objectType == ObjectType.player) ? objectA : objectB) as PlayerShip;
+                    GameObject collider = (objectA.objectType == ObjectType.player) ? objectB : objectA;
 
                     // Process powerup collisions
-                    Powerup powerup = collider as Powerup;
-                    if (powerup != null)
+                    switch (collider.objectType)
                     {
-                        player.ApplyPowerup(powerup.Type);
-                        GameObjectManager.DestroyObject(colliderID);
-                    }
+                        case ObjectType.powerup:
+                            Powerup powerup = collider as Powerup;
+                            player.ApplyPowerup(powerup.Type);
+                            GameObjectManager.DestroyObject(collider.ID);
+                            break;
+                        case ObjectType.enemy:
+                            Enemy enemy = collider as Enemy;
+                            //NOTE: Apply to more than the kamikaze enemy?
+                            // Process kamakaze collisions
+                            if (enemy.GetType() == typeof(Kamikaze))
+                            {
+                                //Player take damage
+                                GameObjectManager.DestroyObject(collider.ID);
+                                GameObjectManager.CreateExplosion(collider.ID);
+                            }
+                            break;
+                        case ObjectType.enemyProjectile:
+                            Projectile projectile = collider as Projectile;
 
-                    //NOTE: Apply to more than the kamikaze enemy?
-                    // Process kamakaze collisions
-                    Enemy enemy = collider as Enemy;
-                    if (enemy != null && enemy.GetType() == typeof(Kamikaze))
+                            // Damage player
+                            player.Health -= projectile.Damage;
+                            if (player.Health <= 0)
+                            {
+                                GameObjectManager.DestroyObject(player.ID);
+                                GameObjectManager.CreateExplosion(player.ID);
+                            }
+
+                            GameObjectManager.DestroyObject(collider.ID);
+                            break;
+                    }
+                }
+                // Player Projectile collisions
+                else if (objectA.objectType == ObjectType.playerProjectile || objectB.objectType == ObjectType.playerProjectile)
+                {
+                    Projectile playerProjectile = ((objectA.objectType == ObjectType.playerProjectile) ? objectA : objectB) as Projectile;
+                    GameObject collider = (objectA.objectType == ObjectType.player) ? objectB : objectA;
+
+                    // Process collisions
+                    switch (collider.objectType)
                     {
-                        //Player take damage
-                        GameObjectManager.DestroyObject(colliderID);
-                        GameObjectManager.CreateExplosion(colliderID);
-                    }
+                        case ObjectType.enemy:
+                            Enemy enemy = collider as Enemy;
+                            //Enemy take damage
+                            enemy.Health -= playerProjectile.Damage;
 
+                            // If health <= 0, kill enemy
+                            if (enemy.Health <= 0)
+                            {
+                                GameObjectManager.DestroyObject(collider.ID);
+                                GameObjectManager.CreateExplosion(collider.ID);
+                            }
+                            // Destroy projectile
+                            // Note, if there are special things for the bullet, add them here
+                            GameObjectManager.DestroyObject(playerProjectile.ID);
+                            break;
+                        case ObjectType.boss:
+                            Boss boss = collider as Boss;
+                            // Boss take damage
+                            boss.Health -= playerProjectile.Damage;
+
+                            // If health <= 0, kill boss
+                            if (boss.Health <= 0)
+                            {
+                                GameObjectManager.DestroyObject(collider.ID);
+                                GameObjectManager.CreateExplosion(collider.ID);
+                            }
+                            // Destroy projectile
+                            // Note, if there are special things for the bullet, add them here
+                            GameObjectManager.DestroyObject(playerProjectile.ID);
+                            break;
+                    }
                 }
 
 

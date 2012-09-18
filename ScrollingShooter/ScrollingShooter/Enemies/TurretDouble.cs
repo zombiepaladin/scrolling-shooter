@@ -90,6 +90,8 @@ namespace ScrollingShooter
 
             // Offset from the center to the tip of the right barrel
             offsetRight = new Vector2(4, (float)this.Bounds.Height / 2);
+
+            Health = 10;
         }
 
         /// <summary>

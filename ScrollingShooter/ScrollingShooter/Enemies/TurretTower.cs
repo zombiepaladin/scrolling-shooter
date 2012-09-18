@@ -128,6 +128,8 @@ namespace ScrollingShooter
             frameDelay = 0;
 
             offset = new Vector2(-1, -6);
+
+            Health = 20;
         }
 
         /// <summary>

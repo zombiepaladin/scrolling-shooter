@@ -26,7 +26,9 @@ namespace ScrollingShooter
 
             this.velocity = new Vector2(0, 0.5f);
 
-            this.position = position;                  
+            this.position = position;
+
+            objectType = ObjectType.enemyProjectile; 
         }
 
         /// <summary>

@@ -25,6 +25,8 @@ namespace ScrollingShooter
             this.velocity = velocity;
 
             this.position = position;
+
+            Damage = 5;
         }
     }
 }

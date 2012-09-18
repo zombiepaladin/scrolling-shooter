@@ -32,6 +32,11 @@ namespace ScrollingShooter
     /// </summary>
     public abstract class PlayerShip : GameObject
     {
+        /// <summary>
+        /// Player's Health
+        /// </summary>
+        public float Health = 100;
+
         // Timers
         /// <summary>
         /// Timer for the default gun

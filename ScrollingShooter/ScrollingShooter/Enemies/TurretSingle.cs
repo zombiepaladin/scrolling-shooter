@@ -76,6 +76,8 @@ namespace ScrollingShooter
             shotDelay = 0;
 
             offset = new Vector2(0, (float)this.Bounds.Height / 2);
+
+            Health = 15;
         }
 
         /// <summary>

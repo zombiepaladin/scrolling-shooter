@@ -4,10 +4,29 @@ using Microsoft.Xna.Framework.Graphics;
 namespace ScrollingShooter
 {
     /// <summary>
+    /// Object's type for use in collisions
+    /// </summary>
+    public enum ObjectType
+    {
+        player = 0,
+        playerProjectile = 1,
+        enemy = 2,
+        enemyProjectile = 3,
+        boss = 4,
+        powerup = 5,
+        shield = 6,
+        other = 7, // used as the default for random things like explosions
+    }
+    /// <summary>
     /// The base class for all game object
     /// </summary>
     public abstract class GameObject
     {
+        /// <summary>
+        /// Oblect's type for use in collisions
+        /// </summary>
+        public ObjectType objectType = ObjectType.other;
+
         /// <summary>
         /// The game object's ID, which should be unique and never change
         /// We use the readonly keyword so it can only be set at object creation

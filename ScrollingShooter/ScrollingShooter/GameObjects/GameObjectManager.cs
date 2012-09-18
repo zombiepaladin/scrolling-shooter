@@ -248,6 +248,7 @@ namespace ScrollingShooter
                 default:
                     throw new NotImplementedException("The player ship type " + Enum.GetName(typeof(PlayerShipType), playerShipType) + " is not supported");
             }
+            playerShip.objectType = ObjectType.player;
 
             QueueGameObjectForCreation(playerShip);
             return playerShip;
@@ -334,7 +335,7 @@ namespace ScrollingShooter
                 default:
                     throw new NotImplementedException("The powerup type " + Enum.GetName(typeof(ProjectileType), powerupType) + " is not supported");
             }
-
+            powerup.objectType = ObjectType.powerup;
             QueueGameObjectForCreation(powerup);
             return powerup;
         }
@@ -496,6 +497,12 @@ namespace ScrollingShooter
                 default:
                     throw new NotImplementedException("The projectile type " + Enum.GetName(typeof(ProjectileType), projectileType) + " is not supported");
             }
+            // Set the objectType to player or enemy projectile depending on enum value
+            int type = (int)projectileType;
+            if (type < 100)
+                projectile.objectType = ObjectType.playerProjectile;
+            else
+                projectile.objectType = ObjectType.enemyProjectile;
 
             QueueGameObjectForCreation(projectile);
             return projectile;
@@ -523,6 +530,7 @@ namespace ScrollingShooter
                     throw new NotImplementedException("EightBallShield failed.");
             }
 
+            shield.objectType = ObjectType.shield;
             QueueGameObjectForCreation(shield);
             return shield;
         }
@@ -640,7 +648,7 @@ namespace ScrollingShooter
                 default:
                     throw new NotImplementedException("The enemy type " + Enum.GetName(typeof(EnemyType), enemyType) + " is not supported");
             }
-
+            enemy.objectType = ObjectType.enemy;
             QueueGameObjectForCreation(enemy);
             return enemy;
         }

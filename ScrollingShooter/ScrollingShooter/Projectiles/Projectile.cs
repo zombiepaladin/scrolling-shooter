@@ -47,6 +47,8 @@ namespace ScrollingShooter
     {
         public static int POWER_LEVEL = 1;
 
+        public float Damage = 1;
+
         /// <summary>
         /// The projectile's velocity
         /// </summary>

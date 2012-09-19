@@ -31,6 +31,10 @@ namespace ScrollingShooter
             Game = this;
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+
+            //used to test the in game screen resolution
+            graphics.PreferredBackBufferHeight = 364;
+            graphics.PreferredBackBufferWidth = 364;
         }
 
         /// <summary>
@@ -59,13 +63,17 @@ namespace ScrollingShooter
 
             // TODO: use this.Content to load your game content here
             player = GameObjectManager.CreatePlayerShip(PlayerShipType.Shrike, new Vector2(300, 300));
-            GameObjectManager.CreatePowerup(PowerupType.Fireball, new Vector2(100, 200));
+            //GameObjectManager.CreatePowerup(PowerupType.EnergyBlast, new Vector2(100, 200));
+            //GameObjectManager.CreatePowerup(PowerupType.Frostball, new Vector2(300, 200));
             //player.ApplyPowerup(PowerupType.Fireball);
 
-            tilemap = Content.Load<Tilemap>("Tilemaps/example");
-            tilemap.Scrolling = true;
+            //tilemap = Content.Load<Tilemap>("Tilemaps/example");
+            //tilemap.Scrolling = true;
 
-            GameObjectManager.CreateEnemy(EnemyType.Dart, new Vector2(200, 200));
+            GameObjectManager.CreateEnemy(EnemyType.AlienHead, new Vector2(this.GraphicsDevice.Viewport.Width / 2, 80));
+
+            //GameObjectManager.CreateEnemy(EnemyType.AlienTurret, new Vector2(200, 300));
+           
         }
 
         /// <summary>
@@ -91,7 +99,7 @@ namespace ScrollingShooter
             // TODO: Add your update logic here
             float elapsedTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-            tilemap.Update(elapsedTime);
+            //tilemap.Update(elapsedTime);
             
             GameObjectManager.Update(elapsedTime);
 
@@ -142,7 +150,7 @@ namespace ScrollingShooter
             float elapsedGameTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
             
             spriteBatch.Begin();
-            tilemap.Draw(elapsedGameTime, spriteBatch);
+            //tilemap.Draw(elapsedGameTime, spriteBatch);
 
             GameObjectManager.Draw(elapsedGameTime, spriteBatch);
 

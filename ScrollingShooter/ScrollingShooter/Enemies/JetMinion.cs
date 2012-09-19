@@ -547,7 +547,7 @@ namespace ScrollingShooter
 
                     float distanceAway = playerPosition.Y - (Position.Y + Bounds.Height);
 
-                    if (distanceAway > StrafeDistance - 5 && distanceAway < StrafeDistance + 5)
+                    if (distanceAway > StrafeDistance - 15 && distanceAway < StrafeDistance + 15)
                     {
                         _myBehaviourState = JetMinionBehaviourState.STRAFE;
                     }

@@ -3,20 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace ScrollingShooter.Bosses
+namespace ScrollingShooter
 {
     /// <summary>
     /// The different enemy types that exist in the game
     /// </summary>
-    public enum EnemyType
+    public enum BossType
     {
-        Dart,
+        GiantAlien,
     }
 
     /// <summary>
     /// A base class for enemies in the game
     /// </summary>
-    public abstract class Enemy : GameObject
+    public abstract class Boss : GameObject
     {
         /// <summary>
         /// The enemy's health
@@ -27,6 +27,6 @@ namespace ScrollingShooter.Bosses
         /// Constructs a new enemy
         /// </summary>
         /// <param name="id">The unique id of the enemy instance</param>
-        public Enemy(uint id) : base(id) { }
+        public Boss(uint id) : base(id) { }
     }
 }

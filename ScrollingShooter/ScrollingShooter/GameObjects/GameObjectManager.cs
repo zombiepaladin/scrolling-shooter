@@ -267,6 +267,9 @@ namespace ScrollingShooter
                 case PowerupType.Fireball:
                     powerup = new FireballPowerup(id, content, position);
                     break;
+                case PowerupType.Frostball:
+                    powerup = new FrostballPowerup(id, content, position);
+                    break;
                 case PowerupType.BubbleBeam:
                     powerup = new BubbleBeamPowerup(id, content, position);
                     break;
@@ -474,6 +477,18 @@ namespace ScrollingShooter
                     projectile = new RGSabot(id, content, position);
                     break;
 
+                case ProjectileType.Pincher:
+                    projectile = new Pincher(id, content, position);
+                    break;
+
+                case ProjectileType.GreenOrb:
+                    projectile = new GreenOrb(id, content, position);
+                    break;
+
+                case ProjectileType.AlienTurretOrb:
+                    projectile = new AlienTurretOrb(id, content, position);
+                    break;
+
                 default:
                     throw new NotImplementedException("The projectile type " + Enum.GetName(typeof(ProjectileType), projectileType) + " is not supported");
             }
@@ -552,8 +567,8 @@ namespace ScrollingShooter
                     enemy = new StdBaddy(id, content, position);
                     break;
 
-                case EnemyType.beamShip:
-                    enemy = new beamShip(id, content, position);
+                case EnemyType.BeamShip:
+                    enemy = new BeamShip(id, content, position);
                     break;
                 case EnemyType.Kamikaze:
                     enemy = new Kamikaze(id, content, position);
@@ -596,6 +611,26 @@ namespace ScrollingShooter
 
                 case EnemyType.SuicideBomber:
                     enemy = new SuicideBomber(id, content, position);
+                    break;
+
+                case EnemyType.AlienHead:
+                    enemy = new AlienHead(id, content, position);
+                    break;
+
+                case EnemyType.ShieldGenerator:
+                    enemy = new ShieldGenerator(id, content, position);
+                    break;
+
+                case EnemyType.AlienTurret:
+                    enemy = new AlienTurret(id, content, position);
+                    break;
+
+                case EnemyType.RightClaw:
+                    enemy = new RightClaw(id, content, position);
+                    break;
+
+                case EnemyType.LeftClaw:
+                    enemy = new LeftClaw(id, content, position);
                     break;
 
                 default:

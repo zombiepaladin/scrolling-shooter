@@ -108,10 +108,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Bosses\Boss.cs" />
+    <Compile Include="Bosses\GiantAlien.cs" />
+    <Compile Include="Enemies\AlienHead.cs" />
+    <Compile Include="Enemies\AlienTurret.cs" />
     <Compile Include="Enemies\Bomber.cs" />
     <Compile Include="Enemies\Drill.cs" />
     <Compile Include="Enemies\Arrow.cs" />
-    <Compile Include="Enemies\beamShip.cs" />
+    <Compile Include="Enemies\BeamShip.cs" />
     <Compile Include="Effects\Explosion.cs" />
     <Compile Include="Enemies\BladeSpinner.cs" />
     <Compile Include="Enemies\DeerTick.cs" />
@@ -119,6 +122,12 @@
     <Compile Include="Enemies\Enemy.cs" />
     <Compile Include="Enemies\GreenGoblin.cs" />
     <Compile Include="Enemies\LaserDrone.cs" />
+    <Compile Include="Enemies\LeftClaw.cs" />
+    <Compile Include="Enemies\RightClaw.cs" />
+    <Compile Include="Projectiles\AlienTurretOrb.cs" />
+    <Compile Include="Projectiles\GreenOrb.cs" />
+    <Compile Include="Projectiles\Pincher.cs" />
+    <Compile Include="Enemies\ShieldGenerator.cs" />
     <Compile Include="Enemies\SuicideBomber.cs" />
     <Compile Include="Enemies\Seed.cs" />
     <Compile Include="Enemies\JTurret.cs" />

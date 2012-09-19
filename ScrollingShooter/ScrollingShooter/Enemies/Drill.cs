@@ -47,7 +47,7 @@ namespace ScrollingShooter
         /// </summary>
         /// <param name="content">A ContentManager to load resources with</param>
         /// <param name="position">The position of the Drill ship in the game world</param>
-        public Drill(ContentManager content, bool enterLeft)
+        public Drill(uint id, ContentManager content, bool enterLeft) : base (id)
         {
             if (enterLeft)
             {

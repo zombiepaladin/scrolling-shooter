@@ -4,10 +4,48 @@ using Microsoft.Xna.Framework.Graphics;
 namespace ScrollingShooter
 {
     /// <summary>
+    /// The different types of projectiles available in the game
+    /// </summary>
+    public enum ProjectileType
+    {
+        // Player projectiles
+        Bullet,
+        Fireball,
+        ShotgunBullet,
+        BubbleBullet,
+        Bomb,
+        Frostball,
+        Blades,
+        TrishieldBall,
+        BirdCrap,
+        DroneWave,
+        EnergyBlast,
+        Meteor,
+        BigMeteor,
+        // Enemy projectiles start with an index of 100;
+        // this allows us to differentiate between projectiles
+        // without needing a second base class
+        BlueBeam = 100,
+        EBullet = 101,
+        TurretFireball = 102,
+        EnemyBullet = 103,
+        ArrowProjectile = 104,
+        EnemyBomb = 105,
+        ToPlayerBullet = 106,
+        JetMinionBullet = 107,
+        EnemyFlameball = 108,
+        GenericEnemyBullet = 109,
+        DroneLaser = 110,
+        RGSabot = 111,
+    }
+
+    /// <summary>
     /// A base class for all projectiles
     /// </summary>
     public abstract class Projectile : GameObject
     {
+        public static int POWER_LEVEL = 1;
+
         /// <summary>
         /// The projectile's velocity
         /// </summary>
@@ -38,6 +76,12 @@ namespace ScrollingShooter
         }
 
         /// <summary>
+        /// Creates a new instance of a projectile
+        /// </summary>
+        /// <param name="id">The unique id of the projectile</param>
+        public Projectile(uint id) : base(id) { }
+
+        /// <summary>
         /// Updates the projectile
         /// </summary>
         /// <param name="elapsedTime">The time elapsed between the previous and current frame</param>
@@ -46,6 +90,7 @@ namespace ScrollingShooter
             position += velocity * elapsedTime;
         }
 
+
         /// <summary>
         /// Draws the projectile on-screen
         /// </summary>
@@ -53,7 +98,7 @@ namespace ScrollingShooter
         /// <param name="spriteBatch">An already-initialized SpriteBatch, ready for Draw() commands</param>
         public override void Draw(float elapsedTime, SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(spriteSheet, Bounds, spriteBounds, Color.White);
+            spriteBatch.Draw(spriteSheet, Bounds, spriteBounds, Color.White, 0f, new Vector2(Bounds.Width / 2, Bounds.Height / 2), SpriteEffects.None, 1f);
         }
     }
 }

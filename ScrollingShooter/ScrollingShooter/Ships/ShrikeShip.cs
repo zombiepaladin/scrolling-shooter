@@ -13,7 +13,7 @@ namespace ScrollingShooter
         /// Create a new ShrikeShip instance
         /// </summary>
         /// <param name="content"></param>
-        public ShrikeShip(ContentManager content)
+        public ShrikeShip(uint id, ContentManager content, Vector2 position) : base (id)
         {
             this.spriteSheet = content.Load<Texture2D>("Spritesheets/tyrian.shp.007D3C");
 
@@ -43,6 +43,7 @@ namespace ScrollingShooter
             this.spriteBounds[(int)SteeringState.HardRight].Height = 29;
 
             this.velocity = new Vector2(100, 100);
+            this.position = position;
         }
     }
 }

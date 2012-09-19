@@ -25,8 +25,9 @@ namespace ScrollingShooter
         /// A Vector2 indicating the powerup's position 
         /// within the game world
         /// </param>
-        public AlePowerup(ContentManager contentManager, Vector2 position)
+        public AlePowerup(uint id, ContentManager contentManager, Vector2 position) : base (id)
         {
+            this.type = PowerupType.Ale;
             this.spriteSource = new Rectangle(148, 173, 19, 18);
             this.spriteSheet = contentManager.Load<Texture2D>("Spritesheets/tyrian.shp.01673F");
             this.spriteBounds = new Rectangle((int)position.X, (int)position.Y, 19, 18);

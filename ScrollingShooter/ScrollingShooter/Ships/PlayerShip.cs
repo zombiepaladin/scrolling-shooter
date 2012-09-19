@@ -59,7 +59,7 @@ namespace ScrollingShooter
 
         public Rectangle RailgunBounds
         {
-            get { return new Rectangle((int)(position.X - 3), (int)(position.Y - (Bounds.Height)), railgunSpriteBounds.Width, railgunSpriteBounds.Height); }
+            get { return new Rectangle((int)(position.X + (Bounds.Width / 2) - 4), (int)(position.Y - (Bounds.Height / 2)), railgunSpriteBounds.Width, railgunSpriteBounds.Height); }
         }
 
         // Powerup Levels
@@ -384,7 +384,11 @@ namespace ScrollingShooter
         {
             if ((PowerupType & PowerupType.Railgun) > 0)
                 spriteBatch.Draw(spriteSheet, RailgunBounds, railgunSpriteBounds, Color.White);
+            
             spriteBatch.Draw(spriteSheet, Bounds, spriteBounds[(int)steeringState], Color.White, 0f, new Vector2(Bounds.Width / 2, Bounds.Height / 2), SpriteEffects.None, 1f);
+
+            // Draw shadow
+            spriteBatch.Draw(spriteSheet, new Rectangle(Bounds.X + 20, Bounds.Y + 100, Bounds.Width, Bounds.Height), spriteBounds[(int)steeringState], Color.Black, 0f, new Vector2(Bounds.Width / 2, Bounds.Height / 2), SpriteEffects.None, 1f);
         }
 
 
@@ -404,9 +408,9 @@ namespace ScrollingShooter
         void TriggerRailgun()
         {
             ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.RGSabot, 
-                new Vector2(position.X-4, position.Y));
+                new Vector2(position.X + (Bounds.Width / 2) - 4, position.Y));
             //Simuated recoil
-            position.Y += 20;
+            position.Y += 10;
         }
 		
 		

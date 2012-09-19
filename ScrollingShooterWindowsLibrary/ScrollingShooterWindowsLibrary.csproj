@@ -92,6 +92,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GameObjectData.cs" />
+    <Compile Include="GameObjectGroup.cs" />
     <Compile Include="Tile.cs" />
     <Compile Include="TileData.cs" />
     <Compile Include="Tilemap.cs" />

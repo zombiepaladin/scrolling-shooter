@@ -59,14 +59,35 @@ namespace ScrollingShooter
 
             // TODO: use this.Content to load your game content here
             player = GameObjectManager.CreatePlayerShip(PlayerShipType.Shrike, new Vector2(300, 300));
-            GameObjectManager.CreatePowerup(PowerupType.Railgun, new Vector2(100, 200));
+            GameObjectManager.CreatePowerup(PowerupType.Fireball, new Vector2(100, 200));
             //player.ApplyPowerup(PowerupType.Fireball);
 
-            tilemap = Content.Load<Tilemap>("Tilemaps/AlienBase2");
+            tilemap = Content.Load<Tilemap>("Tilemaps/example");
+            for (int i = 0; i < tilemap.GameObjectGroupCount; i++)
+            {
+                for (int j = 0; j < tilemap.GameObjectGroups[i].GameObjectData.Count(); j++ )
+                {
+                    GameObjectData goData = tilemap.GameObjectGroups[i].GameObjectData[j];
+                    Vector2 position = new Vector2(goData.Position.Center.X, goData.Position.Center.Y);
+                    GameObject go;
+
+                    switch (goData.Category)
+                    {
+                        case "Powerup":
+                            go = GameObjectManager.CreatePowerup((PowerupType)Enum.Parse(typeof(PowerupType), goData.Type), position);
+                            goData.ID = go.ID;
+                            break;
+
+                        case "Enemy":
+                            go = GameObjectManager.CreateEnemy((EnemyType)Enum.Parse(typeof(EnemyType), goData.Type), position);
+                            goData.ID = go.ID;
+                            break;
+                    }
+                }
+            }
             tilemap.Scrolling = true;
 
-            GameObjectManager.CreateEnemy(EnemyType.Seed, new Vector2(200, 200));
-            GameObjectManager.CreateEnemy(EnemyType.Seed, new Vector2(400, 200));
+            GameObjectManager.CreateEnemy(EnemyType.Dart, new Vector2(200, 200));
         }
 
         /// <summary>
@@ -122,10 +143,7 @@ namespace ScrollingShooter
                         GameObjectManager.DestroyObject(colliderID);
                         GameObjectManager.CreateExplosion(colliderID);
                     }
-                    else if (enemy != null && enemy.GetType() == typeof(BladeSpinner))
-                    {
-                        //Player take Damage
-                    }
+
                 }
 
 
@@ -141,7 +159,6 @@ namespace ScrollingShooter
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-            
 
             // TODO: Add your drawing code here
             float elapsedGameTime = (float)gameTime.ElapsedGameTime.TotalSeconds;

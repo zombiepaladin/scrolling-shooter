@@ -13,7 +13,7 @@ namespace ScrollingShooter
         Dart,
         GreenGoblin,
         LaserDrone,
-		Cobalt,
+        Cobalt,
         JetMinion,
         Seed,
         Bomber,
@@ -31,7 +31,8 @@ namespace ScrollingShooter
         JTurret,
         DrillLeft,
         DrillRight,
-        SuicideBomber
+        SuicideBomber,
+        Bird
     }
 
     /// <summary>

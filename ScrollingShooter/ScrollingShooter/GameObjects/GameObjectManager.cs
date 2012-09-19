@@ -16,13 +16,13 @@ namespace ScrollingShooter
         ContentManager content;
 
         uint objectCount = 0;
-        
+
         Dictionary<uint, GameObject> gameObjects;
-        
+
         Queue<GameObject> createdGameObjects;
         Queue<GameObject> destroyedGameObjects;
 
-        Dictionary<uint,BoundingBox> boundingBoxes;
+        Dictionary<uint, BoundingBox> boundingBoxes;
 
         List<Bound> horizontalAxis;
         List<Bound> verticalAxis;
@@ -73,8 +73,8 @@ namespace ScrollingShooter
             {
                 GameObject go = destroyedGameObjects.Dequeue();
                 RemoveGameObject(go);
-            } 
-            
+            }
+
             // Update our game objects
             foreach (GameObject go in gameObjects.Values)
             {
@@ -365,7 +365,7 @@ namespace ScrollingShooter
                 case ProjectileType.ToPlayerBullet:
                     projectile = new ToPlayerBullet(id, content, position);
                     break;
-                
+
                 case ProjectileType.ArrowProjectile:
                     projectile = new ArrowProjectile(id, content, position);
                     break;
@@ -385,7 +385,7 @@ namespace ScrollingShooter
                     projectile = new blueBeam(id, content, position);
                     break;
 
-                    //This method doesn't fit the trishield very well, so this code is a bit poor in quality.
+                //This method doesn't fit the trishield very well, so this code is a bit poor in quality.
                 case ProjectileType.TrishieldBall:
                     for (int i = 0; i < 2; i++)
                     {
@@ -400,11 +400,11 @@ namespace ScrollingShooter
                     projectile = new GenericEnemyBullet(id, content, position);
                     break;
 
-                case ProjectileType.DroneWave:                    
+                case ProjectileType.DroneWave:
                     // waveIndex helps draw the wave to the left and right of the ship, while waveSpacing holds the vector difference of space between each drone.
                     // Drone count is managed by 2*i.
                     Vector2 waveIndex = new Vector2(-1, 1);
-                    Vector2 waveSpacing = new Vector2(40,30);
+                    Vector2 waveSpacing = new Vector2(40, 30);
                     for (int i = 0; i < 5; i++)
                     {
                         projectile = new DroneWave(id, content, position + waveSpacing * waveIndex * i);
@@ -414,12 +414,12 @@ namespace ScrollingShooter
                         QueueGameObjectForCreation(projectile);
                         id = NextID();
                     }
-                    
+
                     projectile = new DroneWave(id, content, position + waveSpacing * waveIndex * 6);
                     QueueGameObjectForCreation(projectile);
                     id = NextID();
                     projectile = new DroneWave(id, content, position + waveSpacing * 6);
-                    
+
                     break;
                 case ProjectileType.TurretFireball:
                     projectile = new TurretFireball(id, content, position);
@@ -473,7 +473,9 @@ namespace ScrollingShooter
                 case ProjectileType.RGSabot:
                     projectile = new RGSabot(id, content, position);
                     break;
-
+                case ProjectileType.BirdWrath:
+                    projectile = new BirdWrath(id, content, position);
+                    break;
                 default:
                     throw new NotImplementedException("The projectile type " + Enum.GetName(typeof(ProjectileType), projectileType) + " is not supported");
             }
@@ -577,7 +579,7 @@ namespace ScrollingShooter
                 case EnemyType.DeerTickRight:
                     enemy = new DeerTick(id, content, position, DeerTickDirection.Right);
                     break;
-                
+
                 case EnemyType.Turret:
                     enemy = new Turret(id, content, position);
                     break;
@@ -597,7 +599,9 @@ namespace ScrollingShooter
                 case EnemyType.SuicideBomber:
                     enemy = new SuicideBomber(id, content, position);
                     break;
-
+                case EnemyType.Bird:
+                    enemy = new Bird(id, content, position);
+                    break;
                 default:
                     throw new NotImplementedException("The enemy type " + Enum.GetName(typeof(EnemyType), enemyType) + " is not supported");
             }
@@ -630,14 +634,14 @@ namespace ScrollingShooter
                 while ((j >= 0) && horizontalAxis[j].CompareTo(bound) > 0)
                 {
                     // What are we passing, and what are we passing it with?
-                    if(horizontalAxis[j].Type == BoundType.Min && bound.Type == BoundType.Max)
+                    if (horizontalAxis[j].Type == BoundType.Min && bound.Type == BoundType.Max)
                     {
                         // when a Max bound passes a min, we remove it from 
                         // the collision set
                         collisions.Remove(new CollisionPair(horizontalAxis[j].Box.GameObjectID, bound.Box.GameObjectID));
                         horizontalOverlaps.Remove(new CollisionPair(horizontalAxis[j].Box.GameObjectID, bound.Box.GameObjectID));
-                    } 
-                    else if(horizontalAxis[j].Type == BoundType.Max && bound.Type == BoundType.Min)  
+                    }
+                    else if (horizontalAxis[j].Type == BoundType.Max && bound.Type == BoundType.Min)
                     {
                         // when a Min bound passes a Max, we add it to the 
                         // potential collision set
@@ -685,12 +689,12 @@ namespace ScrollingShooter
             // Check the potential overlaps for intersection
             foreach (CollisionPair pair in verticalOverlaps)
             {
-                    GameObject A = GetObject(pair.A);
-                    GameObject B = GetObject(pair.B);
-                    if (A.Bounds.Intersects(B.Bounds))
-                    {
-                        collisions.Add(pair);
-                    }
+                GameObject A = GetObject(pair.A);
+                GameObject B = GetObject(pair.B);
+                if (A.Bounds.Intersects(B.Bounds))
+                {
+                    collisions.Add(pair);
+                }
             }
         }
 
@@ -729,7 +733,7 @@ namespace ScrollingShooter
             return index;
         }
 
-        
+
         /// <summary>
         /// Helper method that adds a GameObject to the GameObjectManager
         /// </summary>

@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 
 namespace ScrollingShooterWindowsLibrary
 {
+    /// <summary>
+    /// Represents a single group of GameObjects, at a 
+    /// specific elevation within the game world
+    /// </summary>
     public struct GameObjectGroup
     {
         /// <summary>

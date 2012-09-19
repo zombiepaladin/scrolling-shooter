@@ -79,6 +79,12 @@ namespace ScrollingShooter
         /// </summary>
         protected Vector2 position = new Vector2(300,300);
 
+        public Vector2 Position
+        {
+            get { return position; }
+            set { position = value; }
+        }
+
         /// <summary>
         /// The spritesheet our ship is found upon
         /// </summary>

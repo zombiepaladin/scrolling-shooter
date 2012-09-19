@@ -20,6 +20,11 @@ namespace ScrollingShooter
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
+        Viewport gameViewport;
+        Viewport worldViewport;
+        Viewport guiViewport;
+        Rectangle scrollBounds;
+
         public static ScrollingShooterGame Game;
         public static GameObjectManager GameObjectManager;
         
@@ -30,6 +35,9 @@ namespace ScrollingShooter
         {
             Game = this;
             graphics = new GraphicsDeviceManager(this);
+            // Use HD TV resolution
+            graphics.PreferredBackBufferWidth = 1280;
+            graphics.PreferredBackBufferHeight = 720;
             Content.RootDirectory = "Content";
         }
 
@@ -42,7 +50,6 @@ namespace ScrollingShooter
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-
             base.Initialize();
         }
 
@@ -52,6 +59,15 @@ namespace ScrollingShooter
         /// </summary>
         protected override void LoadContent()
         {
+            // Create our viewports
+            gameViewport = GraphicsDevice.Viewport;
+            worldViewport = new Viewport(0, 0, 768, 720); // Twice as wide as 16 tiles
+            guiViewport = new Viewport(768, 0, 512, 720); // Remaining space
+
+            // Create our scroll bounds (the part of the world that is visible)
+            // Note 
+            scrollBounds = new Rectangle(0, 0, 384, 360);
+
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
@@ -73,6 +89,10 @@ namespace ScrollingShooter
 
                     switch (goData.Category)
                     {
+                        case "PlayerStart":
+                            //player.Position = position;
+                            break;
+
                         case "Powerup":
                             go = GameObjectManager.CreatePowerup((PowerupType)Enum.Parse(typeof(PowerupType), goData.Type), position);
                             goData.ID = go.ID;
@@ -82,6 +102,8 @@ namespace ScrollingShooter
                             go = GameObjectManager.CreateEnemy((EnemyType)Enum.Parse(typeof(EnemyType), goData.Type), position);
                             goData.ID = go.ID;
                             break;
+
+
                     }
                 }
             }
@@ -158,11 +180,16 @@ namespace ScrollingShooter
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
+            // Set the viewport to the entire screen
+            GraphicsDevice.Viewport = gameViewport;
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
             float elapsedGameTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
             
+            // Render the game world
+            GraphicsDevice.Viewport = worldViewport;
+
             spriteBatch.Begin();
             tilemap.Draw(elapsedGameTime, spriteBatch);
 
@@ -170,6 +197,9 @@ namespace ScrollingShooter
 
 
             spriteBatch.End();
+
+            // Render the gui
+            GraphicsDevice.Viewport = guiViewport;
 
             base.Draw(gameTime);
         }

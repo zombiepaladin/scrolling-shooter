@@ -52,6 +52,7 @@ namespace ScrollingShooterContentPipeline
             // Lists to temporarily store ...
             //List<Tile> tiles = new List<Tile>();
             List<TilemapLayerContent> layers = new List<TilemapLayerContent>();
+            List<GameObjectGroupContent> objectGroups = new List<GameObjectGroupContent>();
 
             while (reader.Read())
             {
@@ -96,6 +97,14 @@ namespace ScrollingShooterContentPipeline
                                     layers.Add(LoadLayer(st));
                                 }
                                 break;
+
+                            case "objectgroup":
+                                using (var st = reader.ReadSubtree())
+                                {
+                                    st.Read();
+                                    objectGroups.Add(LoadObjectGroup(st));
+                                }
+                                break;
                         }
                         break;
 
@@ -113,6 +122,8 @@ namespace ScrollingShooterContentPipeline
             output.Tiles = Tiles.ToArray();
             output.LayerCount = layers.Count;
             output.Layers = layers.ToArray();
+            output.GameObjectGroupCount = objectGroups.Count;
+            output.GameObjectGroups = objectGroups.ToArray();
             
             return output;
         }
@@ -362,6 +373,55 @@ namespace ScrollingShooterContentPipeline
                     }
                 }
             }
+
+            return output;
+        }
+
+
+        /// <summary>
+        /// A helper method for loading an object layer from an XML subtree
+        /// </summary>
+        /// <param name="reader">The XML reader for the layer subtree</param>
+        /// <returns>A GroupObjectContent object</returns>
+        GameObjectGroupContent LoadObjectGroup(XmlReader reader)
+        {
+            GameObjectGroupContent output = new GameObjectGroupContent();
+            output.Properties = new Dictionary<string, string>();
+            
+            List<GameObjectData> gameObjects = new List<GameObjectData>(); 
+
+            // Read the subtree
+            while (reader.Read())
+            {
+                if (reader.NodeType == XmlNodeType.Element)
+                {
+                    switch (reader.Name)
+                    {
+                        case "object":
+                            GameObjectData go = new GameObjectData();
+                            go.Category = reader.GetAttribute("name");
+                            go.Type = reader.GetAttribute("type");
+
+                            go.Position.X = int.Parse(reader.GetAttribute("x"));
+                            go.Position.Y = int.Parse(reader.GetAttribute("y"));
+                            go.Position.Width = int.Parse(reader.GetAttribute("width"));
+                            go.Position.Height = int.Parse(reader.GetAttribute("height"));
+
+                            gameObjects.Add(go);
+                            break;
+
+                        case "properties":
+                            using (XmlReader st = reader.ReadSubtree())
+                            {
+                                st.Read();
+                                output.Properties = LoadProperties(st);
+                            }
+                            break;
+                    }
+                }
+            }
+
+            output.GameObjectData = gameObjects.ToArray();
 
             return output;
         }

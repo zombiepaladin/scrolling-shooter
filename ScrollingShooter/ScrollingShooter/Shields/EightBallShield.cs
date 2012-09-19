@@ -2,18 +2,19 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 
+//Author: Josh Zavala   TODO: fix how the player is retrieved etc
 namespace ScrollingShooter
 {
     /// <summary>
-    /// An eight ball shield
+    /// Class defining the Eight Ball Shield powerup
     /// </summary>
     public class EightBallShield : Shield
     {
-        Vector2 playerPosition;
-        PlayerShip playerShip;
+        private Vector2 playerPosition;
+        private PlayerShip playerShip;
 
         /// <summary>
-        /// Creates a new eight ball shield
+        /// Creates a Eight Ball Shield instance
         /// </summary>
         /// <param name="contentManager">A ContentManager to load content from</param>
         /// <param name="playerPosition">A position on the screen</param>
@@ -23,6 +24,7 @@ namespace ScrollingShooter
         {
             this.spriteSheet = contentManager.Load<Texture2D>("Spritesheets/eightballshield");
             this.playerPosition = playerPosition;
+            //this.playerShip = ScrollingShooterGame.Game.player;
             this.playerShip = playerShip;
             this.spriteBounds = new Rectangle(24, 23, 53, 58);
 
@@ -36,6 +38,10 @@ namespace ScrollingShooter
             this.position.Y = playerPosition.Y - 26;
         }
 
+        /// <summary>
+        /// Updates the Eight Ball Shield's position, health, etc
+        /// </summary>
+        /// <param name="elapsedTime">The time elapsed between the previous and current frame</param>
         public override void Update(float elapsedTime)
         {
             this.position.X = playerShip.Bounds.X - 25;

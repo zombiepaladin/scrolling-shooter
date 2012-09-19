@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 
-//Created by Josh Zavala
+//Author: Josh Zavala
 namespace ScrollingShooter
 {
     /// <summary>
@@ -30,7 +30,7 @@ namespace ScrollingShooter
         Texture2D spritesheet;
         Vector2 position;
         Rectangle[] spriteBounds = new Rectangle[8];
-        Panzer2AimState aimState = Panzer2AimState.South;
+        Panzer2AimState aimState;
         float defaultGunTimer = 0;
 
         /// <summary>
@@ -55,47 +55,47 @@ namespace ScrollingShooter
             : base(id)
         {
             this.position = position;
-            spritesheet = content.Load<Texture2D>("Spritesheets/newsh2.shp.000000");
+            spritesheet = content.Load<Texture2D>("Spritesheets/vulcano");
 
-            spriteBounds[(int)Panzer2AimState.North].X = 74;
-            spriteBounds[(int)Panzer2AimState.North].Y = 28;
-            spriteBounds[(int)Panzer2AimState.North].Width = 19;
-            spriteBounds[(int)Panzer2AimState.North].Height = 23;
+            spriteBounds[(int)Panzer2AimState.North].X = 7;
+            spriteBounds[(int)Panzer2AimState.North].Y = 30;
+            spriteBounds[(int)Panzer2AimState.North].Width = 15;
+            spriteBounds[(int)Panzer2AimState.North].Height = 20;
 
-            spriteBounds[(int)Panzer2AimState.NorthEast].X = 193;
-            spriteBounds[(int)Panzer2AimState.NorthEast].Y = 58;
-            spriteBounds[(int)Panzer2AimState.NorthEast].Width = 25;
-            spriteBounds[(int)Panzer2AimState.NorthEast].Height = 21;
+            spriteBounds[(int)Panzer2AimState.NorthEast].X = 101;
+            spriteBounds[(int)Panzer2AimState.NorthEast].Y = 20;
+            spriteBounds[(int)Panzer2AimState.NorthEast].Width = 17;
+            spriteBounds[(int)Panzer2AimState.NorthEast].Height = 18;
 
-            spriteBounds[(int)Panzer2AimState.East].X = 48;
-            spriteBounds[(int)Panzer2AimState.East].Y = 32;
-            spriteBounds[(int)Panzer2AimState.East].Width = 24;
-            spriteBounds[(int)Panzer2AimState.East].Height = 18;
+            spriteBounds[(int)Panzer2AimState.East].X = 121;
+            spriteBounds[(int)Panzer2AimState.East].Y = 36;
+            spriteBounds[(int)Panzer2AimState.East].Width = 20;
+            spriteBounds[(int)Panzer2AimState.East].Height = 14;
 
-            spriteBounds[(int)Panzer2AimState.SouthEast].X = 193;
-            spriteBounds[(int)Panzer2AimState.SouthEast].Y = 89;
-            spriteBounds[(int)Panzer2AimState.SouthEast].Width = 24;
-            spriteBounds[(int)Panzer2AimState.SouthEast].Height = 19;
+            spriteBounds[(int)Panzer2AimState.SouthEast].X = 101;
+            spriteBounds[(int)Panzer2AimState.SouthEast].Y = 51;
+            spriteBounds[(int)Panzer2AimState.SouthEast].Width = 18;
+            spriteBounds[(int)Panzer2AimState.SouthEast].Height = 16;
 
-            spriteBounds[(int)Panzer2AimState.South].X = 26;
+            spriteBounds[(int)Panzer2AimState.South].X = 57;
             spriteBounds[(int)Panzer2AimState.South].Y = 32;
-            spriteBounds[(int)Panzer2AimState.South].Width = 18;
-            spriteBounds[(int)Panzer2AimState.South].Height = 22;
+            spriteBounds[(int)Panzer2AimState.South].Width = 15;
+            spriteBounds[(int)Panzer2AimState.South].Height = 20;
 
-            spriteBounds[(int)Panzer2AimState.SouthWest].X = 170;
-            spriteBounds[(int)Panzer2AimState.SouthWest].Y = 88;
-            spriteBounds[(int)Panzer2AimState.SouthWest].Width = 20;
-            spriteBounds[(int)Panzer2AimState.SouthWest].Height = 19;
+            spriteBounds[(int)Panzer2AimState.SouthWest].X = 76;
+            spriteBounds[(int)Panzer2AimState.SouthWest].Y = 51;
+            spriteBounds[(int)Panzer2AimState.SouthWest].Width = 18;
+            spriteBounds[(int)Panzer2AimState.SouthWest].Height = 16;
 
-            spriteBounds[(int)Panzer2AimState.West].X = 2;
-            spriteBounds[(int)Panzer2AimState.West].Y = 32;
-            spriteBounds[(int)Panzer2AimState.West].Width = 22;
-            spriteBounds[(int)Panzer2AimState.West].Height = 17;
+            spriteBounds[(int)Panzer2AimState.West].X = 30;
+            spriteBounds[(int)Panzer2AimState.West].Y = 35;
+            spriteBounds[(int)Panzer2AimState.West].Width = 20;
+            spriteBounds[(int)Panzer2AimState.West].Height = 14;
 
-            spriteBounds[(int)Panzer2AimState.NorthWest].X = 170;
-            spriteBounds[(int)Panzer2AimState.NorthWest].Y = 58;
-            spriteBounds[(int)Panzer2AimState.NorthWest].Width = 20;
-            spriteBounds[(int)Panzer2AimState.NorthWest].Height = 20;
+            spriteBounds[(int)Panzer2AimState.NorthWest].X = 76;
+            spriteBounds[(int)Panzer2AimState.NorthWest].Y = 20;
+            spriteBounds[(int)Panzer2AimState.NorthWest].Width = 18;
+            spriteBounds[(int)Panzer2AimState.NorthWest].Height = 18;
 
             aimState = Panzer2AimState.South;
 
@@ -115,25 +115,15 @@ namespace ScrollingShooter
             //Get the vector from Panzer's position to the player's position
             Vector2 toPlayer = playerPosition - this.position;
 
-            if ((toPlayer.LengthSquared() < 70000) && (toPlayer.LengthSquared() > 5000))
+            if (toPlayer.LengthSquared() < 200000)
             {
-                //points the Panzer towards the player
+                //normalize the vector
                 toPlayer.Normalize();
-
-                //chase the player
-                //this.position += toPlayer * elapsedTime * 25;
-
-                //update the steering
+                //update the steering vector pointing to the player
                 SteeringState(toPlayer);
 
                 //fire cannon
                 FireCannon(elapsedTime);
-            }
-
-            if (toPlayer.LengthSquared() <= 5000) //distance to sense
-            {
-                SteeringState(toPlayer); //updates the steering
-                FireCannon(elapsedTime); //fires the cannon
             }
         }
 
@@ -175,12 +165,11 @@ namespace ScrollingShooter
             defaultGunTimer += elapsedTime;
             if (defaultGunTimer > 2f)
             {
-                //Orignal bullet firing
-                //ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.Bullet, position);
-
                 //Make use of the ToPlayerBullet class
-                ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.ToPlayerBullet, position);
+                ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.Photon, position);
                 defaultGunTimer = 0;
+
+                //ScrollingShooterGame.GameObjectManager.CreateExplosion(this.ID);
             }
         }
     }

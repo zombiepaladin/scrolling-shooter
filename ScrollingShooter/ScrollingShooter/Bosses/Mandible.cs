@@ -9,7 +9,7 @@ namespace ScrollingShooter
 {
     /// <summary>
     /// This Enemy takes damage from the player and then fires at them when
-    /// health is 0.
+    /// health is 0 - it is a part of the boss.
     /// </summary>
     class Mandible : Enemy
     {

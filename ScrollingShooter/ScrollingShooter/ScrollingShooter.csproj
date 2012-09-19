@@ -173,6 +173,7 @@
     <Compile Include="Projectiles\HomingMissileProjectile.cs" />
     <Compile Include="Projectiles\JetMinionBullet.cs" />
     <Compile Include="Projectiles\Frostball.cs" />
+    <Compile Include="Projectiles\Photon.cs" />
     <Compile Include="Projectiles\RGSabot.cs" />
     <Compile Include="Projectiles\TriShieldBall.cs" />
     <Compile Include="Projectiles\Projectile.cs" />

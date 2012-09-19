@@ -480,6 +480,10 @@ namespace ScrollingShooter
                     projectile = new RGSabot(id, content, position);
                     break;
 
+                case ProjectileType.Photon:
+                    projectile = new Photon(id, content, position);
+                    break;
+
                 default:
                     throw new NotImplementedException("The projectile type " + Enum.GetName(typeof(ProjectileType), projectileType) + " is not supported");
             }

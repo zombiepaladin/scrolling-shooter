@@ -7,6 +7,9 @@ using Microsoft.Xna.Framework.Content;
 //         Nick Stanley
 namespace ScrollingShooter
 {
+    /// <summary>
+    /// Start of 2-phase boss fight for the vulcano level.
+    /// </summary>
     class Lavabug : Enemy
     {
         //the vars

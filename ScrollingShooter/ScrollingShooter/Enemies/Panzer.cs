@@ -2,11 +2,11 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 
-//Created by Josh Zavala
+//Author: Josh Zavala
 namespace ScrollingShooter
 {
     /// <summary>
-    /// Represents the 8 positions the tank can face
+    /// Represents the 8 positions Panzer can face
     /// </summary>
     enum PanzerAimState
     {
@@ -22,7 +22,7 @@ namespace ScrollingShooter
 
     /// <summary>
     /// A ground tank that shoot at the player if they are in range,
-    /// moves slowly towards them.
+    /// moves slowly towards them but stops when they are close.
     /// </summary>
     public class Panzer : Enemy
     {
@@ -30,7 +30,7 @@ namespace ScrollingShooter
         Texture2D spritesheet;
         Vector2 position;
         Rectangle[] spriteBounds = new Rectangle[8];
-        PanzerAimState aimState = PanzerAimState.South;
+        PanzerAimState aimState;
         float defaultGunTimer = 0;
 
         /// <summary>
@@ -117,7 +117,7 @@ namespace ScrollingShooter
 
             if ((toPlayer.LengthSquared() < 70000) && (toPlayer.LengthSquared() > 5000))
             {
-                //points the Panzer towards the player
+                //get a vector in the direction of the player
                 toPlayer.Normalize();
 
                 //chase the player
@@ -174,10 +174,7 @@ namespace ScrollingShooter
         {
             defaultGunTimer += elapsedTime;
             if (defaultGunTimer > 2f)
-            {
-                //Orignal bullet firing
-                //ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.Bullet, position);
-                
+            {                
                 //Make use of the ToPlayerBullet class
                 ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.ToPlayerBullet, position);
                 defaultGunTimer = 0;

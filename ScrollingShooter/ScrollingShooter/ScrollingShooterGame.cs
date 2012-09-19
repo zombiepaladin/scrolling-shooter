@@ -59,20 +59,25 @@ namespace ScrollingShooter
 
             // TODO: use this.Content to load your game content here
             player = GameObjectManager.CreatePlayerShip(PlayerShipType.Shrike, new Vector2(300, 300));
-            GameObjectManager.CreatePowerup(PowerupType.Fireball, new Vector2(100, 200));
+            //GameObjectManager.CreatePowerup(PowerupType.Fireball, new Vector2(100, 200));
             //player.ApplyPowerup(PowerupType.Fireball);
 
-            tilemap = Content.Load<Tilemap>("Tilemaps/example");
+            tilemap = Content.Load<Tilemap>("Tilemaps/lavaLevel2");
             tilemap.Scrolling = true;
 
-            GameObjectManager.CreateEnemy(EnemyType.Dart, new Vector2(200, 200));
-
             //test out new panzer personality
-            GameObjectManager.CreateEnemy(EnemyType.Panzer, new Vector2(100, 100));
-            //test out panzer2 functionality
-            GameObjectManager.CreateEnemy(EnemyType.Panzer2, new Vector2(200, 100));
+            int p1 = 100;
+            int p2 = 200;
+            for (int i = 0; i < 6; i++)
+            {
+                //GameObjectManager.CreateEnemy(EnemyType.Panzer, new Vector2(p1, 100));
+                GameObjectManager.CreateEnemy(EnemyType.Panzer2, new Vector2(p2, 100));
+                p1 += 100;
+                p2 += 100;
+            }
+            
             //test out lavabug
-            GameObjectManager.CreateEnemy(EnemyType.Lavabug, new Vector2(100, 75));
+            //GameObjectManager.CreateEnemy(EnemyType.Lavabug, new Vector2(100, 75));
         }
 
         /// <summary>

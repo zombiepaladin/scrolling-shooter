@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
   <PropertyGroup>
     <ProjectGuid>{178E30B3-9F27-4FF1-B6A0-4866B6FA0875}</ProjectGuid>
@@ -50,6 +50,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GameObjectGroupContent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TilemapContent.cs" />
     <Compile Include="TilemapLayerContent.cs" />

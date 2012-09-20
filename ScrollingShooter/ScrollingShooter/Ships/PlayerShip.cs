@@ -1,4 +1,4 @@
-﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
@@ -384,7 +384,11 @@ namespace ScrollingShooter
         {
             if ((PowerupType & PowerupType.Railgun) > 0)
                 spriteBatch.Draw(spriteSheet, RailgunBounds, railgunSpriteBounds, Color.White);
+            
             spriteBatch.Draw(spriteSheet, Bounds, spriteBounds[(int)steeringState], Color.White, 0f, new Vector2(Bounds.Width / 2, Bounds.Height / 2), SpriteEffects.None, 1f);
+
+            // Draw shadow
+            spriteBatch.Draw(spriteSheet, new Rectangle(Bounds.X + 20, Bounds.Y + 100, Bounds.Width, Bounds.Height), spriteBounds[(int)steeringState], Color.Black, 0f, new Vector2(Bounds.Width / 2, Bounds.Height / 2), SpriteEffects.None, 1f);
         }
 
 

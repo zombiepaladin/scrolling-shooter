@@ -15,7 +15,7 @@ namespace ScrollingShooter
     }
 
     /// <summary>
-    /// An enemy ship that flies toward the player and fires
+    /// An enemy ship that flies toward the Player and fires
     /// </summary>
     public class Bomber : Enemy
     {
@@ -167,9 +167,9 @@ namespace ScrollingShooter
             }
             
             float velocity = 1;
-            // Sense the player's position
-            PlayerShip player = ScrollingShooterGame.Game.player;
-            Vector2 playerPosition = new Vector2(player.Bounds.Center.X, player.Bounds.Center.Y);
+            // Sense the Player's position
+            PlayerShip Player = ScrollingShooterGame.Game.Player;
+            Vector2 PlayerPosition = new Vector2(Player.Bounds.Center.X, Player.Bounds.Center.Y);
             //groupFireTimer += elapsedTime;
             bombTimer += elapsedTime;
             turboTimer += elapsedTime;
@@ -184,14 +184,14 @@ namespace ScrollingShooter
             }
 
 
-            if (playerPosition.X - Bounds.Center.X < -20)
+            if (PlayerPosition.X - Bounds.Center.X < -20)
             {
                 steeringState = BomberSteeringState.Left;
                 this.position.X -= elapsedTime * 40 * velocity;
             }
             else
             {
-                if (playerPosition.X - Bounds.Center.X > 20)
+                if (PlayerPosition.X - Bounds.Center.X > 20)
                 {
                     steeringState = BomberSteeringState.Right;
                     this.position.X += elapsedTime * 40 * velocity;
@@ -199,7 +199,7 @@ namespace ScrollingShooter
                 else
                 {
                     steeringState = BomberSteeringState.Straight;
-                    if (playerPosition.Y > this.Bounds.Center.Y)
+                    if (PlayerPosition.Y > this.Bounds.Center.Y)
                     {
                         if (bombTimer > 1.5f)
                         {

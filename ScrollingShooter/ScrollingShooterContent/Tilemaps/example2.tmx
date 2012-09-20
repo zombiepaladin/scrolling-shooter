@@ -39,5 +39,10 @@
   <object name="Powerup" type="Fireball" x="59" y="4160"/>
   <object name="Powerup" type="Ale" x="357" y="4277"/>
   <object name="Enemy" type="Dart" x="168" y="3944"/>
+  <object name="Enemy" type="Dart" x="168" y="3944"/>
+  <object x="160" y="3934" width="9"/>
+  <object x="146" y="3897"/>
+  <object name="Enemy" type="Dart" x="114" y="3854"/>
+  <object name="Enemy" type="Dart" x="80" y="3809"/>
  </objectgroup>
 </map>

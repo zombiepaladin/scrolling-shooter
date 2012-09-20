@@ -142,7 +142,7 @@ namespace ScrollingShooter
 
                     if (timer < 0)
                     {
-                        if (this.position.X >= playerPosition.X - 23 && this.position.X <= playerPosition.X + 23 && this.position.Y < playerPosition.Y)
+                        if (this.position.X >= PlayerPosition.X - 23 && this.position.X <= PlayerPosition.X + 23 && this.position.Y < PlayerPosition.Y)
                         {
                             timer = 1f;
                             behaviorState = BehaviorState.Charging;

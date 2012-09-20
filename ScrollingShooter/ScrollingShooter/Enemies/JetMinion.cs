@@ -4,7 +4,7 @@
 //Time: 11:09 A.M.
 //
 //The Jet Minion is a simple enemy that strafes a certain difference
-//away from the player and attempts to shoot them down, after a certain
+//away from the Player and attempts to shoot them down, after a certain
 //amount of time the minion will leave. If the minion becomes damaged, 
 //fire rate will increase
 
@@ -49,12 +49,12 @@ namespace ScrollingShooter
         #region Static and Constant Variables - For Tweaking some behaviour
 
         /// <summary>
-        /// The distance away from the player on the y-axis that the Jet keeps
+        /// The distance away from the Player on the y-axis that the Jet keeps
         /// </summary>
         private const int StrafeDistance = 150;
 
         /// <summary>
-        /// The range at which the player needs to be before the Jet becomes alert
+        /// The range at which the Player needs to be before the Jet becomes alert
         /// </summary>
         private const int AlertRange = 400;
 
@@ -194,7 +194,7 @@ namespace ScrollingShooter
         #region The States of the Jet
 
         /// <summary>
-        /// Represents how the Jet will appear to the player
+        /// Represents how the Jet will appear to the Player
         /// </summary>
         private JetMinionVisualState _myVisualState;
 
@@ -512,18 +512,18 @@ namespace ScrollingShooter
         }
 
         /// <summary>
-        /// Checks if the Jet can sense the player yet
+        /// Checks if the Jet can sense the Player yet
         /// </summary>
-        private void checkIfInAlertRange(Vector2 playerPosition)
+        private void checkIfInAlertRange(Vector2 PlayerPosition)
         {
             switch (_myBehaviourState)
             {
                 //Only need to do this in the ALERT state
                 case JetMinionBehaviourState.ALERT:
 
-                    //Gets the vector from the player to this jet and gets its length (squared for efficiency) 
+                    //Gets the vector from the Player to this jet and gets its length (squared for efficiency) 
                     //and compares it with the alert range (squared)
-                    if ((Position - playerPosition).LengthSquared() <= (AlertRange * AlertRange))
+                    if ((Position - PlayerPosition).LengthSquared() <= (AlertRange * AlertRange))
                     {
                         _myBehaviourState = JetMinionBehaviourState.SEEKSTRAFE;
                     }
@@ -533,19 +533,19 @@ namespace ScrollingShooter
         }
 
         /// <summary>
-        /// Checks if this Jet is in strafing range of the player, 
+        /// Checks if this Jet is in strafing range of the Player, 
         /// if so then begin strafing
         /// </summary>
-        private void checkIfInStrafingRange(Vector2 playerPosition)
+        private void checkIfInStrafingRange(Vector2 PlayerPosition)
         {
             switch (_myBehaviourState)
             {
                 case JetMinionBehaviourState.SEEKSTRAFE:
 
                     //StrafeDistance is just a distance between the tip of the Jet
-                    //and the player position, so no fancy math here
+                    //and the Player position, so no fancy math here
 
-                    float distanceAway = playerPosition.Y - (Position.Y + Bounds.Height);
+                    float distanceAway = PlayerPosition.Y - (Position.Y + Bounds.Height);
 
                     if (distanceAway > StrafeDistance - 15 && distanceAway < StrafeDistance + 15)
                     {
@@ -557,17 +557,17 @@ namespace ScrollingShooter
         }
 
         /// <summary>
-        /// Checks if this Jet is within firing range of the player,
+        /// Checks if this Jet is within firing range of the Player,
         /// if so then begin firing
         /// </summary>
-        private void checkIfInFiringRange(Vector2 playerPosition, int playerWidth)
+        private void checkIfInFiringRange(Vector2 PlayerPosition, int PlayerWidth)
         {
             switch (_myBehaviourState)
             {
                 //Only need to check when in Fire or Strafe states
                 case JetMinionBehaviourState.STRAFE:
 
-                    if (Math.Abs((playerPosition.X + playerWidth * 0.5) - (Position.X + Bounds.Width * 0.5)) <= FireRange)
+                    if (Math.Abs((PlayerPosition.X + PlayerWidth * 0.5) - (Position.X + Bounds.Width * 0.5)) <= FireRange)
                     {
                         _myBehaviourState = JetMinionBehaviourState.FIRE;
                         onEntry();
@@ -577,7 +577,7 @@ namespace ScrollingShooter
 
                 case JetMinionBehaviourState.FIRE:
 
-                    if (Math.Abs(playerPosition.X - Position.X) > FireRange)
+                    if (Math.Abs(PlayerPosition.X - Position.X) > FireRange)
                     {
                         _myBehaviourState = JetMinionBehaviourState.STRAFE;
                     }
@@ -705,7 +705,7 @@ namespace ScrollingShooter
 
         /// <summary>
         /// Handles when the Jet is just flying through the screen
-        /// If the player stays out of the alert range, it is possible for
+        /// If the Player stays out of the alert range, it is possible for
         /// this enemy to just leave without engaging, this is intentional
         /// </summary>
         private void Alert()
@@ -721,13 +721,13 @@ namespace ScrollingShooter
         /// <summary>
         /// Handles when the Jet is getting ready to strafe the character
         /// </summary>
-        private void SeekStrafe(Vector2 playerPosition)
+        private void SeekStrafe(Vector2 PlayerPosition)
         {
             switch (_myBehaviourState)
             {
                 case JetMinionBehaviourState.SEEKSTRAFE:
 
-                    Vector2 targetPosition = new Vector2(playerPosition.X, playerPosition.Y - StrafeDistance);
+                    Vector2 targetPosition = new Vector2(PlayerPosition.X, PlayerPosition.Y - StrafeDistance);
                     Vector2 directionToTarget = targetPosition - Position;
                     directionToTarget.Normalize();
 
@@ -750,7 +750,7 @@ namespace ScrollingShooter
         /// Handles the Strafing action that the ship takes (i.e. moving left and right
         /// across the screen)
         /// </summary>
-        private void Strafe(Vector2 playerPosition)
+        private void Strafe(Vector2 PlayerPosition)
         {
             switch (_myBehaviourState)
             {
@@ -759,7 +759,7 @@ namespace ScrollingShooter
 
                     float currentX = MathHelper.Clamp(Position.X, GameScreen.Left, (GameScreen.Right - this.Bounds.Width));
 
-                    _position.Y = playerPosition.Y - StrafeDistance - Bounds.Height;
+                    _position.Y = PlayerPosition.Y - StrafeDistance - Bounds.Height;
 
                     if (_isMovingLeft)
                     {
@@ -911,8 +911,8 @@ namespace ScrollingShooter
         /// <param name="elapsedTime">Time since last update, mostly for managing timers</param>
         private void onFrame(float elapsedTime)
         {
-            Vector2 playerPosition = new Vector2(ScrollingShooterGame.Game.player.Bounds.X, ScrollingShooterGame.Game.player.Bounds.Y);
-            int playerWidth = ScrollingShooterGame.Game.player.Bounds.Width;
+            Vector2 PlayerPosition = new Vector2(ScrollingShooterGame.Game.Player.Bounds.X, ScrollingShooterGame.Game.Player.Bounds.Y);
+            int PlayerWidth = ScrollingShooterGame.Game.Player.Bounds.Width;
 
             if (_myVisualState == JetMinionVisualState.HEALTHY || _myVisualState == JetMinionVisualState.DAMAGED)
             {
@@ -930,23 +930,23 @@ namespace ScrollingShooter
 
                         Alert();
 
-                        checkIfInAlertRange(playerPosition);
+                        checkIfInAlertRange(PlayerPosition);
 
                         break;
 
                     case JetMinionBehaviourState.SEEKSTRAFE:
 
-                        SeekStrafe(playerPosition);
+                        SeekStrafe(PlayerPosition);
 
-                        checkIfInStrafingRange(playerPosition);
+                        checkIfInStrafingRange(PlayerPosition);
 
                         break;
 
                     case JetMinionBehaviourState.STRAFE:
 
-                        Strafe(playerPosition);
+                        Strafe(PlayerPosition);
 
-                        checkIfInFiringRange(playerPosition, playerWidth);
+                        checkIfInFiringRange(PlayerPosition, PlayerWidth);
 
                         break;
 
@@ -961,9 +961,9 @@ namespace ScrollingShooter
                             _myGunState = GunState.REST;
                         }
 
-                        Strafe(playerPosition);
+                        Strafe(PlayerPosition);
 
-                        checkIfInFiringRange(playerPosition, playerWidth);
+                        checkIfInFiringRange(PlayerPosition, PlayerWidth);
 
                         _timerFire -= elapsedTime;
 

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Content.Pipeline;
 using Microsoft.Xna.Framework.Content.Pipeline.Graphics;
@@ -72,6 +73,20 @@ namespace ScrollingShooterContentPipeline
         /// The layers in our tileset
         /// </summary>
         public TilemapLayerContent[] Layers;
+
+        /// <summary>
+        /// The total number of game object groups in our tilemap
+        /// </summary>
+        public int GameObjectGroupCount;
+
+        /// <summary>
+        /// The game object groups in our tilemap
+        /// </summary>
+        public GameObjectGroupContent[] GameObjectGroups;
+
+        public Vector2 PlayerStart;
+
+        public int PlayerLayer;
 
         /// <summary>
         /// The properties defined on this tilemap.  These are loaded

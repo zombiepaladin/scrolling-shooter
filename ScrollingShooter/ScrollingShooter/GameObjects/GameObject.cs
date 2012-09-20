@@ -15,6 +15,11 @@ namespace ScrollingShooter
         public readonly uint ID;
 
         /// <summary>
+        /// The depth at which this GameObject's sprite is drawn
+        /// </summary>
+        public float LayerDepth;
+
+        /// <summary>
         /// The bounds of this game object in the game world
         /// </summary>
         public abstract Rectangle Bounds { get; }

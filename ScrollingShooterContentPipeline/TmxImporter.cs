@@ -52,6 +52,7 @@ namespace ScrollingShooterContentPipeline
             // Lists to temporarily store ...
             //List<Tile> tiles = new List<Tile>();
             List<TilemapLayerContent> layers = new List<TilemapLayerContent>();
+            List<GameObjectGroupContent> objectGroups = new List<GameObjectGroupContent>();
 
             while (reader.Read())
             {
@@ -96,6 +97,14 @@ namespace ScrollingShooterContentPipeline
                                     layers.Add(LoadLayer(st));
                                 }
                                 break;
+
+                            case "objectgroup":
+                                using (var st = reader.ReadSubtree())
+                                {
+                                    st.Read();
+                                    objectGroups.Add(LoadObjectGroup(st, output.TileWidth, output.TileHeight));
+                                }
+                                break;
                         }
                         break;
 
@@ -113,6 +122,8 @@ namespace ScrollingShooterContentPipeline
             output.Tiles = Tiles.ToArray();
             output.LayerCount = layers.Count;
             output.Layers = layers.ToArray();
+            output.GameObjectGroupCount = objectGroups.Count;
+            output.GameObjectGroups = objectGroups.ToArray();
             
             return output;
         }
@@ -154,11 +165,6 @@ namespace ScrollingShooterContentPipeline
         /// <param name="reader">The XML reader for the tileset subtree</param>
         void LoadTileset(XmlReader reader, int tileWidth, int tileHeight)
         {
-            // The image ID will be the image's place in our
-            // TextureList, i.e. the next available index in
-            // the ImagePath list
-            int imageID = ImagePaths.Count;
-
             // Read the subtree
             while (reader.Read())
             {
@@ -183,7 +189,11 @@ namespace ScrollingShooterContentPipeline
                                 for (int x = 0; x < width / tileWidth; x++)
                                 {
                                     Tile tile = new Tile();
-                                    tile.TextureID = imageID;
+
+                                    // Since this textuer was the last added,
+                                    // the texture's index in the ImagePath list
+                                    // is one less than the count
+                                    tile.TextureID = ImagePaths.Count - 1;
 
                                     // Calculate the tile's source bounds
                                     tile.Source.X = x * tileWidth;
@@ -362,6 +372,73 @@ namespace ScrollingShooterContentPipeline
                     }
                 }
             }
+
+            return output;
+        }
+
+
+        /// <summary>
+        /// A helper method for loading an object layer from an XML subtree
+        /// </summary>
+        /// <param name="reader">The XML reader for the layer subtree</param>
+        /// <returns>A GroupObjectContent object</returns>
+        GameObjectGroupContent LoadObjectGroup(XmlReader reader, int tilewidth, int tileheight)
+        {
+            GameObjectGroupContent output = new GameObjectGroupContent();
+            output.Properties = new Dictionary<string, string>();
+            
+            List<GameObjectData> gameObjects = new List<GameObjectData>(); 
+
+            // Read the subtree
+            while (reader.Read())
+            {
+                if (reader.NodeType == XmlNodeType.Element)
+                {
+                    switch (reader.Name)
+                    {
+                        case "object":
+                            GameObjectData go = new GameObjectData();
+                            go.Category = reader.GetAttribute("name");
+                            go.Type = reader.GetAttribute("type");
+
+                            go.Position.X = int.Parse(reader.GetAttribute("x"));
+                            go.Position.Y = int.Parse(reader.GetAttribute("y"));
+
+                            // By default, Tiled sets objects to tile width and height - if
+                            // there is no change to these, then it does not add a width
+                            // and height attribute to the object XML - so we'll check
+                            // for those elements and use them or the default, as needed
+                            if (reader.GetAttribute("width") != null)
+                            {
+                                go.Position.Width = int.Parse(reader.GetAttribute("width"));
+                            }
+                            else
+                            {
+                                go.Position.Width = tilewidth;
+                            }
+                            if (reader.GetAttribute("height") != null)
+                            {
+                                go.Position.Height = int.Parse(reader.GetAttribute("height"));
+                            }
+                            else
+                            {
+                                go.Position.Width = tileheight;
+                            }
+                            gameObjects.Add(go);
+                            break;
+
+                        case "properties":
+                            using (XmlReader st = reader.ReadSubtree())
+                            {
+                                st.Read();
+                                output.Properties = LoadProperties(st);
+                            }
+                            break;
+                    }
+                }
+            }
+
+            output.GameObjectData = gameObjects.ToArray();
 
             return output;
         }

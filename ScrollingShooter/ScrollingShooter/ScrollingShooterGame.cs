@@ -62,25 +62,25 @@ namespace ScrollingShooter
             GameObjectManager.CreatePowerup(PowerupType.Fireball, new Vector2(100, 200));
             //player.ApplyPowerup(PowerupType.Fireball);
 
-            tilemap = Content.Load<Tilemap>("Tilemaps/example");
+            tilemap = Content.Load<Tilemap>("Tilemaps/Level_1_Tilemap_2");
             for (int i = 0; i < tilemap.GameObjectGroupCount; i++)
             {
                 for (int j = 0; j < tilemap.GameObjectGroups[i].GameObjectData.Count(); j++ )
                 {
                     GameObjectData goData = tilemap.GameObjectGroups[i].GameObjectData[j];
-                    Vector2 position = new Vector2(goData.Position.Center.X, goData.Position.Center.Y);
+                    Vector2 position = new Vector2(goData.Position.Center.X, goData.Position.Center.Y + tilemap.GameObjectGroups[i].ScrollOffset);
                     GameObject go;
 
                     switch (goData.Category)
                     {
                         case "Powerup":
                             go = GameObjectManager.CreatePowerup((PowerupType)Enum.Parse(typeof(PowerupType), goData.Type), position);
-                            goData.ID = go.ID;
+                            tilemap.GameObjectGroups[i].GameObjectData[j].ID = go.ID;
                             break;
 
                         case "Enemy":
                             go = GameObjectManager.CreateEnemy((EnemyType)Enum.Parse(typeof(EnemyType), goData.Type), position);
-                            goData.ID = go.ID;
+                            tilemap.GameObjectGroups[i].GameObjectData[j].ID = go.ID;
                             break;
                     }
                 }

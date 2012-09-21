@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Content;
 
 namespace ScrollingShooter
 {
@@ -32,6 +33,11 @@ namespace ScrollingShooter
         {
             this.ID = id;
         }
+
+        /// <summary>
+        /// The speed at which this game object scrolls (if any)
+        /// </summary>
+        public float ScrollingSpeed { get; set; }
 
         /// <summary>
         /// Updates the game object - called every frame

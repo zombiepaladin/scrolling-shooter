@@ -69,7 +69,7 @@ namespace ScrollingShooter
             {
                 for (int j = 0; j < CurrentMap.GameObjectGroups[i].GameObjectData.Count(); j++)
                 {
-                    GameObjectData goData = CurrentMap.GameObjectGroups[i].GameObjectData[j];
+                    GameObjectData  goData = CurrentMap.GameObjectGroups[i].GameObjectData[j];
                     Vector2 position = new Vector2(goData.Position.Center.X, goData.Position.Center.Y);
                     GameObject go;
 
@@ -82,14 +82,14 @@ namespace ScrollingShooter
 
                         case "Powerup":
                             go = ScrollingShooterGame.GameObjectManager.CreatePowerup((PowerupType)Enum.Parse(typeof(PowerupType), goData.Type), position);
-                            goData.ID = go.ID;
+                            CurrentMap.GameObjectGroups[i].GameObjectData[j].ID = go.ID;
                             go.LayerDepth = CurrentMap.GameObjectGroups[i].LayerDepth;
                             go.ScrollingSpeed = CurrentMap.GameObjectGroups[i].ScrollingSpeed;
                             break;
 
                         case "Enemy":
                             go = ScrollingShooterGame.GameObjectManager.CreateEnemy((EnemyType)Enum.Parse(typeof(EnemyType), goData.Type), position);
-                            goData.ID = go.ID;
+                            CurrentMap.GameObjectGroups[i].GameObjectData[j].ID = go.ID;
                             go.LayerDepth = CurrentMap.GameObjectGroups[i].LayerDepth;
                             go.ScrollingSpeed = CurrentMap.GameObjectGroups[i].ScrollingSpeed;
                             break;
@@ -110,7 +110,9 @@ namespace ScrollingShooter
         {
             // Update the scrolling distance - the distance
             // the screen has scrolled past the Player
-            scrollDistance += elapsedTime * CurrentMap.Layers[CurrentMap.PlayerLayer].ScrollingSpeed;
+            float scrollDelta = elapsedTime * (CurrentMap.Layers[CurrentMap.PlayerLayer].ScrollingSpeed);
+            scrollDistance += scrollDelta;
+            ScrollingShooterGame.Game.Player.Position -= new Vector2(0,scrollDelta/2);
 
             // Scroll all the tile layers
             for (int i = 0; i < CurrentMap.LayerCount; i++)
@@ -120,7 +122,7 @@ namespace ScrollingShooter
 
             // Update only the game objects that appear near our scrolling region
             Rectangle bounds = new Rectangle(0, 
-                (int)(-scrollDistance / 2), 
+                (int)(-scrollDistance / 2) + 300, 
                 CurrentMap.Width * CurrentMap.TileWidth, 
                 16 * CurrentMap.TileHeight);
             foreach (uint goID in ScrollingShooterGame.GameObjectManager.QueryRegion(bounds))
@@ -129,6 +131,8 @@ namespace ScrollingShooter
                 go.Update(elapsedTime);
                 ScrollingShooterGame.GameObjectManager.UpdateGameObject(goID);
             }
+
+            ScrollingShooterGame.Game.Window.Title = ScrollingShooterGame.Game.Player.Position.Y.ToString(); 
         }
 
 

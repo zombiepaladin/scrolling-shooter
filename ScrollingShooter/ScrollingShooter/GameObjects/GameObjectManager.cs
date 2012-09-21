@@ -809,7 +809,7 @@ namespace ScrollingShooter
         /// lists
         /// </summary>
         /// <param name="gameObjectID">The ID of the game object to update</param>
-        private void UpdateGameObject(uint gameObjectID)
+        public void UpdateGameObject(uint gameObjectID)
         {
             // Grab our bounding box
             BoundingBox box = boundingBoxes[gameObjectID];

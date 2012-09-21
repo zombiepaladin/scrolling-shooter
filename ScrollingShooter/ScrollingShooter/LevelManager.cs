@@ -20,13 +20,20 @@ namespace ScrollingShooter
         //public LoadingScreen CurrentLoadingScreen;
         public Tilemap CurrentMap;
 
-
+        /// <summary>
+        /// Creates a new LevelManager
+        /// </summary>
+        /// <param name="game"></param>
         public LevelManager(Game game)
         {
             this.game = game;
         }
 
 
+        /// <summary>
+        /// Loads the LevelManager's content and initializes any
+        /// functionality that needs a created graphics device
+        /// </summary>
         public void LoadContent()
         {
             // Create our scroll bounds (the part of the world that is visible)
@@ -45,12 +52,17 @@ namespace ScrollingShooter
         }
 
 
+        /// <summary>
+        /// Loads a new level
+        /// </summary>
+        /// <param name="level">The name of the level to load</param>
         public void LoadLevel(string level)
         {
             CurrentMap = game.Content.Load<Tilemap>("Tilemaps/" + level);
 
-            // Set the starting scroll position
-            scrollDistance = -2 * CurrentMap.PlayerStart.Y + 300;
+            // Set the *default* starting scroll position to 16 tiles
+            // above the bottom of the map
+            scrollDistance = (-2 * CurrentMap.Height * CurrentMap.TileHeight) + (2 * 16 * CurrentMap.TileHeight);
 
             // Load the game objects
             for (int i = 0; i < CurrentMap.GameObjectGroupCount; i++)
@@ -65,26 +77,29 @@ namespace ScrollingShooter
                     {
                         case "PlayerStart":
                             ScrollingShooterGame.Game.Player.Position = position;
+                            scrollDistance = -2 * position.Y + 300;
                             break;
 
                         case "Powerup":
                             go = ScrollingShooterGame.GameObjectManager.CreatePowerup((PowerupType)Enum.Parse(typeof(PowerupType), goData.Type), position);
                             goData.ID = go.ID;
-                            go.LayerDepth = 0*CurrentMap.GameObjectGroups[i].LayerDepth;
+                            go.LayerDepth = CurrentMap.GameObjectGroups[i].LayerDepth;
+                            go.ScrollingSpeed = CurrentMap.GameObjectGroups[i].ScrollingSpeed;
                             break;
 
                         case "Enemy":
                             go = ScrollingShooterGame.GameObjectManager.CreateEnemy((EnemyType)Enum.Parse(typeof(EnemyType), goData.Type), position);
                             goData.ID = go.ID;
                             go.LayerDepth = CurrentMap.GameObjectGroups[i].LayerDepth;
+                            go.ScrollingSpeed = CurrentMap.GameObjectGroups[i].ScrollingSpeed;
                             break;
-
 
                     }
                 }
             }
-            CurrentMap.Scrolling = true;
 
+            // Turn on scrolling
+            CurrentMap.Scrolling = true;
         }
 
         /// <summary>
@@ -104,14 +119,15 @@ namespace ScrollingShooter
             }
 
             // Update only the game objects that appear near our scrolling region
-            // TODO: STILL BUGGY!!!
-            Rectangle bounds = new Rectangle(0, (int)(-scrollDistance / 2), CurrentMap.Width * CurrentMap.TileWidth, 16 * CurrentMap.TileHeight);
-            bounds.Y = 0;
-            bounds.Height = CurrentMap.TileHeight * 2 * CurrentMap.Height;
+            Rectangle bounds = new Rectangle(0, 
+                (int)(-scrollDistance / 2), 
+                CurrentMap.Width * CurrentMap.TileWidth, 
+                16 * CurrentMap.TileHeight);
             foreach (uint goID in ScrollingShooterGame.GameObjectManager.QueryRegion(bounds))
             {
                 GameObject go = ScrollingShooterGame.GameObjectManager.GetObject(goID);
                 go.Update(elapsedTime);
+                ScrollingShooterGame.GameObjectManager.UpdateGameObject(goID);
             }
         }
 
@@ -119,7 +135,7 @@ namespace ScrollingShooter
         /// <summary>
         /// Draw the level
         /// </summary>
-        /// <param name="elapsedTime">Tthe time between this and the last frame</param>
+        /// <param name="elapsedTime">The time between this and the last frame</param>
         public void Draw(float elapsedTime)
         {
             Viewport viewport = game.GraphicsDevice.Viewport;
@@ -163,9 +179,11 @@ namespace ScrollingShooter
             }
 
             // Draw only the game objects that appear within our scrolling region
-            Rectangle bounds = new Rectangle(0, (int)(-scrollDistance/2), CurrentMap.Width * CurrentMap.TileWidth, 16 * CurrentMap.TileHeight);
-            bounds.Y = 0;
-            bounds.Height = CurrentMap.TileHeight * 2 * CurrentMap.Height;
+            Rectangle bounds = new Rectangle(0, 
+                (int)(-scrollDistance/2), 
+                CurrentMap.Width * CurrentMap.TileWidth, 
+                16 * CurrentMap.TileHeight);
+            
             foreach (uint goID in ScrollingShooterGame.GameObjectManager.QueryRegion(bounds))
             {
                 GameObject go = ScrollingShooterGame.GameObjectManager.GetObject(goID);

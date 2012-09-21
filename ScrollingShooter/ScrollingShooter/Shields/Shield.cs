@@ -44,7 +44,7 @@ namespace ScrollingShooter
 
         /// <summary>
         /// The location of the sprite in the game world,
-        /// although we want it to follow the player ship's movement
+        /// although we want it to follow the Player ship's movement
         /// </summary>
         public override Rectangle Bounds
         {

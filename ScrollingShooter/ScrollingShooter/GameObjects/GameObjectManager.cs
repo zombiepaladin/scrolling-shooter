@@ -82,15 +82,15 @@ namespace ScrollingShooter
             } 
             
             // Update our game objects
-            foreach (GameObject go in gameObjects.Values)
-            {
-                // Call the GameObject's own update method
-                go.Update(elapsedTime);
+            //foreach (GameObject go in gameObjects.Values)
+            //{
+            //    // Call the GameObject's own update method
+            //    go.Update(elapsedTime);
 
-                // Update the game object's bounds to reflect 
-                // changes this frame
-                UpdateGameObject(go.ID);
-            }
+            //    // Update the game object's bounds to reflect 
+            //    // changes this frame
+            //    UpdateGameObject(go.ID);
+            //}
 
             // Update our axis lists
             UpdateAxisLists();
@@ -233,28 +233,28 @@ namespace ScrollingShooter
         }
 
         /// <summary>
-        /// Factory method to create a player ship
+        /// Factory method to create a Player ship
         /// </summary>
-        /// <param name="playerShipType">The type of player ship to create</param>
-        /// <param name="position">The position of the player ship in the game world</param>
-        /// <returns>The game object id of the player ship</returns>
-        public PlayerShip CreatePlayerShip(PlayerShipType playerShipType, Vector2 position)
+        /// <param name="PlayerShipType">The type of Player ship to create</param>
+        /// <param name="position">The position of the Player ship in the game world</param>
+        /// <returns>The game object id of the Player ship</returns>
+        public PlayerShip CreatePlayerShip(PlayerShipType PlayerShipType, Vector2 position)
         {
-            PlayerShip playerShip;
+            PlayerShip PlayerShip;
             uint id = NextID();
 
-            switch (playerShipType)
+            switch (PlayerShipType)
             {
                 case PlayerShipType.Shrike:
-                    playerShip = new ShrikeShip(id, content, position);
+                    PlayerShip = new ShrikeShip(id, content, position);
                     break;
 
                 default:
-                    throw new NotImplementedException("The player ship type " + Enum.GetName(typeof(PlayerShipType), playerShipType) + " is not supported");
+                    throw new NotImplementedException("The Player ship type " + Enum.GetName(typeof(PlayerShipType), PlayerShipType) + " is not supported");
             }
 
-            QueueGameObjectForCreation(playerShip);
-            return playerShip;
+            QueueGameObjectForCreation(PlayerShip);
+            return PlayerShip;
         }
 
         /// <summary>
@@ -326,7 +326,7 @@ namespace ScrollingShooter
                     break;
 
                 default:
-                    throw new NotImplementedException("The powerup type " + Enum.GetName(typeof(ProjectileType), powerupType) + " is not supported");
+                    throw new NotImplementedException("The powerup type " + Enum.GetName(typeof(PowerupType), powerupType) + " is not supported");
             }
 
             QueueGameObjectForCreation(powerup);
@@ -437,7 +437,7 @@ namespace ScrollingShooter
 
                 case ProjectileType.EnergyBlast:
 
-                    projectile = new EnergyBlast(id, content, position, ScrollingShooterGame.Game.player.energyBlastLevel);
+                    projectile = new EnergyBlast(id, content, position, ScrollingShooterGame.Game.Player.energyBlastLevel);
                     break;
                 case ProjectileType.EnemyBullet:
 
@@ -446,8 +446,8 @@ namespace ScrollingShooter
 
                     //ScrollingShooterGame.Game.projectiles.Add(new EnemyBullet(ScrollingShooterGame.Game.Content, this.position + offset, bulletVel * toPlayer));
 
-                    Vector2 toPlayer = (new Vector2(ScrollingShooterGame.Game.player.Bounds.Center.X,
-                        ScrollingShooterGame.Game.player.Bounds.Center.Y) - position);
+                    Vector2 toPlayer = (new Vector2(ScrollingShooterGame.Game.Player.Bounds.Center.X,
+                        ScrollingShooterGame.Game.Player.Bounds.Center.Y) - position);
 
                     toPlayer.Normalize();
 
@@ -497,10 +497,10 @@ namespace ScrollingShooter
         /// </summary>
         /// <param name="shieldType">The type of shield to create</param>
         /// <param name="position">Position of the shield in the game world</param>
-        /// <param name="playerShip">The Player</param>
+        /// <param name="PlayerShip">The Player</param>
         /// <returns>The game object id of the projectile</returns>
         public Shield CreateShield(ShieldType shieldType, Vector2 position,
-            PlayerShip playerShip)
+            PlayerShip PlayerShip)
         {
             Shield shield;
             uint id = NextID();
@@ -508,7 +508,7 @@ namespace ScrollingShooter
             switch (shieldType)
             {
                 case ShieldType.EightBallShield:
-                    shield = new EightBallShield(id, content, position, playerShip);
+                    shield = new EightBallShield(id, content, position, PlayerShip);
                     break;
                 default:
                     throw new NotImplementedException("EightBallShield failed.");
@@ -797,7 +797,7 @@ namespace ScrollingShooter
         /// lists
         /// </summary>
         /// <param name="gameObjectID">The ID of the game object to update</param>
-        private void UpdateGameObject(uint gameObjectID)
+        public void UpdateGameObject(uint gameObjectID)
         {
             // Grab our bounding box
             BoundingBox box = boundingBoxes[gameObjectID];

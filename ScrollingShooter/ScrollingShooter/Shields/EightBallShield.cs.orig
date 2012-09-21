@@ -10,8 +10,13 @@ namespace ScrollingShooter
     /// </summary>
     public class EightBallShield : Shield
     {
+<<<<<<< HEAD
+        private Vector2 playerPosition;
+        private PlayerShip playerShip;
+=======
         Vector2 PlayerPosition;
         PlayerShip PlayerShip;
+>>>>>>> a462baa99e2a375c9f3b01390c70e0f65417dc85
 
         /// <summary>
         /// Creates a Eight Ball Shield instance
@@ -23,9 +28,14 @@ namespace ScrollingShooter
             PlayerShip PlayerShip) : base (id)
         {
             this.spriteSheet = contentManager.Load<Texture2D>("Spritesheets/eightballshield");
-            this.PlayerPosition = PlayerPosition;
+<<<<<<< HEAD
+            this.playerPosition = playerPosition;
             //this.playerShip = ScrollingShooterGame.Game.player;
             this.playerShip = playerShip;
+=======
+            this.PlayerPosition = PlayerPosition;
+            this.PlayerShip = PlayerShip;
+>>>>>>> a462baa99e2a375c9f3b01390c70e0f65417dc85
             this.spriteBounds = new Rectangle(24, 23, 53, 58);
 
             //set to 0 for x & y to test

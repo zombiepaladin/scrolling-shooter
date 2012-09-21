@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework.Content.Pipeline;
 using Microsoft.Xna.Framework.Content.Pipeline.Graphics;
 using Microsoft.Xna.Framework.Graphics;
+using ScrollingShooterWindowsLibrary;
 
 namespace ScrollingShooterContentPipeline
 {
@@ -50,7 +51,8 @@ namespace ScrollingShooterContentPipeline
                             break;
 
                         default:
-                            context.Logger.LogMessage("Unknown property " + property + " in tilemap", null);
+                            ParamArrayAttribute[] attrs = new ParamArrayAttribute[0];
+                            context.Logger.LogMessage("Unknown property " + property + " in tilemap", attrs);
                             break;
                     }       
                 }
@@ -77,8 +79,19 @@ namespace ScrollingShooterContentPipeline
                             break;
 
                         default:
-                            context.Logger.LogMessage("Unknown property " + property + " in tilemap", null);
+                            ParamArrayAttribute[] attrs = new ParamArrayAttribute[0];
+                            context.Logger.LogMessage("Unknown property " + property + " in tilemap", attrs);
                             break;
+                    }
+
+                    // Find the player starting position, and store it in the tilemap
+                    foreach (GameObjectData goData in input.GameObjectGroups[i].GameObjectData)
+                    {
+                        if (goData.Category == "PlayerStart")
+                        {
+                            input.PlayerStart = new Microsoft.Xna.Framework.Vector2(goData.Position.Center.X, goData.Position.Center.Y);
+                            input.PlayerLayer = i;
+                        }
                     }
                 }
             }

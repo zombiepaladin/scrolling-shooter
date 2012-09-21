@@ -65,7 +65,7 @@ namespace ScrollingShooter
         public override void Update(float elapsedTime)
         {
             // Sense the player's position
-            PlayerShip player = ScrollingShooterGame.Game.player;
+            PlayerShip player = ScrollingShooterGame.Game.Player;
             
             Vector2 playerPosition = new Vector2(player.Bounds.Center.X, player.Bounds.Center.Y);
             Vector2 toPlayer = playerPosition - this.position;

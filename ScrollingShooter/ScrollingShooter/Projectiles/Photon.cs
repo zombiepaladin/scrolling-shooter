@@ -60,7 +60,7 @@ namespace ScrollingShooter
             this.velocity = new Vector2(150);
             this.spriteSheet = content.Load<Texture2D>("Spritesheets/accessories");
             spriteBounds = new Rectangle[10];
-            player = ScrollingShooterGame.Game.player;
+            player = ScrollingShooterGame.Game.Player;
             photonStateTimer = 0;
             homing = true;
 

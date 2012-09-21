@@ -24,8 +24,7 @@ namespace ScrollingShooter
         {
             this.spriteSheet = contentManager.Load<Texture2D>("Spritesheets/eightballshield");
             this.PlayerPosition = PlayerPosition;
-            //this.playerShip = ScrollingShooterGame.Game.player;
-            this.playerShip = playerShip;
+            this.PlayerShip = PlayerShip;
             this.spriteBounds = new Rectangle(24, 23, 53, 58);
 
             //set to 0 for x & y to test

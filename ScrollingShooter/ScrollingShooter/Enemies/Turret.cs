@@ -99,10 +99,10 @@ namespace ScrollingShooter
         /// <param name="elapsedTime">Elapsed time of the update.</param>
         public override void Update(float elapsedTime)
         {
-            PlayerShip player = ScrollingShooterGame.Game.player;
-            Vector2 playerPosition = new Vector2(player.Bounds.Center.X, player.Bounds.Center.Y);
+            PlayerShip Player = ScrollingShooterGame.Game.Player;
+            Vector2 PlayerPosition = new Vector2(Player.Bounds.Center.X, Player.Bounds.Center.Y);
 
-            Vector2 toPlayer = playerPosition - this.position;
+            Vector2 toPlayer = PlayerPosition - this.position;
             turretGunTimer+=elapsedTime;
 
             if (toPlayer.LengthSquared() < 95000)

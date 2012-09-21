@@ -26,7 +26,7 @@ namespace ScrollingShooter
     }
 
     /// <summary>
-    /// An enemy drone that fires a beam towards the player.
+    /// An enemy drone that fires a beam towards the Player.
     /// </summary>
     public class LaserDrone : Enemy
     {
@@ -119,15 +119,15 @@ namespace ScrollingShooter
         /// <param name="elapsedTime">The in-game time between the previous and current frame</param>
         public override void Update(float elapsedTime)
         {
-            // Sense the player's position
-            PlayerShip player = ScrollingShooterGame.Game.player;
-            Vector2 playerPosition = new Vector2(player.Bounds.Center.X, player.Bounds.Center.Y);
+            // Sense the Player's position
+            PlayerShip Player = ScrollingShooterGame.Game.Player;
+            Vector2 PlayerPosition = new Vector2(Player.Bounds.Center.X, Player.Bounds.Center.Y);
 
             switch (aiState)
             {
                 case AIState.Chasing:
-                    getInPosition(playerPosition, elapsedTime);
-                    if (Math.Abs(playerPosition.X - Bounds.Center.X) < 40 && Bounds.Center.Y < playerPosition.Y)
+                    getInPosition(PlayerPosition, elapsedTime);
+                    if (Math.Abs(PlayerPosition.X - Bounds.Center.X) < 40 && Bounds.Center.Y < PlayerPosition.Y)
                     {
                         //transition to firing state
                         fireTimeRemaining = FIRE_TIME;
@@ -160,7 +160,7 @@ namespace ScrollingShooter
                         droneLaser.isOn = false;
                     }
                     
-                    getInPosition(playerPosition, elapsedTime);
+                    getInPosition(PlayerPosition, elapsedTime);
                     droneLaser.updatePosition(position.X + 23, position.Y + 30);
 
                     break;
@@ -179,7 +179,7 @@ namespace ScrollingShooter
                         weaponChargeLevel = WeaponChargeLevel.Full;
                     }
 
-                    moveAwayFrom(playerPosition, elapsedTime);
+                    moveAwayFrom(PlayerPosition, elapsedTime);
                     
                     break;
             }
@@ -191,13 +191,13 @@ namespace ScrollingShooter
         /// <param name="elapsedTime">The point that the ship should target</param>
         private void getInPosition(Vector2 point, float elapsedTime)
         {
-            //Try to stay ~100 away from the player in Y direction
+            //Try to stay ~100 away from the Player in Y direction
             if (point.Y < position.Y + 150 && position.Y > 10)
                 position.Y -= currentSpeed * elapsedTime;
             else if (point.Y > position.Y + 175)
                 position.Y += currentSpeed * elapsedTime;
 
-            //Try to get infront of the player
+            //Try to get infront of the Player
             if (Math.Abs(point.X - Bounds.Center.X) > 10)
             {
                 if (point.X < Bounds.Center.X)
@@ -213,7 +213,7 @@ namespace ScrollingShooter
         /// <param name="elapsedTime">The point that the ship should get away from</param>
         private void moveAwayFrom(Vector2 point, float elapsedTime)
         {
-            //Try to get away from the player in Y direction
+            //Try to get away from the Player in Y direction
             if (point.Y < position.Y + 300 && position.Y > 10)
                 position.Y -= currentSpeed * elapsedTime;
             else if (point.Y > position.Y + 450)

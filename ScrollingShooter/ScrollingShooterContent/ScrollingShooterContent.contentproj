@@ -365,6 +365,13 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Tilemaps\example2.tmx">
+      <Name>example2</Name>
+      <Importer>TmxImporter</Importer>
+      <Processor>TilemapProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
     <Compile Include="Tilemaps\Level_1_Tilemap_2.tmx">
       <Name>Level_1_Tilemap_2</Name>
       <Importer>TmxImporter</Importer>

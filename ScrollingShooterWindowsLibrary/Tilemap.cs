@@ -70,6 +70,10 @@ namespace ScrollingShooterWindowsLibrary
         /// </summary>
         public GameObjectGroup[] GameObjectGroups;
 
+        public Vector2 PlayerStart;
+
+        public int PlayerLayer;
+
         /// <summary>
         /// Indicates if the tilemap is currently scrolling
         /// </summary>
@@ -112,7 +116,7 @@ namespace ScrollingShooterWindowsLibrary
                         if (tileData.TileID != 0)
                         {
                             Tile tile = Tiles[tileData.TileID - 1];
-                            spriteBatch.Draw(Textures[tile.TextureID], new Rectangle(x * TileWidth, y * TileHeight + (int)Layers[i].ScrollOffset, TileWidth, TileHeight), tile.Source, Color.White, 0f, new Vector2(TileWidth / 2, TileHeight / 2), tileData.SpriteEffects, Layers[i].LayerDepth);
+                            spriteBatch.Draw(Textures[tile.TextureID], new Rectangle(x * TileWidth, y * TileHeight + (int)(0*Layers[i].ScrollOffset), TileWidth, TileHeight), tile.Source, Color.White, 0f, new Vector2(TileWidth / 2, TileHeight / 2), tileData.SpriteEffects, Layers[i].LayerDepth);
                         }
                     }
                 }

@@ -186,6 +186,7 @@ namespace ScrollingShooter
             energyBlastTimer -= elapsedTime;
             bombTimer += elapsedTime;
             railgunTimer += elapsedTime;
+            homingMissileTimer -= elapsedTime;
 
             if(!drunk)
             {
@@ -346,8 +347,6 @@ namespace ScrollingShooter
                             homingMissileTimer = homingMissileFireRate;
                             TriggerHomingMissile();
                         }
-
-                        homingMissileTimer -= elapsedTime;
                     }
 
 

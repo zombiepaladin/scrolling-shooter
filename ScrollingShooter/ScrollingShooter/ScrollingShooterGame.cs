@@ -60,15 +60,13 @@ namespace ScrollingShooter
             // TODO: use this.Content to load your game content here
             player = GameObjectManager.CreatePlayerShip(PlayerShipType.Shrike, new Vector2(300, 300));
 
-            GameObjectManager.CreatePowerup(PowerupType.HomingMissiles, new Vector2(100, 200));
+            GameObjectManager.CreatePowerup(PowerupType.Fireball, new Vector2(100, 200));
             //player.ApplyPowerup(PowerupType.Fireball);
 
             tilemap = Content.Load<Tilemap>("Tilemaps/example");
             tilemap.Scrolling = true;
 
             GameObjectManager.CreateEnemy(EnemyType.Dart, new Vector2(200, 200));
-
-            GameObjectManager.CreateEnemy(EnemyType.JetMinion, new Vector2(100, 300));
         }
 
         /// <summary>

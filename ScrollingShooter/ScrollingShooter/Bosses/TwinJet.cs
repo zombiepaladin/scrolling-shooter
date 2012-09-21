@@ -73,7 +73,7 @@ namespace ScrollingShooter
         /// <summary>
         /// The fire rate that the Jet has when in damaged state
         /// </summary>
-        private const float DamagedGunFireRate = 0.08f;
+        private const float DamagedGunFireRate = 0.25f;
 
         /// <summary>
         /// The Missile Fire Rate in the Damaged state
@@ -89,7 +89,7 @@ namespace ScrollingShooter
         /// <summary>
         /// The missile fire rate after the gun is lost
         /// </summary>
-        private const float GunLostMissileFireRate = 1f;
+        private const float GunLostMissileFireRate = 1.5f;
 
         /// <summary>
         /// The maximum health that the Jet can have
@@ -467,7 +467,7 @@ namespace ScrollingShooter
         {
             Health -= amount;
         }
-
+        
         #endregion
 
         #region Sensors

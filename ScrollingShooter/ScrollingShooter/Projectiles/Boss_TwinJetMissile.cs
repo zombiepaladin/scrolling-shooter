@@ -27,7 +27,7 @@ namespace ScrollingShooter
         /// will live for before exploding (let's chalk it up
         /// to 'out of gas' for now)
         /// </summary>
-        private const int MissileLife = 10;
+        private const int MissileLife = 2;
 
         /// <summary>
         /// The scalar value that alters how quickly the missiles
@@ -86,7 +86,7 @@ namespace ScrollingShooter
             this.spriteBounds = new Rectangle(156, 42, 12, 14);
 
             //Setting the initial velocity of our missile
-            this.velocity = new Vector2(0, -1 * MaxSpeed);
+            this.velocity = new Vector2(0, 1 * MaxSpeed);
 
             //Setting the initial position of our missile
             this.position = position;

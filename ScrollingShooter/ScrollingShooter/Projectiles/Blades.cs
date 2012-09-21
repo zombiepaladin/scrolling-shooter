@@ -6,12 +6,12 @@ using System;
 namespace ScrollingShooter
 {
     /// <summary>
-    /// Class for the blade projectiles that will circle on top of the player
+    /// Class for the blade projectiles that will circle on top of the Player
     /// </summary>
     class Blades : Projectile
     {
-        //player reference
-        private PlayerShip player;
+        //Player reference
+        private PlayerShip Player;
 
         private float BladeTimer;
 
@@ -22,23 +22,23 @@ namespace ScrollingShooter
         /// Creates new blade projectiles
         /// </summary>
         /// <param name="content">A ContentManager to load content from</param>
-        /// <param name="rotation">The rotation that it's at around the player (0-2*PI)</param>
-        /// <param name="player">Reference back to the player</param>
+        /// <param name="rotation">The rotation that it's at around the Player (0-2*PI)</param>
+        /// <param name="Player">Reference back to the Player</param>
         public Blades(uint id, ContentManager content) : base (id)
         {
             this.spriteSheet = content.Load<Texture2D>("Spritesheets/newsh#.shp.000000");
 
             this.spriteBounds = new Rectangle(148, 67, 43, 35);
 
-            this.player = ScrollingShooterGame.Game.player;
+            this.Player = ScrollingShooterGame.Game.Player;
 
             this.BladeTimer = 0;
         }
 
         public override void Update(float elapsedTime)
         {
-            this.position.X = player.Bounds.X;
-            this.position.Y = player.Bounds.Y;
+            this.position.X = Player.Bounds.X;
+            this.position.Y = Player.Bounds.Y;
 
             rotationAngle += elapsedTime + 3.35f;
             float circle = MathHelper.Pi;

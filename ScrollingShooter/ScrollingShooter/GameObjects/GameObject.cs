@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Content;
 
 namespace ScrollingShooter
 {
@@ -15,6 +16,11 @@ namespace ScrollingShooter
         public readonly uint ID;
 
         /// <summary>
+        /// The depth at which this GameObject's sprite is drawn
+        /// </summary>
+        public float LayerDepth;
+
+        /// <summary>
         /// The bounds of this game object in the game world
         /// </summary>
         public abstract Rectangle Bounds { get; }
@@ -27,6 +33,11 @@ namespace ScrollingShooter
         {
             this.ID = id;
         }
+
+        /// <summary>
+        /// The speed at which this game object scrolls (if any)
+        /// </summary>
+        public float ScrollingSpeed { get; set; }
 
         /// <summary>
         /// Updates the game object - called every frame

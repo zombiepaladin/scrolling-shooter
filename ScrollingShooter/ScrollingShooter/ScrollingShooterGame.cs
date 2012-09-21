@@ -19,17 +19,25 @@ namespace ScrollingShooter
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        BasicEffect basicEffect;
+
+        Viewport gameViewport;
+        Viewport worldViewport;
+        Viewport guiViewport;
 
         public static ScrollingShooterGame Game;
         public static GameObjectManager GameObjectManager;
+        public static LevelManager LevelManager;
         
-        public PlayerShip player;
-        public Tilemap tilemap;
+        public PlayerShip Player;
 
         public ScrollingShooterGame()
         {
             Game = this;
             graphics = new GraphicsDeviceManager(this);
+            // Use HD TV resolution
+            graphics.PreferredBackBufferWidth = 1280;
+            graphics.PreferredBackBufferHeight = 720;
             Content.RootDirectory = "Content";
         }
 
@@ -42,6 +50,7 @@ namespace ScrollingShooter
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
+            LevelManager = new LevelManager(this);
 
             base.Initialize();
         }
@@ -52,21 +61,30 @@ namespace ScrollingShooter
         /// </summary>
         protected override void LoadContent()
         {
+            // Create our viewports
+            gameViewport = GraphicsDevice.Viewport;
+            worldViewport = new Viewport(0, 0, 768, 720); // Twice as wide as 16 tiles
+            guiViewport = new Viewport(768, 0, 512, 720); // Remaining space
+            
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
+
+            // Create a basic effect, used with the spritebatch 
+            basicEffect = new BasicEffect(GraphicsDevice)
+            {
+                TextureEnabled = true,
+                VertexColorEnabled = true,
+            };
 
             GameObjectManager = new GameObjectManager(Content);
 
             // TODO: use this.Content to load your game content here
-            player = GameObjectManager.CreatePlayerShip(PlayerShipType.Shrike, new Vector2(300, 300));
-            GameObjectManager.CreatePowerup(PowerupType.ShotgunPowerup, new Vector2(100, 200));
-            //player.ApplyPowerup(PowerupType.Fireball);
+            Player = GameObjectManager.CreatePlayerShip(PlayerShipType.Shrike, new Vector2(300, 300));
+            GameObjectManager.CreatePowerup(PowerupType.Fireball, new Vector2(100, 200));
+            //Player.ApplyPowerup(PowerupType.Fireball);
 
-            tilemap = Content.Load<Tilemap>("Tilemaps/example");
-            tilemap.Scrolling = false;
-
-            //GameObjectManager.CreateEnemy(EnemyType.Arrow, new Vector2(200, 200));
-            GameObjectManager.CreateBoss(Bosses.EnemyType.Blimp, new Vector2(25, 25));
+            LevelManager.LoadContent();
+            LevelManager.LoadLevel("example2");
         }
 
         /// <summary>
@@ -91,8 +109,8 @@ namespace ScrollingShooter
 
             // TODO: Add your update logic here
             float elapsedTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
-
-            tilemap.Update(elapsedTime);
+            
+            LevelManager.Update(elapsedTime);
             
             GameObjectManager.Update(elapsedTime);
 
@@ -100,23 +118,23 @@ namespace ScrollingShooter
             foreach (CollisionPair pair in GameObjectManager.Collisions)
             {
                 // Player collisions
-                if (pair.A == player.ID || pair.B == player.ID)
+                if (pair.A == Player.ID || pair.B == Player.ID)
                 {
-                    uint colliderID = (pair.A == player.ID) ? pair.B : pair.A;
+                    uint colliderID = (pair.A == Player.ID) ? pair.B : pair.A;
                     GameObject collider = GameObjectManager.GetObject(colliderID);
                     
                     // Process powerup collisions
                     Powerup powerup = collider as Powerup;
                     if (powerup != null)
                     {
-                        player.ApplyPowerup(powerup.Type);
+                        Player.ApplyPowerup(powerup.Type);
                         GameObjectManager.DestroyObject(colliderID);
                     }
 
                     //NOTE: Apply to more than the kamikaze enemy?
                     // Process kamakaze collisions
                     Enemy enemy = collider as Enemy;
-                    if (enemy != null && (enemy.GetType() == typeof(Kamikaze) || enemy.GetType() == typeof(SuicideBomber)))
+                    if (enemy != null && enemy.GetType() == typeof(Kamikaze))
                     {
                         //Player take damage
                         GameObjectManager.DestroyObject(colliderID);
@@ -137,18 +155,28 @@ namespace ScrollingShooter
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
+            // Set the viewport to the entire screen
+            GraphicsDevice.Viewport = gameViewport;
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
             float elapsedGameTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
             
-            spriteBatch.Begin();
-            tilemap.Draw(elapsedGameTime, spriteBatch);
+            // Render the game world
+            GraphicsDevice.Viewport = worldViewport;
+            LevelManager.Draw(elapsedGameTime);
 
-            GameObjectManager.Draw(elapsedGameTime, spriteBatch);
+            spriteBatch.Begin();
+
+//            tilemap.Draw(elapsedGameTime, spriteBatch);
+
+            //GameObjectManager.Draw(elapsedGameTime, spriteBatch);
 
 
             spriteBatch.End();
+
+            // Render the gui
+            GraphicsDevice.Viewport = guiViewport;
 
             base.Draw(gameTime);
         }

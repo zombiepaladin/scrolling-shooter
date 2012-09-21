@@ -82,6 +82,7 @@ namespace ScrollingShooter
             Player = GameObjectManager.CreatePlayerShip(PlayerShipType.Shrike, new Vector2(300, 300));
             GameObjectManager.CreatePowerup(PowerupType.Fireball, new Vector2(100, 200));
             //Player.ApplyPowerup(PowerupType.Fireball);
+            GameObjectManager.CreateEnemy(EnemyType.AlienHead, new Vector2(600, 50));
 
             LevelManager.LoadContent();
             LevelManager.LoadLevel("example2");
@@ -110,7 +111,7 @@ namespace ScrollingShooter
             // TODO: Add your update logic here
             float elapsedTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
             
-            LevelManager.Update(elapsedTime);
+           // LevelManager.Update(elapsedTime);
             
             GameObjectManager.Update(elapsedTime);
 
@@ -164,13 +165,13 @@ namespace ScrollingShooter
             
             // Render the game world
             GraphicsDevice.Viewport = worldViewport;
-            LevelManager.Draw(elapsedGameTime);
+           // LevelManager.Draw(elapsedGameTime);
 
             spriteBatch.Begin();
 
 //            tilemap.Draw(elapsedGameTime, spriteBatch);
 
-            //GameObjectManager.Draw(elapsedGameTime, spriteBatch);
+            GameObjectManager.Draw(elapsedGameTime, spriteBatch);
 
 
             spriteBatch.End();

@@ -227,7 +227,7 @@ namespace ScrollingShooter
                             break;
 
                         case AlienBreathingPhase.Inhale:
-                            ScrollingShooterGame.Game.player.MoveShip(mouthPos);
+                            ScrollingShooterGame.Game.Player.MoveShip(mouthPos);
                             if(timer >= 3)
                                 breathingPhase = AlienBreathingPhase.BreatheOut;
                             break;

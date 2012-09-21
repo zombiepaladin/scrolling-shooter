@@ -129,7 +129,7 @@ namespace ScrollingShooter
         public override void Update(float elapsedTime)
         {
             // Sense the player's position
-            PlayerShip player = ScrollingShooterGame.Game.player;
+            PlayerShip player = ScrollingShooterGame.Game.Player;
             Vector2 playerPosition = new Vector2(player.Bounds.X, player.Bounds.Y);
            
             if (timer > 0)
@@ -142,7 +142,7 @@ namespace ScrollingShooter
 
                     if (timer < 0)
                     {
-                        if (this.position.X >= PlayerPosition.X - 23 && this.position.X <= PlayerPosition.X + 23 && this.position.Y < PlayerPosition.Y)
+                        if (this.position.X >= playerPosition.X - 23 && this.position.X <= playerPosition.X + 23 && this.position.Y < playerPosition.Y)
                         {
                             timer = 1f;
                             behaviorState = BehaviorState.Charging;

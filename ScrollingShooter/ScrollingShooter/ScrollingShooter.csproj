@@ -111,6 +111,7 @@
     <Compile Include="Bosses\BrainBoss.cs" />
     <Compile Include="Enemies\Bomber.cs" />
     <Compile Include="Enemies\BrainBossPsiEmitter.cs" />
+    <Compile Include="Enemies\BrainBossProtection.cs" />
     <Compile Include="Enemies\Drill.cs" />
     <Compile Include="Enemies\Arrow.cs" />
     <Compile Include="Enemies\beamShip.cs" />

@@ -614,6 +614,10 @@ namespace ScrollingShooter
                     enemy = new BrainBossPsiEmitter(id, content, position);
                     break;
 
+                case EnemyType.BrainBossProtection:
+                    enemy = new BrainBossProtection(id, content, position);
+                    break;
+
                 default:
                     throw new NotImplementedException("The enemy type " + Enum.GetName(typeof(EnemyType), enemyType) + " is not supported");
             }

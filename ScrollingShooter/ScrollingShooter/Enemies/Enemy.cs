@@ -34,6 +34,7 @@ namespace ScrollingShooter
         SuicideBomber,
         BrainBoss,
         BrainBossPsyEmitter,
+        BrainBossProtection,
     }
 
     /// <summary>

@@ -104,9 +104,9 @@ namespace ScrollingShooter
         private BrainBossState state = BrainBossState.Protected;
 
         /// <summary>
-        /// List of the protecting organs that need to be destroyed to get past the first boss stage
+        /// Brain's armor that needs to be destroyed before fighting the brain
         /// </summary>
-        private List<Enemy> protectors;
+        private Enemy protection;
 
         /// <summary>
         /// Creates a new brain boss
@@ -133,7 +133,7 @@ namespace ScrollingShooter
 
             psiEmitter = ScrollingShooterGame.GameObjectManager.CreateEnemy(EnemyType.BrainBossPsyEmitter, position + centerOffset) as BrainBossPsiEmitter;
 
-            protectors = new List<Enemy>();
+            protection = ScrollingShooterGame.GameObjectManager.CreateEnemy(EnemyType.BrainBossProtection, position + centerOffset);
             //TODO: add protection organs for initial stage
 
              screenCenterX = ScrollingShooterGame.Game.GraphicsDevice.Viewport.Width / 2 - brainSpriteBounds.Width / 2;
@@ -149,10 +149,8 @@ namespace ScrollingShooter
             switch (state)
             {
                 case BrainBossState.Protected:
-                    if (protectors.Count == 0)
-                    {
+                    if (protection.Health <= 0)
                         state = BrainBossState.MovingToCenter;
-                    }
                     break;
                 case BrainBossState.MovingToCenter:
                     if (position.X < screenCenterX)

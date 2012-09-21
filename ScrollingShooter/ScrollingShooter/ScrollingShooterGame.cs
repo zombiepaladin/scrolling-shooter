@@ -66,8 +66,8 @@ namespace ScrollingShooter
             tilemap.Scrolling = true;
 
             //GameObjectManager.CreateEnemy(EnemyType.Dart, new Vector2(200, 200));
-            GameObjectManager.CreateEnemy(EnemyType.BrainBoss, new Vector2(Game.GraphicsDevice.Viewport.Width / 2, 0));
-            GameObjectManager.CreateEnemy(EnemyType.LaserDrone, new Vector2(Game.GraphicsDevice.Viewport.Width / 2, 0));
+            GameObjectManager.CreateEnemy(EnemyType.BrainBoss, new Vector2(Game.GraphicsDevice.Viewport.Width / 2 - 39, 0));
+            //GameObjectManager.CreateEnemy(EnemyType.LaserDrone, new Vector2(Game.GraphicsDevice.Viewport.Width / 2, 0));
         }
 
         /// <summary>

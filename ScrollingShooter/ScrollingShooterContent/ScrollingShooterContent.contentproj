@@ -50,11 +50,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Tilemaps\lavaLevel2.tmx">
-      <Name>lavaLevel2</Name>
-      <Importer>TmxImporter</Importer>
-      <Processor>TilemapProcessor</Processor>
-    </Compile>
     <Compile Include="Tilesets\shapes%29.png">
       <Name>shapes%29</Name>
       <Importer>TextureImporter</Importer>

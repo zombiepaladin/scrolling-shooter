@@ -57,7 +57,7 @@ namespace ScrollingShooter
             : base(id)
         {
             this.position = position;
-            this.velocity = new Vector2(100);
+            this.velocity = new Vector2(150);
             this.spriteSheet = content.Load<Texture2D>("Spritesheets/accessories");
             spriteBounds = new Rectangle[10];
             player = ScrollingShooterGame.Game.player;

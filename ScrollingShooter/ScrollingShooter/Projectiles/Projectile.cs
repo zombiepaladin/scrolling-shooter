@@ -37,8 +37,6 @@ namespace ScrollingShooter
         GenericEnemyBullet = 109,
         DroneLaser = 110,
         RGSabot = 111,
-        BirdWrath = 112,
-        BirdLaser = 113,
     }
 
     /// <summary>

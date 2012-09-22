@@ -53,6 +53,11 @@ namespace ScrollingShooter
         float railgunTimer = 0;
 
         /// <summary>
+        /// Timer for the shotgun
+        /// </summary>
+        float shotgunTimer = -0;
+
+        /// <summary>
         /// Rectangle to draw the railgun when the powerup is enabled
         /// </summary>
         protected Rectangle railgunSpriteBounds = new Rectangle(146, 55, 8, 33);
@@ -181,6 +186,7 @@ namespace ScrollingShooter
             energyBlastTimer -= elapsedTime;
             bombTimer += elapsedTime;
             railgunTimer += elapsedTime;
+            shotgunTimer += elapsedTime;
 
             if(!drunk)
             {
@@ -321,7 +327,7 @@ namespace ScrollingShooter
 
                     // Fires a shotgun shot if the shotgun powerup is active and half a second has passed since the last shot
                     if ((PowerupType & PowerupType.ShotgunPowerup) > 0 &&
-                             defaultGunTimer > 0.5f)
+                             shotgunTimer > 0.5f)
                     {
                         TriggerShotgun();
                         defaultGunTimer = 0;

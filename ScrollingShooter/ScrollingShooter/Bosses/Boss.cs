@@ -8,6 +8,7 @@ namespace ScrollingShooter
     /// </summary>
     public enum BossType
     {
+        Blimp,
     }
 
     /// <summary>

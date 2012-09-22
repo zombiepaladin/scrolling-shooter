@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using System;
 
-namespace ScrollingShooter.Bosses
+namespace ScrollingShooter
 {
     /// <summary>
     /// Represents the state of the blimp
@@ -16,7 +16,7 @@ namespace ScrollingShooter.Bosses
     /// <summary>
     /// A blimp boss
     /// </summary>
-    public class Blimp : Enemy
+    public class Blimp : Boss
     {
         // Blimp state variables
         Texture2D spritesheet;
@@ -100,7 +100,7 @@ namespace ScrollingShooter.Bosses
             if (gunTimer >= 1f)
             {
                 // Sense the player's position
-                PlayerShip player = ScrollingShooterGame.Game.player;
+                PlayerShip player = ScrollingShooterGame.Game.Player;
                 Vector2 playerPosition = new Vector2(player.Bounds.Center.X, player.Bounds.Center.Y);
 
                 // Get a vector from our position to the player's position
@@ -193,7 +193,7 @@ namespace ScrollingShooter.Bosses
             if (gunTimer >= 0.50f)
             {
                 // Sense the player's position
-                PlayerShip player = ScrollingShooterGame.Game.player;
+                PlayerShip player = ScrollingShooterGame.Game.Player;
                 Vector2 playerPosition = new Vector2(player.Bounds.Center.X, player.Bounds.Center.Y);
 
                 // Get a vector from our position to the player's position
@@ -286,7 +286,7 @@ namespace ScrollingShooter.Bosses
             if (gunTimer >= 0.50f)
             {
                 // Sense the player's position
-                PlayerShip player = ScrollingShooterGame.Game.player;
+                PlayerShip player = ScrollingShooterGame.Game.Player;
                 Vector2 playerPosition = new Vector2(player.Bounds.Center.X, player.Bounds.Center.Y);
 
                 // Get a vector from our position to the player's position
@@ -332,7 +332,7 @@ namespace ScrollingShooter.Bosses
             this.position = position;
 
             // Sense the player's position
-            PlayerShip player = ScrollingShooterGame.Game.player;
+            PlayerShip player = ScrollingShooterGame.Game.Player;
             Vector2 playerPosition = new Vector2(player.Bounds.Center.X, player.Bounds.Center.Y);
 
             // Get a vector from our position to the player's position

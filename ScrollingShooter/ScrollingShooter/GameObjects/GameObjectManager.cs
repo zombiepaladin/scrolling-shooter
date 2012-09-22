@@ -222,19 +222,19 @@ namespace ScrollingShooter
             createdGameObjects.Enqueue(go);
         }
 
-        public Bosses.Enemy CreateBoss(Bosses.EnemyType enemyType, Vector2 position)
+        public Boss CreateBoss(BossType enemyType, Vector2 position)
         {
-            Bosses.Enemy boss;
+            Boss boss;
             uint id = NextID();
             switch (enemyType)
             {
-                case Bosses.EnemyType.Blimp:
-                    boss = new Bosses.Blimp(id, position, content);
-                    QueueGameObjectForCreation(new Bosses.LeftGun(NextID(), content, boss as Bosses.Blimp));
-                    QueueGameObjectForCreation(new Bosses.RightGun(NextID(), content, boss as Bosses.Blimp));
+                case BossType.Blimp:
+                    boss = new Blimp(id, position, content);
+                    QueueGameObjectForCreation(new LeftGun(NextID(), content, boss as Blimp));
+                    QueueGameObjectForCreation(new RightGun(NextID(), content, boss as Blimp));
                     break;
                 default:
-                    throw new NotImplementedException("The boss type " + Enum.GetName(typeof(Bosses.EnemyType), enemyType) + " is not supported");
+                    throw new NotImplementedException("The boss type " + Enum.GetName(typeof(BossType), enemyType) + " is not supported");
             }
             QueueGameObjectForCreation(boss);
             return boss;
@@ -483,11 +483,11 @@ namespace ScrollingShooter
                     break;
 
                 case ProjectileType.BlimpShotgun:
-                    projectile = new Bosses.BlimpShotgun(id, content, position, BulletDirection.Straight);
-                    QueueGameObjectForCreation(new Bosses.BlimpShotgun(NextID(), content, position, BulletDirection.Left));
-                    QueueGameObjectForCreation(new Bosses.BlimpShotgun(NextID(), content, position, BulletDirection.Right));
-                    QueueGameObjectForCreation(new Bosses.BlimpShotgun(NextID(), content, position, BulletDirection.HardLeft));
-                    QueueGameObjectForCreation(new Bosses.BlimpShotgun(NextID(), content, position, BulletDirection.HardRight));
+                    projectile = new BlimpShotgun(id, content, position, BulletDirection.Straight);
+                    QueueGameObjectForCreation(new BlimpShotgun(NextID(), content, position, BulletDirection.Left));
+                    QueueGameObjectForCreation(new BlimpShotgun(NextID(), content, position, BulletDirection.Right));
+                    QueueGameObjectForCreation(new BlimpShotgun(NextID(), content, position, BulletDirection.HardLeft));
+                    QueueGameObjectForCreation(new BlimpShotgun(NextID(), content, position, BulletDirection.HardRight));
                     break;
 
                 case ProjectileType.Meteor:
@@ -506,7 +506,7 @@ namespace ScrollingShooter
                     projectile = new RGSabot(id, content, position);
                     break;
                 case ProjectileType.BlimpBullet:
-                    projectile = new Bosses.BlimpBullet(id, content, position);
+                    projectile = new BlimpBullet(id, content, position);
                     break;
 
                 case ProjectileType.Photon:

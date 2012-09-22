@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ProjectGuid>{21D9E5D6-1D43-44CF-9793-0603D96E2527}</ProjectGuid>
@@ -365,13 +365,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Tilemaps\Airbase.tmx">
-      <Name>Airbase</Name>
-      <Importer>TmxImporter</Importer>
-      <Processor>TilemapProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Spritesheets\accessories.png">
       <Name>accessories</Name>
       <Importer>TextureImporter</Importer>
@@ -393,6 +386,13 @@
       <Importer>TmxImporter</Importer>
       <Processor>TilemapProcessor</Processor>
       <SubType>Designer</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Tilemaps\Airbase.tmx">
+      <Name>Airbase</Name>
+      <Importer>TmxImporter</Importer>
+      <Processor>TilemapProcessor</Processor>
     </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />

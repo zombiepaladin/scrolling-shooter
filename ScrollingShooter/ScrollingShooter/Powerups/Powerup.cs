@@ -92,7 +92,7 @@ namespace ScrollingShooter
         /// </param>
         public override void Draw(float elaspedTime, SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(spriteSheet, Bounds, spriteSource, Color.White, 0f, new Vector2(Bounds.Width / 2, Bounds.Height / 2), SpriteEffects.None, 1f);
+            spriteBatch.Draw(spriteSheet, Bounds, spriteSource, Color.White, 0f, new Vector2(Bounds.Width / 2, Bounds.Height / 2), SpriteEffects.None, LayerDepth);
         }
     }
 }

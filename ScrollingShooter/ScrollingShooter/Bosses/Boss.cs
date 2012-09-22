@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace ScrollingShooter
 {
@@ -10,7 +8,6 @@ namespace ScrollingShooter
     /// </summary>
     public enum BossType
     {
-        Dart,
         TwinJetManager
     }
 
@@ -27,7 +24,7 @@ namespace ScrollingShooter
         /// <summary>
         /// Constructs a new boss
         /// </summary>
-        /// <param name="id">The unique id of the boss instance</param>
+        /// <param name="id">The unique id of the enemy instance</param>
         public Boss(uint id) : base(id) { }
     }
 }

@@ -97,7 +97,7 @@ namespace ScrollingShooter
         }
 
         /// <summary>
-        /// Shoot a single GenericEnemyBullet that will aim for the player.
+        /// Shoot a single GenericEnemyBullet that will aim for the Player.
         /// </summary>
         private void ShootGenericEnemyBullet()
         {

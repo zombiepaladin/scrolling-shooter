@@ -83,7 +83,7 @@ namespace ScrollingShooter
             //Player.ApplyPowerup(PowerupType.Fireball);
 
             LevelManager.LoadContent();
-            LevelManager.LoadLevel("Airbase");
+            LevelManager.LoadLevel("lavaLevel2");
             //test out new panzer personality
             int p1 = 100;
             int p2 = 200;

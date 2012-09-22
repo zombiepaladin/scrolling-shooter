@@ -92,10 +92,10 @@ namespace ScrollingShooter
             this.position = position;
 
             //Setting the reference to our brave, hopeless hero
-            this.player = ScrollingShooterGame.Game.player;
+            this.player = ScrollingShooterGame.Game.Player;
 
             //Makes sure that, upon creation, this missile is 'Still Alive'
-            this.isAlive = true;
+            this.isAlive = true;   
 
             //Sets the initial rotation to 0
             rotation = 0;

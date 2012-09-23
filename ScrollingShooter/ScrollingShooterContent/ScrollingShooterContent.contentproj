@@ -366,20 +366,20 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-<<<<<<< HEAD
     <Compile Include="Tilesets\shapeswmodified.png">
       <Name>shapeswmodified</Name>
-=======
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <ProcessorParameters_ColorKeyColor>191, 220, 191, 255</ProcessorParameters_ColorKeyColor>
+    </Compile>
     <Compile Include="Spritesheets\accessories.png">
       <Name>accessories</Name>
->>>>>>> upstream/master
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <ProcessorParameters_ColorKeyColor>191, 220, 191, 255</ProcessorParameters_ColorKeyColor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-<<<<<<< HEAD
     <Compile Include="Tilemaps\crystalland.tmx">
       <Name>crystalland</Name>
       <Importer>TmxImporter</Importer>
@@ -389,17 +389,17 @@
   <ItemGroup>
     <Compile Include="Spritesheets\newsh0.shp.000000.png">
       <Name>newsh0.shp.000000</Name>
-=======
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <ProcessorParameters_ColorKeyColor>191, 220, 191, 255</ProcessorParameters_ColorKeyColor>
+    </Compile>
     <Compile Include="Spritesheets\vulcano.png">
       <Name>vulcano</Name>
->>>>>>> upstream/master
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <ProcessorParameters_ColorKeyColor>191, 220, 191, 255</ProcessorParameters_ColorKeyColor>
     </Compile>
   </ItemGroup>
-<<<<<<< HEAD
-=======
   <ItemGroup>
     <Compile Include="Tilemaps\lavaLevel2.tmx">
       <Name>lavaLevel2</Name>
@@ -408,7 +408,14 @@
       <SubType>Designer</SubType>
     </Compile>
   </ItemGroup>
->>>>>>> upstream/master
+  <ItemGroup>
+    <Compile Include="Spritesheets\newsh0.shp.000001.png">
+      <Name>newsh0.shp.000001</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <ProcessorParameters_ColorKeyColor>191, 220, 191, 255</ProcessorParameters_ColorKeyColor>
+    </Compile>
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />
   <!--  To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

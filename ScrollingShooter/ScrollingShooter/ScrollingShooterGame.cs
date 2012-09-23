@@ -79,36 +79,37 @@ namespace ScrollingShooter
             GameObjectManager = new GameObjectManager(Content);
 
             // TODO: use this.Content to load your game content here
-<<<<<<< HEAD
-            player = GameObjectManager.CreatePlayerShip(PlayerShipType.Shrike, new Vector2(300, 300));
-            GameObjectManager.CreatePowerup(PowerupType.Fireball, new Vector2(100, 200));
+
+            //Player = GameObjectManager.CreatePlayerShip(PlayerShipType.Shrike, new Vector2(300, 300));
+          //  GameObjectManager.CreatePowerup(PowerupType.Fireball, new Vector2(100, 200));
             //player.ApplyPowerup(PowerupType.Fireball);
 
-            tilemap = Content.Load<Tilemap>("Tilemaps/crystalland");
+            //tilemap = Content.Load<Tilemap>("Tilemaps/crystalland");
 
-            tilemap.Scrolling = true;
+           // tilemap.Scrolling = true;
 
-            GameObjectManager.CreateEnemy(EnemyType.Dart, new Vector2(200, 200));
-            GameObjectManager.CreateEnemy(EnemyType.Bird, new Vector2(300  , 0));
-=======
+            //GameObjectManager.CreateEnemy(EnemyType.Dart, new Vector2(200, 200));
+           // GameObjectManager.CreateEnemy(EnemyType.Bird, new Vector2(300  , 0));
+
             Player = GameObjectManager.CreatePlayerShip(PlayerShipType.Shrike, new Vector2(300, 300));
             //Player.ApplyPowerup(PowerupType.Fireball);
 
             LevelManager.LoadContent();
-            LevelManager.LoadLevel("lavaLevel2");
+            LevelManager.LoadLevel("crystalland");
+            
             //test out new panzer personality
-            int p1 = 100;
-            int p2 = 200;
-            for (int i = 0; i < 6; i++)
-            {
-                GameObjectManager.CreateEnemy(EnemyType.Panzer, new Vector2(p1, 100));
-                GameObjectManager.CreateEnemy(EnemyType.Panzer2, new Vector2(p2, 100));
-                p1 += 100;
-                p2 += 100;
-            }
-            //test out lavabug
-            GameObjectManager.CreateEnemy(EnemyType.Lavabug, new Vector2(100, 75));
->>>>>>> upstream/master
+            //int p1 = 100;
+            //int p2 = 200;
+            //for (int i = 0; i < 6; i++)
+            //{
+            //    GameObjectManager.CreateEnemy(EnemyType.Panzer, new Vector2(p1, 100));
+            //    GameObjectManager.CreateEnemy(EnemyType.Panzer2, new Vector2(p2, 100));
+            //    p1 += 100;
+            //    p2 += 100;
+            //}
+            ////test out lavabug
+            //GameObjectManager.CreateEnemy(EnemyType.Lavabug, new Vector2(100, 75));
+
         }
 
         /// <summary>

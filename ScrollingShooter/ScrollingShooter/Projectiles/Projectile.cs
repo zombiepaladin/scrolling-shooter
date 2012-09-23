@@ -37,7 +37,11 @@ namespace ScrollingShooter
         GenericEnemyBullet = 109,
         DroneLaser = 110,
         RGSabot = 111,
+<<<<<<< HEAD
         BirdWrath = 112,
+=======
+        Photon = 112,
+>>>>>>> upstream/master
     }
 
     /// <summary>

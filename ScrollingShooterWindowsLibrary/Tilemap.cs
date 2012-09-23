@@ -51,14 +51,28 @@ namespace ScrollingShooterWindowsLibrary
         public Tile[] Tiles;
 
         /// <summary>
-        /// The total number of layers in our tileset
+        /// The total number of layers in our tilemap
         /// </summary>
         public int LayerCount;
 
         /// <summary>
-        /// The layers in our tileset
+        /// The layers in our tilemap
         /// </summary>
-        public TilemapLayer[] layers;
+        public TilemapLayer[] Layers;
+
+        /// <summary>
+        /// The total number of game object groups in our tilemap
+        /// </summary>
+        public int GameObjectGroupCount;
+
+        /// <summary>
+        /// The game object groups in our tilemap
+        /// </summary>
+        public GameObjectGroup[] GameObjectGroups;
+
+        public Vector2 PlayerStart;
+
+        public int PlayerLayer;
 
         /// <summary>
         /// Indicates if the tilemap is currently scrolling
@@ -77,7 +91,7 @@ namespace ScrollingShooterWindowsLibrary
             {
                 for (int i = 0; i < LayerCount; i++)
                 {
-                    layers[i].ScrollOffset += layers[i].ScrollingSpeed * elapsedTime;
+                    Layers[i].ScrollOffset += Layers[i].ScrollingSpeed * elapsedTime;
                 }
             }
         }
@@ -98,11 +112,11 @@ namespace ScrollingShooterWindowsLibrary
                     for (int y = 0; y < Height; y++)
                     {
                         int index = x + y * Width;
-                        TileData tileData = layers[i].TileData[index];
+                        TileData tileData = Layers[i].TileData[index];
                         if (tileData.TileID != 0)
                         {
                             Tile tile = Tiles[tileData.TileID - 1];
-                            spriteBatch.Draw(Textures[tile.TextureID], new Rectangle(x * TileWidth, y * TileHeight + (int)layers[i].ScrollOffset, TileWidth, TileHeight), tile.Source, Color.White, 0f, new Vector2(TileWidth / 2, TileHeight / 2), tileData.SpriteEffects, layers[i].LayerDepth);
+                            spriteBatch.Draw(Textures[tile.TextureID], new Rectangle(x * TileWidth, y * TileHeight + (int)(0*Layers[i].ScrollOffset), TileWidth, TileHeight), tile.Source, Color.White, 0f, new Vector2(TileWidth / 2, TileHeight / 2), tileData.SpriteEffects, Layers[i].LayerDepth);
                         }
                     }
                 }

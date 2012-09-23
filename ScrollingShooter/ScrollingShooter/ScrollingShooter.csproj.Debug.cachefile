@@ -47,6 +47,7 @@ Content\Spritesheets\tyrian.shp.01673F.xnb
 Content\Spritesheets\tyrian.shp.01D8A7.xnb
 Content\Spritesheets\eightballshield.xnb
 Content\Spritesheets\EBullet.xnb
+<<<<<<< HEAD
 Content\Tilesets\shapeswmodified.xnb
 Content\Spritesheets\newsh0.shp.000000.xnb
 Content\Tilemaps\example.xnb
@@ -58,3 +59,18 @@ Content\Tilesets\shapesx_0.xnb
 Content\Tilesets\shapeswmodified_0.xnb
 Content\Tilesets\shapesy_0.xnb
 Content\Tilesets\shapesz_0.xnb
+=======
+Content\Tilemaps\example.xnb
+Content\Tilemaps\example2.xnb
+Content\Tilesets\shapes)_0.xnb
+Content\Tilesets\shapesw_0.xnb
+Content\Tilesets\shapesx_0.xnb
+Content\Tilemaps\lavaLevel2.xnb
+Content\Tilesets\shapesz_0.xnb
+Content\Spritesheets\newshd.shp.000000_0.xnb
+Content\Spritesheets\newshr.shp.000000_0.xnb
+Content\Spritesheets\newshe.shp.000000_0.xnb
+Content\Spritesheets\accessories_0.xnb
+Content\Spritesheets\accessories.xnb
+Content\Spritesheets\vulcano.xnb
+>>>>>>> upstream/master

@@ -111,6 +111,9 @@
     <Compile Include="Bosses\Lavabug.cs" />
     <Compile Include="Bosses\Lavabug2.cs" />
     <Compile Include="Bosses\Mandible.cs" />
+    <Compile Include="Bosses\MBCloseC.cs" />
+    <Compile Include="Bosses\MoonBoss.cs" />
+    <Compile Include="Enemies\BigBad.cs" />
     <Compile Include="Enemies\Bomber.cs" />
     <Compile Include="Enemies\Drill.cs" />
     <Compile Include="Enemies\Arrow.cs" />
@@ -122,6 +125,7 @@
     <Compile Include="Enemies\Enemy.cs" />
     <Compile Include="Enemies\GreenGoblin.cs" />
     <Compile Include="Enemies\LaserDrone.cs" />
+    <Compile Include="Enemies\MoonSpinner.cs" />
     <Compile Include="Enemies\Panzer2.cs" />
     <Compile Include="Enemies\SuicideBomber.cs" />
     <Compile Include="Enemies\Seed.cs" />

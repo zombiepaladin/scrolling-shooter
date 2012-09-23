@@ -372,7 +372,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-<<<<<<< HEAD
     <Compile Include="Spritesheets\MoonBoss.png">
       <Name>MoonBoss</Name>
       <Importer>TextureImporter</Importer>
@@ -388,13 +387,28 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Sounds\SFX\" />
-=======
     <Compile Include="Spritesheets\accessories.png">
       <Name>accessories</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <ProcessorParameters_ColorKeyColor>191, 220, 191, 255</ProcessorParameters_ColorKeyColor>
     </Compile>
+    </ItemGroup>
+    <Compile Include="Spritesheets\vulcano.png">
+      <Name>vulcano</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <ProcessorParameters_ColorKeyColor>191, 220, 191, 255</ProcessorParameters_ColorKeyColor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Tilemaps\lavaLevel2.tmx">
+      <Name>lavaLevel2</Name>
+      <Importer>TmxImporter</Importer>
+      <Processor>TilemapProcessor</Processor>
+      <SubType>Designer</SubType>
+    </Compile>
+  </ItemGroup>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Spritesheets\vulcano.png">

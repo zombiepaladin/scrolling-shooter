@@ -96,16 +96,15 @@ namespace ScrollingShooter
             {
                 ScrollingShooterGame.GameObjectManager.DestroyObject(this.ID);
             }
-
             else if (explosionState == ExplosionState.Stage11)
             {
-                if (explosionTimer > 0.01f)
+                if (explosionTimer > 0.1f)
                 {
                     explosionState++;
                     explosionTimer = 0;
                 }
             }
-            else if (explosionTimer >= 0.01f)
+            else if (explosionTimer >= 0.05f)
             {
                 explosionState++;
                 explosionTimer = 0;

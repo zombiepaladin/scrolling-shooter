@@ -373,6 +373,7 @@
   </ItemGroup>
   <ItemGroup>
 <<<<<<< HEAD
+<<<<<<< HEAD
     <Compile Include="Spritesheets\MoonBoss.png">
       <Name>MoonBoss</Name>
       <Importer>TextureImporter</Importer>
@@ -389,6 +390,8 @@
   <ItemGroup>
     <Folder Include="Sounds\SFX\" />
 =======
+=======
+>>>>>>> 9512276031af8802d5b644c51593237806f42e08
     <Compile Include="Spritesheets\accessories.png">
       <Name>accessories</Name>
       <Importer>TextureImporter</Importer>
@@ -411,7 +414,10 @@
       <Processor>TilemapProcessor</Processor>
       <SubType>Designer</SubType>
     </Compile>
+<<<<<<< HEAD
 >>>>>>> upstream/master
+=======
+>>>>>>> 9512276031af8802d5b644c51593237806f42e08
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />
   <!--  To modify your build process, add your task inside one of the targets below and uncomment it. 

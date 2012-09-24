@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -31,6 +31,9 @@ namespace ScrollingShooter
         HashSet<CollisionPair> verticalOverlaps;
         HashSet<CollisionPair> collisions;
 
+        //control the lavabug boss
+        bool lavaFlip;
+
 
         /// <summary>
         /// Constructs a new GameObjectManager instance
@@ -52,6 +55,9 @@ namespace ScrollingShooter
             horizontalOverlaps = new HashSet<CollisionPair>();
             verticalOverlaps = new HashSet<CollisionPair>();
             collisions = new HashSet<CollisionPair>();
+
+            //lavabug
+            lavaFlip = true;
         }
 
 
@@ -214,6 +220,24 @@ namespace ScrollingShooter
         private void QueueGameObjectForCreation(GameObject go)
         {
             createdGameObjects.Enqueue(go);
+        }
+
+        public Boss CreateBoss(BossType enemyType, Vector2 position)
+        {
+            Boss boss;
+            uint id = NextID();
+            switch (enemyType)
+            {
+                case BossType.Blimp:
+                    boss = new Blimp(id, position, content);
+                    QueueGameObjectForCreation(new LeftGun(NextID(), content, boss as Blimp));
+                    QueueGameObjectForCreation(new RightGun(NextID(), content, boss as Blimp));
+                    break;
+                default:
+                    throw new NotImplementedException("The boss type " + Enum.GetName(typeof(BossType), enemyType) + " is not supported");
+            }
+            QueueGameObjectForCreation(boss);
+            return boss;
         }
 
         public Explosion CreateExplosion(uint colliderID)
@@ -458,6 +482,14 @@ namespace ScrollingShooter
                     QueueGameObjectForCreation(new ShotgunBullet(NextID(), content, position, BulletDirection.HardRight));
                     break;
 
+                case ProjectileType.BlimpShotgun:
+                    projectile = new BlimpShotgun(id, content, position, BulletDirection.Straight);
+                    QueueGameObjectForCreation(new BlimpShotgun(NextID(), content, position, BulletDirection.Left));
+                    QueueGameObjectForCreation(new BlimpShotgun(NextID(), content, position, BulletDirection.Right));
+                    QueueGameObjectForCreation(new BlimpShotgun(NextID(), content, position, BulletDirection.HardLeft));
+                    QueueGameObjectForCreation(new BlimpShotgun(NextID(), content, position, BulletDirection.HardRight));
+                    break;
+
                 case ProjectileType.Meteor:
                     projectile = new Meteor(id, content, position);
                     break;
@@ -472,6 +504,13 @@ namespace ScrollingShooter
 
                 case ProjectileType.RGSabot:
                     projectile = new RGSabot(id, content, position);
+                    break;
+                case ProjectileType.BlimpBullet:
+                    projectile = new BlimpBullet(id, content, position);
+                    break;
+
+                case ProjectileType.Photon:
+                    projectile = new Photon(id, content, position);
                     break;
 
                 default:
@@ -560,6 +599,19 @@ namespace ScrollingShooter
                     break;
                 case EnemyType.Panzer:
                     enemy = new Panzer(id, content, position);
+                    break;
+                case EnemyType.Panzer2:
+                    enemy = new Panzer2(id, content, position);
+                    break;
+                case EnemyType.Lavabug:
+                    enemy = new Lavabug(id, content, position);
+                    break;
+                case EnemyType.Lavabug2:
+                    enemy = new Lavabug2(id, content, position);
+                    break;
+                case EnemyType.Mandible:
+                    enemy = new Mandible(id, content, position, lavaFlip);
+                    lavaFlip = !lavaFlip;
                     break;
 
                 case EnemyType.BladeSpinner:

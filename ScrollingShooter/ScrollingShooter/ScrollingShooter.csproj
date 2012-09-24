@@ -107,7 +107,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Bosses\Blimp.cs" />
     <Compile Include="Bosses\Boss.cs" />
+    <Compile Include="Bosses\Lavabug.cs" />
+    <Compile Include="Bosses\Lavabug2.cs" />
+    <Compile Include="Bosses\Mandible.cs" />
     <Compile Include="Enemies\Bomber.cs" />
     <Compile Include="Enemies\Drill.cs" />
     <Compile Include="Enemies\Arrow.cs" />
@@ -119,6 +123,7 @@
     <Compile Include="Enemies\Enemy.cs" />
     <Compile Include="Enemies\GreenGoblin.cs" />
     <Compile Include="Enemies\LaserDrone.cs" />
+    <Compile Include="Enemies\Panzer2.cs" />
     <Compile Include="Enemies\SuicideBomber.cs" />
     <Compile Include="Enemies\Seed.cs" />
     <Compile Include="Enemies\JTurret.cs" />
@@ -170,6 +175,7 @@
     <Compile Include="Projectiles\HomingMissileProjectile.cs" />
     <Compile Include="Projectiles\JetMinionBullet.cs" />
     <Compile Include="Projectiles\Frostball.cs" />
+    <Compile Include="Projectiles\Photon.cs" />
     <Compile Include="Projectiles\RGSabot.cs" />
     <Compile Include="Projectiles\TriShieldBall.cs" />
     <Compile Include="Projectiles\Projectile.cs" />

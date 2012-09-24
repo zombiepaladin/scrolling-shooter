@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ProjectGuid>{21D9E5D6-1D43-44CF-9793-0603D96E2527}</ProjectGuid>
@@ -365,39 +365,13 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Spritesheets\accessories.png">
-      <Name>accessories</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <ProcessorParameters_ColorKeyColor>191, 220, 191, 255</ProcessorParameters_ColorKeyColor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Spritesheets\vulcano.png">
-      <Name>vulcano</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <ProcessorParameters_ColorKeyColor>191, 220, 191, 255</ProcessorParameters_ColorKeyColor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Tilemaps\lavaLevel2.tmx">
-      <Name>lavaLevel2</Name>
-      <Importer>TmxImporter</Importer>
-      <Processor>TilemapProcessor</Processor>
-      <SubType>Designer</SubType>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
+<<<<<<< HEAD
     <Compile Include="Tilemaps\Airbase.tmx">
       <Name>Airbase</Name>
-      <Importer>TmxImporter</Importer>
-      <Processor>TilemapProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Tilemaps\Level_1_Tilemap_2.tmx">
-      <Name>Level_1_Tilemap_2</Name>
+=======
+    <Compile Include="Tilemaps\example2.tmx">
+      <Name>example2</Name>
+>>>>>>> upstream/master
       <Importer>TmxImporter</Importer>
       <Processor>TilemapProcessor</Processor>
     </Compile>

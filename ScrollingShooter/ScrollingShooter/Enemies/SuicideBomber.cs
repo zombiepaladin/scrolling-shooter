@@ -38,7 +38,7 @@ namespace ScrollingShooter
         /// Creates a new instance of a SuicideBomber enemy ship
         /// </summary>
         /// <param name="content">A ContentManager to load resources with</param>
-        /// <param name="position">The position of the Dart ship in the game world</param>
+        /// <param name="position">The position of the SuicideBomber ship in the game world</param>
         public SuicideBomber(uint id, ContentManager content, Vector2 position)
             : base(id)
         {

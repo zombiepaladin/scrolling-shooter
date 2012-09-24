@@ -1,4 +1,4 @@
-﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -6,7 +6,7 @@ using System;
 namespace ScrollingShooter
 {
     /// <summary>
-    /// A bullet that travels towards the player.
+    /// A bullet that travels towards the Player.
     /// </summary>
     public class ToPlayerBullet : Projectile
     {
@@ -16,7 +16,7 @@ namespace ScrollingShooter
         private static readonly Vector2 VELOCITY = new Vector2(300);
 
         /// <summary>
-        /// Creates a new bullet that will travel towards the player's current position.
+        /// Creates a new bullet that will travel towards the Player's current position.
         /// </summary>
         /// <param name="id">Id for the bullet.</param>
         /// <param name="content">ContentManager to load content with.</param>
@@ -30,9 +30,9 @@ namespace ScrollingShooter
 
             this.position = position;
 
-            //Fire at the player.
-            PlayerShip player = ScrollingShooterGame.Game.player;
-            Vector2 positionVector = player.GetPosition() - position;
+            //Fire at the Player.
+            PlayerShip Player = ScrollingShooterGame.Game.Player;
+            Vector2 positionVector = Player.GetPosition() - position;
             positionVector.Normalize();
 
             this.velocity = positionVector * VELOCITY;

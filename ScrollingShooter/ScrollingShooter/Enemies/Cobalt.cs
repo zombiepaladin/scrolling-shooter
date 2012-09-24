@@ -1,4 +1,4 @@
-﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 
@@ -6,7 +6,7 @@ namespace ScrollingShooter
 {
 
     /// <summary>
-    /// An enemy ship that flies toward the player and fires
+    /// An enemy ship that flies toward the Player and fires
     /// </summary>
     public class Cobalt : Enemy
     {
@@ -47,17 +47,17 @@ namespace ScrollingShooter
         /// <param name="elapsedTime">The in-game time between the previous and current frame</param>
         public override void Update(float elapsedTime)
         {
-            // Sense the player's position
-            PlayerShip player = ScrollingShooterGame.Game.player;
-            Vector2 playerPosition = new Vector2(player.Bounds.Center.X, player.Bounds.Center.Y);
+            // Sense the Player's position
+            PlayerShip Player = ScrollingShooterGame.Game.Player;
+            Vector2 PlayerPosition = new Vector2(Player.Bounds.Center.X, Player.Bounds.Center.Y);
 
-            // Get a vector from our position to the player's position
-            Vector2 toPlayer = playerPosition - this.position;
+            // Get a vector from our position to the Player's position
+            Vector2 toPlayer = PlayerPosition - this.position;
 
-            //Sense the player from longer away but move slower.
+            //Sense the Player from longer away but move slower.
             if (toPlayer.LengthSquared() < 80000)
             {
-                // We sense the player's ship!                  
+                // We sense the Player's ship!                  
                 // Get a normalized steering vector
                 toPlayer.Normalize();
 

@@ -336,14 +336,18 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Spritesheets\EBullet.png">
-      <Name>EBullet</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
+    <ProjectReference Include="..\..\ScrollingShooterContentPipeline\ScrollingShooterContentPipeline.csproj">
+      <Project>{178E30B3-9F27-4FF1-B6A0-4866B6FA0875}</Project>
+      <Name>ScrollingShooterContentPipeline</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Tilemaps\" />
+    <Compile Include="Tilemaps\example.tmx">
+      <Name>example</Name>
+      <Importer>TmxImporter</Importer>
+      <Processor>TilemapProcessor</Processor>
+      <SubType>Designer</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Spritesheets\eightballshield.png">
@@ -351,6 +355,44 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <ProcessorParameters_ColorKeyColor>191, 220, 191, 255</ProcessorParameters_ColorKeyColor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Spritesheets\EBullet.png">
+      <Name>EBullet</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Spritesheets\accessories.png">
+      <Name>accessories</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <ProcessorParameters_ColorKeyColor>191, 220, 191, 255</ProcessorParameters_ColorKeyColor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Spritesheets\vulcano.png">
+      <Name>vulcano</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <ProcessorParameters_ColorKeyColor>191, 220, 191, 255</ProcessorParameters_ColorKeyColor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Tilemaps\lavaLevel2.tmx">
+      <Name>lavaLevel2</Name>
+      <Importer>TmxImporter</Importer>
+      <Processor>TilemapProcessor</Processor>
+      <SubType>Designer</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Tilemaps\Airbase.tmx">
+      <Name>Airbase</Name>
+      <Importer>TmxImporter</Importer>
+      <Processor>TilemapProcessor</Processor>
     </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />

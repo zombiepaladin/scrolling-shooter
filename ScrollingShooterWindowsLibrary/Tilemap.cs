@@ -1,5 +1,7 @@
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Content;
 
 namespace ScrollingShooterWindowsLibrary
 {
@@ -34,29 +36,49 @@ namespace ScrollingShooterWindowsLibrary
         public int TileHeight;
 
         /// <summary>
-        /// Indicates if the tilemap is currently scrolling
+        /// The tileset textures used in this tilemap
         /// </summary>
-        bool Scrolling = false;
+        public List<Texture2D> Textures;
 
         /// <summary>
         /// The total number of tiles in our tileset
         /// </summary>
-        int tileCount;
+        public int TileCount;
 
         /// <summary>
         /// The set of all tiles used by this tilemap
         /// </summary>
-        public Tile[] Tileset;
+        public Tile[] Tiles;
 
         /// <summary>
-        /// The total number of layers in our tileset
+        /// The total number of layers in our tilemap
         /// </summary>
-        int layerCount;
+        public int LayerCount;
 
         /// <summary>
-        /// The layers in our tileset
+        /// The layers in our tilemap
         /// </summary>
-        public TilemapLayer[] layers;
+        public TilemapLayer[] Layers;
+
+        /// <summary>
+        /// The total number of game object groups in our tilemap
+        /// </summary>
+        public int GameObjectGroupCount;
+
+        /// <summary>
+        /// The game object groups in our tilemap
+        /// </summary>
+        public GameObjectGroup[] GameObjectGroups;
+
+        public Vector2 PlayerStart;
+
+        public int PlayerLayer;
+
+        /// <summary>
+        /// Indicates if the tilemap is currently scrolling
+        /// </summary>
+        [ContentSerializerIgnore]
+        public bool Scrolling = false;
 
 
         /// <summary>
@@ -65,11 +87,11 @@ namespace ScrollingShooterWindowsLibrary
         /// <param name="elapsedTime"></param>
         public void Update(float elapsedTime)
         {
-            if(Scrolling) 
+            if (Scrolling)
             {
-                for (int i = 0; i < layerCount; i++)
+                for (int i = 0; i < LayerCount; i++)
                 {
-                    layers[i].ScrollOffset += layers[i].ScrollingSpeed * elapsedTime;
+                    Layers[i].ScrollOffset += Layers[i].ScrollingSpeed * elapsedTime;
                 }
             }
         }
@@ -83,16 +105,19 @@ namespace ScrollingShooterWindowsLibrary
         /// <param name="spriteBatch"></param>
         public void Draw(float elapsedTime, SpriteBatch spriteBatch) 
         {
-            for (int i = 0; i < layerCount; i++)
+            for (int i = 0; i < LayerCount; i++)
             {
                 for (int x = 0; x < Width; x++)
                 {
                     for (int y = 0; y < Height; y++)
                     {
                         int index = x + y * Width;
-                        TileData tileData = layers[i].TileData[index];
-                        Tile tile = Tileset[tileData.TileID];
-                        spriteBatch.Draw(tile.Texture, new Rectangle(x * TileWidth, y * TileHeight + (int)layers[i].ScrollOffset, TileWidth, TileHeight), tile.Source, Color.White, 0f, new Vector2(TileWidth/2, TileHeight/2), tileData.SpriteEffects, layers[i].LayerDepth);
+                        TileData tileData = Layers[i].TileData[index];
+                        if (tileData.TileID != 0)
+                        {
+                            Tile tile = Tiles[tileData.TileID - 1];
+                            spriteBatch.Draw(Textures[tile.TextureID], new Rectangle(x * TileWidth, y * TileHeight + (int)(0*Layers[i].ScrollOffset), TileWidth, TileHeight), tile.Source, Color.White, 0f, new Vector2(TileWidth / 2, TileHeight / 2), tileData.SpriteEffects, Layers[i].LayerDepth);
+                        }
                     }
                 }
             }

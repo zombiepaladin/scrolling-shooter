@@ -2,10 +2,11 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 
+//Author: Josh Zavala
 namespace ScrollingShooter
 {
     /// <summary>
-    /// Represents the 8 positions the tank can face
+    /// Represents the 8 positions Panzer can face
     /// </summary>
     enum PanzerAimState
     {
@@ -20,8 +21,8 @@ namespace ScrollingShooter
     }
 
     /// <summary>
-    /// A ground tank that shoot at the player if they are in range,
-    /// moves slowly towards them.
+    /// A ground tank that shoot at the Player if they are in range,
+    /// moves slowly towards them but stops when they are close.
     /// </summary>
     public class Panzer : Enemy
     {
@@ -29,7 +30,7 @@ namespace ScrollingShooter
         Texture2D spritesheet;
         Vector2 position;
         Rectangle[] spriteBounds = new Rectangle[8];
-        PanzerAimState aimState = PanzerAimState.South;
+        PanzerAimState aimState;
         float defaultGunTimer = 0;
 
         /// <summary>
@@ -106,20 +107,20 @@ namespace ScrollingShooter
         /// <param name="elapsedTime">In-game time between previous and current frame</param>
         public override void Update(float elapsedTime)
         {
-            //Sense the player's position
-            PlayerShip player = ScrollingShooterGame.Game.player;
-            Vector2 playerPosition = new Vector2(player.Bounds.Center.X,
-                player.Bounds.Center.Y);
+            //Sense the Player's position
+            PlayerShip Player = ScrollingShooterGame.Game.Player;
+            Vector2 PlayerPosition = new Vector2(Player.Bounds.Center.X,
+                Player.Bounds.Center.Y);
 
-            //Get the vector from Panzer's position to the player's position
-            Vector2 toPlayer = playerPosition - this.position;
+            //Get the vector from Panzer's position to the Player's position
+            Vector2 toPlayer = PlayerPosition - this.position;
 
             if ((toPlayer.LengthSquared() < 70000) && (toPlayer.LengthSquared() > 5000))
             {
-                //points the Panzer towards the player
+                //get a vector in the direction of the player
                 toPlayer.Normalize();
 
-                //chase the player
+                //chase the Player
                 this.position += toPlayer * elapsedTime * 25;
                 
                 //update the steering
@@ -166,15 +167,16 @@ namespace ScrollingShooter
         }
 
         /// <summary>
-        /// Fires a bullet from the Panzer towards the player
+        /// Fires a bullet from the Panzer towards the Player
         /// </summary>
         /// <param name="elapsedTime">In-game time between previous and current frame</param>
         public void FireCannon(float elapsedTime)
         {
             defaultGunTimer += elapsedTime;
             if (defaultGunTimer > 2f)
-            {
-                ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.Bullet, position);
+            {                
+                //Make use of the ToPlayerBullet class
+                ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.ToPlayerBullet, position);
                 defaultGunTimer = 0;
             }
         }

@@ -1,4 +1,4 @@
-﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 
@@ -66,7 +66,7 @@ namespace ScrollingShooter
         public override void Update(float elapsedTime)
         {
             dgt += elapsedTime;
-            PlayerShip ps = ScrollingShooterGame.Game.player;
+            PlayerShip ps = ScrollingShooterGame.Game.Player;
             Vector2 pp = new Vector2(ps.Bounds.Center.X, ps.Bounds.Center.Y);
             Vector2 dp = pp - this.position;
             if (dp.LengthSquared() > 30000)

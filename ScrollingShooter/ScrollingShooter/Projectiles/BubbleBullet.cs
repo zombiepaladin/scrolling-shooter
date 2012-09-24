@@ -17,7 +17,7 @@ namespace ScrollingShooter
 
         //Constants for the Bubble bullet.
         private const String SPRITESHEET = "Spritesheets/tyrian.shp.01D8A7";
-        private static readonly Rectangle SPRITEBOUNDS = new Rectangle(217, 156, 5, 5);
+        private static readonly Rectangle SPRITEBOUNDS = new Rectangle(38, 57, 7, 11);
         private static Random rand = new Random();
 
         /// <summary>

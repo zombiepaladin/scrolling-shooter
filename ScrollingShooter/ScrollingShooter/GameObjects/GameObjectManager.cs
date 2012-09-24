@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -301,6 +301,9 @@ namespace ScrollingShooter
                 case PowerupType.Fireball:
                     powerup = new FireballPowerup(id, content, position);
                     break;
+                case PowerupType.Frostball:
+                    powerup = new FrostballPowerup(id, content, position);
+                    break;
                 case PowerupType.BubbleBeam:
                     powerup = new BubbleBeamPowerup(id, content, position);
                     break;
@@ -522,9 +525,22 @@ namespace ScrollingShooter
                     projectile = new BlimpBullet(id, content, position);
                     break;
 
-   case ProjectileType.Photon:
+                case ProjectileType.Photon:
                     projectile = new Photon(id, content, position);
                     break;
+
+                case ProjectileType.Pincher:
+                    projectile = new Pincher(id, content, position);
+                    break;
+
+                case ProjectileType.GreenOrb:
+                    projectile = new GreenOrb(id, content, position);
+                    break;
+
+                case ProjectileType.AlienTurretOrb:
+                    projectile = new AlienTurretOrb(id, content, position);
+                    break;
+
                 case ProjectileType.TwinJetBullet:
                     projectile = new Boss_TwinJetBullet(id, content, position);
                     break;
@@ -686,6 +702,18 @@ namespace ScrollingShooter
 
                 case EnemyType.TwinJet:
                     enemy = new TwinJet(id, content, position);
+                    break;
+
+                case EnemyType.AlienTurret:
+                    enemy = new AlienTurret(id, content, position);
+                    break;
+
+                case EnemyType.RightClaw:
+                    enemy = new RightClaw(id, content, position);
+                    break;
+
+                case EnemyType.LeftClaw:
+                    enemy = new LeftClaw(id, content, position);
                     break;
 
                 default:

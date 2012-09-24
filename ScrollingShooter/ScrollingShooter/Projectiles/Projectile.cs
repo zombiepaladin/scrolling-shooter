@@ -45,8 +45,8 @@ namespace ScrollingShooter
         Pincher = 115, 
         GreenOrb = 116,
         AlienTurretOrb = 117,
-        TwinJetBullet = 115,
-        TwinJetMissile = 116,
+        TwinJetBullet = 118,
+        TwinJetMissile = 119,
     }
 
     /// <summary>

@@ -1,4 +1,4 @@
-﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
@@ -636,6 +636,13 @@ namespace ScrollingShooter
                 default:
                     break;
             }
+        }
+
+        public void MoveShip(Vector2 direction)
+        {
+            Vector2 newDir = direction - position;
+            newDir.Normalize();
+            position += newDir * 2;
         }
     }
 }

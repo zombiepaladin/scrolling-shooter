@@ -40,9 +40,9 @@ namespace ScrollingShooter
         Photon = 112,
         BlimpShotgun = 113,
         BlimpBullet = 114,
-        Pincher = 112, 
-        GreenOrb = 113,
-        AlienTurretOrb = 114
+        Pincher = 115, 
+        GreenOrb = 116,
+        AlienTurretOrb = 117
     }
 
     /// <summary>

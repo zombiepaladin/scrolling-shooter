@@ -270,7 +270,7 @@ namespace ScrollingShooter
             //Player.ApplyPowerup(PowerupType.Fireball);
 
             LevelManager.LoadContent();
-            LevelManager.LoadLevel("lavaLevel2");
+            LevelManager.LoadLevel("Airbase");
             //test out new panzer personality
             int p1 = 100;
             int p2 = 200;
@@ -332,7 +332,7 @@ namespace ScrollingShooter
                     //NOTE: Apply to more than the kamikaze enemy?
                     // Process kamakaze collisions
                     Enemy enemy = collider as Enemy;
-                    if (enemy != null && enemy.GetType() == typeof(Kamikaze))
+                    if ( enemy != null && ( enemy.GetType() == typeof( Kamikaze ) || enemy.GetType() == typeof( SuicideBomber ) ) )
                     {
                         //Player take damage
                         GameObjectManager.DestroyObject(colliderID);

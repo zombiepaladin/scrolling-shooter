@@ -38,6 +38,8 @@ namespace ScrollingShooter
         DroneLaser = 110,
         RGSabot = 111,
         Photon = 112,
+        BlimpShotgun = 113,
+        BlimpBullet = 114,
         Pincher = 112, 
         GreenOrb = 113,
         AlienTurretOrb = 114

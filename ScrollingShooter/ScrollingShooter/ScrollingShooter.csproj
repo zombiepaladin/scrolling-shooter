@@ -107,6 +107,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Bosses\Blimp.cs" />
     <Compile Include="Bosses\Boss.cs" />
     <Compile Include="Bosses\Lavabug.cs" />
     <Compile Include="Bosses\Lavabug2.cs" />

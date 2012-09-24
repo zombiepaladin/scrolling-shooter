@@ -1,3 +1,4 @@
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -8,6 +9,7 @@ namespace ScrollingShooter
     /// </summary>
     public enum BossType
     {
+        GiantAlien,
         Blimp,
     }
 

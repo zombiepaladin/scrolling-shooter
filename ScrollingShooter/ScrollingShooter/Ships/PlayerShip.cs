@@ -1,4 +1,4 @@
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
@@ -38,6 +38,9 @@ namespace ScrollingShooter
         /// </summary>
         public float defaultGunTimer = 5;
         float bombTimer = 1.5f;
+        
+        //timer for the frostball
+        public float frostballTimer = 5;
         
         //Timer for how longs the blades have been active.
         float bladesPowerupTimer = 0;
@@ -182,6 +185,7 @@ namespace ScrollingShooter
 
             // Update timers
             defaultGunTimer += elapsedTime;
+            frostballTimer += elapsedTime;
             bladesPowerupTimer += elapsedTime;
             energyBlastTimer -= elapsedTime;
             bombTimer += elapsedTime;
@@ -350,13 +354,13 @@ namespace ScrollingShooter
                             railgunTimer = 0f;
                         }
                     }
-                        
+
                     // Energy Blast Gun
                     if (((PowerupType & PowerupType.EnergyBlast) > 0) && energyBlastTimer < 0)
                     {
                         TriggerEnergyBlast();
                     }
-                    
+
                     // Fire-once weapons
                     if (oldKeyboardState.IsKeyUp(Keys.Space))
                     {
@@ -364,22 +368,23 @@ namespace ScrollingShooter
                         if ((PowerupType & PowerupType.Fireball) > 0)
                             TriggerFireball();
 
-                         if ((PowerupType & PowerupType.DroneWave) > 0)
-                        {
+                        if ((PowerupType & PowerupType.DroneWave) > 0)
                             TriggerDroneWave();
-                        }
                     }
 
-                    if ((PowerupType & PowerupType.Frostball) > 0)
+
+                    if (((PowerupType & PowerupType.Frostball) > 0) && frostballTimer > .5f)
+                    {
                         TriggerFrostball();
+                        frostballTimer = 0;
+                    }
 
                     if ((PowerupType & PowerupType.Birdcrap) > 0)
-                    {
                         TriggerBirdcrap();
-                    }
-                     if ((PowerupType & PowerupType.Bomb) > 0)
+
+                    if ((PowerupType & PowerupType.Bomb) > 0)
                         TriggerBomb();
-                }
+                }   
             }
                     
             // store the current keyboard state for next frame
@@ -590,6 +595,13 @@ namespace ScrollingShooter
 
             ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.EnergyBlast, position);
             //ScrollingShooterGame.Game.projectiles.Add(new EnergyBlast(ScrollingShooterGame.Game.Content, position, energyBlastLevel));
+        }
+
+        public void MoveShip(Vector2 direction)
+        {
+            Vector2 newDir = direction - position;
+            newDir.Normalize();
+            position += newDir * 2;
         }
     }
 }

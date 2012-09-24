@@ -20,7 +20,7 @@ namespace ScrollingShooter
         Arrow,
         LavaFighter,
         StdBaddy,
-        beamShip,
+        BeamShip,
         Kamikaze,
         Panzer,
         Panzer2,
@@ -35,7 +35,12 @@ namespace ScrollingShooter
         JTurret,
         DrillLeft,
         DrillRight,
-        SuicideBomber
+        SuicideBomber,
+        AlienHead,
+        ShieldGenerator,
+        AlienTurret,
+        RightClaw,
+        LeftClaw
     }
 
     /// <summary>

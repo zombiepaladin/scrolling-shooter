@@ -1,4 +1,4 @@
-//Jet Minion Enemy Class:
+﻿//Jet Minion Enemy Class:
 //Coders: Nicholas Boen
 //Date: 9/8/2012
 //Time: 11:09 A.M.
@@ -547,7 +547,7 @@ namespace ScrollingShooter
 
                     float distanceAway = PlayerPosition.Y - (Position.Y + Bounds.Height);
 
-                    if (distanceAway > StrafeDistance - 5 && distanceAway < StrafeDistance + 5)
+                    if (distanceAway > StrafeDistance - 15 && distanceAway < StrafeDistance + 15)
                     {
                         _myBehaviourState = JetMinionBehaviourState.STRAFE;
                     }

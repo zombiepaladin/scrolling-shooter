@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ProjectGuid>{268B1713-BD39-49CB-BEFD-DB11C562192C}</ProjectGuid>
@@ -112,10 +112,13 @@
     <Compile Include="Bosses\Lavabug.cs" />
     <Compile Include="Bosses\Lavabug2.cs" />
     <Compile Include="Bosses\Mandible.cs" />
+    <Compile Include="Bosses\GiantAlien.cs" />
+    <Compile Include="Enemies\AlienHead.cs" />
+    <Compile Include="Enemies\AlienTurret.cs" />
     <Compile Include="Enemies\Bomber.cs" />
     <Compile Include="Enemies\Drill.cs" />
     <Compile Include="Enemies\Arrow.cs" />
-    <Compile Include="Enemies\beamShip.cs" />
+    <Compile Include="Enemies\BeamShip.cs" />
     <Compile Include="Effects\Explosion.cs" />
     <Compile Include="Enemies\BladeSpinner.cs" />
     <Compile Include="Enemies\DeerTick.cs" />
@@ -124,6 +127,12 @@
     <Compile Include="Enemies\GreenGoblin.cs" />
     <Compile Include="Enemies\LaserDrone.cs" />
     <Compile Include="Enemies\Panzer2.cs" />
+    <Compile Include="Enemies\LeftClaw.cs" />
+    <Compile Include="Enemies\RightClaw.cs" />
+    <Compile Include="Projectiles\AlienTurretOrb.cs" />
+    <Compile Include="Projectiles\GreenOrb.cs" />
+    <Compile Include="Projectiles\Pincher.cs" />
+    <Compile Include="Enemies\ShieldGenerator.cs" />
     <Compile Include="Enemies\SuicideBomber.cs" />
     <Compile Include="Enemies\Seed.cs" />
     <Compile Include="Enemies\JTurret.cs" />

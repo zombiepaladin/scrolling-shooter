@@ -1,4 +1,4 @@
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace ScrollingShooter
@@ -40,6 +40,9 @@ namespace ScrollingShooter
         Photon = 112,
         BlimpShotgun = 113,
         BlimpBullet = 114,
+        Pincher = 115, 
+        GreenOrb = 116,
+        AlienTurretOrb = 117
     }
 
     /// <summary>

@@ -80,22 +80,12 @@ namespace ScrollingShooter
 
             // TODO: use this.Content to load your game content here
             Player = GameObjectManager.CreatePlayerShip(PlayerShipType.Shrike, new Vector2(300, 300));
+            GameObjectManager.CreatePowerup(PowerupType.Fireball, new Vector2(100, 200));
             //Player.ApplyPowerup(PowerupType.Fireball);
+            //GameObjectManager.CreateEnemy(EnemyType.AlienHead, new Vector2(600, 50));
 
             LevelManager.LoadContent();
             LevelManager.LoadLevel("Airbase");
-            //test out new panzer personality
-            int p1 = 100;
-            int p2 = 200;
-            for (int i = 0; i < 6; i++)
-            {
-                GameObjectManager.CreateEnemy(EnemyType.Panzer, new Vector2(p1, 100));
-                GameObjectManager.CreateEnemy(EnemyType.Panzer2, new Vector2(p2, 100));
-                p1 += 100;
-                p2 += 100;
-            }
-            //test out lavabug
-            GameObjectManager.CreateEnemy(EnemyType.Lavabug, new Vector2(100, 75));
         }
 
         /// <summary>
@@ -145,7 +135,7 @@ namespace ScrollingShooter
                     //NOTE: Apply to more than the kamikaze enemy?
                     // Process kamakaze collisions
                     Enemy enemy = collider as Enemy;
-                    if ( enemy != null && ( enemy.GetType() == typeof( Kamikaze ) || enemy.GetType() == typeof( SuicideBomber ) ) )
+                    if (enemy != null && enemy.GetType() == typeof(Kamikaze))
                     {
                         //Player take damage
                         GameObjectManager.DestroyObject(colliderID);
@@ -169,7 +159,7 @@ namespace ScrollingShooter
             // Set the viewport to the entire screen
             GraphicsDevice.Viewport = gameViewport;
             GraphicsDevice.Clear(Color.CornflowerBlue);
-
+           
             // TODO: Add your drawing code here
             float elapsedGameTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
             
@@ -179,7 +169,7 @@ namespace ScrollingShooter
 
             spriteBatch.Begin();
 
-//            tilemap.Draw(elapsedGameTime, spriteBatch);
+//           tilemap.Draw(elapsedGameTime, spriteBatch);
 
             //GameObjectManager.Draw(elapsedGameTime, spriteBatch);
 

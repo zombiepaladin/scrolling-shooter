@@ -93,6 +93,9 @@
     <Reference Include="System">
       <Private>False</Private>
     </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml">
       <Private>False</Private>
     </Reference>
@@ -109,6 +112,9 @@
   <ItemGroup>
     <Compile Include="Bosses\Blimp.cs" />
     <Compile Include="Bosses\Boss.cs" />
+    <Compile Include="Bosses\BossFlightPattern.cs" />
+    <Compile Include="Bosses\TwinJet.cs" />
+    <Compile Include="Bosses\TwinJetManager.cs" />
     <Compile Include="Bosses\Lavabug.cs" />
     <Compile Include="Bosses\Lavabug2.cs" />
     <Compile Include="Bosses\Mandible.cs" />
@@ -140,6 +146,8 @@
     <Compile Include="Powerups\Railgun.cs" />
     <Compile Include="Powerups\ShotgunPowerup.cs" />
     <Compile Include="Powerups\BubbleBeamPowerup.cs" />
+    <Compile Include="Projectiles\Boss_TwinJetBullet.cs" />
+    <Compile Include="Projectiles\Boss_TwinJetMissile.cs" />
     <Compile Include="Projectiles\BubbleBullet.cs" />
     <Compile Include="Powerups\FreezewavePowerup.cs" />
     <Compile Include="Enemies\JetMinion.cs" />
@@ -233,7 +241,6 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\Microsoft.Xna.GameStudio.targets" />
   <!--

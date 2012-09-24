@@ -30,6 +30,7 @@ namespace ScrollingShooter
         public static LevelManager LevelManager;
         
         public PlayerShip Player;
+        Song song;
 
         public ScrollingShooterGame()
         {
@@ -84,6 +85,9 @@ namespace ScrollingShooter
 
             LevelManager.LoadContent();
             LevelManager.LoadLevel("lavaLevel2");
+            song = Content.Load<Song>("Sounds\BGM\Hard as Nails 11-13-28.mp3");
+            MediaPlayer.Play(song);
+            MediaPlayer.IsRepeating = true;
             //test out new panzer personality
             int p1 = 100;
             int p2 = 200;

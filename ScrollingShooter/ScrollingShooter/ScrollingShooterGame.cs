@@ -87,7 +87,7 @@ namespace ScrollingShooter
             }
             tilemap.Scrolling = true;
 
-            GameObjectManager.CreateEnemy(EnemyType.Dart, new Vector2(200, 200));
+            GameObjectManager.CreateEnemy(EnemyType.Cobalt, new Vector2(200, 200));
         }
 
         /// <summary>

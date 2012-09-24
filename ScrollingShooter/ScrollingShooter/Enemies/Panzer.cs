@@ -117,7 +117,7 @@ namespace ScrollingShooter
 
             if ((toPlayer.LengthSquared() < 70000) && (toPlayer.LengthSquared() > 5000))
             {
-                //get a vector in the direction of the player
+                //points the Panzer towards the Player
                 toPlayer.Normalize();
 
                 //chase the Player

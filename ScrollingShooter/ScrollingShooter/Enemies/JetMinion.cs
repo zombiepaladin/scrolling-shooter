@@ -36,7 +36,8 @@ enum GunState
 {
     LEFT = 0,
     REST = 1,
-    RIGHT = 2
+    RIGHT = 2,
+    DESTROYED = 3,
 }
 namespace ScrollingShooter
 {

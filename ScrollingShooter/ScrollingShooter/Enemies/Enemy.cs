@@ -1,4 +1,4 @@
-﻿﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,7 +20,7 @@ namespace ScrollingShooter
         Arrow,
         LavaFighter,
         StdBaddy,
-        beamShip,
+        BeamShip,
         Kamikaze,
         Panzer,
         Panzer2,
@@ -35,7 +35,13 @@ namespace ScrollingShooter
         JTurret,
         DrillLeft,
         DrillRight,
-        SuicideBomber
+        SuicideBomber,
+        AlienHead,
+        ShieldGenerator,
+        AlienTurret,
+        RightClaw,
+        LeftClaw,
+        TwinJet,
     }
 
     /// <summary>

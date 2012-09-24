@@ -30,7 +30,7 @@ namespace ScrollingShooter
         Dead = 2
     }
 
-    public class beamShip : Enemy
+    public class BeamShip : Enemy
     {
 
         // beam ship state variables
@@ -87,7 +87,7 @@ namespace ScrollingShooter
         /// </summary>
         /// <param name="content">A ContentManager to load resources with</param>
         /// <param name="position">The position of the beam ship in the game world</param>
-        public beamShip(uint id, ContentManager content, Vector2 position) : base (id)
+        public BeamShip(uint id, ContentManager content, Vector2 position) : base (id)
         {
             this.position = position;
             weaponAlive = true;

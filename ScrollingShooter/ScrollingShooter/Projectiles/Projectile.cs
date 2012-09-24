@@ -1,4 +1,4 @@
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace ScrollingShooter
@@ -22,6 +22,8 @@ namespace ScrollingShooter
         EnergyBlast,
         Meteor,
         BigMeteor,
+        HomingMissile,
+
         // Enemy projectiles start with an index of 100;
         // this allows us to differentiate between projectiles
         // without needing a second base class
@@ -40,6 +42,11 @@ namespace ScrollingShooter
         Photon = 112,
         BlimpShotgun = 113,
         BlimpBullet = 114,
+        Pincher = 115, 
+        GreenOrb = 116,
+        AlienTurretOrb = 117,
+        TwinJetBullet = 115,
+        TwinJetMissile = 116,
     }
 
     /// <summary>

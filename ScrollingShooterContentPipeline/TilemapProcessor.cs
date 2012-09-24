@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework.Content.Pipeline;
 using Microsoft.Xna.Framework.Content.Pipeline.Graphics;
@@ -23,10 +24,12 @@ namespace ScrollingShooterContentPipeline
         /// <returns>The processed TilemapContent instance</returns>
         public override TilemapContent Process(TilemapContent input, ContentProcessorContext context)
         {
-            // Build the textures used in this tilemap
-            foreach(string path in input.ImagePaths)
+            // Restructure the image paths used in this tilemap
+            for (int i = 0; i < input.ImagePaths.Length; i++)
             {
-                input.Textures.Add(context.BuildAsset<Texture2DContent, Texture2DContent>(new ExternalReference<Texture2DContent>(path), ""));
+                string filename = Path.GetFileNameWithoutExtension(input.ImagePaths[i]);
+                string[] directory = Path.GetDirectoryName(input.ImagePaths[i]).Split(Path.DirectorySeparatorChar);
+                input.ImagePaths[i] = Path.Combine(directory[directory.Length-1], filename);
             }
             
             // Process the layers in this tilemap

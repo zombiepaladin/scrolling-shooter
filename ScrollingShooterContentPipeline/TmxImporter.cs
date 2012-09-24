@@ -432,6 +432,10 @@ namespace ScrollingShooterContentPipeline
                             {
                                 st.Read();
                                 output.Properties = LoadProperties(st);
+                                if (output.Properties.ContainsKey("ScrollingSpeed"))
+                                    output.ScrollingSpeed = float.Parse(output.Properties["ScrollingSpeed"]);
+                                if (output.Properties.ContainsKey("ScrollOffset"))
+                                    output.ScrollOffset = float.Parse(output.Properties["ScrollOffset"]);
                             }
                             break;
                     }

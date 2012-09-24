@@ -21,8 +21,13 @@ namespace ScrollingShooter
     }
 
     /// <summary>
-    /// A ground tank that shoot at the Player if they are in range,
+<<<<<<< HEAD
+    /// A ground tank that shoot at the player if they are in range,
     /// moves slowly towards them but stops when they are close.
+=======
+    /// A ground tank that shoot at the Player if they are in range,
+    /// moves slowly towards them.
+>>>>>>> a462baa99e2a375c9f3b01390c70e0f65417dc85
     /// </summary>
     public class Panzer : Enemy
     {
@@ -117,7 +122,11 @@ namespace ScrollingShooter
 
             if ((toPlayer.LengthSquared() < 70000) && (toPlayer.LengthSquared() > 5000))
             {
+<<<<<<< HEAD
                 //get a vector in the direction of the player
+=======
+                //points the Panzer towards the Player
+>>>>>>> a462baa99e2a375c9f3b01390c70e0f65417dc85
                 toPlayer.Normalize();
 
                 //chase the Player

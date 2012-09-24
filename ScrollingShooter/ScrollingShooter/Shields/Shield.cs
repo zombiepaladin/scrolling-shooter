@@ -16,7 +16,7 @@ namespace ScrollingShooter
     public abstract class Shield : GameObject
     {
         /// <summary>
-        /// The shiled's velocity, perhaps for rotation?
+        /// The shield's velocity, perhaps for rotation?
         /// </summary>
         protected Vector2 velocity;
 

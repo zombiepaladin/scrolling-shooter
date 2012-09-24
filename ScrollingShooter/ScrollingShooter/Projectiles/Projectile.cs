@@ -40,8 +40,10 @@ namespace ScrollingShooter
         DroneLaser = 110,
         RGSabot = 111,
         Photon = 112,
-        TwinJetBullet = 113,
-        TwinJetMissile = 114
+        BlimpShotgun = 113,
+        BlimpBullet = 114,
+        TwinJetBullet = 115,
+        TwinJetMissile = 116,
     }
 
     /// <summary>

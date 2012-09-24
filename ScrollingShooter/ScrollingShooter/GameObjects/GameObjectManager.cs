@@ -222,21 +222,25 @@ namespace ScrollingShooter
             createdGameObjects.Enqueue(go);
         }
 
-        public Boss CreateBoss(BossType bossType, Vector2 position)
+        public Boss CreateBoss(BossType enemyType, Vector2 position)
         {
             Boss boss;
             uint id = NextID();
-
-            switch (bossType)
+            switch (enemyType)
             {
+                case BossType.Blimp:
+                    boss = new Blimp(id, position, content);
+                    QueueGameObjectForCreation(new LeftGun(NextID(), content, boss as Blimp));
+                    QueueGameObjectForCreation(new RightGun(NextID(), content, boss as Blimp));
+                    break;
+
                 case BossType.TwinJetManager:
                     boss = new TwinJetManager(id, content, position);
                     break;
                 
                 default:
-                    throw new NotImplementedException("The boss type " + Enum.GetName(typeof(BossType), bossType) + " is not supported");
+                    throw new NotImplementedException("The boss type " + Enum.GetName(typeof(BossType), enemyType) + " is not supported");
             }
-
             QueueGameObjectForCreation(boss);
             return boss;
         }
@@ -482,6 +486,14 @@ namespace ScrollingShooter
                     QueueGameObjectForCreation(new ShotgunBullet(NextID(), content, position, BulletDirection.HardRight));
                     break;
 
+                case ProjectileType.BlimpShotgun:
+                    projectile = new BlimpShotgun(id, content, position, BulletDirection.Straight);
+                    QueueGameObjectForCreation(new BlimpShotgun(NextID(), content, position, BulletDirection.Left));
+                    QueueGameObjectForCreation(new BlimpShotgun(NextID(), content, position, BulletDirection.Right));
+                    QueueGameObjectForCreation(new BlimpShotgun(NextID(), content, position, BulletDirection.HardLeft));
+                    QueueGameObjectForCreation(new BlimpShotgun(NextID(), content, position, BulletDirection.HardRight));
+                    break;
+
                 case ProjectileType.Meteor:
                     projectile = new Meteor(id, content, position);
                     break;
@@ -496,6 +508,9 @@ namespace ScrollingShooter
 
                 case ProjectileType.RGSabot:
                     projectile = new RGSabot(id, content, position);
+                    break;
+                case ProjectileType.BlimpBullet:
+                    projectile = new BlimpBullet(id, content, position);
                     break;
 
    case ProjectileType.Photon:

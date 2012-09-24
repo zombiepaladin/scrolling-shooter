@@ -84,7 +84,7 @@ namespace ScrollingShooter
             //Player.ApplyPowerup(PowerupType.Fireball);
 
             LevelManager.LoadContent();
-            LevelManager.LoadLevel("example2");
+            LevelManager.LoadLevel("Level_1_Tilemap_2");
         }
 
         /// <summary>

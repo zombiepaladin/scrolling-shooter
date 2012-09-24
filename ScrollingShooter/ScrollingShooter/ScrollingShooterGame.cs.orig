@@ -79,11 +79,34 @@ namespace ScrollingShooter
             GameObjectManager = new GameObjectManager(Content);
 
             // TODO: use this.Content to load your game content here
-            Player = GameObjectManager.CreatePlayerShip(PlayerShipType.Shrike, new Vector2(300, 300));
-            //Player.ApplyPowerup(PowerupType.Fireball);
+<<<<<<< HEAD
+            player = GameObjectManager.CreatePlayerShip(PlayerShipType.Shrike, new Vector2(300, 300));
 
-            LevelManager.LoadContent();
-            LevelManager.LoadLevel("AlienBaseSafe");
+            tilemap = Content.Load<Tilemap>("Tilemaps/example");
+            for (int i = 0; i < tilemap.GameObjectGroupCount; i++)
+            {
+                for (int j = 0; j < tilemap.GameObjectGroups[i].GameObjectData.Count(); j++ )
+                {
+                    GameObjectData goData = tilemap.GameObjectGroups[i].GameObjectData[j];
+                    Vector2 position = new Vector2(goData.Position.Center.X, goData.Position.Center.Y);
+                    GameObject go;
+
+                    switch (goData.Category)
+                    {
+                        case "Powerup":
+                            go = GameObjectManager.CreatePowerup((PowerupType)Enum.Parse(typeof(PowerupType), goData.Type), position);
+                            goData.ID = go.ID;
+                            break;
+
+                        case "Enemy":
+                            go = GameObjectManager.CreateEnemy((EnemyType)Enum.Parse(typeof(EnemyType), goData.Type), position);
+                            goData.ID = go.ID;
+                            break;
+                    }
+                }
+            }
+            tilemap.Scrolling = true;
+
             //test out new panzer personality
             int p1 = 100;
             int p2 = 200;
@@ -96,6 +119,14 @@ namespace ScrollingShooter
             }
             //test out lavabug
             GameObjectManager.CreateEnemy(EnemyType.Lavabug, new Vector2(100, 75));
+=======
+            Player = GameObjectManager.CreatePlayerShip(PlayerShipType.Shrike, new Vector2(300, 300));
+            GameObjectManager.CreatePowerup(PowerupType.Fireball, new Vector2(100, 200));
+            //Player.ApplyPowerup(PowerupType.Fireball);
+
+            LevelManager.LoadContent();
+            LevelManager.LoadLevel("example2");
+>>>>>>> a462baa99e2a375c9f3b01390c70e0f65417dc85
         }
 
         /// <summary>

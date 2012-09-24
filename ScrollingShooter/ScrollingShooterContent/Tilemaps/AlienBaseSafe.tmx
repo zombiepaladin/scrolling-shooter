@@ -64,16 +64,47 @@
    <property name="ScrollingSpeed" value="75"/>
   </properties>
   <object x="-192" y="6216"/>
-  <object name="Enemy" type="JTurret" x="96" y="13076" width="24" height="28"/>
-  <object name="Enemy" type="JTurret" x="288" y="13076" width="24" height="28"/>
-  <object name="Enemy" type="JTurret" x="288" y="12852" width="24" height="28"/>
-  <object name="Enemy" type="JTurret" x="96" y="12852" width="24" height="28"/>
-  <object name="Enemy" type="JTurret" x="288" y="12796" width="24" height="28"/>
-  <object name="Enemy" type="JTurret" x="96" y="12796" width="24" height="28"/>
-  <object name="Enemy" type="JTurret" x="288" y="12740" width="24" height="28"/>
-  <object name="Enemy" type="JTurret" x="96" y="12740" width="24" height="28"/>
-  <object name="Enemy" type="JTurret" x="288" y="12684" width="24" height="28"/>
-  <object name="Enemy" type="JTurret" x="96" y="12684" width="24" height="28"/>
+  <object name="Enemy" type="JTurret" x="81" y="13076" width="24" height="28"/>
+  <object name="Enemy" type="JTurret" x="278" y="13076" width="24" height="28"/>
+  <object name="Enemy" type="JTurret" x="120" y="12808" width="24" height="28"/>
+  <object name="Enemy" type="JTurret" x="242" y="12808" width="24" height="28"/>
+  <object name="Enemy" type="JTurret" x="120" y="12752" width="24" height="28"/>
+  <object name="Enemy" type="JTurret" x="242" y="12752" width="24" height="28"/>
+  <object name="Enemy" type="JTurret" x="120" y="12696" width="24" height="28"/>
+  <object name="Enemy" type="JTurret" x="242" y="12696" width="24" height="28"/>
+  <object name="Enemy" type="AlienTurretScrolling" x="144" y="10808" width="24" height="28"/>
+  <object name="Enemy" type="JTurret" x="168" y="12488" width="24" height="28"/>
+  <object name="Enemy" type="JTurret" x="72" y="12488" width="24" height="28"/>
+  <object name="Enemy" type="JTurret" x="288" y="12292" width="24" height="28"/>
+  <object name="Enemy" type="JTurret" x="192" y="12292" width="24" height="28"/>
+  <object name="Enemy" type="JTurret" x="288" y="12432" width="24" height="28"/>
+  <object name="Enemy" type="JTurret" x="72" y="12180" width="24" height="28"/>
+  <object name="Enemy" type="JTurret" x="187" y="11804" width="24" height="28"/>
+  <object name="Enemy" type="JTurret" x="187" y="11744" width="24" height="28"/>
+  <object name="Enemy" type="JTurret" x="187" y="11860" width="24" height="28"/>
+  <object name="Enemy" type="JTurret" x="187" y="11916" width="24" height="28"/>
+  <object name="Enemy" type="JTurret" x="188" y="11674" width="24" height="28"/>
+  <object name="Enemy" type="JTurret" x="72" y="11620" width="24" height="28"/>
+  <object name="Enemy" type="JTurret" x="288" y="11620" width="24" height="28"/>
+  <object name="Enemy" type="AlienTurretScrolling" x="175" y="12792" width="24" height="28"/>
+  <object name="Enemy" type="AlienTurretScrolling" x="240" y="11368" width="24" height="28"/>
+  <object name="Enemy" type="AlienTurretScrolling" x="168" y="11368" width="24" height="28"/>
+  <object name="Enemy" type="AlienTurretScrolling" x="264" y="9716" width="24" height="28"/>
+  <object name="Enemy" type="AlienTurretScrolling" x="120" y="9716" width="24" height="28"/>
+  <object name="Enemy" type="AlienTurretScrolling" x="120" y="9632" width="24" height="28"/>
+  <object name="Enemy" type="AlienTurretScrolling" x="264" y="9632" width="24" height="28"/>
+  <object name="Enemy" type="JTurret" x="96" y="10780" width="24" height="28"/>
+  <object name="Enemy" type="JTurret" x="288" y="10472" width="24" height="28"/>
+  <object name="Enemy" type="JTurret" x="177" y="10037" width="24" height="28"/>
+  <object name="Enemy" type="JTurret" x="183" y="9676" width="24" height="28"/>
+  <object name="Enemy" type="JTurret" x="179" y="9616" width="24" height="28"/>
+  <object name="Enemy" type="JTurret" x="69" y="9076" width="24" height="28"/>
+  <object name="Enemy" type="JTurret" x="288" y="8764" width="24" height="28"/>
+  <object name="Enemy" type="JTurret" x="72" y="8568" width="24" height="28"/>
+  <object name="Enemy" type="JTurret" x="111" y="8583" width="24" height="28"/>
+  <object name="Enemy" type="JTurret" x="274" y="8387" width="24" height="28"/>
+  <object name="Enemy" type="JTurret" x="240" y="8764" width="24" height="28"/>
+  <object name="Enemy" type="AlienTurretScrolling" x="174" y="12715" width="24" height="28"/>
  </objectgroup>
  <objectgroup name="BotObjLayer" width="17" height="500">
   <properties>
@@ -85,7 +116,7 @@
  <layer name="BossLayer" width="17" height="500">
   <properties>
    <property name="LayerDepth" value="0"/>
-   <property name="ScrollOffset" value="0"/>
+   <property name="ScrollOffset" value="750"/>
    <property name="ScrollingSpeed" value="50"/>
   </properties>
   <data encoding="base64">

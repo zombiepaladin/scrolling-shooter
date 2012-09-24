@@ -37,6 +37,9 @@ namespace ScrollingShooter
         GenericEnemyBullet = 109,
         DroneLaser = 110,
         RGSabot = 111,
+        Photon = 112,
+        //added alien orb
+        AlienTurretOrbScrolling,
     }
 
     /// <summary>

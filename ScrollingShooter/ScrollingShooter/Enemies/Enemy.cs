@@ -10,6 +10,7 @@ namespace ScrollingShooter
     /// </summary>
     public enum EnemyType
     {
+        AlienTurretScrolling,
         Dart,
         GreenGoblin,
         LaserDrone,
@@ -23,6 +24,10 @@ namespace ScrollingShooter
         beamShip,
         Kamikaze,
         Panzer,
+        Panzer2,
+        Lavabug,
+        Lavabug2,
+        Mandible,
         BladeSpinner,
         DeerTickDown,
         DeerTickRight,

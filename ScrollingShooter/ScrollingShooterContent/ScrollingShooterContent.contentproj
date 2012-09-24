@@ -372,15 +372,27 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Tilemaps\AlienBase.tmx">
-      <Name>AlienBase</Name>
-      <Importer>TmxImporter</Importer>
-      <Processor>TilemapProcessor</Processor>
+    <Compile Include="Spritesheets\accessories.png">
+      <Name>accessories</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <ProcessorParameters_ColorKeyColor>191, 220, 191, 255</ProcessorParameters_ColorKeyColor>
     </Compile>
-    <Compile Include="Tilemaps\AlienBaseSafe.tmx">
-      <Name>AlienBaseSafe</Name>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Spritesheets\vulcano.png">
+      <Name>vulcano</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <ProcessorParameters_ColorKeyColor>191, 220, 191, 255</ProcessorParameters_ColorKeyColor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Tilemaps\lavaLevel2.tmx">
+      <Name>lavaLevel2</Name>
       <Importer>TmxImporter</Importer>
       <Processor>TilemapProcessor</Processor>
+      <SubType>Designer</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -403,6 +415,18 @@
       <Name>shapeszFinalLvlMod</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Tilemaps\AlienBase.tmx">
+      <Name>AlienBase</Name>
+      <Importer>TmxImporter</Importer>
+      <Processor>TilemapProcessor</Processor>
+    </Compile>
+    <Compile Include="Tilemaps\AlienBaseSafe.tmx">
+      <Name>AlienBaseSafe</Name>
+      <Importer>TmxImporter</Importer>
+      <Processor>TilemapProcessor</Processor>
     </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />

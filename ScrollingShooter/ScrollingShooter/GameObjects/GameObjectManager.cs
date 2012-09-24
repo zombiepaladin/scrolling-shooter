@@ -31,6 +31,9 @@ namespace ScrollingShooter
         HashSet<CollisionPair> verticalOverlaps;
         HashSet<CollisionPair> collisions;
 
+        //control the lavabug boss
+        bool lavaFlip;
+
 
         /// <summary>
         /// Constructs a new GameObjectManager instance
@@ -52,6 +55,9 @@ namespace ScrollingShooter
             horizontalOverlaps = new HashSet<CollisionPair>();
             verticalOverlaps = new HashSet<CollisionPair>();
             collisions = new HashSet<CollisionPair>();
+
+            //lavabug
+            lavaFlip = true;
         }
 
 
@@ -341,6 +347,9 @@ namespace ScrollingShooter
 
             switch (projectileType)
             {
+                case ProjectileType.AlienTurretOrbScrolling:
+                    projectile = new AlienTurretOrbScrolling(id, content, position);
+                    break;
                 case ProjectileType.Bullet:
                     projectile = new Bullet(id, content, position);
                     break;
@@ -474,6 +483,10 @@ namespace ScrollingShooter
                     projectile = new RGSabot(id, content, position);
                     break;
 
+                case ProjectileType.Photon:
+                    projectile = new Photon(id, content, position);
+                    break;
+
                 default:
                     throw new NotImplementedException("The projectile type " + Enum.GetName(typeof(ProjectileType), projectileType) + " is not supported");
             }
@@ -521,6 +534,9 @@ namespace ScrollingShooter
 
             switch (enemyType)
             {
+                case EnemyType.AlienTurretScrolling:
+                    enemy = new AlienTurretScrolling(id, content, position);
+                    break;
                 case EnemyType.Dart:
                     enemy = new Dart(id, content, position);
                     break;
@@ -560,6 +576,19 @@ namespace ScrollingShooter
                     break;
                 case EnemyType.Panzer:
                     enemy = new Panzer(id, content, position);
+                    break;
+                case EnemyType.Panzer2:
+                    enemy = new Panzer2(id, content, position);
+                    break;
+                case EnemyType.Lavabug:
+                    enemy = new Lavabug(id, content, position);
+                    break;
+                case EnemyType.Lavabug2:
+                    enemy = new Lavabug2(id, content, position);
+                    break;
+                case EnemyType.Mandible:
+                    enemy = new Mandible(id, content, position, lavaFlip);
+                    lavaFlip = !lavaFlip;
                     break;
 
                 case EnemyType.BladeSpinner:

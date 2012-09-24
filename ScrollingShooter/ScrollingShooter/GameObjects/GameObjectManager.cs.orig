@@ -505,15 +505,17 @@ namespace ScrollingShooter
                 case ProjectileType.RGSabot:
                     projectile = new RGSabot(id, content, position);
                     break;
+<<<<<<< HEAD
                 case ProjectileType.FreezewaveProjectile:
                     projectile = new FreezewaveProjectile(id, content, position);
-                    
+=======
                 case ProjectileType.BlimpBullet:
                     projectile = new BlimpBullet(id, content, position);
                     break;
-                    
+
                 case ProjectileType.Photon:
                     projectile = new Photon(id, content, position);
+>>>>>>> 5c93ea4c2d68a602cd9106d91859a4d189fbeb76
                     break;
 
                 default:

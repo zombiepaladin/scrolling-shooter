@@ -81,6 +81,8 @@ namespace ScrollingShooter
             // TODO: use this.Content to load your game content here
             Player = GameObjectManager.CreatePlayerShip(PlayerShipType.Shrike, new Vector2(300, 300));
             //Player.ApplyPowerup(PowerupType.Fireball);
+            
+            //player.ApplyPowerup(PowerupType.Fireball);
 
             LevelManager.LoadContent();
             LevelManager.LoadLevel("Airbase");
@@ -151,7 +153,13 @@ namespace ScrollingShooter
                         GameObjectManager.DestroyObject(colliderID);
                         GameObjectManager.CreateExplosion(colliderID);
                     }
-
+                    Enemy enemy2 = collider as Enemy;
+                    if (enemy2 != null && enemy2.GetType() == typeof(LavaFighter))
+                    {
+                        //Player take damage
+                        GameObjectManager.DestroyObject(colliderID);
+                        GameObjectManager.CreateExplosion(colliderID);
+                    }
                 }
 
 

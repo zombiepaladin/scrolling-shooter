@@ -123,8 +123,11 @@
     <Compile Include="Enemies\Enemy.cs" />
     <Compile Include="Enemies\GreenGoblin.cs" />
     <Compile Include="Enemies\LaserDrone.cs" />
+<<<<<<< HEAD
     <Compile Include="Enemies\LavaFighter.cs" />
+=======
     <Compile Include="Enemies\Panzer2.cs" />
+>>>>>>> 5c93ea4c2d68a602cd9106d91859a4d189fbeb76
     <Compile Include="Enemies\SuicideBomber.cs" />
     <Compile Include="Enemies\Seed.cs" />
     <Compile Include="Enemies\JTurret.cs" />

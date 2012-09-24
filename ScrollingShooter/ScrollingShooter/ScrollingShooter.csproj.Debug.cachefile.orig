@@ -46,12 +46,10 @@ Content\Spritesheets\tyrian.shp.007D3C.xnb
 Content\Spritesheets\tyrian.shp.010008.xnb
 Content\Spritesheets\tyrian.shp.01673F.xnb
 Content\Spritesheets\tyrian.shp.01D8A7.xnb
-Content\Spritesheets\newsh$.shp.000000.xnb
-Content\Spritesheets\newshf.shp.000000.xnb
-Content\Spritesheets\tyrian.shp.007D3C.xnb
-Content\Spritesheets\newsh6.shp.000000.xnb
+<<<<<<< HEAD
 Content\Spritesheets\EBullet.xnb
 Content\Spritesheets\eightballshield.xnb
+=======
 Content\Spritesheets\eightballshield.xnb
 Content\Spritesheets\EBullet.xnb
 Content\Spritesheets\accessories.xnb
@@ -67,3 +65,4 @@ Content\Spritesheets\accessories_0.xnb
 Content\Tilemaps\Airbase.xnb
 Content\Tilesets\shapesx_0.xnb
 Content\Tilesets\shapesy_0.xnb
+>>>>>>> 5c93ea4c2d68a602cd9106d91859a4d189fbeb76

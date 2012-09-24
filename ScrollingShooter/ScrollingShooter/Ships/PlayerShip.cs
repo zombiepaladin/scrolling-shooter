@@ -315,6 +315,13 @@ namespace ScrollingShooter
                 // Fire weapons
                 if (currentKeyboardState.IsKeyDown(Keys.Space))
                 {
+                    if ((PowerupType & PowerupType.Freezewave) > 0)
+                    {
+                        if (defaultGunTimer > .5f)
+                        {
+                            ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.FreezewaveProjectile, position);
+                        }
+                    }
                     // Streaming weapons
                     if ((PowerupType & PowerupType.BubbleBeam) > 0)
                     {

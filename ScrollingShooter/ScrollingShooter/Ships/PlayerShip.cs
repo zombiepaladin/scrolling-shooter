@@ -1,4 +1,4 @@
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
@@ -32,13 +32,18 @@ namespace ScrollingShooter
     /// </summary>
     public abstract class PlayerShip : GameObject
     {
+        public static short HomingMissileLevel = 0;
+
         // Timers
         /// <summary>
         /// Timer for the default gun
         /// </summary>
         public float defaultGunTimer = 5;
         float bombTimer = 1.5f;
-        
+
+        private float homingMissileFireRate = 3;
+        private float homingMissileTimer = 0;
+
         //Timer for how longs the blades have been active.
         float bladesPowerupTimer = 0;
 
@@ -51,11 +56,6 @@ namespace ScrollingShooter
         /// Timer to adjust refire rate of railgun
         /// </summary>
         float railgunTimer = 0;
-
-        /// <summary>
-        /// Timer for the shotgun
-        /// </summary>
-        float shotgunTimer = -0;
 
         /// <summary>
         /// Rectangle to draw the railgun when the powerup is enabled
@@ -150,6 +150,12 @@ namespace ScrollingShooter
                 return;
             }
 
+            //This will level us up if we hit another homing missile
+            if ((powerup & PowerupType.HomingMissiles) > 0)
+            {
+                HomingMissileLevel = (short)MathHelper.Min(HomingMissileLevel + 1, 3);
+            }
+
             // Store the new powerup in the PowerupType bitmask
             this.PowerupType |= powerup;
 
@@ -186,7 +192,7 @@ namespace ScrollingShooter
             energyBlastTimer -= elapsedTime;
             bombTimer += elapsedTime;
             railgunTimer += elapsedTime;
-            shotgunTimer += elapsedTime;
+            homingMissileTimer -= elapsedTime;
 
             if(!drunk)
             {
@@ -327,7 +333,7 @@ namespace ScrollingShooter
 
                     // Fires a shotgun shot if the shotgun powerup is active and half a second has passed since the last shot
                     if ((PowerupType & PowerupType.ShotgunPowerup) > 0 &&
-                             shotgunTimer > 0.5f)
+                             defaultGunTimer > 0.5f)
                     {
                         TriggerShotgun();
                         defaultGunTimer = 0;
@@ -338,6 +344,15 @@ namespace ScrollingShooter
                     {
                         ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.Bullet, position);
                         defaultGunTimer = 0f;
+                    }
+
+                    if((PowerupType & PowerupType.HomingMissiles) > 0)
+                    {
+                        if (homingMissileTimer <= 0)
+                        {
+                            homingMissileTimer = homingMissileFireRate;
+                            TriggerHomingMissile();
+                        }
                     }
 
 
@@ -590,6 +605,39 @@ namespace ScrollingShooter
 
             ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.EnergyBlast, position);
             //ScrollingShooterGame.Game.projectiles.Add(new EnergyBlast(ScrollingShooterGame.Game.Content, position, energyBlastLevel));
+        }
+
+        /// <summary>
+        /// Handles the firing of a homing missile
+        /// </summary>
+        void TriggerHomingMissile()
+        {
+            switch (HomingMissileLevel)
+            {
+                case 1:
+                    ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.HomingMissile, position);
+                    ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.HomingMissile, position);
+                    ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.HomingMissile, position);
+                    break;
+                case 2:
+                    ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.HomingMissile, position);
+                    ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.HomingMissile, position);
+                    ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.HomingMissile, position);
+                    ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.HomingMissile, position);
+                    ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.HomingMissile, position);
+                    break;
+                case 3:
+                    ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.HomingMissile, position);
+                    ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.HomingMissile, position);
+                    ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.HomingMissile, position);
+                    ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.HomingMissile, position);
+                    ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.HomingMissile, position);
+                    ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.HomingMissile, position);
+                    ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.HomingMissile, position);
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }

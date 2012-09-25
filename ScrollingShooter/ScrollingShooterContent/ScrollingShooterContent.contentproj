@@ -389,6 +389,13 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="debugFont.spritefont">
+      <Name>debugFont</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
     <Compile Include="Tilemaps\Airbase.tmx">
       <Name>Airbase</Name>
       <Importer>TmxImporter</Importer>

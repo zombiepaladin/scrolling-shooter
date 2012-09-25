@@ -127,7 +127,12 @@ namespace ScrollingShooter
                                 go.LayerDepth = CurrentMap.GameObjectGroups[i].LayerDepth;
                                 go.ScrollingSpeed = CurrentMap.GameObjectGroups[i].ScrollingSpeed;
                                 break;
-
+                            case "Boss":
+                                go = ScrollingShooterGame.GameObjectManager.CreateBoss((BossType)Enum.Parse(typeof(BossType), goData.Type), position);
+                                CurrentMap.GameObjectGroups[i].GameObjectData[j].ID = go.ID;
+                                go.LayerDepth = CurrentMap.GameObjectGroups[i].LayerDepth;
+                                go.ScrollingSpeed = CurrentMap.GameObjectGroups[i].ScrollingSpeed;
+                                break;
                         }
                     }
                 }

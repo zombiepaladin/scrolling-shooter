@@ -25,7 +25,7 @@ namespace ScrollingShooter
         BlimpState state;
         int maxHealth = 300;
         Vector2 velocity;
-        int screenWidth = ScrollingShooterGame.Game.GraphicsDevice.Viewport.Width;
+        int screenWidth = 768; //Hardcoded until I get a better way to get the width
         float gunTimer;
 
         /// <summary>

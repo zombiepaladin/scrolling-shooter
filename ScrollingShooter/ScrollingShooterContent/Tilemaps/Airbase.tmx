@@ -47,7 +47,7 @@
   <object name="Enemy" type="Turret" x="41" y="3596" width="28" height="21"/>
   <object name="Enemy" type="Dart" x="242" y="3444"/>
   <object name="Enemy" type="Kamikaze" x="263" y="2777"/>
-  <object name="Boss" type="Blimp" x="110" y="4162" width="129" height="197"/>
+  <object name="Boss" type="Blimp" x="131" y="146" width="129" height="197"/>
   <object name="Player Stop" x="8" y="56" width="373" height="31">
    <properties>
     <property name="PlayerEnd" value="End"/>

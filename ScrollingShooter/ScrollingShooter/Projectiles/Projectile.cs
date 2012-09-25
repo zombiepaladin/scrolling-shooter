@@ -49,6 +49,8 @@ namespace ScrollingShooter
         TwinJetMissile = 119,
         Laser = 120,
         BirdWrath = 121,
+        EnemyPsyBall = 163,
+        EnemyLightningZap = 164,
     }
 
     /// <summary>

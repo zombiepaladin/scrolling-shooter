@@ -122,7 +122,10 @@
     <Compile Include="Enemies\BigBad.cs" />
     <Compile Include="Enemies\AlienHead.cs" />
     <Compile Include="Enemies\AlienTurret.cs" />
+    <Compile Include="Bosses\BrainBoss.cs" />
     <Compile Include="Enemies\Bomber.cs" />
+    <Compile Include="Enemies\BrainBossPsiEmitter.cs" />
+    <Compile Include="Enemies\BrainBossProtection.cs" />
     <Compile Include="Enemies\Drill.cs" />
     <Compile Include="Enemies\Arrow.cs" />
     <Compile Include="Enemies\beamShip.cs" />
@@ -185,6 +188,8 @@
     <Compile Include="Projectiles\EnemyFlameball.cs" />
     <Compile Include="Projectiles\DroneLaser.cs" />
     <Compile Include="Projectiles\EnemyBullet.cs" />
+    <Compile Include="Projectiles\EnemyLightingZap.cs" />
+    <Compile Include="Projectiles\EnemyPsiBall.cs" />
     <Compile Include="Projectiles\EnergyBlast.cs" />
     <Compile Include="Projectiles\DroneWave.cs" />
     <Compile Include="Projectiles\EBullet.cs" />

@@ -43,6 +43,9 @@ namespace ScrollingShooter
         LeftClaw,
         TwinJet,
         Bird,
+        BrainBoss,
+        BrainBossPsyEmitter,
+        BrainBossProtection,
     }
 
     /// <summary>

@@ -33,17 +33,17 @@ namespace ScrollingShooter
         /// <summary>
         /// The time in seconds to recharge the laser.
         /// </summary>
-        private const float RECHARGE_TIME = 5;
+        private const float RECHARGE_TIME = 5f;
 
         /// <summary>
         /// The time in seconds the laser lasts.
         /// </summary>
-        private const float FIRE_TIME = 1.5f;
+        private const float FIRE_TIME = 2f;
 
         /// <summary>
         /// The top speed that the drone moves.
         /// </summary>
-        private const float MAX_MOVE_SPEED = 200;
+        private const float MAX_MOVE_SPEED = 175;
 
         // LaserDrone state variables
         Texture2D spritesheet;
@@ -194,13 +194,13 @@ namespace ScrollingShooter
             //Try to stay ~100 away from the Player in Y direction
             if (point.Y < position.Y + 150 && position.Y > 10)
                 position.Y -= currentSpeed * elapsedTime;
-            else if (point.Y > position.Y + 175)
+            else if (point.Y > Bounds.Center.Y + 200)
                 position.Y += currentSpeed * elapsedTime;
 
-            //Try to get infront of the Player
-            if (Math.Abs(point.X - Bounds.Center.X) > 10)
+            //Try to get infront of the player
+            if (Math.Abs(point.X - (position.X + 34)) > 10)
             {
-                if (point.X < Bounds.Center.X)
+                if (point.X < (position.X + 34))
                     position.X -= currentSpeed * elapsedTime;
                 else
                     position.X += currentSpeed * elapsedTime;

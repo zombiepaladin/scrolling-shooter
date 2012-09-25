@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Content.Pipeline;
@@ -40,20 +40,9 @@ namespace ScrollingShooterContentPipeline
         
         /// <summary>
         /// A list of paths to all images used by this tilemap.
-        /// This list is processed by the Tilemap Processor, and
-        /// the resulting images loaded into the Texture list
         /// </summary>
-        [ContentSerializerIgnore]
-        public List<string> ImagePaths = new List<string>();
-
-        /// <summary>
-        /// The textures used by this tilemap.  These are represented
-        /// by ExternalReferences, which are loaded from separate xnb 
-        /// files; this ensures different tilemaps won't store duplicate 
-        /// image data.
-        /// </summary>
-        public List<ExternalReference<Texture2DContent>> Textures = new List<ExternalReference<Texture2DContent>>();
-
+        public string[] ImagePaths;
+        
         /// <summary>
         /// The total number of unique tiles used in our tilemap
         /// </summary>
@@ -84,8 +73,14 @@ namespace ScrollingShooterContentPipeline
         /// </summary>
         public GameObjectGroupContent[] GameObjectGroups;
 
+        /// <summary>
+        /// The player's starting position
+        /// </summary>
         public Vector2 PlayerStart;
 
+        /// <summary>
+        /// The layer in which the player exists
+        /// </summary>
         public int PlayerLayer;
 
         /// <summary>

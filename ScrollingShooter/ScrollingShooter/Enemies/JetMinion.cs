@@ -1,4 +1,4 @@
-﻿//Jet Minion Enemy Class:
+//Jet Minion Enemy Class:
 //Coders: Nicholas Boen
 //Date: 9/8/2012
 //Time: 11:09 A.M.
@@ -36,7 +36,8 @@ enum GunState
 {
     LEFT = 0,
     REST = 1,
-    RIGHT = 2
+    RIGHT = 2,
+    DESTROYED = 3,
 }
 namespace ScrollingShooter
 {

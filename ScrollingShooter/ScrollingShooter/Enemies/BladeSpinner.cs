@@ -1,4 +1,4 @@
-﻿//BladeSpinner.cs by Matthew Hart
+//BladeSpinner.cs by Matthew Hart
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;

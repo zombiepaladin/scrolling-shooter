@@ -36,9 +36,15 @@ namespace ScrollingShooterWindowsLibrary
         public int TileHeight;
 
         /// <summary>
+        /// The texture names used in this tilemap
+        /// </summary>
+        public string[] ImagePaths;
+
+        /// <summary>
         /// The tileset textures used in this tilemap
         /// </summary>
-        public List<Texture2D> Textures;
+        [ContentSerializerIgnore]
+        public Texture2D[] Textures;
 
         /// <summary>
         /// The total number of tiles in our tileset
@@ -70,58 +76,29 @@ namespace ScrollingShooterWindowsLibrary
         /// </summary>
         public GameObjectGroup[] GameObjectGroups;
 
+        /// <summary>
+        /// The starting position of the player
+        /// </summary>
         public Vector2 PlayerStart;
 
+        /// <summary>
+        /// The layer in which the player exists
+        /// </summary>
         public int PlayerLayer;
 
-        /// <summary>
-        /// Indicates if the tilemap is currently scrolling
-        /// </summary>
-        [ContentSerializerIgnore]
-        public bool Scrolling = false;
-
 
         /// <summary>
-        /// Updates the tilemap, applying scrolling 
+        /// Loads the dependent content for the tilemap
         /// </summary>
-        /// <param name="elapsedTime"></param>
-        public void Update(float elapsedTime)
+        /// <param name="contentManager">The content manager to load the textures with</param>
+        public void LoadContent(ContentManager contentManager)
         {
-            if (Scrolling)
+            Textures = new Texture2D[ImagePaths.Length];
+
+            for (int i = 0; i < ImagePaths.Length; i++)
             {
-                for (int i = 0; i < LayerCount; i++)
-                {
-                    Layers[i].ScrollOffset += Layers[i].ScrollingSpeed * elapsedTime;
-                }
+                Textures[i] = contentManager.Load<Texture2D>(ImagePaths[i]);
             }
         }
-
-
-        /// <summary>
-        /// Draws the tilemap.  This implementation draws all 
-        /// tiles.
-        /// </summary>
-        /// <param name="elapsedTime"></param>
-        /// <param name="spriteBatch"></param>
-        public void Draw(float elapsedTime, SpriteBatch spriteBatch) 
-        {
-            for (int i = 0; i < LayerCount; i++)
-            {
-                for (int x = 0; x < Width; x++)
-                {
-                    for (int y = 0; y < Height; y++)
-                    {
-                        int index = x + y * Width;
-                        TileData tileData = Layers[i].TileData[index];
-                        if (tileData.TileID != 0)
-                        {
-                            Tile tile = Tiles[tileData.TileID - 1];
-                            spriteBatch.Draw(Textures[tile.TextureID], new Rectangle(x * TileWidth, y * TileHeight + (int)(0*Layers[i].ScrollOffset), TileWidth, TileHeight), tile.Source, Color.White, 0f, new Vector2(TileWidth / 2, TileHeight / 2), tileData.SpriteEffects, Layers[i].LayerDepth);
-                        }
-                    }
-                }
-            }
-        }
-
     }
 }

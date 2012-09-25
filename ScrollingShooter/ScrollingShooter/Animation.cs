@@ -1,4 +1,4 @@
-﻿//Animation Class:
+//Animation Class:
 //Coders: Nicholas Boen
 //Date: 9/9/2012
 //Time: 3:22 P.M.

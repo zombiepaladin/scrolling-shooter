@@ -16,13 +16,13 @@ namespace ScrollingShooter
         ContentManager content;
 
         uint objectCount = 0;
-        
+
         Dictionary<uint, GameObject> gameObjects;
-        
+
         Queue<GameObject> createdGameObjects;
         Queue<GameObject> destroyedGameObjects;
 
-        Dictionary<uint,BoundingBox> boundingBoxes;
+        Dictionary<uint, BoundingBox> boundingBoxes;
 
         List<Bound> horizontalAxis;
         List<Bound> verticalAxis;
@@ -33,7 +33,6 @@ namespace ScrollingShooter
 
         //control the lavabug boss
         bool lavaFlip;
-
 
         /// <summary>
         /// Constructs a new GameObjectManager instance
@@ -79,8 +78,8 @@ namespace ScrollingShooter
             {
                 GameObject go = destroyedGameObjects.Dequeue();
                 RemoveGameObject(go);
-            } 
-            
+            }
+
             // Update our game objects
             //foreach (GameObject go in gameObjects.Values)
             //{
@@ -222,6 +221,35 @@ namespace ScrollingShooter
             createdGameObjects.Enqueue(go);
         }
 
+        public Boss CreateBoss(BossType enemyType, Vector2 position)
+        {
+            Boss boss;
+            uint id = NextID();
+            switch (enemyType)
+            {
+                case BossType.Blimp:
+                    boss = new Blimp(id, position, content);
+                    QueueGameObjectForCreation(new LeftGun(NextID(), content, boss as Blimp));
+                    QueueGameObjectForCreation(new RightGun(NextID(), content, boss as Blimp));
+                    break;
+
+                case BossType.TwinJetManager:
+                    boss = new TwinJetManager(id, content, position);
+                    break;
+                
+                default:
+                    throw new NotImplementedException("The boss type " + Enum.GetName(typeof(BossType), enemyType) + " is not supported");
+            }
+            QueueGameObjectForCreation(boss);
+            return boss;
+        }
+
+
+        /// <summary>
+        /// Factory method for creating an explosion
+        /// </summary>
+        /// <param name="colliderID">The source of the explosion</param>
+        /// <returns>The newly-spawned explosion</returns>
         public Explosion CreateExplosion(uint colliderID)
         {
             Explosion ex;
@@ -272,6 +300,9 @@ namespace ScrollingShooter
             {
                 case PowerupType.Fireball:
                     powerup = new FireballPowerup(id, content, position);
+                    break;
+                case PowerupType.Frostball:
+                    powerup = new FrostballPowerup(id, content, position);
                     break;
                 case PowerupType.BubbleBeam:
                     powerup = new BubbleBeamPowerup(id, content, position);
@@ -333,7 +364,6 @@ namespace ScrollingShooter
             return powerup;
         }
 
-
         /// <summary>
         /// Factory method for spawning a projectile
         /// </summary>
@@ -354,12 +384,15 @@ namespace ScrollingShooter
                 case ProjectileType.Fireball:
                     projectile = new Fireball(id, content, position);
                     break;
+
                 case ProjectileType.BubbleBullet:
                     projectile = new BubbleBullet(id, content, position);
                     break;
+
                 case ProjectileType.Bomb:
                     projectile = new Bomb(id, content, position, true);
                     break;
+
                 case ProjectileType.Blades:
                     projectile = new Blades(id, content);
                     break;
@@ -371,7 +404,7 @@ namespace ScrollingShooter
                 case ProjectileType.ToPlayerBullet:
                     projectile = new ToPlayerBullet(id, content, position);
                     break;
-                
+
                 case ProjectileType.ArrowProjectile:
                     projectile = new ArrowProjectile(id, content, position);
                     break;
@@ -391,7 +424,7 @@ namespace ScrollingShooter
                     projectile = new blueBeam(id, content, position);
                     break;
 
-                    //This method doesn't fit the trishield very well, so this code is a bit poor in quality.
+                //This method doesn't fit the trishield very well, so this code is a bit poor in quality.
                 case ProjectileType.TrishieldBall:
                     for (int i = 0; i < 2; i++)
                     {
@@ -406,11 +439,11 @@ namespace ScrollingShooter
                     projectile = new GenericEnemyBullet(id, content, position);
                     break;
 
-                case ProjectileType.DroneWave:                    
+                case ProjectileType.DroneWave:
                     // waveIndex helps draw the wave to the left and right of the ship, while waveSpacing holds the vector difference of space between each drone.
                     // Drone count is managed by 2*i.
                     Vector2 waveIndex = new Vector2(-1, 1);
-                    Vector2 waveSpacing = new Vector2(40,30);
+                    Vector2 waveSpacing = new Vector2(40, 30);
                     for (int i = 0; i < 5; i++)
                     {
                         projectile = new DroneWave(id, content, position + waveSpacing * waveIndex * i);
@@ -420,12 +453,12 @@ namespace ScrollingShooter
                         QueueGameObjectForCreation(projectile);
                         id = NextID();
                     }
-                    
+
                     projectile = new DroneWave(id, content, position + waveSpacing * waveIndex * 6);
                     QueueGameObjectForCreation(projectile);
                     id = NextID();
                     projectile = new DroneWave(id, content, position + waveSpacing * 6);
-                    
+
                     break;
                 case ProjectileType.TurretFireball:
                     projectile = new TurretFireball(id, content, position);
@@ -464,6 +497,14 @@ namespace ScrollingShooter
                     QueueGameObjectForCreation(new ShotgunBullet(NextID(), content, position, BulletDirection.HardRight));
                     break;
 
+                case ProjectileType.BlimpShotgun:
+                    projectile = new BlimpShotgun(id, content, position, BulletDirection.Straight);
+                    QueueGameObjectForCreation(new BlimpShotgun(NextID(), content, position, BulletDirection.Left));
+                    QueueGameObjectForCreation(new BlimpShotgun(NextID(), content, position, BulletDirection.Right));
+                    QueueGameObjectForCreation(new BlimpShotgun(NextID(), content, position, BulletDirection.HardLeft));
+                    QueueGameObjectForCreation(new BlimpShotgun(NextID(), content, position, BulletDirection.HardRight));
+                    break;
+
                 case ProjectileType.Meteor:
                     projectile = new Meteor(id, content, position);
                     break;
@@ -480,10 +521,37 @@ namespace ScrollingShooter
                     projectile = new RGSabot(id, content, position);
                     break;
 
+                case ProjectileType.BlimpBullet:
+                    projectile = new BlimpBullet(id, content, position);
+                    break;
+
                 case ProjectileType.Photon:
                     projectile = new Photon(id, content, position);
                     break;
 
+                case ProjectileType.Pincher:
+                    projectile = new Pincher(id, content, position);
+                    break;
+
+                case ProjectileType.GreenOrb:
+                    projectile = new GreenOrb(id, content, position);
+                    break;
+
+                case ProjectileType.AlienTurretOrb:
+                    projectile = new AlienTurretOrb(id, content, position);
+                    break;
+
+                case ProjectileType.TwinJetBullet:
+                    projectile = new Boss_TwinJetBullet(id, content, position);
+                    break;
+
+                case ProjectileType.TwinJetMissile:
+                    projectile = new Boss_TwinJetMissile(id, content, position);
+                    break;
+
+                case ProjectileType.HomingMissile:
+                    projectile = new HomingMissileProjectile(content, position, 1, id);
+                    break;
                 default:
                     throw new NotImplementedException("The projectile type " + Enum.GetName(typeof(ProjectileType), projectileType) + " is not supported");
             }
@@ -539,47 +607,58 @@ namespace ScrollingShooter
                     enemy = new GreenGoblin(id, content, position);
                     break;
 
-
                 case EnemyType.LaserDrone:
                     enemy = new LaserDrone(id, content, position);
                     break;
+
                 case EnemyType.Cobalt:
                     enemy = new Cobalt(id, content, position);
                     break;
+
                 case EnemyType.JetMinion:
                     enemy = new JetMinion(id, content, position);
                     break;
+
                 case EnemyType.Seed:
                     enemy = new Seed(id, content, position);
                     break;
+
                 case EnemyType.Bomber:
                     enemy = new Bomber(id, content, position);
                     break;
+
                 case EnemyType.Arrow:
                     enemy = new Arrow(id, content, position);
                     break;
+
                 case EnemyType.StdBaddy:
                     enemy = new StdBaddy(id, content, position);
                     break;
 
-                case EnemyType.beamShip:
-                    enemy = new beamShip(id, content, position);
+                case EnemyType.BeamShip:
+                    enemy = new BeamShip(id, content, position);
                     break;
+
                 case EnemyType.Kamikaze:
                     enemy = new Kamikaze(id, content, position);
                     break;
+
                 case EnemyType.Panzer:
                     enemy = new Panzer(id, content, position);
                     break;
+
                 case EnemyType.Panzer2:
                     enemy = new Panzer2(id, content, position);
                     break;
+
                 case EnemyType.Lavabug:
                     enemy = new Lavabug(id, content, position);
                     break;
+
                 case EnemyType.Lavabug2:
                     enemy = new Lavabug2(id, content, position);
                     break;
+
                 case EnemyType.Mandible:
                     enemy = new Mandible(id, content, position, lavaFlip);
                     lavaFlip = !lavaFlip;
@@ -600,7 +679,7 @@ namespace ScrollingShooter
                 case EnemyType.DeerTickRight:
                     enemy = new DeerTick(id, content, position, DeerTickDirection.Right);
                     break;
-                
+
                 case EnemyType.Turret:
                     enemy = new Turret(id, content, position);
                     break;
@@ -621,8 +700,23 @@ namespace ScrollingShooter
                     enemy = new SuicideBomber(id, content, position);
                     break;
 
+                case EnemyType.TwinJet:
+                    enemy = new TwinJet(id, content, position);
+                    break;
                 case EnemyType.Asteriod:
                     enemy = new Asteriod(id, content, position, (int)args[0]);
+                    break;
+
+                case EnemyType.AlienTurret:
+                    enemy = new AlienTurret(id, content, position);
+                    break;
+
+                case EnemyType.RightClaw:
+                    enemy = new RightClaw(id, content, position);
+                    break;
+
+                case EnemyType.LeftClaw:
+                    enemy = new LeftClaw(id, content, position);
                     break;
 
                 default:
@@ -657,14 +751,14 @@ namespace ScrollingShooter
                 while ((j >= 0) && horizontalAxis[j].CompareTo(bound) > 0)
                 {
                     // What are we passing, and what are we passing it with?
-                    if(horizontalAxis[j].Type == BoundType.Min && bound.Type == BoundType.Max)
+                    if (horizontalAxis[j].Type == BoundType.Min && bound.Type == BoundType.Max)
                     {
                         // when a Max bound passes a min, we remove it from 
                         // the collision set
                         collisions.Remove(new CollisionPair(horizontalAxis[j].Box.GameObjectID, bound.Box.GameObjectID));
                         horizontalOverlaps.Remove(new CollisionPair(horizontalAxis[j].Box.GameObjectID, bound.Box.GameObjectID));
-                    } 
-                    else if(horizontalAxis[j].Type == BoundType.Max && bound.Type == BoundType.Min)  
+                    }
+                    else if (horizontalAxis[j].Type == BoundType.Max && bound.Type == BoundType.Min)
                     {
                         // when a Min bound passes a Max, we add it to the 
                         // potential collision set
@@ -712,12 +806,12 @@ namespace ScrollingShooter
             // Check the potential overlaps for intersection
             foreach (CollisionPair pair in verticalOverlaps)
             {
-                    GameObject A = GetObject(pair.A);
-                    GameObject B = GetObject(pair.B);
-                    if (A.Bounds.Intersects(B.Bounds))
-                    {
-                        collisions.Add(pair);
-                    }
+                GameObject A = GetObject(pair.A);
+                GameObject B = GetObject(pair.B);
+                if (A.Bounds.Intersects(B.Bounds))
+                {
+                    collisions.Add(pair);
+                }
             }
         }
 
@@ -756,7 +850,7 @@ namespace ScrollingShooter
             return index;
         }
 
-        
+
         /// <summary>
         /// Helper method that adds a GameObject to the GameObjectManager
         /// </summary>

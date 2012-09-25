@@ -117,7 +117,7 @@ namespace ScrollingShooterContentPipeline
             }
 
             // Transfer our lists into the TilemapContent for later processing
-            output.ImagePaths = ImagePaths;
+            output.ImagePaths = ImagePaths.ToArray();
             output.TileCount = Tiles.Count;
             output.Tiles = Tiles.ToArray();
             output.LayerCount = layers.Count;
@@ -432,6 +432,10 @@ namespace ScrollingShooterContentPipeline
                             {
                                 st.Read();
                                 output.Properties = LoadProperties(st);
+                                if (output.Properties.ContainsKey("ScrollingSpeed"))
+                                    output.ScrollingSpeed = float.Parse(output.Properties["ScrollingSpeed"]);
+                                if (output.Properties.ContainsKey("ScrollOffset"))
+                                    output.ScrollOffset = float.Parse(output.Properties["ScrollOffset"]);
                             }
                             break;
                     }

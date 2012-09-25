@@ -30,6 +30,7 @@ namespace ScrollingShooter
         public static LevelManager LevelManager;
         
         public PlayerShip Player;
+        Song song;
 
         public ScrollingShooterGame()
         {
@@ -80,6 +81,7 @@ namespace ScrollingShooter
 
             // TODO: use this.Content to load your game content here
             Player = GameObjectManager.CreatePlayerShip(PlayerShipType.Shrike, new Vector2(300, 300));
+            //GameObjectManager.CreateEnemy(EnemyType.AlienHead, new Vector2(600, 50));
 
             LevelManager.LoadContent();
 
@@ -122,7 +124,7 @@ namespace ScrollingShooter
                 {
                     uint colliderID = (pair.A == Player.ID) ? pair.B : pair.A;
                     GameObject collider = GameObjectManager.GetObject(colliderID);
-                    
+
                     // Process powerup collisions
                     Powerup powerup = collider as Powerup;
                     if (powerup != null)
@@ -157,8 +159,9 @@ namespace ScrollingShooter
         {
             // Set the viewport to the entire screen
             GraphicsDevice.Viewport = gameViewport;
+            GraphicsDevice.Clear(Color.Black);
             GraphicsDevice.Clear(Color.CornflowerBlue);
-
+           
             // TODO: Add your drawing code here
             float elapsedGameTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
             
@@ -168,7 +171,7 @@ namespace ScrollingShooter
 
             spriteBatch.Begin();
 
-//            tilemap.Draw(elapsedGameTime, spriteBatch);
+//           tilemap.Draw(elapsedGameTime, spriteBatch);
 
             //GameObjectManager.Draw(elapsedGameTime, spriteBatch);
 

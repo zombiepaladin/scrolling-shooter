@@ -47,6 +47,7 @@ namespace ScrollingShooter
         AlienTurretOrb = 117,
         TwinJetBullet = 118,
         TwinJetMissile = 119,
+        Laser = 120,
     }
 
     /// <summary>

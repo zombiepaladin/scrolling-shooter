@@ -78,8 +78,8 @@ namespace ScrollingShooter
             {
                 GameObject go = destroyedGameObjects.Dequeue();
                 RemoveGameObject(go);
-            }
-
+            } 
+            
             // Update our game objects
             //foreach (GameObject go in gameObjects.Values)
             //{
@@ -364,6 +364,7 @@ namespace ScrollingShooter
             return powerup;
         }
 
+
         /// <summary>
         /// Factory method for spawning a projectile
         /// </summary>
@@ -372,7 +373,7 @@ namespace ScrollingShooter
         /// <returns>The game object id of the projectile</returns>
         public Projectile CreateProjectile(ProjectileType projectileType, Vector2 position)
         {
-            Projectile projectile;
+            Projectile projectile = null;
             uint id = NextID();
 
             switch (projectileType)
@@ -384,11 +385,11 @@ namespace ScrollingShooter
                 case ProjectileType.Fireball:
                     projectile = new Fireball(id, content, position);
                     break;
-
+                
                 case ProjectileType.BubbleBullet:
                     projectile = new BubbleBullet(id, content, position);
                     break;
-
+                
                 case ProjectileType.Bomb:
                     projectile = new Bomb(id, content, position, true);
                     break;
@@ -439,11 +440,11 @@ namespace ScrollingShooter
                     projectile = new GenericEnemyBullet(id, content, position);
                     break;
 
-                case ProjectileType.DroneWave:
+                case ProjectileType.DroneWave:                    
                     // waveIndex helps draw the wave to the left and right of the ship, while waveSpacing holds the vector difference of space between each drone.
                     // Drone count is managed by 2*i.
                     Vector2 waveIndex = new Vector2(-1, 1);
-                    Vector2 waveSpacing = new Vector2(40, 30);
+                    Vector2 waveSpacing = new Vector2(40,30);
                     for (int i = 0; i < 5; i++)
                     {
                         projectile = new DroneWave(id, content, position + waveSpacing * waveIndex * i);
@@ -453,13 +454,8 @@ namespace ScrollingShooter
                         QueueGameObjectForCreation(projectile);
                         id = NextID();
                     }
-
-                    projectile = new DroneWave(id, content, position + waveSpacing * waveIndex * 6);
-                    QueueGameObjectForCreation(projectile);
-                    id = NextID();
-                    projectile = new DroneWave(id, content, position + waveSpacing * 6);
-
                     break;
+
                 case ProjectileType.TurretFireball:
                     projectile = new TurretFireball(id, content, position);
                     break;
@@ -552,11 +548,12 @@ namespace ScrollingShooter
                 case ProjectileType.HomingMissile:
                     projectile = new HomingMissileProjectile(content, position, 1, id);
                     break;
+
                 default:
                     throw new NotImplementedException("The projectile type " + Enum.GetName(typeof(ProjectileType), projectileType) + " is not supported");
             }
 
-            QueueGameObjectForCreation(projectile);
+            if(projectile != null)  QueueGameObjectForCreation(projectile);
             return projectile;
         }
 
@@ -847,7 +844,7 @@ namespace ScrollingShooter
             return index;
         }
 
-
+        
         /// <summary>
         /// Helper method that adds a GameObject to the GameObjectManager
         /// </summary>

@@ -86,26 +86,7 @@ namespace ScrollingShooter
             //GameObjectManager.CreateEnemy(EnemyType.AlienHead, new Vector2(600, 50));
 
             LevelManager.LoadContent();
-<<<<<<< HEAD
-            LevelManager.LoadLevel("Airbase");
-=======
-            LevelManager.LoadLevel("lavaLevel2");
-            song = Content.Load<Song>("Sounds\BGM\Hard as Nails 11-13-28.mp3");
-            MediaPlayer.Play(song);
-            MediaPlayer.IsRepeating = true;
-            //test out new panzer personality
-            int p1 = 100;
-            int p2 = 200;
-            for (int i = 0; i < 6; i++)
-            {
-                GameObjectManager.CreateEnemy(EnemyType.Panzer, new Vector2(p1, 100));
-                GameObjectManager.CreateEnemy(EnemyType.Panzer2, new Vector2(p2, 100));
-                p1 += 100;
-                p2 += 100;
-            }
-            //test out lavabug
-            GameObjectManager.CreateEnemy(EnemyType.Lavabug, new Vector2(100, 75));
->>>>>>> 5b8d5b7efc575f0f21423af7922b325012dd14ac
+            LevelManager.LoadLevel("AlienBaseSafe");
         }
 
         /// <summary>
@@ -179,23 +160,13 @@ namespace ScrollingShooter
             // Set the viewport to the entire screen
             GraphicsDevice.Viewport = gameViewport;
             GraphicsDevice.Clear(Color.Black);
-            GraphicsDevice.Clear(Color.CornflowerBlue);
-           
+
             // TODO: Add your drawing code here
             float elapsedGameTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
             
             // Render the game world
             GraphicsDevice.Viewport = worldViewport;
             LevelManager.Draw(elapsedGameTime);
-
-            spriteBatch.Begin();
-
-//           tilemap.Draw(elapsedGameTime, spriteBatch);
-
-            //GameObjectManager.Draw(elapsedGameTime, spriteBatch);
-
-
-            spriteBatch.End();
 
             // Render the gui
             GraphicsDevice.Viewport = guiViewport;

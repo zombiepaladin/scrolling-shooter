@@ -1,4 +1,4 @@
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
@@ -131,7 +131,6 @@ namespace ScrollingShooter
         /// <summary>
         /// Creates a new Player ship instance
         /// </summary>
-
         /// <param name="id">the unique id of the Player ship</param>
         public PlayerShip(uint id) : base(id) { }
 
@@ -195,14 +194,14 @@ namespace ScrollingShooter
             railgunTimer += elapsedTime;
             homingMissileTimer -= elapsedTime;
 
-            if (!drunk)
+            if(!drunk)
             {
                 // Steer the ship up or down according to user input
-                if (currentKeyboardState.IsKeyDown(Keys.Up))
+                if(currentKeyboardState.IsKeyDown(Keys.Up))
                 {
                     position.Y -= elapsedTime * velocity.Y;
-                }
-                else if (currentKeyboardState.IsKeyDown(Keys.Down))
+                } 
+                else if(currentKeyboardState.IsKeyDown(Keys.Down))
                 {
                     position.Y += elapsedTime * velocity.Y;
                 }
@@ -353,7 +352,6 @@ namespace ScrollingShooter
                         }
                     }
 
-
                     //Conditionals to fire railgun.
                     if ((PowerupType & PowerupType.Railgun) > 0)
                     {
@@ -390,6 +388,7 @@ namespace ScrollingShooter
                     {
                         TriggerBirdcrap();
                     }
+
                     if ((PowerupType & PowerupType.Bomb) > 0)
                         TriggerBomb();
                 }
@@ -432,7 +431,7 @@ namespace ScrollingShooter
         /// </summary>
         void TriggerRailgun()
         {
-            ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.RGSabot,
+            ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.RGSabot, 
                 new Vector2(position.X + (Bounds.Width / 2) - 4, position.Y));
             //Simuated recoil
             position.Y += 10;
@@ -459,8 +458,8 @@ namespace ScrollingShooter
 
                 ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.Meteor, position);
 
-            }
-            //Add a few large meteors
+			}
+			//Add a few large meteors
             for (int i = 0; i < 10; i++)
             {
                 position.X = 50 + rand.Next(800);
@@ -506,6 +505,7 @@ namespace ScrollingShooter
         {
             // TODO: Fire Bomb
         }
+
         /// <summary>
         /// A helper that fires birdcrap from the ship. Coraspondes to the birdcrap power up.
         /// </summary>

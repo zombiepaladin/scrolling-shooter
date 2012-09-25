@@ -30,7 +30,7 @@ namespace ScrollingShooter
         Texture2D spritesheet;
         Vector2 position;
         Rectangle[] spriteBounds = new Rectangle[8];
-        PanzerAimState aimState;
+        PanzerAimState aimState = PanzerAimState.South;
         float defaultGunTimer = 0;
 
         /// <summary>

@@ -389,6 +389,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+<<<<<<< HEAD
     <Compile Include="SpriteFonts\Pescadero.spritefont">
       <Name>Pescadero</Name>
       <Importer>FontDescriptionImporter</Importer>
@@ -406,6 +407,8 @@
       <Importer>TmxImporter</Importer>
       <Processor>TilemapProcessor</Processor>
     </Compile>
+=======
+>>>>>>> 5b8d5b7efc575f0f21423af7922b325012dd14ac
     <Compile Include="Sound\BGM\Hard as Nails 11-13-28.mp3">
       <Name>Hard as Nails 11-13-28</Name>
       <Importer>Mp3Importer</Importer>
@@ -422,6 +425,7 @@
   <ItemGroup>
     <Folder Include="Sound\SFX\" />
   </ItemGroup>
+<<<<<<< HEAD
   <ItemGroup>
     <Compile Include="Tilemaps\Level_1_Tilemap_2.tmx">
       <Name>Level_1_Tilemap_2</Name>
@@ -434,6 +438,8 @@
       <Processor>TilemapProcessor</Processor>
     </Compile>
   </ItemGroup>
+=======
+>>>>>>> 5b8d5b7efc575f0f21423af7922b325012dd14ac
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />
   <!--  To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -118,12 +118,18 @@
     <Compile Include="Bosses\Lavabug.cs" />
     <Compile Include="Bosses\Lavabug2.cs" />
     <Compile Include="Bosses\Mandible.cs" />
+<<<<<<< HEAD
     <Compile Include="Bosses\GiantAlien.cs" />
     <Compile Include="Bosses\MBCloseC.cs" />
     <Compile Include="Bosses\MoonBoss.cs" />
     <Compile Include="Enemies\BigBad.cs" />
     <Compile Include="Enemies\AlienHead.cs" />
     <Compile Include="Enemies\AlienTurret.cs" />
+=======
+    <Compile Include="Bosses\MBCloseC.cs" />
+    <Compile Include="Bosses\MoonBoss.cs" />
+    <Compile Include="Enemies\BigBad.cs" />
+>>>>>>> 5b8d5b7efc575f0f21423af7922b325012dd14ac
     <Compile Include="Enemies\Bomber.cs" />
     <Compile Include="Enemies\Drill.cs" />
     <Compile Include="Enemies\Arrow.cs" />

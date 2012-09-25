@@ -83,7 +83,11 @@ namespace ScrollingShooter
             }
             else if (rc1 >= 3f)
             {
+<<<<<<< HEAD
                 //ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.Laser, Vector2.Zero);
+=======
+                ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.Laser, Vector2.Zero);
+>>>>>>> 5b8d5b7efc575f0f21423af7922b325012dd14ac
                 dgt1 += elapsedTime;
             }
             else if(rc1 < 3f)
@@ -96,7 +100,11 @@ namespace ScrollingShooter
             }
             else if( rc2 >= 3f)
             {
+<<<<<<< HEAD
                 //ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.Laser, Vector2.Zero);
+=======
+                ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.Laser, Vector2.Zero);
+>>>>>>> 5b8d5b7efc575f0f21423af7922b325012dd14ac
                 dgt2 += elapsedTime;
             }
             else if (rc2 < 3f)

@@ -133,10 +133,9 @@ namespace ScrollingShooter
                         GameObjectManager.DestroyObject(colliderID);
                     }
 
-                    //NOTE: Apply to more than the kamikaze enemy?
-                    // Process kamakaze collisions
+                    // Process Kamikaze and SuicideBomber collision
                     Enemy enemy = collider as Enemy;
-                    if (enemy != null && enemy.GetType() == typeof(Kamikaze))
+                    if (enemy != null && ( enemy.GetType() == typeof(Kamikaze) || enemy.GetType() == typeof( SuicideBomber ) ) )
                     {
                         //Player take damage
                         GameObjectManager.DestroyObject(colliderID);

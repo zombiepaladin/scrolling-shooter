@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -364,7 +364,6 @@ namespace ScrollingShooter
             return powerup;
         }
 
-
         /// <summary>
         /// Factory method for spawning a projectile
         /// </summary>
@@ -545,16 +544,16 @@ namespace ScrollingShooter
                     projectile = new AlienTurretOrb(id, content, position);
                     break;
 
-                case ProjectileType.TwinJetBullet:
-                    projectile = new Boss_TwinJetBullet(id, content, position);
-                    break;
-
                 case ProjectileType.TwinJetMissile:
                     projectile = new Boss_TwinJetMissile(id, content, position);
                     break;
 
+                case ProjectileType.TwinJetBullet:
+                    projectile = new Boss_TwinJetBullet(id, content, position);
+                    break;
+
                 case ProjectileType.HomingMissile:
-                    projectile = new HomingMissileProjectile(content, position, 1, id);
+                    projectile = new HomingMissileProjectile(content, position, id);
                     break;
 
                 case ProjectileType.EnemyPsyBall:

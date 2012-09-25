@@ -91,5 +91,6 @@
   <object name="Enemy" type="SuicideBomber" x="221" y="959" width="21" height="20"/>
   <object name="StartPlayer" type="StartPlayer" x="193" y="4201" width="21" height="20"/>
   <object name="EndPlayer" type="EndPlayer" x="184" y="57" width="21" height="20"/>
+   <object name="Boss" type="TwinJetManager" x="131" y="146" width="129" height="197"/>
  </objectgroup>
 </map>

@@ -86,9 +86,7 @@ namespace ScrollingShooter
             //Player.ApplyPowerup(PowerupType.Fireball);
 
             LevelManager.LoadContent();
-            LevelManager.LoadLevel("crystalland");            
-
-            GameObjectManager.CreateEnemy(EnemyType.BrainBoss, new Vector2(Game.GraphicsDevice.Viewport.Width / 2 - 39, 0));
+            LevelManager.LoadLevel("Level_1_Tilemap_2");
         }
 
         /// <summary>

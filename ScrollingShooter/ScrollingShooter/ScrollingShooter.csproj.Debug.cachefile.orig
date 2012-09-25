@@ -46,30 +46,23 @@ Content\Spritesheets\tyrian.shp.007D3C.xnb
 Content\Spritesheets\tyrian.shp.010008.xnb
 Content\Spritesheets\tyrian.shp.01673F.xnb
 Content\Spritesheets\tyrian.shp.01D8A7.xnb
-Content\Spritesheets\newsh$.shp.000000.xnb
-Content\Spritesheets\newshf.shp.000000.xnb
-Content\Spritesheets\tyrian.shp.007D3C.xnb
-Content\Spritesheets\newsh6.shp.000000.xnb
+<<<<<<< HEAD
 Content\Spritesheets\EBullet.xnb
 Content\Spritesheets\eightballshield.xnb
+=======
 Content\Spritesheets\eightballshield.xnb
 Content\Spritesheets\EBullet.xnb
 Content\Spritesheets\accessories.xnb
 Content\Spritesheets\vulcano.xnb
-Content\Spritesheets\MoonBoss.xnb
 Content\Tilemaps\example.xnb
 Content\Tilemaps\lavaLevel2.xnb
+Content\Tilesets\shapes)_0.xnb
+Content\Tilesets\shapesz_0.xnb
+Content\Spritesheets\newshd.shp.000000_0.xnb
+Content\Spritesheets\newshr.shp.000000_0.xnb
+Content\Spritesheets\newshe.shp.000000_0.xnb
+Content\Spritesheets\accessories_0.xnb
 Content\Tilemaps\Airbase.xnb
-Content\Tilemaps\Level_1_Tilemap_2.xnb
-Content\Tilemaps\example2.xnb
-Content\Tilemaps\AlienBaseSafe.xnb
-Content\SpriteFonts\Pescadero.xnb
-Content\debugFont.xnb
-Content\Sound\BGM\Hard as Nails 11-13-28.xnb
-Content\Tilesets\bossFloorTexture.xnb
-Content\Tilesets\shapeszFinalLvlMod.xnb
-Content\Tilesets\shapesFinalLvlMod.xnb
-Content\Tilesets\shapeswmodified.xnb
-Content\Spritesheets\newsh0.shp.000001.xnb
-Content\Tilemaps\crystalland.xnb
-Content\Sound\BGM\Hard as Nails 11-13-28.wma
+Content\Tilesets\shapesx_0.xnb
+Content\Tilesets\shapesy_0.xnb
+>>>>>>> 5c93ea4c2d68a602cd9106d91859a4d189fbeb76

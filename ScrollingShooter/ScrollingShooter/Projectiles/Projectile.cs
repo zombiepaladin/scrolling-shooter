@@ -23,6 +23,7 @@ namespace ScrollingShooter
         Meteor,
         BigMeteor,
         HomingMissile,
+        FreezewaveProjectile,
 
         // Enemy projectiles start with an index of 100;
         // this allows us to differentiate between projectiles

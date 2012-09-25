@@ -80,13 +80,14 @@ namespace ScrollingShooter
             GameObjectManager = new GameObjectManager(Content);
 
             // TODO: use this.Content to load your game content here
+
             Player = GameObjectManager.CreatePlayerShip(PlayerShipType.Shrike, new Vector2(300, 300));
             GameObjectManager.CreatePowerup(PowerupType.Fireball, new Vector2(100, 200));
             //Player.ApplyPowerup(PowerupType.Fireball);
             //GameObjectManager.CreateEnemy(EnemyType.AlienHead, new Vector2(600, 50));
 
             LevelManager.LoadContent();
-            LevelManager.LoadLevel("AlienBaseSafe");
+            LevelManager.LoadLevel("crystalland");            
         }
 
         /// <summary>

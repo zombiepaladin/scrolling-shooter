@@ -521,6 +521,10 @@ namespace ScrollingShooter
                     projectile = new BlimpBullet(id, content, position);
                     break;
 
+                case ProjectileType.BirdWrath:
+                    projectile = new BirdWrath(id, content, position);
+                    break;
+
                 case ProjectileType.Photon:
                     projectile = new Photon(id, content, position);
                     break;
@@ -711,6 +715,10 @@ namespace ScrollingShooter
 
                 case EnemyType.LeftClaw:
                     enemy = new LeftClaw(id, content, position);
+                    break;
+
+                case EnemyType.Bird:
+                    enemy = new Bird(id, content, position);
                     break;
 
                 default:

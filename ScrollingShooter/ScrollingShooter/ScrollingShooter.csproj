@@ -108,6 +108,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Bosses\Blimp.cs" />
+    <Compile Include="Bosses\Bird.cs" />
     <Compile Include="Bosses\Boss.cs" />
     <Compile Include="Bosses\BossFlightPattern.cs" />
     <Compile Include="Bosses\TwinJet.cs" />
@@ -158,6 +159,7 @@
     <Compile Include="Projectiles\Pincher.cs" />
     <Compile Include="Projectiles\Boss_TwinJetBullet.cs" />
     <Compile Include="Projectiles\Boss_TwinJetMissile.cs" />
+    <Compile Include="Projectiles\BirdWrath.cs" />
     <Compile Include="Projectiles\BubbleBullet.cs" />
     <Compile Include="Powerups\FreezewavePowerup.cs" />
     <Compile Include="Enemies\JetMinion.cs" />

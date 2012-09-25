@@ -27,6 +27,10 @@ namespace ScrollingShooter
         Rectangle[] spriteExplosionBounds = new Rectangle[12];
         int explosionState = 0;
 
+        //workaround for static distance between each bomber
+        private static int globalOffset = 0;
+        private int offset;
+
         BomberSteeringState steeringState = BomberSteeringState.Straight;
 
         // Domb delay timer
@@ -144,6 +148,9 @@ namespace ScrollingShooter
 
 
             steeringState = BomberSteeringState.Straight;
+            offset = globalOffset;
+            globalOffset += 35;
+            if (globalOffset >= 140) globalOffset = 0;
         }
 
         /// <summary>
@@ -184,14 +191,14 @@ namespace ScrollingShooter
             }
 
 
-            if (PlayerPosition.X - Bounds.Center.X < -20)
+            if (PlayerPosition.X - Bounds.Center.X < -20 -offset)
             {
                 steeringState = BomberSteeringState.Left;
                 this.position.X -= elapsedTime * 40 * velocity;
             }
             else
             {
-                if (PlayerPosition.X - Bounds.Center.X > 20)
+                if (PlayerPosition.X - Bounds.Center.X > 20 - offset)
                 {
                     steeringState = BomberSteeringState.Right;
                     this.position.X += elapsedTime * 40 * velocity;

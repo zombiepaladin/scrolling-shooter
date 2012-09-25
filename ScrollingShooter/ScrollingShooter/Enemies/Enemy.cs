@@ -42,6 +42,7 @@ namespace ScrollingShooter
         RightClaw,
         LeftClaw,
         TwinJet,
+        Bird,
     }
 
     /// <summary>

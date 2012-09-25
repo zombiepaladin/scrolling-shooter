@@ -37,7 +37,7 @@ namespace ScrollingShooter
         DrillRight,
         SuicideBomber,
         AlienHead,
-        Asteriod
+        Asteriod,
         ShieldGenerator,
         AlienTurret,
         RightClaw,

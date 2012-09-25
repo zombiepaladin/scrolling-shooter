@@ -1,9 +1,4 @@
 Content\Spritesheets\birdcrapsprite.xnb
-Content\Tilesets\shapes).xnb
-Content\Tilesets\shapesw.xnb
-Content\Tilesets\shapesx.xnb
-Content\Tilesets\shapesy.xnb
-Content\Tilesets\shapesz.xnb
 Content\Spritesheets\destruct_sprites.xnb
 Content\Spritesheets\newsh#.shp.000000.xnb
 Content\Spritesheets\newsh$.shp.000000.xnb
@@ -50,18 +45,15 @@ Content\Spritesheets\eightballshield.xnb
 Content\Spritesheets\EBullet.xnb
 Content\Spritesheets\accessories.xnb
 Content\Spritesheets\vulcano.xnb
-Content\Spritesheets\MoonBoss.xnb
-Content\Tilesets\Black.xnb
-Content\Tilesets\DarkMoon.xnb
-Content\Tilesets\moon.xnb
-Content\Tilesets\ToDark.xnb
 Content\Tilemaps\example.xnb
 Content\Tilemaps\lavaLevel2.xnb
-Content\Tilemaps\Airbase.xnb
-Content\Tilemaps\Level_1_Tilemap_2.xnb
 Content\Tilemaps\example2.xnb
+Content\Tilesets\shapes).xnb
+Content\Tilesets\shapesw.xnb
+Content\Tilesets\shapesx.xnb
+Content\Tilesets\shapesy.xnb
+Content\Tilesets\shapesz.xnb
 Content\Tilemaps\moon.xnb
 Content\SpriteFonts\Pescadero.xnb
-Content\debugFont.xnb
 Content\Sound\BGM\Hard as Nails 11-13-28.xnb
 Content\Sound\BGM\Hard as Nails 11-13-28.wma

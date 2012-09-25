@@ -556,6 +556,11 @@ namespace ScrollingShooter
                 case ProjectileType.HomingMissile:
                     projectile = new HomingMissileProjectile(content, position, 1, id);
                     break;
+
+                case ProjectileType.Laser:
+                    projectile = new Bullet(id, content, position);
+                    break;
+
                 default:
                     throw new NotImplementedException("The projectile type " + Enum.GetName(typeof(ProjectileType), projectileType) + " is not supported");
             }

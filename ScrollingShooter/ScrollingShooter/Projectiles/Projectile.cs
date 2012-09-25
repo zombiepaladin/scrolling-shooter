@@ -23,6 +23,7 @@ namespace ScrollingShooter
         Meteor,
         BigMeteor,
         HomingMissile,
+        
 
         // Enemy projectiles start with an index of 100;
         // this allows us to differentiate between projectiles
@@ -47,6 +48,7 @@ namespace ScrollingShooter
         AlienTurretOrb = 117,
         TwinJetBullet = 118,
         TwinJetMissile = 119,
+        Laser = 120,
     }
 
     /// <summary>

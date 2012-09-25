@@ -389,6 +389,23 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Sound\BGM\Hard as Nails 11-13-28.mp3">
+      <Name>Hard as Nails 11-13-28</Name>
+      <Importer>Mp3Importer</Importer>
+      <Processor>SongProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Spritesheets\MoonBoss.png">
+      <Name>MoonBoss</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Sound\SFX\" />
+  </ItemGroup>
+  <ItemGroup>
     <Compile Include="SpriteFonts\Pescadero.spritefont">
       <Name>Pescadero</Name>
       <Importer>FontDescriptionImporter</Importer>

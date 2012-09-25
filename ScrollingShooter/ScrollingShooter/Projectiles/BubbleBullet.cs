@@ -10,13 +10,14 @@ namespace ScrollingShooter
     /// </summary>
     public class BubbleBullet : Projectile
     {
+        private static int powerLevel = 0;
         public static int POWER_LEVEL
         {
-            get;
+            get { return powerLevel; }
             set
             {
                 if (value <= 4)
-                    POWER_LEVEL = value;
+                    powerLevel = value;
             }
         }
 

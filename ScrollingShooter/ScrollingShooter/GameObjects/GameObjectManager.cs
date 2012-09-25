@@ -524,7 +524,7 @@ namespace ScrollingShooter
         /// <param name="enemyType">The type of enemy to spawn</param>
         /// <param name="position">The location to spawn the enemy</param>
         /// <returns></returns>
-        public Enemy CreateEnemy(EnemyType enemyType, Vector2 position)
+        public Enemy CreateEnemy(EnemyType enemyType, Vector2 position, object[] args = null)
         {
             Enemy enemy;
             uint id = NextID();
@@ -619,6 +619,10 @@ namespace ScrollingShooter
 
                 case EnemyType.SuicideBomber:
                     enemy = new SuicideBomber(id, content, position);
+                    break;
+
+                case EnemyType.Asteriod:
+                    enemy = new Asteriod(id, content, position, (int)args[0]);
                     break;
 
                 default:

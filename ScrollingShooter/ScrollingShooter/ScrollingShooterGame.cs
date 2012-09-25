@@ -80,22 +80,11 @@ namespace ScrollingShooter
 
             // TODO: use this.Content to load your game content here
             Player = GameObjectManager.CreatePlayerShip(PlayerShipType.Shrike, new Vector2(300, 300));
-            //Player.ApplyPowerup(PowerupType.Fireball);
 
             LevelManager.LoadContent();
-            LevelManager.LoadLevel("lavaLevel2");
-            //test out new panzer personality
-            int p1 = 100;
-            int p2 = 200;
-            for (int i = 0; i < 6; i++)
-            {
-                GameObjectManager.CreateEnemy(EnemyType.Panzer, new Vector2(p1, 100));
-                GameObjectManager.CreateEnemy(EnemyType.Panzer2, new Vector2(p2, 100));
-                p1 += 100;
-                p2 += 100;
-            }
-            //test out lavabug
-            GameObjectManager.CreateEnemy(EnemyType.Lavabug, new Vector2(100, 75));
+
+            //Test out moon level.
+            LevelManager.LoadLevel("moon");
         }
 
         /// <summary>

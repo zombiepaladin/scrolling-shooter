@@ -111,6 +111,7 @@
     <Compile Include="Bosses\Lavabug.cs" />
     <Compile Include="Bosses\Lavabug2.cs" />
     <Compile Include="Bosses\Mandible.cs" />
+    <Compile Include="Enemies\Asteriod.cs" />
     <Compile Include="Enemies\Bomber.cs" />
     <Compile Include="Enemies\Drill.cs" />
     <Compile Include="Enemies\Arrow.cs" />

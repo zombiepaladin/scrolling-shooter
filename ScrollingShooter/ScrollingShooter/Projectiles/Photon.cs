@@ -53,8 +53,8 @@ namespace ScrollingShooter
         /// <param name="id">Obj id</param>
         /// <param name="content">A ContentManager to load resources with</param>
         /// <param name="position">The position of the Photon projectile in the game world</param>
-        public Photon(uint id, ContentManager content, Vector2 position)
-            : base(id)
+        public Photon(uint id, ContentManager content, Vector2 position, ProjectileType type)
+            : base(id, type)
         {
             this.position = position;
             this.velocity = new Vector2(150);

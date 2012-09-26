@@ -9,7 +9,7 @@ namespace ScrollingShooter
     /// </summary>
     class EBullet:Projectile
     {
-         public EBullet(uint id, ContentManager content, Vector2 position) : base (id)
+         public EBullet(uint id, ContentManager content, Vector2 position,ProjectileType type) : base (id,type)
         {   
             this.spriteSheet = content.Load<Texture2D>("Spritesheets/EBullet");
 

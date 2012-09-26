@@ -48,8 +48,8 @@ namespace ScrollingShooter
         /// </summary>
         /// <param name="content">A ContentManager to load resources with</param>
         /// <param name="position">The position of the Pincher in the game world</param>
-        public Pincher(uint id, ContentManager content, Vector2 position)
-            : base(id)
+        public Pincher(uint id, ContentManager content, Vector2 position, ProjectileType type)
+            : base(id, type)
         {
             this.position = position;
 

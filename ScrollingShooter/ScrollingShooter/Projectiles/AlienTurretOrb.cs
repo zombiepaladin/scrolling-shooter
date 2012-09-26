@@ -33,8 +33,8 @@ namespace ScrollingShooter
         /// </summary>
         /// <param name="content">A ContentManager to load resources with</param>
         /// <param name="position">The position of the Orb in the game world</param>
-        public AlienTurretOrb(uint id, ContentManager content, Vector2 position)
-            : base(id)
+        public AlienTurretOrb(uint id, ContentManager content, Vector2 position, ProjectileType type)
+            : base(id, type)
         {
             this.position = position;
 

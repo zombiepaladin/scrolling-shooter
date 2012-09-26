@@ -82,6 +82,10 @@ namespace ScrollingShooter
         /// </summary>
         protected Rectangle spriteBounds;
 
+         /// <summary>
+        /// Projectile type
+        /// </summary>
+        public ProjectileType type { get; set; }
         /// <summary>
         /// The location of the sprite in the game world
         /// </summary>
@@ -94,8 +98,16 @@ namespace ScrollingShooter
         /// Creates a new instance of a projectile
         /// </summary>
         /// <param name="id">The unique id of the projectile</param>
-        public Projectile(uint id) : base(id) { }
+        public Projectile(uint id) : base(id) { this.type = ProjectileType.Bullet; }
 
+
+        /// <summary>
+        /// Creates a new instance of a projectile
+        /// </summary>
+        /// <param name="id">The unique id of the projectile</param>
+        public Projectile(uint id, ProjectileType type) : base(id) {
+            this.type = type;
+        }
         /// <summary>
         /// Updates the projectile
         /// </summary>

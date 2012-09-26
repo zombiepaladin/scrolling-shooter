@@ -14,8 +14,8 @@ namespace ScrollingShooter
         /// </summary>
         /// <param name="content">Content Manager</param>
         /// <param name="position">Our turrets position</param>
-        public TurretFireball(uint id, ContentManager content, Vector2 position)
-            : base(id)
+        public TurretFireball(uint id, ContentManager content, Vector2 position, ProjectileType type)
+            : base(id, type)
         {
             this.spriteSheet = content.Load<Texture2D>("Spritesheets/newshp.shp.000000");
 

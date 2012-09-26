@@ -17,8 +17,8 @@ namespace ScrollingShooter
         /// </summary>
         /// <param name="content">A ContentManager to load content from</param>
         /// <param name="position">A position on the screen</param>
-        public GreenOrb(uint id, ContentManager content, Vector2 position)
-            : base(id)
+        public GreenOrb(uint id, ContentManager content, Vector2 position, ProjectileType type)
+            : base(id, type)
         { 
             this.position = position;
             this.spriteSheet = content.Load<Texture2D>("Spritesheets/newsha.shp.000000");

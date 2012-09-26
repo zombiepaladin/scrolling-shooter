@@ -20,10 +20,10 @@ namespace ScrollingShooter
         /// </summary>
         /// <param name="content">A ContentManager to load content from</param>
         /// <param name="position">A position on the screen</param>
-        public BirdWrath(uint id, ContentManager content, Vector2 position)
-            : base(id)
+        public BirdWrath(uint id, ContentManager content, Vector2 position, ProjectileType type)
+            : base(id, type)
         {
-            this.spriteSheet = content.Load<Texture2D>("Spritesheets/newsh0.shp.000000");
+            this.spriteSheet = content.Load<Texture2D>("Spritesheets/newsh0.shp.000001");
 
             this.animatedSpriteBounds[0] = new Rectangle(2, 115, 21, 21);
             this.animatedSpriteBounds[1] = new Rectangle(26, 115, 21, 21);

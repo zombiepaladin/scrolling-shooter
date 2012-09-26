@@ -21,8 +21,8 @@ namespace ScrollingShooter
         /// <param name="id">Id for the bullet.</param>
         /// <param name="content">ContentManager to load content with.</param>
         /// <param name="position">Starting position for the bullet.</param>
-        public ToPlayerBullet(uint id, ContentManager content, Vector2 position)
-            : base(id)
+        public ToPlayerBullet(uint id, ContentManager content, Vector2 position, ProjectileType type)
+            : base(id, type)
         {
             this.spriteSheet = content.Load<Texture2D>(SPRITESHEET);
 

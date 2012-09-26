@@ -369,6 +369,7 @@
       <Name>example2</Name>
       <Importer>TmxImporter</Importer>
       <Processor>TilemapProcessor</Processor>
+      <SubType>Designer</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>

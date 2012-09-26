@@ -15,8 +15,9 @@
  <tileset firstgid="2561" name="shapesz" tilewidth="24" tileheight="28">
   <image source="../Tilesets/shapesz.png" trans="c0dcc0" width="240" height="1736"/>
  </tileset>
- <layer name="ground" width="16" height="160">
+ <layer name="ground" width="16" height="160" visible="0">
   <properties>
+   <property name="LayerDepth" value="1"/>
    <property name="ScrollOffset" value="0"/>
    <property name="ScrollingSpeed" value="30"/>
   </properties>
@@ -43,8 +44,9 @@
   <object name="Enemy" type="JTurret" x="358" y="287" width="21" height="20"/>
   <object name="Enemy" type="JTurret" x="218" y="162" width="21" height="20"/>
  </objectgroup>
- <layer name="clouds" width="16" height="160">
+ <layer name="clouds" width="16" height="160" visible="0">
   <properties>
+   <property name="LayerDepth" value="0.3"/>
    <property name="ScrollOffset" value="-0"/>
    <property name="ScrollingSpeed" value="60"/>
   </properties>
@@ -54,7 +56,7 @@
  </layer>
  <objectgroup name="events" width="16" height="160">
   <properties>
-   <property name="LayerDepth" value="0.9"/>
+   <property name="LayerDepth" value="0.8"/>
    <property name="ScrollOffset" value="0"/>
    <property name="ScrollingSpeed" value="30"/>
   </properties>
@@ -89,8 +91,8 @@
   <object name="Enemy" type="Arrow" x="99" y="1539" width="21" height="20"/>
   <object name="Enemy" type="Arrow" x="2" y="1472" width="21" height="20"/>
   <object name="Enemy" type="SuicideBomber" x="221" y="959" width="21" height="20"/>
-  <object name="StartPlayer" type="StartPlayer" x="193" y="4201" width="21" height="20"/>
+  <object name="PlayerStart" x="193" y="4201" width="21" height="20"/>
   <object name="EndPlayer" type="EndPlayer" x="184" y="57" width="21" height="20"/>
-   <object name="Boss" type="TwinJetManager" x="131" y="146" width="129" height="197"/>
+  <object name="Boss" type="TwinJetManager" x="131" y="146" width="129" height="197"/>
  </objectgroup>
 </map>

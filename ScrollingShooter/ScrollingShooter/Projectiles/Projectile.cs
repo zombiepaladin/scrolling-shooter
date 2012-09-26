@@ -52,6 +52,7 @@ namespace ScrollingShooter
         BirdWrath = 121,
         EnemyPsyBall = 163,
         EnemyLightningZap = 164,
+        EnemyTurretTowerBullet = 165,
     }
 
     /// <summary>
@@ -60,6 +61,8 @@ namespace ScrollingShooter
     public abstract class Projectile : GameObject
     {
         public static int POWER_LEVEL = 1;
+
+        public float Damage = 1;
 
         /// <summary>
         /// The projectile's velocity

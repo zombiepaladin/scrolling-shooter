@@ -21,27 +21,27 @@ namespace ScrollingShooter
 
             this.spriteBounds = new Rectangle(193, 88, 21, 21);
 
-            PlayerShip Player = ScrollingShooterGame.Game.Player;
-            Vector2 PlayerPosition = new Vector2(Player.Bounds.Center.X, Player.Bounds.Center.Y);
+            PlayerShip player = ScrollingShooterGame.Game.Player;
+            Vector2 playerPosition = new Vector2(player.Bounds.Center.X, player.Bounds.Center.Y);
 
             this.velocity = new Vector2(0, 0.5f);
 
-            this.position = position;                  
+            this.position = position;
         }
 
         /// <summary>
-        /// The update method that tracks the Players ship to hunt it
+        /// The update method that tracks the players ship to hunt it
         /// down. Parts taken from the PlayerShip class.
         /// </summary>
         /// <param name="elapsedTime"></param>
         public override void Update(float elapsedTime)
         {
-            // Sense the Player's position
-            PlayerShip Player = ScrollingShooterGame.Game.Player;
-            Vector2 PlayerPosition = new Vector2(Player.Bounds.Center.X, Player.Bounds.Center.Y);
+            // Sense the player's position
+            PlayerShip player = ScrollingShooterGame.Game.Player;
+            Vector2 playerPosition = new Vector2(player.Bounds.Center.X, player.Bounds.Center.Y);
 
-            // Get a vector from our position to the Player's position
-            Vector2 toPlayer = PlayerPosition - this.position;
+            // Get a vector from our position to the player's position
+            Vector2 toPlayer = playerPosition - this.position;
 
             if (toPlayer.LengthSquared() < 95000)
             {

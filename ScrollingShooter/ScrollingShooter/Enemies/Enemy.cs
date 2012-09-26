@@ -46,6 +46,9 @@ namespace ScrollingShooter
         BrainBoss,
         BrainBossPsyEmitter,
         BrainBossProtection,
+        TurretSingle,
+        TurretDouble,
+        TurretTower,
     }
 
     /// <summary>
@@ -56,7 +59,7 @@ namespace ScrollingShooter
         /// <summary>
         /// The enemy's health
         /// </summary>
-        public float Health;
+        public float Health = 1;
 
         /// <summary>
         /// Constructs a new enemy

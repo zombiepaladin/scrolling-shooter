@@ -211,6 +211,7 @@ namespace ScrollingShooter
             return id;
         }
 
+
         /// <summary>
         /// Helper method for enqueueing our game object for creation at the 
         /// start of the next update cycle.  
@@ -241,6 +242,7 @@ namespace ScrollingShooter
                 default:
                     throw new NotImplementedException("The boss type " + Enum.GetName(typeof(BossType), enemyType) + " is not supported");
             }
+            boss.ObjectType = ObjectType.Boss;
             QueueGameObjectForCreation(boss);
             return boss;
         }
@@ -251,6 +253,7 @@ namespace ScrollingShooter
         /// </summary>
         /// <param name="colliderID">The source of the explosion</param>
         /// <returns>The newly-spawned explosion</returns>
+
         public Explosion CreateExplosion(uint colliderID)
         {
             Explosion ex;
@@ -260,6 +263,7 @@ namespace ScrollingShooter
             QueueGameObjectForCreation(ex);
             return ex;
         }
+
 
         /// <summary>
         /// Factory method to create a Player ship
@@ -282,9 +286,11 @@ namespace ScrollingShooter
                     throw new NotImplementedException("The Player ship type " + Enum.GetName(typeof(PlayerShipType), PlayerShipType) + " is not supported");
             }
 
+            PlayerShip.ObjectType = ObjectType.Player;
             QueueGameObjectForCreation(PlayerShip);
             return PlayerShip;
         }
+
 
         /// <summary>
         /// Factory method for spawning a projectile
@@ -310,15 +316,19 @@ namespace ScrollingShooter
                 case PowerupType.BubbleBeam:
                     powerup = new BubbleBeamPowerup(id, content, position);
                     break;
+
                 case PowerupType.Freezewave:
                     powerup = new FreezewavePowerup(id, content, position);
                     break;
+                
                 case PowerupType.Blades:
                     powerup = new BladesPowerup(id, content, position);
                     break;
+                
                 case PowerupType.EightBallShield: //added EightBallShield
                     powerup = new EightBallShieldPowerup(id, content, position);
                     break;
+                
                 case PowerupType.TriShield:
                     powerup = new TriShieldPowerup(id, content, position);
                     break;
@@ -360,9 +370,10 @@ namespace ScrollingShooter
                     break;
 
                 default:
-                    throw new NotImplementedException("The powerup type " + Enum.GetName(typeof(PowerupType), powerupType) + " is not supported");
+                    throw new NotImplementedException("The powerup type " + Enum.GetName(typeof(ProjectileType), powerupType) + " is not supported");
             }
 
+            powerup.ObjectType = ObjectType.Powerup;
             QueueGameObjectForCreation(powerup);
             return powerup;
         }
@@ -375,6 +386,18 @@ namespace ScrollingShooter
         /// <param name="position">The position of the projectile in the game world</param>
         /// <returns>The game object id of the projectile</returns>
         public Projectile CreateProjectile(ProjectileType projectileType, Vector2 position)
+        {
+            return CreateProjectile(projectileType, position, Vector2.Zero);
+        }
+
+
+        /// <summary>
+        /// Factory method for spawning a projectile
+        /// </summary>
+        /// <param name="projectileType">The type of projectile to create</param>
+        /// <param name="position">The position of the projectile in the game world</param>
+        /// <returns>The game object id of the projectile</returns>
+        public Projectile CreateProjectile(ProjectileType projectileType, Vector2 position, Vector2 velocity)
         {
             Projectile projectile = null;
             uint id = NextID();
@@ -468,9 +491,9 @@ namespace ScrollingShooter
                     break;
 
                 case ProjectileType.EnergyBlast:
-
                     projectile = new EnergyBlast(id, content, position, ScrollingShooterGame.Game.Player.energyBlastLevel);
                     break;
+
                 case ProjectileType.EnemyBullet:
 
                     // Bullet velocity
@@ -488,6 +511,7 @@ namespace ScrollingShooter
                 case ProjectileType.EnemyBomb:
                     projectile = new Bomb(id, content, position, false);
                     break;
+
                 case ProjectileType.ShotgunBullet:
                     projectile = new ShotgunBullet(id, content, position, BulletDirection.Straight);
                     QueueGameObjectForCreation(new ShotgunBullet(NextID(), content, position, BulletDirection.Left));
@@ -557,7 +581,7 @@ namespace ScrollingShooter
                     break;
 
                 case ProjectileType.HomingMissile:
-                    projectile = new HomingMissileProjectile(content, position, id);
+                    projectile = new HomingMissileProjectile(content, position, 1, id);
                     break;
 
                 case ProjectileType.EnemyPsyBall:
@@ -572,7 +596,11 @@ namespace ScrollingShooter
                     throw new NotImplementedException("The projectile type " + Enum.GetName(typeof(ProjectileType), projectileType) + " is not supported");
             }
 
-            if(projectile != null)  QueueGameObjectForCreation(projectile);
+            if ((int)projectileType < 100)
+                projectile.ObjectType = ObjectType.PlayerProjectile;
+            else
+                projectile.ObjectType = ObjectType.EnemyProjectile;
+            QueueGameObjectForCreation(projectile);
             return projectile;
         }
 
@@ -598,9 +626,11 @@ namespace ScrollingShooter
                     throw new NotImplementedException("EightBallShield failed.");
             }
 
+            shield.ObjectType = ObjectType.Shield;
             QueueGameObjectForCreation(shield);
             return shield;
         }
+
 
         /// <summary>
         /// Factory method for spawning enemies.
@@ -647,6 +677,18 @@ namespace ScrollingShooter
                     enemy = new Arrow(id, content, position);
                     break;
 
+                case EnemyType.TurretSingle:
+                    enemy = new TurretSingle(id, content, position);
+                    break;
+
+                case EnemyType.TurretDouble:
+                    enemy = new TurretDouble(id, content, position);
+                    break;
+
+                case EnemyType.TurretTower:
+                    enemy = new TurretTower(id, content, position);
+                    break;
+                
                 case EnemyType.StdBaddy:
                     enemy = new StdBaddy(id, content, position);
                     break;
@@ -756,6 +798,7 @@ namespace ScrollingShooter
                     throw new NotImplementedException("The enemy type " + Enum.GetName(typeof(EnemyType), enemyType) + " is not supported");
             }
 
+            enemy.ObjectType = ObjectType.Enemy;
             QueueGameObjectForCreation(enemy);
             return enemy;
         }

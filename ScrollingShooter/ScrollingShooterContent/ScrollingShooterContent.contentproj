@@ -454,11 +454,6 @@
       <Importer>TmxImporter</Importer>
       <Processor>TilemapProcessor</Processor>
     </Compile>
-    <Compile Include="Tilemaps\example2.tmx">
-      <Name>example2</Name>
-      <Importer>TmxImporter</Importer>
-      <Processor>TilemapProcessor</Processor>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Tilemaps\AlienBaseSafe.tmx">
@@ -494,13 +489,6 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <ProcessorParameters_ColorKeyColor>191, 220, 191, 255</ProcessorParameters_ColorKeyColor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Tilemaps\Level_1_Tilemap_2.tmx">
-      <Name>Level_1_Tilemap_2</Name>
-      <Importer>TmxImporter</Importer>
-      <Processor>TilemapProcessor</Processor>
     </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />

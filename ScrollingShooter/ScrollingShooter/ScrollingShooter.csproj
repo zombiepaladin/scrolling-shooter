@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ProjectGuid>{268B1713-BD39-49CB-BEFD-DB11C562192C}</ProjectGuid>
@@ -111,6 +111,7 @@
     <Compile Include="Bosses\Bird.cs" />
     <Compile Include="Bosses\Boss.cs" />
     <Compile Include="Bosses\BossFlightPattern.cs" />
+    <Compile Include="Bosses\MBCloseC.cs" />
     <Compile Include="Bosses\TwinJet.cs" />
     <Compile Include="Bosses\TwinJetManager.cs" />
     <Compile Include="Bosses\Lavabug.cs" />
@@ -122,6 +123,7 @@
     <Compile Include="Enemies\AlienTurret.cs" />
     <Compile Include="Enemies\Asteriod.cs" />
     <Compile Include="Bosses\BrainBoss.cs" />
+    <Compile Include="Enemies\BigBad.cs" />
     <Compile Include="Enemies\Bomber.cs" />
     <Compile Include="Enemies\BrainBossPsiEmitter.cs" />
     <Compile Include="Enemies\BrainBossProtection.cs" />
@@ -157,6 +159,7 @@
     <Compile Include="GameObjects\GameObjectManager.cs" />
     <Compile Include="Animation.cs" />
     <Compile Include="LevelManager.cs" />
+    <Compile Include="Powerups\MulticannonPowerup.cs" />
     <Compile Include="Powerups\Railgun.cs" />
     <Compile Include="Powerups\ShotgunPowerup.cs" />
     <Compile Include="Powerups\BubbleBeamPowerup.cs" />

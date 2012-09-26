@@ -349,6 +349,8 @@
     </ProjectReference>
     <Compile Include="Tilemaps\moon.tmx">
       <Name>moon</Name>
+      <Importer>TmxImporter</Importer>
+      <Processor>TilemapProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -493,6 +495,41 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <ProcessorParameters_ColorKeyColor>191, 220, 191, 255</ProcessorParameters_ColorKeyColor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Tilesets\Black.png">
+      <Name>Black</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Tilesets\DarkMoon.png">
+      <Name>DarkMoon</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Tilesets\moon.png">
+      <Name>moon</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Tilesets\ToDark.png">
+      <Name>ToDark</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Spritesheets\MoonBoss.png">
+      <Name>MoonBoss</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />

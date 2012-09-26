@@ -9,6 +9,7 @@ Content\Spritesheets\newsh#.shp.000000.xnb
 Content\Spritesheets\newsh$.shp.000000.xnb
 Content\Spritesheets\newsh(.shp.000000.xnb
 Content\Spritesheets\newsh@.shp.000000.xnb
+Content\Spritesheets\newsh0.shp.000000.xnb
 Content\Spritesheets\newsh1.shp.000000.xnb
 Content\Spritesheets\newsh2.shp.000000.xnb
 Content\Spritesheets\newsh3.shp.000000.xnb
@@ -49,7 +50,6 @@ Content\Spritesheets\eightballshield.xnb
 Content\Spritesheets\EBullet.xnb
 Content\Tilesets\shapeswmodified.xnb
 Content\Spritesheets\accessories.xnb
-Content\Spritesheets\newsh0.shp.000000.xnb
 Content\Spritesheets\vulcano.xnb
 Content\Spritesheets\MoonBoss.xnb
 Content\Tilesets\bossFloorTexture.xnb
@@ -65,5 +65,6 @@ Content\Tilemaps\Level_1_Tilemap_2.xnb
 Content\Tilemaps\AlienBaseSafe.xnb
 Content\SpriteFonts\Pescadero.xnb
 Content\debugFont.xnb
-Content\Sound\BGM\Hard as Nails 11-13-28.xnb
-Content\Sound\BGM\Hard as Nails 11-13-28.wma
+Content\Music\Hard as Nails 11-13-28.xnb
+Content\SFX\anti_tank_gun_single_shot.xnb
+Content\Music\Hard as Nails 11-13-28.wma

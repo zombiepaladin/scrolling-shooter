@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Media;
 
 namespace ScrollingShooter
 {
@@ -18,6 +19,11 @@ namespace ScrollingShooter
     /// </summary>
     public abstract class SplashScreen
     {
+        /// <summary>
+        /// The music to play during this splash screen
+        /// </summary>
+        public Song Music;
+
         /// <summary>
         /// The level to load after this splash screen exits
         /// </summary>

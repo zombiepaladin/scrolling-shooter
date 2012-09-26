@@ -16,7 +16,7 @@ namespace ScrollingShooter
     }
 
     /// <summary>
-    /// An enemy that flies straight at the Player and explodes on impact
+    /// An enemy that flies straight at the player and explodes on impact
     /// </summary>f
     public class SuicideBomber : Enemy
     {
@@ -38,7 +38,7 @@ namespace ScrollingShooter
         /// Creates a new instance of a SuicideBomber enemy ship
         /// </summary>
         /// <param name="content">A ContentManager to load resources with</param>
-        /// <param name="position">The position of the SuicideBomber ship in the game world</param>
+        /// <param name="position">The position of the Dart ship in the game world</param>
         public SuicideBomber(uint id, ContentManager content, Vector2 position)
             : base(id)
         {
@@ -70,19 +70,19 @@ namespace ScrollingShooter
         /// <param name="elapsedTime">The in-game time between the previous and current frame</param>
         public override void Update(float elapsedTime)
         {
-            // Sense the Player's position
-            PlayerShip Player = ScrollingShooterGame.Game.Player;
-            Vector2 PlayerPosition = new Vector2(Player.Bounds.Center.X, Player.Bounds.Center.Y);
+            // Sense the player's position
+            PlayerShip player = ScrollingShooterGame.Game.Player;
+            Vector2 playerPosition = new Vector2(player.Bounds.Center.X, player.Bounds.Center.Y);
 
-            // Get a vector from our position to the Player's position
-            Vector2 toPlayer = PlayerPosition - this.position;
+            // Get a vector from our position to the player's position
+            Vector2 toPlayer = playerPosition - this.position;
 
             if (toPlayer.LengthSquared() < 90000)
             {
-                // We sense the Player's ship and get a normalized movement vector
+                // We sense the player's ship and get a normalized movement vector
                 toPlayer.Normalize();
 
-                // We steer towards the Player's ship
+                // We steer towards the player's ship
                 this.position += toPlayer * elapsedTime * 100;
 
                 // Change the steering state to reflect our direction
@@ -99,9 +99,9 @@ namespace ScrollingShooter
         /// <param name="spriteBatch">An already initialized SpriteBatch, ready for Draw() commands</param>
         public override void Draw(float elapsedTime, SpriteBatch spriteBatch)
         {
-            PlayerShip Player = ScrollingShooterGame.Game.Player;
-            Vector2 PlayerPosition = new Vector2(Player.Bounds.Center.X, Player.Bounds.Center.Y);
-            Vector2 toPlayer = PlayerPosition - this.position;
+            PlayerShip player = ScrollingShooterGame.Game.Player;
+            Vector2 playerPosition = new Vector2(player.Bounds.Center.X, player.Bounds.Center.Y);
+            Vector2 toPlayer = playerPosition - this.position;
             double angle = (2 * Math.PI) - Math.Atan2(toPlayer.X, toPlayer.Y);
             if (toPlayer.LengthSquared() < 90000)
             {

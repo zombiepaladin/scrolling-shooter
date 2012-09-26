@@ -71,6 +71,8 @@ namespace ScrollingShooter
         /// </summary>
         private int targetVectorScalar;
 
+        private float rotation;
+
         #endregion
 
         #region Constructors
@@ -208,6 +210,9 @@ namespace ScrollingShooter
             //Make sure to mark this instance as alive before we push it into the world
             this.isAlive = true;
 
+            //We'll initialize the rotation to 0.0, don't worry, it'll get changed later
+            rotation = 0f;
+
         }
 
         /// <summary>
@@ -242,8 +247,11 @@ namespace ScrollingShooter
         /// </summary>
         private void AdjustRotation()
         {
-            //TODO: code to adjust the rotation of the sprite image, may require the 
-            //calculating of a Dot product or Rotation matrix or both
+            //Pretty simple, tan(theta) = opposite / adjacent right? same thing here
+            float angleBetween = (float)Math.Atan2((double)velocity.Y, (double)velocity.X);
+
+            //Since our graphic is originally facing up at vector (0,-1), we need to offset it a little
+            rotation = angleBetween + MathHelper.PiOver2;
         }
 
         #endregion
@@ -284,7 +292,8 @@ namespace ScrollingShooter
             //Will need to call the Draw function for the explosion and smoke stream classes here (explosion only if this.isAlive == false)
             if (isAlive)
             {
-                base.Draw(elapsedTime, spriteBatch);
+                //need to do our own draw function if we are to include rotation
+                spriteBatch.Draw(spriteSheet, position, spriteBounds, Color.White, rotation, new Vector2(spriteBounds.Width / 2, spriteBounds.Y / 2), 1f, SpriteEffects.None, 0);
             }
         }
 

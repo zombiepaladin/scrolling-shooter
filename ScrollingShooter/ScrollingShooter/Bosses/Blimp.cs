@@ -25,7 +25,7 @@ namespace ScrollingShooter
         BlimpState state;
         int maxHealth = 300;
         Vector2 velocity;
-        int screenWidth = ScrollingShooterGame.Game.GraphicsDevice.Viewport.Width;
+        int screenWidth = 384; //Hardcoded until I get a better way to get the width
         float gunTimer;
 
         /// <summary>
@@ -92,7 +92,7 @@ namespace ScrollingShooter
             }
 
             // Move the blimp
-            if (position.X - 11 <= 5 || position.X + 69 >= this.screenWidth - 10) velocity.X *= -1;
+            if (position.X - 11 <= 5 || position.X + 69 >= this.screenWidth - 30) velocity.X *= -1;
             position.X -= elapsedTime * velocity.X;
 
             this.gunTimer += elapsedTime;
@@ -107,7 +107,7 @@ namespace ScrollingShooter
                 Vector2 toPlayer = playerPosition - this.position;
 
                 // Shoot the shotgun if the player is within 200 units of the blimp
-                if (toPlayer.LengthSquared() < 40000)
+                if (toPlayer.LengthSquared() < 25000)
                 {
                     Vector2 travel = position;
                     travel.X += Bounds.Width / 2;
@@ -200,7 +200,7 @@ namespace ScrollingShooter
                 Vector2 toPlayer = playerPosition - this.position;
 
                 // Shoots if the player is at the correct range
-                if (toPlayer.LengthSquared() < 360000 && toPlayer.LengthSquared() > 44100)
+                if (toPlayer.LengthSquared() < 200000 && toPlayer.LengthSquared() > 22050)
                 {
                     Vector2 travel = position;
                     travel.X += 8;
@@ -293,7 +293,7 @@ namespace ScrollingShooter
                 Vector2 toPlayer = playerPosition - this.position;
 
                 //Shoots if the player is at the correct range
-                if (toPlayer.LengthSquared() < 360000 && toPlayer.LengthSquared() > 44100)
+                if (toPlayer.LengthSquared() < 200000 && toPlayer.LengthSquared() > 22050)
                 {
                     Vector2 travel = position;
                     travel.X += 8;

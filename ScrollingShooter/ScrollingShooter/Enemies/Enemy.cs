@@ -1,4 +1,4 @@
-﻿﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -40,7 +40,15 @@ namespace ScrollingShooter
         ShieldGenerator,
         AlienTurret,
         RightClaw,
-        LeftClaw
+        LeftClaw,
+        TwinJet,
+        Bird,
+        BrainBoss,
+        BrainBossPsyEmitter,
+        BrainBossProtection,
+        TurretSingle,
+        TurretDouble,
+        TurretTower,
     }
 
     /// <summary>
@@ -51,7 +59,7 @@ namespace ScrollingShooter
         /// <summary>
         /// The enemy's health
         /// </summary>
-        public float Health;
+        public float Health = 1;
 
         /// <summary>
         /// Constructs a new enemy

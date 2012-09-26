@@ -1,4 +1,4 @@
-﻿//Homing Missile Projectile Class:
+//Homing Missile Projectile Class:
 //Coders: Nicholas Boen
 //Date: 9/1/2012
 //Time: 11:25 P.M.

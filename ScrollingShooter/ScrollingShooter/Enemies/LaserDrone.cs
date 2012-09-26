@@ -38,7 +38,7 @@ namespace ScrollingShooter
         /// <summary>
         /// The time in seconds the laser lasts.
         /// </summary>
-        private const float FIRE_TIME = 2f;
+        private const float FIRE_TIME = 3.5f;
 
         /// <summary>
         /// The top speed that the drone moves.

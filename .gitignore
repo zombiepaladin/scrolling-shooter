@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 # Build Folders (you can keep bin if you'd like, to store dlls and pdbs)
 bin
 obj
@@ -8,6 +9,17 @@ obj
 
 # mstest test results
 TestResults
+=======
+# Build Folders (you can keep bin if you'd like, to store dlls and pdbs)
+bin
+obj
+*.suo
+*.user
+*.Debug
+
+# mstest test results
+TestResults
+>>>>>>> 564dc448a8e816ba9eafc55283f774da5bf12857
 =======
 # Build Folders (you can keep bin if you'd like, to store dlls and pdbs)
 bin

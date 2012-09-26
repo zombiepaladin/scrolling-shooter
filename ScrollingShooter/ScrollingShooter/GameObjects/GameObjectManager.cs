@@ -221,6 +221,7 @@ namespace ScrollingShooter
             createdGameObjects.Enqueue(go);
         }
 
+
         public Boss CreateBoss(BossType enemyType, Vector2 position)
         {
             Boss boss;
@@ -301,9 +302,11 @@ namespace ScrollingShooter
                 case PowerupType.Fireball:
                     powerup = new FireballPowerup(id, content, position);
                     break;
+
                 case PowerupType.Frostball:
                     powerup = new FrostballPowerup(id, content, position);
                     break;
+
                 case PowerupType.BubbleBeam:
                     powerup = new BubbleBeamPowerup(id, content, position);
                     break;
@@ -363,6 +366,7 @@ namespace ScrollingShooter
             QueueGameObjectForCreation(powerup);
             return powerup;
         }
+
 
         /// <summary>
         /// Factory method for spawning a projectile

@@ -84,7 +84,6 @@ namespace ScrollingShooter
         /// rather than a Rectangle, as floats allow us to move less than a pixel
         /// </summary>
         protected Vector2 position = new Vector2(300, 300);
-
         public Vector2 Position
         {
             get { return position; }
@@ -391,6 +390,7 @@ namespace ScrollingShooter
                     if ((PowerupType & PowerupType.Frostball) > 0)
                         TriggerFrostball();
 
+
                     if ((PowerupType & PowerupType.Birdcrap) > 0)
                     {
                         TriggerBirdcrap();
@@ -512,6 +512,7 @@ namespace ScrollingShooter
         {
             // TODO: Fire Bomb
         }
+
 
         /// <summary>
         /// A helper that fires birdcrap from the ship. Coraspondes to the birdcrap power up.

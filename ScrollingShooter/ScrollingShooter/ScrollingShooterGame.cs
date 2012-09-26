@@ -125,6 +125,7 @@ namespace ScrollingShooter
                     uint colliderID = (pair.A == Player.ID) ? pair.B : pair.A;
                     GameObject collider = GameObjectManager.GetObject(colliderID);
 
+                    
                     // Process powerup collisions
                     Powerup powerup = collider as Powerup;
                     if (powerup != null)
@@ -142,6 +143,7 @@ namespace ScrollingShooter
                         GameObjectManager.DestroyObject(colliderID);
                         GameObjectManager.CreateExplosion(colliderID);
                     }
+
                     Enemy enemy2 = collider as Enemy;
                     if (enemy2 != null && enemy2.GetType() == typeof(LavaFighter))
                     {
@@ -173,6 +175,7 @@ namespace ScrollingShooter
             // Render the game world
             GraphicsDevice.Viewport = worldViewport;
             LevelManager.Draw(elapsedGameTime);
+
 
             // Render the gui
             GraphicsDevice.Viewport = guiViewport;

@@ -20,7 +20,7 @@ namespace ScrollingShooter
         turningOff = 3,
     }
 
-    class Bird : Enemy
+    class Bird : Boss
     {
         // Dart state variables
         Texture2D spritesheet;

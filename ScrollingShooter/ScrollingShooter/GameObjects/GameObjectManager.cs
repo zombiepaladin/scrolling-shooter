@@ -486,6 +486,15 @@ namespace ScrollingShooter
                 case ProjectileType.Photon:
                     projectile = new Photon(id, content, position);
                     break;
+                case ProjectileType.AlienTurretOrb:
+                    projectile = new AlienTurretOrb(id, content, position);
+                    break;
+                case ProjectileType.GreenOrb:
+                    projectile = new GreenOrb(id, content, position);
+                    break;
+                case ProjectileType.Pincher:
+                    projectile = new Pincher(id, content, position);
+                    break;
 
                 default:
                     throw new NotImplementedException("The projectile type " + Enum.GetName(typeof(ProjectileType), projectileType) + " is not supported");
@@ -611,8 +620,8 @@ namespace ScrollingShooter
                     enemy = new Turret(id, content, position);
                     break;
 
-                case EnemyType.JTurret:
-                    enemy = new JTurret(id, content, position);
+                case EnemyType.JTurretScrolling:
+                    enemy = new JTurretScrolling(id, content, position);
                     break;
 
                 case EnemyType.DrillLeft:
@@ -625,6 +634,21 @@ namespace ScrollingShooter
 
                 case EnemyType.SuicideBomber:
                     enemy = new SuicideBomber(id, content, position);
+                    break;
+                case EnemyType.AlienHead:
+                    enemy = new AlienHead(id, content, position);
+                    break;
+                case EnemyType.AlienTurret:
+                    enemy = new AlienTurret(id, content, position);
+                    break;
+                case EnemyType.LeftClaw:
+                    enemy = new LeftClaw(id, content, position);
+                    break;
+                case EnemyType.RightClaw:
+                    enemy = new RightClaw(id, content, position);
+                    break;
+                case EnemyType.ShieldGenerator:
+                    enemy = new ShieldGenerator(id, content, position);
                     break;
 
                 default:

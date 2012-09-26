@@ -8,7 +8,7 @@ namespace ScrollingShooter
     /// <summary>
     /// An enemy turret that turns to the Player and fires at them
     /// </summary>
-    public class JTurret : Enemy
+    public class JTurretScrolling : Enemy
     {
         // Turret Variables
         /// <summary>
@@ -66,7 +66,7 @@ namespace ScrollingShooter
         /// </summary>
         /// <param name="content">A ContentManager to load resources with</param>
         /// <param name="position">The position of the turret in the game world</param>
-        public JTurret(uint id, ContentManager content, Vector2 position) : base (id)
+        public JTurretScrolling(uint id, ContentManager content, Vector2 position) : base (id)
         {
             this.position = position;
 

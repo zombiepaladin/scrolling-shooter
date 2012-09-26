@@ -56,6 +56,7 @@ namespace ScrollingShooter
         Texture2D spritesheet;
         Vector2 position;
         Vector2 patrolVector;
+        Vector2 scrollVector;
         Rectangle[] spriteBounds = new Rectangle[11];
         spinnerState state;
         animationFrame frame;
@@ -97,8 +98,8 @@ namespace ScrollingShooter
             //initial directiion and state settings
             horDir = flightDirection.positive;
             vertDir = flightDirection.positive;
-            patrolVector = new Vector2(50, 1);
-
+            patrolVector = new Vector2(50, 0);
+            scrollVector = new Vector2(0, 1);
             state = spinnerState.flying;
             frame = animationFrame.flying1;
 
@@ -115,6 +116,7 @@ namespace ScrollingShooter
             if (state == spinnerState.dead)
                 return;
 
+
             //"Sense" the Player ship
             PlayerShip Player = ScrollingShooterGame.Game.Player;
 
@@ -125,7 +127,7 @@ namespace ScrollingShooter
 
             //Conditionals to keep the spinner on screen by adjusting the patrol vector
             //A switch statement may be more efficient
-            if (horDir == flightDirection.positive && this.position.X > 725)
+            if (horDir == flightDirection.positive && this.position.X > 300)
             {
                 horDir = flightDirection.negative;
             }
@@ -133,16 +135,17 @@ namespace ScrollingShooter
             {
                 horDir = flightDirection.positive;
             }
-            if (vertDir == flightDirection.negative && this.position.Y < 25)
+            if (vertDir == flightDirection.negative && this.position.Y < Player.Position.Y-250)
             {
                 vertDir = flightDirection.positive;
             }
-            else if (vertDir == flightDirection.positive && this.position.Y > 400)
+            else if (vertDir == flightDirection.positive && this.position.Y > Player.Position.Y+250)
             {
                 vertDir = flightDirection.negative;
             }
             patrolVector.X = ((int)horDir * 50);
             patrolVector.Y = ((int)vertDir) * 5;
+            scrollVector.Y = ((int)vertDir)*1;
             //End of conditionals to stay on screen
 
 
@@ -165,6 +168,7 @@ namespace ScrollingShooter
 
                     //move
                     this.position += patrolVector * elapsedTime * 250;
+                    this.position += scrollVector * elapsedTime * ScrollingSpeed;
                     break;
                 case spinnerState.attacking:
                     // Get a normalized steering vector

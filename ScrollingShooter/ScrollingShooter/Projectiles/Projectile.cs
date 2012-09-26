@@ -38,8 +38,11 @@ namespace ScrollingShooter
         DroneLaser = 110,
         RGSabot = 111,
         Photon = 112,
-        //added alien orb
+        //added projectiles
         AlienTurretOrbScrolling,
+        AlienTurretOrb,
+        GreenOrb,
+        Pincher,
     }
 
     /// <summary>

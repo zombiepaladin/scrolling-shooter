@@ -9,11 +9,26 @@ namespace ScrollingShooter
     /// <summary>
     /// Represents the three animation frames for the alien turret
     /// </summary>
+    enum AlienTurretAnimation
+    {
+        Open = 0,
+        Mid = 1,
+        Closed = 2,
+    }
+
+    enum AlienTurretPhase
+    {
+        Wait,
+        Opening,
+        Firing,
+        Closing,
+        Dead
+    }
 
     /// <summary>
     /// A turret that looks alien
     /// </summary>
-    public class AlienTurretScrolling : Enemy
+    public class AlienTurret : Enemy
     {
         // Alien Turret drawing variables
         Texture2D spritesheet;
@@ -45,7 +60,7 @@ namespace ScrollingShooter
         /// </summary>
         /// <param name="content">A ContentManager to load resources with</param>
         /// <param name="position">The position of the Alien Turret in the game world</param>
-        public AlienTurretScrolling(uint id, ContentManager content, Vector2 position)
+        public AlienTurret(uint id, ContentManager content, Vector2 position)
             : base(id)
         {
             this.position = position;
@@ -82,10 +97,6 @@ namespace ScrollingShooter
         /// <param name="elapsedTime">The in-game time between the previous and current frame</param>
         public override void Update(float elapsedTime)
         {
-            Vector2 scrollVector =  new Vector2(0, 1);
-            scrollVector.Normalize();
-            this.position += scrollVector*ScrollingSpeed*elapsedTime;
-            
             timer += elapsedTime;
             if (Health <= 0)
                 phase = AlienTurretPhase.Dead;
@@ -115,7 +126,7 @@ namespace ScrollingShooter
                     if (timer >= .2)
                     {
                         timer = 0;
-                       ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.AlienTurretOrbScrolling, position);
+                       ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.AlienTurretOrb, position);
                         phase = AlienTurretPhase.Closing;
                     }
                     break;
@@ -127,7 +138,8 @@ namespace ScrollingShooter
                         if (frame >= 1)
                             frame--;
                         else
-                        {                          
+                        {
+                            
                             phase = AlienTurretPhase.Wait;
                         }
                     }

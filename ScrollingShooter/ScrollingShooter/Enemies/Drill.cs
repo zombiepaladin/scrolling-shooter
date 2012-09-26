@@ -115,10 +115,10 @@ namespace ScrollingShooter
             }
             else
             {
-                //The ship is not attacking.  Check for the Player's position.
-                PlayerShip Player = ScrollingShooterGame.Game.Player;
-                Vector2 PlayerPosition = new Vector2(Player.Bounds.Center.X, Player.Bounds.Center.Y);
-                if (Math.Abs(position.X - PlayerPosition.X) <= 1.5 && moveState != DrillMoveState.Enter)
+                //The ship is not attacking.  Check for the player's position.
+                PlayerShip player = ScrollingShooterGame.Game.Player;
+                Vector2 playerPosition = new Vector2(player.Bounds.Center.X, player.Bounds.Center.Y);
+                if (Math.Abs(position.X - playerPosition.X) <= 1.5 && moveState != DrillMoveState.Enter)
                 {
                     attack = true;
                 }

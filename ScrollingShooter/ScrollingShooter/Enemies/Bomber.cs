@@ -15,7 +15,7 @@ namespace ScrollingShooter
     }
 
     /// <summary>
-    /// An enemy ship that flies toward the Player and fires
+    /// An enemy ship that flies toward the player and fires
     /// </summary>
     public class Bomber : Enemy
     {
@@ -26,6 +26,10 @@ namespace ScrollingShooter
         Rectangle[] spriteBounds = new Rectangle[3];
         Rectangle[] spriteExplosionBounds = new Rectangle[12];
         int explosionState = 0;
+
+        //workaround for static distance between each bomber
+        private static int globalOffset = 0;
+        private int offset;
 
         BomberSteeringState steeringState = BomberSteeringState.Straight;
 
@@ -144,6 +148,10 @@ namespace ScrollingShooter
 
 
             steeringState = BomberSteeringState.Straight;
+
+            offset = globalOffset;
+            globalOffset += 35;
+            if (globalOffset >= 140) globalOffset = 0;
         }
 
         /// <summary>
@@ -167,9 +175,10 @@ namespace ScrollingShooter
             }
             
             float velocity = 1;
-            // Sense the Player's position
-            PlayerShip Player = ScrollingShooterGame.Game.Player;
-            Vector2 PlayerPosition = new Vector2(Player.Bounds.Center.X, Player.Bounds.Center.Y);
+
+            // Sense the player's position
+            PlayerShip player = ScrollingShooterGame.Game.Player;
+            Vector2 playerPosition = new Vector2(player.Bounds.Center.X, player.Bounds.Center.Y);
             //groupFireTimer += elapsedTime;
             bombTimer += elapsedTime;
             turboTimer += elapsedTime;
@@ -184,14 +193,14 @@ namespace ScrollingShooter
             }
 
 
-            if (PlayerPosition.X - Bounds.Center.X < -20)
+            if (playerPosition.X - Bounds.Center.X < -20)
             {
                 steeringState = BomberSteeringState.Left;
                 this.position.X -= elapsedTime * 40 * velocity;
             }
             else
             {
-                if (PlayerPosition.X - Bounds.Center.X > 20)
+                if (playerPosition.X - Bounds.Center.X > 20)
                 {
                     steeringState = BomberSteeringState.Right;
                     this.position.X += elapsedTime * 40 * velocity;
@@ -199,7 +208,7 @@ namespace ScrollingShooter
                 else
                 {
                     steeringState = BomberSteeringState.Straight;
-                    if (PlayerPosition.Y > this.Bounds.Center.Y)
+                    if (playerPosition.Y > this.Bounds.Center.Y)
                     {
                         if (bombTimer > 1.5f)
                         {

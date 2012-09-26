@@ -79,17 +79,17 @@ namespace ScrollingShooter
         /// <param name="elapsedTime">The in-game time between the previous and current frame</param>
         public override void Update(float elapsedTime)
         {
-            // Sense the Player's position
-            PlayerShip Player = ScrollingShooterGame.Game.Player;
-            Vector2 PlayerPosition = new Vector2(Player.Bounds.Center.X, Player.Bounds.Center.Y);
+            // Sense the player's position
+            PlayerShip player = ScrollingShooterGame.Game.Player;
+            Vector2 playerPosition = new Vector2(player.Bounds.Center.X, player.Bounds.Center.Y);
 
             gunTimer += elapsedTime;
 
-            // Get the distance between the Player and this along the X axis
-            float PlayerDistance = Math.Abs(PlayerPosition.X - this.position.X);
+            // Get the distance between the player and this along the X axis
+            float playerDistance = Math.Abs(playerPosition.X - this.position.X);
 
-            // Make sure the Player is within range
-            if (PlayerDistance < 60 && gunTimer > 0.20 && PlayerPosition.Y > (this.position.Y + 30))
+            // Make sure the player is within range
+            if (playerDistance < 60 && gunTimer > 0.20 && playerPosition.Y > (this.position.Y + 30))
             {
                 ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.EnemyFlameball, position);
                 gunTimer = 0;

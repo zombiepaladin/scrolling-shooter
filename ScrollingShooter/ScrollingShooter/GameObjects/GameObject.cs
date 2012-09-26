@@ -51,5 +51,11 @@ namespace ScrollingShooter
         /// <param name="elaspedTime"></param>
         /// <param name="spriteBatch"></param>
         public abstract void Draw(float elapsedTime, SpriteBatch spriteBatch);
+        public virtual void Collision()
+        {
+            ScrollingShooterGame.GameObjectManager.CreateExplosion(this.ID);
+            ScrollingShooterGame.GameObjectManager.DestroyObject(this.ID);
+
+        }
     }
 }

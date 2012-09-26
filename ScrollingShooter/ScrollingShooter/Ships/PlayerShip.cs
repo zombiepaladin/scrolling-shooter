@@ -59,6 +59,10 @@ namespace ScrollingShooter
         float railgunTimer = 0;
 
         /// <summary>
+        /// The Player's health
+        /// </summary>
+        float health = 1000;
+        /// <summary>
         /// Rectangle to draw the railgun when the powerup is enabled
         /// </summary>
         protected Rectangle railgunSpriteBounds = new Rectangle(146, 55, 8, 33);
@@ -652,5 +656,15 @@ namespace ScrollingShooter
             newDir.Normalize();
             position += newDir * 2;
         }
+        public override void Collision()
+        {
+            if (--health <= 0)
+            {
+                ScrollingShooterGame.GameObjectManager.DestroyObject(this.ID);
+            }
+        }
+
     }
+
+    
 }

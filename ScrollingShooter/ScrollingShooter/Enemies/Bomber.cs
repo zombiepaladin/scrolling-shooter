@@ -248,9 +248,9 @@ namespace ScrollingShooter
             }
         }
 
-        public void collision()
+        public override void Collision()
         {
-            isAlive = false;
+            ScrollingShooterGame.GameObjectManager.DestroyObject(this.ID);
             //bomberCount--;
         }
 

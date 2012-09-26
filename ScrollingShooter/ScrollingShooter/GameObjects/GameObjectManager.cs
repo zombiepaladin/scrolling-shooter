@@ -237,6 +237,9 @@ namespace ScrollingShooter
                 case BossType.TwinJetManager:
                     boss = new TwinJetManager(id, content, position);
                     break;
+                case BossType.Bird:
+                    boss = new Bird(id, content, position);
+                    break;
                 
                 default:
                     throw new NotImplementedException("The boss type " + Enum.GetName(typeof(BossType), enemyType) + " is not supported");
@@ -402,22 +405,22 @@ namespace ScrollingShooter
                     break;
 
                 case ProjectileType.DroneLaser:
-                    projectile = new DroneLaser(id, content, position);
+                    projectile = new DroneLaser(id, content, position,ProjectileType.DroneLaser);
                     break;
 
                 case ProjectileType.ToPlayerBullet:
-                    projectile = new ToPlayerBullet(id, content, position);
+                    projectile = new ToPlayerBullet(id, content, position,ProjectileType.ToPlayerBullet);
                     break;
 
                 case ProjectileType.ArrowProjectile:
-                    projectile = new ArrowProjectile(id, content, position);
+                    projectile = new ArrowProjectile(id, content, position,ProjectileType.ArrowProjectile);
                     break;
 
                 case ProjectileType.BirdCrap:
                     projectile = new BirdCrap(id, content, position);
                     break;
                 case ProjectileType.EBullet:
-                    projectile = new EBullet(id, content, position);
+                    projectile = new EBullet(id, content, position,ProjectileType.EBullet);
                     break;
 
                 case ProjectileType.Frostball:
@@ -425,7 +428,7 @@ namespace ScrollingShooter
                     break;
 
                 case ProjectileType.BlueBeam:
-                    projectile = new blueBeam(id, content, position);
+                    projectile = new blueBeam(id, content, position,ProjectileType.BlueBeam);
                     break;
 
                 //This method doesn't fit the trishield very well, so this code is a bit poor in quality.
@@ -440,7 +443,7 @@ namespace ScrollingShooter
                     break;
 
                 case ProjectileType.GenericEnemyBullet:
-                    projectile = new GenericEnemyBullet(id, content, position);
+                    projectile = new GenericEnemyBullet(id, content, position,ProjectileType.GenericEnemyBullet);
                     break;
 
                 case ProjectileType.DroneWave:                    
@@ -460,11 +463,11 @@ namespace ScrollingShooter
                     break;
 
                 case ProjectileType.TurretFireball:
-                    projectile = new TurretFireball(id, content, position);
+                    projectile = new TurretFireball(id, content, position,ProjectileType.TurretFireball);
                     break;
 
                 case ProjectileType.JetMinionBullet:
-                    projectile = new JetMinionBullet(id, content, position);
+                    projectile = new JetMinionBullet(id, content, position,ProjectileType.JetMinionBullet);
                     break;
 
                 case ProjectileType.EnergyBlast:
@@ -483,7 +486,7 @@ namespace ScrollingShooter
 
                     toPlayer.Normalize();
 
-                    projectile = new EnemyBullet(id, content, position, bulletVel * toPlayer);
+                    projectile = new EnemyBullet(id, content, position, bulletVel * toPlayer,ProjectileType.EnemyBullet);
                     break;
                 case ProjectileType.EnemyBomb:
                     projectile = new Bomb(id, content, position, false);
@@ -513,11 +516,11 @@ namespace ScrollingShooter
                     break;
 
                 case ProjectileType.EnemyFlameball:
-                    projectile = new EnemyFlameball(id, content, position);
+                    projectile = new EnemyFlameball(id, content, position,ProjectileType.EnemyFlameball);
                     break;
 
                 case ProjectileType.RGSabot:
-                    projectile = new RGSabot(id, content, position);
+                    projectile = new RGSabot(id, content, position,ProjectileType.RGSabot);
                     break;
 
                 case ProjectileType.BlimpBullet:
@@ -525,7 +528,7 @@ namespace ScrollingShooter
                     break;
 
                 case ProjectileType.BirdWrath:
-                    projectile = new BirdWrath(id, content, position);
+                    projectile = new BirdWrath(id, content, position,ProjectileType.BirdWrath);
                     break;
 
                 case ProjectileType.FreezewaveProjectile:
@@ -533,19 +536,19 @@ namespace ScrollingShooter
                     break;
                     
                 case ProjectileType.Photon:
-                    projectile = new Photon(id, content, position);
+                    projectile = new Photon(id, content, position,ProjectileType.Photon);
                     break;
 
                 case ProjectileType.Pincher:
-                    projectile = new Pincher(id, content, position);
+                    projectile = new Pincher(id, content, position,ProjectileType.Pincher);
                     break;
 
                 case ProjectileType.GreenOrb:
-                    projectile = new GreenOrb(id, content, position);
+                    projectile = new GreenOrb(id, content, position,ProjectileType.GreenOrb);
                     break;
 
                 case ProjectileType.AlienTurretOrb:
-                    projectile = new AlienTurretOrb(id, content, position);
+                    projectile = new AlienTurretOrb(id, content, position,ProjectileType.AlienTurretOrb);
                     break;
 
                 case ProjectileType.TwinJetMissile:
@@ -561,11 +564,11 @@ namespace ScrollingShooter
                     break;
 
                 case ProjectileType.EnemyPsyBall:
-                    projectile = new EnemyPsiBall(id, content, position);
+                    projectile = new EnemyPsiBall(id, content, position,ProjectileType.EnemyPsyBall);
                     break;
 
                 case ProjectileType.EnemyLightningZap:
-                    projectile = new EnemyLightningZap(id, content, position);
+                    projectile = new EnemyLightningZap(id, content, position,ProjectileType.EnemyLightningZap);
                     break;
 
                 default:
@@ -736,10 +739,6 @@ namespace ScrollingShooter
                     enemy = new LeftClaw(id, content, position);
                     break;
 
-                case EnemyType.Bird:
-                    enemy = new Bird(id, content, position);
-                    break;
-
                 case EnemyType.BrainBoss:
                     enemy = new BrainBoss(id, content, position);
                     break;
@@ -844,6 +843,37 @@ namespace ScrollingShooter
                 if (A.Bounds.Intersects(B.Bounds))
                 {
                     collisions.Add(pair);
+                    if ((A is Enemy || B is Enemy) && (A is PlayerShip || B is PlayerShip))
+                    {
+                        A.Collision();
+                        B.Collision();
+                        continue;
+                    }
+                    if ((A is PlayerShip || B is PlayerShip))
+                    {
+                        //checks whether the projectile is an enemy projectile
+                        if ((A is Projectile && (((int)((Projectile)A).type) >= 100)) || (B is Projectile && (((int)((Projectile)B).type) >= 100)))
+                        {
+                            A.Collision();
+                            B.Collision();
+                            continue;
+                        }
+                    }
+                    if ((A is Enemy || B is Enemy))
+                    {
+                        //checks whether the projectile is a player's projectile
+                        if ((A is Projectile && (((int)((Projectile)A).type) < 100)))
+                        {
+                            
+                            B.Collision();
+                            continue;
+                        }
+                        if (B is Projectile && (((int)((Projectile)B).type) < 100))
+                        {
+                            A.Collision();
+                            continue;
+                        }
+                    }
                 }
             }
         }
@@ -949,7 +979,7 @@ namespace ScrollingShooter
         /// <param name="gameObject">The game object to remove</param>
         private void RemoveGameObject(GameObject gameObject)
         {
-            uint id = gameObject.ID;
+             uint id = gameObject.ID;
 
             // Remove the game object from our list of all game objects
             gameObjects.Remove(id);

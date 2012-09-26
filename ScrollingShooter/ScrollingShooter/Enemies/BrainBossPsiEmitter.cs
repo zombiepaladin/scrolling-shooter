@@ -61,6 +61,11 @@ namespace ScrollingShooter
         private float timeUntilDirectionSwitch = 0;
 
         /// <summary>
+        /// Time until done recovering
+        /// </summary>
+        private float recoverTime = 3f;
+
+        /// <summary>
         /// Position of the projectile
         /// </summary>
         private Vector2 position;
@@ -99,6 +104,11 @@ namespace ScrollingShooter
         /// Current color of projectiles
         /// </summary>
         private Color projectileColor = new Color(0, 80, 160);
+
+        /// <summary>
+        /// Current color of the psi emitter
+        /// </summary>
+        private Color tintColor = Color.White;
 
         /// <summary>
         /// Random number generator
@@ -147,6 +157,8 @@ namespace ScrollingShooter
 
             timeUntilDirectionSwitch = 15 + rand.Next(15);
 
+            Health = 100;
+
         }
 
         /// <summary>
@@ -172,7 +184,6 @@ namespace ScrollingShooter
             {
                 timeUntilDirectionSwitch -= elapsedTime;
             }
-            checkForCollisions();
 
             switch (state)
             {
@@ -183,7 +194,7 @@ namespace ScrollingShooter
                     timeUntilNextShot -= elapsedTime;
 
                     if (currentShotSpeed < targetShotSpeed)
-                        currentShotSpeed += 50 * elapsedTime;
+                        currentShotSpeed += 25 * elapsedTime;
                     else
                         currentShotSpeed = targetShotSpeed;
 
@@ -218,22 +229,31 @@ namespace ScrollingShooter
                     break;
 
                 case PsiEmitterState.RECOVERING:
-                    //TODO: add recover time between fire stages, make emblem/orb look disabled during recovery
-                    //TODO: change orb/emblem color/size for each fire stage
+                    recoverTime -= elapsedTime;
+
+                    tintColor.R = (byte) rand.Next(255);
+                    tintColor.G = (byte) rand.Next(255);
+                    tintColor.B = (byte) rand.Next(255);
+
+                    if (recoverTime > 0)
+                        return;
+
                     numArms++;
 
                     if (numArms > 5)
                     {
                         numArms = 0;
+                        Health = 0;
                         state = PsiEmitterState.DESTROYED;
                     }
                     else
                     {
 
                         rotationSpeed = 0;
-                        currentShotSpeed = 20;
 
                         updateShotValues();
+
+                        tintColor = Color.White;
 
                         state = PsiEmitterState.FIRING;
                     }
@@ -253,12 +273,12 @@ namespace ScrollingShooter
                     projectileColor = Color.DarkViolet;
                     break;
                 case 2:
-                    projectileColor.R = (byte)(projectileColor.R - 3 % 255);
+                    projectileColor.R = (byte)(projectileColor.R - 6 % 255);
                     projectileColor.G = projectileColor.B = 0;
                     projectile.SetColor(projectileColor);
                     break;
                 case 3:
-                    projectileColor.R = (byte)((projectileColor.R + 2));
+                    projectileColor.R = (byte)((projectileColor.R + 6));
                     projectileColor.G = (byte)((projectileColor.R + 120));
                     projectileColor.B = (byte)((projectileColor.R + 200));
                     projectile.SetColor(projectileColor);
@@ -279,26 +299,19 @@ namespace ScrollingShooter
             }
         }
 
-        /// <summary>
-        /// Handles collisions
-        /// </summary>
-        private void checkForCollisions()
+        public void takeDamage(int damage)
         {
-            foreach (CollisionPair pair in ScrollingShooterGame.GameObjectManager.Collisions)
-            {
-                if (pair.A == this.ID || pair.B == this.ID)
-                {
-                    uint colliderID = (pair.A == this.ID) ? pair.B : pair.A;
-                    GameObject collider = ScrollingShooterGame.GameObjectManager.GetObject(colliderID);
+            if (state != PsiEmitterState.FIRING)
+                return;
 
-                    Projectile projectile = collider as Projectile;
-                    if (projectile != null && projectile as EnemyPsiBall == null)
-                    {
-                        //TODO: implement health
-                        this.state = PsiEmitterState.RECOVERING;
-                        ScrollingShooterGame.GameObjectManager.DestroyObject(colliderID);
-                    }
-                }
+            Health -= damage;
+
+            if (Health <= 0)
+            {
+                recoverTime = 3f;
+                state = PsiEmitterState.RECOVERING;
+                Health = 100;
+                ScrollingShooterGame.GameObjectManager.CreateExplosion(ID);
             }
         }
 
@@ -307,8 +320,8 @@ namespace ScrollingShooter
         /// </summary>
         private void updateShotValues()
         {
-            currentShotSpeed = 100;
-            shotDelay = 0.15f;
+            currentShotSpeed = 75;
+            
             rotationSpeed = 0;
 
             switch (numArms)
@@ -319,26 +332,28 @@ namespace ScrollingShooter
                     rotationSpeed = targetRotationSpeed = (float)Math.PI * 5;
                     break;
                 case 2:
-                    targetShotDelay = 0.10f;
-                    targetShotSpeed = 300;
+                    targetShotDelay = 0.25f;
+                    targetShotSpeed = 250;
                     targetRotationSpeed = (float)Math.PI / 5;
                     break;
                 case 3:
-                    targetShotDelay = 0.07f;
-                    targetShotSpeed = 350;
+                    targetShotDelay = 0.225f;
+                    targetShotSpeed = 300;
                     targetRotationSpeed = (float)Math.PI / 4.5f;
                     break;
                 case 4:
-                    targetShotDelay = 0.04f;
+                    targetShotDelay = 0.2f;
                     targetShotSpeed = 400;
                     targetRotationSpeed = (float)Math.PI / 4.5f;
                     break;
                 case 5:
-                    targetShotDelay = 0.023f;
-                    targetShotSpeed = 700;
+                    targetShotDelay = 0.175f;
+                    targetShotSpeed = 500;
                     targetRotationSpeed = (float)Math.PI / 4f;
                     break;
             }
+
+            shotDelay = targetShotDelay * 2;
 
             double random = rand.NextDouble();
             if (random < 0.5)
@@ -369,14 +384,6 @@ namespace ScrollingShooter
         }
 
         /// <summary>
-        /// Returns true if the psi emitter is dead
-        /// </summary>
-        public bool isDestroyed()
-        {
-            return state == PsiEmitterState.DESTROYED;
-        }
-
-        /// <summary>
         /// Does nothing because the draw is called from the brain boss in order to have the psi emitter render on top
         /// </summary>
         /// <param name="elapsedTime">The elapsed time between the previous and current frame</param>
@@ -396,8 +403,8 @@ namespace ScrollingShooter
             if (state == PsiEmitterState.DESTROYED)
                 return;
 
-            spriteBatch.Draw(psiOrbSpritesheet, position, psiOrbSpriteBounds, Color.White, psiOrbRotation, psiOrbOrigin, 1.5f, SpriteEffects.None, 1);
-            spriteBatch.Draw(emblemSpritesheet, position, emblemSpriteBounds, Color.White, 0, psiOrbOrigin, 1, SpriteEffects.None, 1);
+            spriteBatch.Draw(psiOrbSpritesheet, position, psiOrbSpriteBounds, tintColor, psiOrbRotation, psiOrbOrigin, 1.5f, SpriteEffects.None, 1);
+            spriteBatch.Draw(emblemSpritesheet, position, emblemSpriteBounds, tintColor, 0, psiOrbOrigin, 1, SpriteEffects.None, 1);
         }
     }
 }

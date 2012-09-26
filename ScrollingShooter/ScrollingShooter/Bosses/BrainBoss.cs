@@ -89,14 +89,14 @@ namespace ScrollingShooter
         private Vector2 centerOffset;
 
         /// <summary>
-        /// Center of the game screen in x dimension
+        /// Destination of brain in x dimension
         /// </summary>
-        private int screenCenterX;
+        private int targetPositionX;
 
         /// <summary>
-        /// Center of the game screen in y dimension
+        /// Destination of brain in y dimension
         /// </summary>
-        private int screenCenterY;
+        private int targetPositionY;
 
         /// <summary>
         /// State of the brain boss
@@ -106,7 +106,12 @@ namespace ScrollingShooter
         /// <summary>
         /// Brain's armor that needs to be destroyed before fighting the brain
         /// </summary>
-        private Enemy protection;
+        private BrainBossProtection protection;
+
+        /// <summary>
+        /// Test timer for taking damage over time
+        /// </summary>
+        private float testTimer = 8f;
 
         /// <summary>
         /// Creates a new brain boss
@@ -127,17 +132,18 @@ namespace ScrollingShooter
             psiOrbOffset.X = brainSpriteBounds.Width / 2;
             psiOrbOffset.Y = brainSpriteBounds.Height / 2;
 
+            this.Health = 100;
+
             this.position = position;
 
             centerOffset = new Vector2(brainSpriteBounds.Width / 2, brainSpriteBounds.Height / 2);
 
             psiEmitter = ScrollingShooterGame.GameObjectManager.CreateEnemy(EnemyType.BrainBossPsyEmitter, position + centerOffset) as BrainBossPsiEmitter;
 
-            protection = ScrollingShooterGame.GameObjectManager.CreateEnemy(EnemyType.BrainBossProtection, position + centerOffset);
-            //TODO: add protection organs for initial stage
+            protection = ScrollingShooterGame.GameObjectManager.CreateEnemy(EnemyType.BrainBossProtection, position + centerOffset) as BrainBossProtection;
 
-             screenCenterX = ScrollingShooterGame.Game.GraphicsDevice.Viewport.Width / 2 - brainSpriteBounds.Width / 2;
-             screenCenterY = ScrollingShooterGame.Game.GraphicsDevice.Viewport.Height / 2 - brainSpriteBounds.Height / 2;
+            targetPositionX = (int)position.X;
+            targetPositionY = (int)(position.Y + ScrollingShooterGame.Game.GraphicsDevice.Viewport.Height / 5 - brainSpriteBounds.Height / 2);
         }
 
         /// <summary>
@@ -146,24 +152,42 @@ namespace ScrollingShooter
         /// <param name="elapsedTime">Time passed since last frame</param>
         public override void Update(float elapsedTime)
         {
+            //TODO: remove test timer when damage is implemented
+
+            testTimer -= elapsedTime;
+
+            if (testTimer <= 0)
+            {
+                takeDamage(1000);
+                if (this.protection != null)
+                    protection.takeDamage(1000);
+                if (this.psiEmitter != null)
+                    psiEmitter.takeDamage(1000);
+                testTimer = 8f;
+            }
+
             switch (state)
             {
                 case BrainBossState.Protected:
                     if (protection.Health <= 0)
+                    {
+                        ScrollingShooterGame.GameObjectManager.DestroyObject(protection.ID);
                         state = BrainBossState.MovingToCenter;
+                        protection = null;
+                    }
                     break;
                 case BrainBossState.MovingToCenter:
-                    if (position.X < screenCenterX)
-                        position.X += Math.Min(MOVE_SPEED * elapsedTime, Math.Abs(screenCenterX - position.X));
-                    else if (position.X > screenCenterY)
-                        position.X -= Math.Min(MOVE_SPEED * elapsedTime, Math.Abs(screenCenterX - position.X));
+                    if (position.X < targetPositionX)
+                        position.X += Math.Min(MOVE_SPEED * elapsedTime, Math.Abs(targetPositionX - position.X));
+                    else if (position.X > targetPositionY)
+                        position.X -= Math.Min(MOVE_SPEED * elapsedTime, Math.Abs(targetPositionX - position.X));
 
-                    if (position.Y < screenCenterY)
-                        position.Y += Math.Min(MOVE_SPEED * elapsedTime, Math.Abs(screenCenterY - position.Y));
-                    else if (position.Y > screenCenterY)
-                        position.Y -= Math.Min(MOVE_SPEED * elapsedTime, Math.Abs(screenCenterY - position.Y));
+                    if (position.Y < targetPositionY)
+                        position.Y += Math.Min(MOVE_SPEED * elapsedTime, Math.Abs(targetPositionY - position.Y));
+                    else if (position.Y > targetPositionY)
+                        position.Y -= Math.Min(MOVE_SPEED * elapsedTime, Math.Abs(targetPositionY - position.Y));
 
-                    if (Math.Abs(screenCenterX - position.X) < 2 && Math.Abs(screenCenterY - position.Y) < 2)
+                    if (Math.Abs(targetPositionX - position.X) < 2 && Math.Abs(targetPositionY - position.Y) < 2)
                     {
                         state = BrainBossState.PsyAttack;
                         psiEmitter.startAttacking();
@@ -172,20 +196,28 @@ namespace ScrollingShooter
                     break;
 
                 case BrainBossState.PsyAttack:
-                    if (psiEmitter.isDestroyed())
+
+                    if (psiEmitter.Health <= 0)
                         state = BrainBossState.DeathCharge;
                     break;
+
                 case BrainBossState.DeathCharge:
-                    checkForCollisions();
-                    
-                    Vector2 vector = ScrollingShooterGame.Game.player.GetPosition() - (position + centerOffset);
+
+                    if (Health <= 0)
+                    {
+                        ScrollingShooterGame.GameObjectManager.DestroyObject(this.ID);
+                        ScrollingShooterGame.GameObjectManager.CreateExplosion(ID);
+                        return;
+                    }
+
+                    Vector2 vector = ScrollingShooterGame.Game.Player.GetPosition() - (position + centerOffset);
                     vector.Normalize();
                     vector *= MOVE_SPEED * elapsedTime;
 
                     position.X += vector.X;
                     position.Y += vector.Y;
 
-                    for(int i = 0; i < 2; i++)
+                    for(int i = 0; i < 1; i++)
                         ((EnemyLightningZap) ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.EnemyLightningZap, this.position + centerOffset)).Initialize((float) (rand.NextDouble() * Math.PI * 2), this.brainSpriteBounds.Width);
 
                     break;
@@ -194,26 +226,10 @@ namespace ScrollingShooter
             psiEmitter.updatePosition(this.position + centerOffset);
         }
 
-        /// <summary>
-        /// Handles collisions
-        /// </summary>
-        private void checkForCollisions()
+        public void takeDamage(int damage)
         {
-            foreach (CollisionPair pair in ScrollingShooterGame.GameObjectManager.Collisions)
-            {
-                if (pair.A == this.ID || pair.B == this.ID)
-                {
-                    uint colliderID = (pair.A == this.ID) ? pair.B : pair.A;
-                    GameObject collider = ScrollingShooterGame.GameObjectManager.GetObject(colliderID);
-
-                    Projectile projectile = collider as Projectile;
-                    if (projectile != null && projectile as EnemyPsiBall == null && projectile as EnemyLightningZap == null)
-                    {
-                        //TODO: implement health
-                        ScrollingShooterGame.GameObjectManager.DestroyObject(this.ID);
-                    }
-                }
-            }
+            if(state == BrainBossState.DeathCharge)
+                Health -= damage;
         }
 
         /// <summary>

@@ -46,7 +46,7 @@ namespace ScrollingShooter
 
     /// <summary>
     /// An enemy ship that with patrol the area around the screen until destroyed
-    /// It will attempt to fly into and damage the player.
+    /// It will attempt to fly into and damage the Player.
     /// </summary>
     class BladeSpinner : Enemy
     {
@@ -115,13 +115,13 @@ namespace ScrollingShooter
             if (state == spinnerState.dead)
                 return;
 
-            //"Sense" the player ship
-            PlayerShip player = ScrollingShooterGame.Game.player;
+            //"Sense" the Player ship
+            PlayerShip Player = ScrollingShooterGame.Game.Player;
 
             //-40 is so the Spinner actually covers the ship instead of menacing its back right corner
-            Vector2 playerPosition = new Vector2(player.Bounds.Center.X-40, player.Bounds.Center.Y-40);
-            // Get a vector from our position to the player's position
-            Vector2 toPlayer = playerPosition - this.position;
+            Vector2 PlayerPosition = new Vector2(Player.Bounds.Center.X-40, Player.Bounds.Center.Y-40);
+            // Get a vector from our position to the Player's position
+            Vector2 toPlayer = PlayerPosition - this.position;
 
             //Conditionals to keep the spinner on screen by adjusting the patrol vector
             //A switch statement may be more efficient
@@ -146,10 +146,10 @@ namespace ScrollingShooter
             //End of conditionals to stay on screen
 
 
-            //Determine if the player is "seen"
+            //Determine if the Player is "seen"
             if (toPlayer.LengthSquared() < 30000 && state != spinnerState.dying)
             {
-                //if seen attack player
+                //if seen attack Player
                 state = spinnerState.attacking;
             }
             else if (state != spinnerState.dying)
@@ -183,7 +183,7 @@ namespace ScrollingShooter
              * if(state==spinnerState.attacking)
              * {
              *     if(hitPlayer)
-             *          damage player
+             *          damage Player
              *     
              *    if(hitProjectile)
              *    {
@@ -203,7 +203,7 @@ namespace ScrollingShooter
              *      if(hitPlayer)
              *      {
              *          //Should never happen
-             *          damage player a little
+             *          damage Player a little
              *          state = spinnerState.dying;
              *      }
              *}

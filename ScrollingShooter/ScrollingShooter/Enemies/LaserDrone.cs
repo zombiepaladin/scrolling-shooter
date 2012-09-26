@@ -120,7 +120,7 @@ namespace ScrollingShooter
         public override void Update(float elapsedTime)
         {
             // Sense the player's position
-            Vector2 playerPosition = new Vector2(ScrollingShooterGame.Game.player.Bounds.Center.X, ScrollingShooterGame.Game.player.Bounds.Center.Y);
+            Vector2 playerPosition = new Vector2(ScrollingShooterGame.Game.Player.Bounds.Center.X, ScrollingShooterGame.Game.Player.Bounds.Center.Y);
 
             switch (aiState)
             {

@@ -8,7 +8,7 @@ using System.Collections.Generic;
 namespace ScrollingShooter
 {
     /// <summary>
-    /// The different types of player ships available in the game
+    /// The different types of Player ships available in the game
     /// </summary>
     public enum PlayerShipType
     {
@@ -28,7 +28,7 @@ namespace ScrollingShooter
     }
 
     /// <summary>
-    /// A base class for all player ships
+    /// A base class for all Player ships
     /// </summary>
     public abstract class PlayerShip : GameObject
     {
@@ -79,6 +79,12 @@ namespace ScrollingShooter
         /// </summary>
         protected Vector2 position = new Vector2(300,300);
 
+        public Vector2 Position
+        {
+            get { return position; }
+            set { position = value; }
+        }
+
         /// <summary>
         /// The spritesheet our ship is found upon
         /// </summary>
@@ -102,7 +108,7 @@ namespace ScrollingShooter
         PowerupType PowerupType = PowerupType.None;
 
         /// This drunk status of the ship.  If the bool is true, movements are reversed, and damage is doubled.
-        /// The drunk counter represents how many more frame updates before the player is sober again.
+        /// The drunk counter represents how many more frame updates before the Player is sober again.
         bool drunk = false;
         int drunkCounter = 0;
 
@@ -117,10 +123,10 @@ namespace ScrollingShooter
 
 
         /// <summary>
-        /// Creates a new player ship instance
+        /// Creates a new Player ship instance
         /// </summary>
         
-        /// <param name="id">the unique id of the player ship</param>
+        /// <param name="id">the unique id of the Player ship</param>
         public PlayerShip(uint id) : base(id) { }
 
 
@@ -225,7 +231,7 @@ namespace ScrollingShooter
             //Player is drunk and movements are reversed.
             else
             {
-                //Decrease drunkCounter and make the player sober if their drunk time is up.
+                //Decrease drunkCounter and make the Player sober if their drunk time is up.
                 drunkCounter--;
                 if (drunkCounter == 0)
                 {
@@ -278,7 +284,7 @@ namespace ScrollingShooter
             // Fire bomb
             if (currentKeyboardState.IsKeyDown(Keys.B))
             {
-                //checks if player has the bomb power up
+                //checks if Player has the bomb power up
                 if ((PowerupType & PowerupType.Bomb) > 0)
                 {
                     if (bombTimer > 1.5f)
@@ -384,7 +390,11 @@ namespace ScrollingShooter
         {
             if ((PowerupType & PowerupType.Railgun) > 0)
                 spriteBatch.Draw(spriteSheet, RailgunBounds, railgunSpriteBounds, Color.White);
-            spriteBatch.Draw(spriteSheet, Bounds, spriteBounds[(int)steeringState], Color.White, 0f, new Vector2(Bounds.Width / 2, Bounds.Height / 2), SpriteEffects.None, 1f);
+            
+            spriteBatch.Draw(spriteSheet, Bounds, spriteBounds[(int)steeringState], Color.White, 0f, new Vector2(Bounds.Width / 2, Bounds.Height / 2), SpriteEffects.None, LayerDepth);
+
+            // Draw shadow
+            spriteBatch.Draw(spriteSheet, new Rectangle(Bounds.X + 20, Bounds.Y + 100, Bounds.Width, Bounds.Height), spriteBounds[(int)steeringState], Color.Black, 0f, new Vector2(Bounds.Width / 2, Bounds.Height / 2), SpriteEffects.None, LayerDepth);
         }
 
 
@@ -451,7 +461,7 @@ namespace ScrollingShooter
         }
 
         /// <summary>
-        /// Makes the player drunk.  If the player is already drunk the player is just made drunk for longer.  The drunk counter is
+        /// Makes the Player drunk.  If the Player is already drunk the Player is just made drunk for longer.  The drunk counter is
         /// increased by a random number.  Time to be drunk is between 5 and 10 seconds.
         /// </summary>
         void GetDrunk()
@@ -462,7 +472,7 @@ namespace ScrollingShooter
         }
 
         /// <summary>
-        /// Makes the player sober.  Activated when the drunk time has run out.
+        /// Makes the Player sober.  Activated when the drunk time has run out.
         /// </summary>
         void SoberUp()
         {
@@ -497,14 +507,14 @@ namespace ScrollingShooter
 
         /// <summary>
         /// A helper function that initializes the blades powerup.
-        /// //Puts a giant spinning blade over player position and doubles the players velocity.
+        /// //Puts a giant spinning blade over Player position and doubles the Players velocity.
         /// </summary>
         void ApplyBlades()
         {
             ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.Blades, position);
             this.velocity *= 2;
             bladesPowerupTimer = 0;
-            //TO DO: make player invulerable for 10 secs, since not implemented yet.
+            //TO DO: make Player invulerable for 10 secs, since not implemented yet.
         }
 
         /// <summary>
@@ -515,7 +525,7 @@ namespace ScrollingShooter
             this.PowerupType = this.PowerupType ^= PowerupType.Blades;
             this.velocity /= 2;
             bladesPowerupTimer = 0;
-            //TO DO: make player vulerable again, since not implemented yet.
+            //TO DO: make Player vulerable again, since not implemented yet.
 
         }
 

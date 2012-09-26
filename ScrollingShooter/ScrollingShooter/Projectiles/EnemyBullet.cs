@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework.Content;
 namespace ScrollingShooter
 {
     /// <summary>
-    /// A generic enemy bullet that is given a velocity, giving the possibility of shooting at the player
+    /// A generic enemy bullet that is given a velocity, giving the possibility of shooting at the Player
     /// </summary>
     public class EnemyBullet : Projectile
     {

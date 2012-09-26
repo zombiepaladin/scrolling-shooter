@@ -19,6 +19,11 @@ namespace ScrollingShooter
         private int speed = 300;
 
         /// <summary>
+        /// Distance until the ball is destroyed
+        /// </summary>
+        private int rangeLeft = 225;
+
+        /// <summary>
         /// Current color to tint the psi ball
         /// </summary>
         private Color color;
@@ -119,7 +124,9 @@ namespace ScrollingShooter
         {
             base.Update(elapsedTime);
 
-            if (position.X < 0 || position.X > gameWidth || position.Y < 0 || position.Y > gameHeight)
+            rangeLeft -= (int) (speed * elapsedTime);
+
+            if (rangeLeft <= 0)
             {
                 ScrollingShooterGame.GameObjectManager.DestroyObject(this.ID);
             }

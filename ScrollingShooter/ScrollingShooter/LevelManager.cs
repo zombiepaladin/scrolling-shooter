@@ -186,6 +186,7 @@ namespace ScrollingShooter
             }
         }
 
+
         /// <summary>
         /// Draw the level
         /// </summary>

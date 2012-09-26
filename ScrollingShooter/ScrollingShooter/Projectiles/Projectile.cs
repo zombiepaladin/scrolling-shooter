@@ -23,7 +23,7 @@ namespace ScrollingShooter
         Meteor,
         BigMeteor,
         HomingMissile,
-        
+        FreezewaveProjectile,
 
         // Enemy projectiles start with an index of 100;
         // this allows us to differentiate between projectiles
@@ -49,6 +49,10 @@ namespace ScrollingShooter
         TwinJetBullet = 118,
         TwinJetMissile = 119,
         Laser = 120,
+        BirdWrath = 121,
+        EnemyPsyBall = 163,
+        EnemyLightningZap = 164,
+        EnemyTurretTowerBullet = 165,
     }
 
     /// <summary>
@@ -57,6 +61,8 @@ namespace ScrollingShooter
     public abstract class Projectile : GameObject
     {
         public static int POWER_LEVEL = 1;
+
+        public float Damage = 1;
 
         /// <summary>
         /// The projectile's velocity

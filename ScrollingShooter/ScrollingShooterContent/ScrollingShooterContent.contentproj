@@ -379,9 +379,16 @@
       <Name>example2</Name>
       <Importer>TmxImporter</Importer>
       <Processor>TilemapProcessor</Processor>
+      <SubType>Designer</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Tilesets\shapeswmodified.png">
+      <Name>shapeswmodified</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <ProcessorParameters_ColorKeyColor>191, 220, 191, 255</ProcessorParameters_ColorKeyColor>
+    </Compile>
     <Compile Include="Spritesheets\accessories.png">
       <Name>accessories</Name>
       <Importer>TextureImporter</Importer>
@@ -390,6 +397,19 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Tilemaps\crystalland.tmx">
+      <Name>crystalland</Name>
+      <Importer>TmxImporter</Importer>
+      <Processor>TilemapProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Spritesheets\newsh0.shp.000000.png">
+      <Name>newsh0.shp.000000</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <ProcessorParameters_ColorKeyColor>191, 220, 191, 255</ProcessorParameters_ColorKeyColor>
+    </Compile>
     <Compile Include="Spritesheets\vulcano.png">
       <Name>vulcano</Name>
       <Importer>TextureImporter</Importer>
@@ -406,6 +426,23 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="SpriteFonts\Pescadero.spritefont">
+      <Name>Pescadero</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+    </Compile>
+    <Compile Include="debugFont.spritefont">
+      <Name>debugFont</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Tilemaps\Airbase.tmx">
+      <Name>Airbase</Name>
+      <Importer>TmxImporter</Importer>
+      <Processor>TilemapProcessor</Processor>
+    </Compile>
     <Compile Include="Sound\BGM\Hard as Nails 11-13-28.mp3">
       <Name>Hard as Nails 11-13-28</Name>
       <Importer>Mp3Importer</Importer>
@@ -414,6 +451,49 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Sound\SFX\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Tilemaps\Level_1_Tilemap_2.tmx">
+      <Name>Level_1_Tilemap_2</Name>
+      <Importer>TmxImporter</Importer>
+      <Processor>TilemapProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Tilemaps\AlienBaseSafe.tmx">
+      <Name>AlienBaseSafe</Name>
+      <Importer>TmxImporter</Importer>
+      <Processor>TilemapProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Tilesets\bossFloorTexture.png">
+      <Name>bossFloorTexture</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Tilesets\shapeszFinalLvlMod.png">
+      <Name>shapeszFinalLvlMod</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <ProcessorParameters_ColorKeyColor>192, 220, 192, 255</ProcessorParameters_ColorKeyColor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Tilesets\shapesFinalLvlMod.png">
+      <Name>shapesFinalLvlMod</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <ProcessorParameters_ColorKeyColor>192, 220, 192, 255</ProcessorParameters_ColorKeyColor>
+    </Compile>
+    <Compile Include="Spritesheets\newsh0.shp.000001.png">
+      <Name>newsh0.shp.000001</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <ProcessorParameters_ColorKeyColor>191, 220, 191, 255</ProcessorParameters_ColorKeyColor>
+    </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />
   <!--  To modify your build process, add your task inside one of the targets below and uncomment it. 

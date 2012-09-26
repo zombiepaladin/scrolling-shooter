@@ -42,7 +42,7 @@ namespace ScrollingShooterContentPipeline
         /// A list of paths to all images used by this tilemap.
         /// </summary>
         public string[] ImagePaths;
-        
+
         /// <summary>
         /// The total number of unique tiles used in our tilemap
         /// </summary>

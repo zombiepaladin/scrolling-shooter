@@ -14,7 +14,8 @@ namespace ScrollingShooter
         /// </summary>
         /// <param name="contentManager">A ContentManager to load resources with</param>
         /// <param name="position">The position the energy blast powerup spawns at in the world</param>
-        public EnergyBlastPowerup(uint id, ContentManager contentManager, Vector2 position) : base (id)
+        public EnergyBlastPowerup(uint id, ContentManager contentManager, Vector2 position)
+            :base(id)
         {
             this.type = PowerupType.EnergyBlast;
             this.spriteSource = new Rectangle(98, 115, 20, 21);

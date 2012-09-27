@@ -13,13 +13,24 @@ using ScrollingShooterWindowsLibrary;
 namespace ScrollingShooter
 {
     /// <summary>
+    /// Indicates the state of the game
+    /// </summary>
+    enum GameState
+    {
+        Initializing,
+        Splash,
+        Gameplay,
+        Scoring,
+        Credits,
+    }
+
+    /// <summary>
     /// This is the main type for your game
     /// </summary>
     public class ScrollingShooterGame : Microsoft.Xna.Framework.Game
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        BasicEffect basicEffect;
 
         Viewport gameViewport;
         Viewport worldViewport;
@@ -28,8 +39,13 @@ namespace ScrollingShooter
         public static ScrollingShooterGame Game;
         public static GameObjectManager GameObjectManager;
         public static LevelManager LevelManager;
-        
+        public static GuiManager GuiManager;
+
         public PlayerShip Player;
+        Song Music;
+        SplashScreen Splash;
+
+        GameState GameState;
 
         public ScrollingShooterGame()
         {
@@ -51,6 +67,7 @@ namespace ScrollingShooter
         {
             // TODO: Add your initialization logic here
             LevelManager = new LevelManager(this);
+            GuiManager = new GuiManager(this);
 
             base.Initialize();
         }
@@ -65,37 +82,22 @@ namespace ScrollingShooter
             gameViewport = GraphicsDevice.Viewport;
             worldViewport = new Viewport(0, 0, 768, 720); // Twice as wide as 16 tiles
             guiViewport = new Viewport(768, 0, 512, 720); // Remaining space
-            
+
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-
-            // Create a basic effect, used with the spritebatch 
-            basicEffect = new BasicEffect(GraphicsDevice)
-            {
-                TextureEnabled = true,
-                VertexColorEnabled = true,
-            };
 
             GameObjectManager = new GameObjectManager(Content);
 
             // TODO: use this.Content to load your game content here
             Player = GameObjectManager.CreatePlayerShip(PlayerShipType.Shrike, new Vector2(300, 300));
-            //Player.ApplyPowerup(PowerupType.Fireball);
+            GameObjectManager.CreatePowerup(PowerupType.Fireball, new Vector2(100, 200));
+            GameObjectManager.CreateEnemy(EnemyType.BrainBoss, new Vector2(200, 4200));
+            Player.ApplyPowerup(PowerupType.Birdcrap);
 
             LevelManager.LoadContent();
             LevelManager.LoadLevel("AlienBaseSafe");
-            //test out new panzer personality
-            int p1 = 100;
-            int p2 = 200;
-            for (int i = 0; i < 6; i++)
-            {
-                GameObjectManager.CreateEnemy(EnemyType.Panzer, new Vector2(p1, 100));
-                GameObjectManager.CreateEnemy(EnemyType.Panzer2, new Vector2(p2, 100));
-                p1 += 100;
-                p2 += 100;
-            }
-            //test out lavabug
-            GameObjectManager.CreateEnemy(EnemyType.Lavabug, new Vector2(100, 75));
+            GuiManager.LoadContent();
+            GameState = GameState.Initializing;
         }
 
         /// <summary>
@@ -118,43 +120,44 @@ namespace ScrollingShooter
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
 
-            // TODO: Add your update logic here
             float elapsedTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
-            
-            LevelManager.Update(elapsedTime);
-            
-            GameObjectManager.Update(elapsedTime);
 
-            // Process collisions
-            foreach (CollisionPair pair in GameObjectManager.Collisions)
+            // Update according to current game state
+            switch (GameState)
             {
-                // Player collisions
-                if (pair.A == Player.ID || pair.B == Player.ID)
-                {
-                    uint colliderID = (pair.A == Player.ID) ? pair.B : pair.A;
-                    GameObject collider = GameObjectManager.GetObject(colliderID);
-                    
-                    // Process powerup collisions
-                    Powerup powerup = collider as Powerup;
-                    if (powerup != null)
+                case GameState.Initializing:
+                    if (!LevelManager.Loading)
+                        GameState = GameState.Gameplay;
+                    break;
+
+                case GameState.Splash:
+
+                    if (!LevelManager.Loading && Keyboard.GetState().IsKeyDown(Keys.Space))
                     {
-                        Player.ApplyPowerup(powerup.Type);
-                        GameObjectManager.DestroyObject(colliderID);
+                        GameState = GameState.Gameplay;
+                        Music = LevelManager.CurrentSong;
+                        if (Music != null) MediaPlayer.Play(Music);
                     }
+                    break;
 
-                    //NOTE: Apply to more than the kamikaze enemy?
-                    // Process kamakaze collisions
-                    Enemy enemy = collider as Enemy;
-                    if (enemy != null && enemy.GetType() == typeof(Kamikaze))
+                case GameState.Gameplay:
+                    LevelManager.Update(elapsedTime);
+                    GameObjectManager.Update(elapsedTime);
+                    ProcessCollisions();
+                    break;
+
+                case GameState.Scoring:
+                    if (!GuiManager.Tallying && Keyboard.GetState().IsKeyDown(Keys.Space))
                     {
-                        //Player take damage
-                        GameObjectManager.DestroyObject(colliderID);
-                        GameObjectManager.CreateExplosion(colliderID);
+                        GameState = GameState.Splash;
+                        Music = Splash.Music;
+                        if (Music != null) MediaPlayer.Play(Music);
                     }
+                    break;
 
-                }
-
-
+                case GameState.Credits:
+                    // TODO: Launch new game when player hits space
+                    break;
             }
 
             base.Update(gameTime);
@@ -168,28 +171,138 @@ namespace ScrollingShooter
         {
             // Set the viewport to the entire screen
             GraphicsDevice.Viewport = gameViewport;
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Black);
 
-            // TODO: Add your drawing code here
             float elapsedGameTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
-            
-            // Render the game world
-            GraphicsDevice.Viewport = worldViewport;
-            LevelManager.Draw(elapsedGameTime);
 
-            spriteBatch.Begin();
+            // Render according to current game state
+            switch (GameState)
+            {
+                case GameState.Splash:
+                    // TODO: Render splash screen
+                    break;
 
-//            tilemap.Draw(elapsedGameTime, spriteBatch);
+                case GameState.Gameplay:
 
-            //GameObjectManager.Draw(elapsedGameTime, spriteBatch);
+                    // Render the game world
+                    GraphicsDevice.Viewport = worldViewport;
+                    LevelManager.Draw(elapsedGameTime);
 
+                    // Render the gui
+                    GraphicsDevice.Viewport = guiViewport;
+                    // TODO: Render gui
 
-            spriteBatch.End();
+                    break;
 
-            // Render the gui
-            GraphicsDevice.Viewport = guiViewport;
+                case GameState.Scoring:
+                    // TODO: Render the end-of-level scoring screen
+                    break;
+
+                case GameState.Credits:
+                    // TODO: Render the credits screen
+                    break;
+            }
 
             base.Draw(gameTime);
+        }
+
+
+        /// <summary>
+        /// Helper method for processing gameobject collisions
+        /// </summary>
+        void ProcessCollisions()
+        {
+            // Process collisions
+            foreach (CollisionPair pair in GameObjectManager.Collisions)
+            {
+                GameObject objectA = GameObjectManager.GetObject(pair.A);
+                GameObject objectB = GameObjectManager.GetObject(pair.B);
+
+                // Player collisions
+                if (objectA.ObjectType == ObjectType.Player || objectB.ObjectType == ObjectType.Player)
+                {
+                    PlayerShip player = ((objectA.ObjectType == ObjectType.Player) ? objectA : objectB) as PlayerShip;
+                    GameObject collider = (objectA.ObjectType == ObjectType.Player) ? objectB : objectA;
+
+                    // Process powerup collisions
+                    switch (collider.ObjectType)
+                    {
+                        case ObjectType.Powerup:
+                            Powerup powerup = collider as Powerup;
+                            player.ApplyPowerup(powerup.Type);
+                            GameObjectManager.DestroyObject(collider.ID);
+                            break;
+
+                        case ObjectType.Enemy:
+                            Enemy enemy = collider as Enemy;
+                            if (enemy.GetType() == typeof(Kamikaze) ||
+                                enemy.GetType() == typeof(SuicideBomber))
+                            {
+                                //Player take damage
+                                GameObjectManager.DestroyObject(collider.ID);
+                                GameObjectManager.CreateExplosion(collider.ID);
+                            }
+                            break;
+
+                        case ObjectType.EnemyProjectile:
+                            Projectile projectile = collider as Projectile;
+
+                            // Damage player
+                            player.Health -= projectile.Damage;
+                            if (player.Health <= 0)
+                            {
+                                GameObjectManager.DestroyObject(player.ID);
+                                GameObjectManager.CreateExplosion(player.ID);
+                            }
+
+                            GameObjectManager.DestroyObject(collider.ID);
+                            break;
+                    }
+                }
+
+                // Player Projectile collisions
+                else if (objectA.ObjectType == ObjectType.PlayerProjectile || objectB.ObjectType == ObjectType.PlayerProjectile)
+                {
+                    Projectile playerProjectile = ((objectA.ObjectType == ObjectType.PlayerProjectile) ? objectA : objectB) as Projectile;
+                    GameObject collider = (objectA.ObjectType == ObjectType.Player) ? objectB : objectA;
+
+                    // Process collisions
+                    switch (collider.ObjectType)
+                    {
+                        case ObjectType.Enemy:
+                            Enemy enemy = collider as Enemy;
+                            //Enemy take damage
+                            enemy.Health -= playerProjectile.Damage;
+
+                            // If health <= 0, kill enemy
+                            if (enemy.Health <= 0)
+                            {
+                                GameObjectManager.DestroyObject(collider.ID);
+                                GameObjectManager.CreateExplosion(collider.ID);
+                            }
+                            // Destroy projectile
+                            // Note, if there are special things for the bullet, add them here
+                            GameObjectManager.DestroyObject(playerProjectile.ID);
+                            break;
+
+                        case ObjectType.Boss:
+                            Boss boss = collider as Boss;
+                            // Boss take damage
+                            boss.Health -= playerProjectile.Damage;
+
+                            // If health <= 0, kill boss
+                            if (boss.Health <= 0)
+                            {
+                                GameObjectManager.DestroyObject(collider.ID);
+                                GameObjectManager.CreateExplosion(collider.ID);
+                            }
+                            // Destroy projectile
+                            // Note, if there are special things for the bullet, add them here
+                            GameObjectManager.DestroyObject(playerProjectile.ID);
+                            break;
+                    }
+                }
+            }
         }
     }
 }

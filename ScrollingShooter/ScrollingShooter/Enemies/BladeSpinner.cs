@@ -1,4 +1,4 @@
-﻿//BladeSpinner.cs by Matthew Hart
+//BladeSpinner.cs by Matthew Hart
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
@@ -46,7 +46,7 @@ namespace ScrollingShooter
 
     /// <summary>
     /// An enemy ship that with patrol the area around the screen until destroyed
-    /// It will attempt to fly into and damage the Player.
+    /// It will attempt to fly into and damage the player.
     /// </summary>
     class BladeSpinner : Enemy
     {
@@ -56,7 +56,6 @@ namespace ScrollingShooter
         Texture2D spritesheet;
         Vector2 position;
         Vector2 patrolVector;
-        Vector2 scrollVector;
         Rectangle[] spriteBounds = new Rectangle[11];
         spinnerState state;
         animationFrame frame;
@@ -98,8 +97,8 @@ namespace ScrollingShooter
             //initial directiion and state settings
             horDir = flightDirection.positive;
             vertDir = flightDirection.positive;
-            patrolVector = new Vector2(50, 0);
-            scrollVector = new Vector2(0, 1);
+            patrolVector = new Vector2(50, 1);
+
             state = spinnerState.flying;
             frame = animationFrame.flying1;
 
@@ -116,18 +115,17 @@ namespace ScrollingShooter
             if (state == spinnerState.dead)
                 return;
 
-
-            //"Sense" the Player ship
-            PlayerShip Player = ScrollingShooterGame.Game.Player;
+            //"Sense" the player ship
+            PlayerShip player = ScrollingShooterGame.Game.Player;
 
             //-40 is so the Spinner actually covers the ship instead of menacing its back right corner
-            Vector2 PlayerPosition = new Vector2(Player.Bounds.Center.X-40, Player.Bounds.Center.Y-40);
-            // Get a vector from our position to the Player's position
-            Vector2 toPlayer = PlayerPosition - this.position;
+            Vector2 playerPosition = new Vector2(player.Bounds.Center.X-40, player.Bounds.Center.Y-40);
+            // Get a vector from our position to the player's position
+            Vector2 toPlayer = playerPosition - this.position;
 
             //Conditionals to keep the spinner on screen by adjusting the patrol vector
             //A switch statement may be more efficient
-            if (horDir == flightDirection.positive && this.position.X > 300)
+            if (horDir == flightDirection.positive && this.position.X > 725)
             {
                 horDir = flightDirection.negative;
             }
@@ -135,24 +133,23 @@ namespace ScrollingShooter
             {
                 horDir = flightDirection.positive;
             }
-            if (vertDir == flightDirection.negative && this.position.Y < Player.Position.Y-250)
+            if (vertDir == flightDirection.negative && this.position.Y < 25)
             {
                 vertDir = flightDirection.positive;
             }
-            else if (vertDir == flightDirection.positive && this.position.Y > Player.Position.Y+250)
+            else if (vertDir == flightDirection.positive && this.position.Y > 400)
             {
                 vertDir = flightDirection.negative;
             }
             patrolVector.X = ((int)horDir * 50);
             patrolVector.Y = ((int)vertDir) * 5;
-            scrollVector.Y = ((int)vertDir)*1;
             //End of conditionals to stay on screen
 
 
-            //Determine if the Player is "seen"
+            //Determine if the player is "seen"
             if (toPlayer.LengthSquared() < 30000 && state != spinnerState.dying)
             {
-                //if seen attack Player
+                //if seen attack player
                 state = spinnerState.attacking;
             }
             else if (state != spinnerState.dying)
@@ -168,7 +165,6 @@ namespace ScrollingShooter
 
                     //move
                     this.position += patrolVector * elapsedTime * 250;
-                    this.position += scrollVector * elapsedTime * ScrollingSpeed;
                     break;
                 case spinnerState.attacking:
                     // Get a normalized steering vector
@@ -187,7 +183,7 @@ namespace ScrollingShooter
              * if(state==spinnerState.attacking)
              * {
              *     if(hitPlayer)
-             *          damage Player
+             *          damage player
              *     
              *    if(hitProjectile)
              *    {
@@ -207,7 +203,7 @@ namespace ScrollingShooter
              *      if(hitPlayer)
              *      {
              *          //Should never happen
-             *          damage Player a little
+             *          damage player a little
              *          state = spinnerState.dying;
              *      }
              *}

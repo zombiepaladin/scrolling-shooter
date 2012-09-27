@@ -30,7 +30,7 @@ namespace ScrollingShooter
         Dead = 2
     }
 
-    public class beamShip : Enemy
+   public class BeamShip : Enemy
     {
 
         // beam ship state variables
@@ -87,7 +87,7 @@ namespace ScrollingShooter
         /// </summary>
         /// <param name="content">A ContentManager to load resources with</param>
         /// <param name="position">The position of the beam ship in the game world</param>
-        public beamShip(uint id, ContentManager content, Vector2 position) : base (id)
+        public BeamShip(uint id, ContentManager content, Vector2 position) : base (id)
         {
             this.position = position;
             weaponAlive = true;
@@ -130,9 +130,9 @@ namespace ScrollingShooter
         /// <param name="elapsedTime">The in-game time between the previous and current frame</param>
         public override void Update(float elapsedTime)
         {
-            // Sense the Player's position
-            PlayerShip Player = ScrollingShooterGame.Game.Player;
-            Vector2 PlayerPosition = new Vector2(Player.Bounds.Center.X, Player.Bounds.Center.Y);
+            // Sense the player's position
+            PlayerShip player = ScrollingShooterGame.Game.Player;
+            Vector2 playerPosition = new Vector2(player.Bounds.Center.X, player.Bounds.Center.Y);
            
             if (timer > 0)
                 timer -= elapsedTime;
@@ -144,7 +144,7 @@ namespace ScrollingShooter
 
                     if (timer < 0)
                     {
-                        if (this.position.X >= PlayerPosition.X - 23 && this.position.X <= PlayerPosition.X + 23 && this.position.Y < PlayerPosition.Y)
+                        if (this.position.X >= playerPosition.X - 23 && this.position.X <= playerPosition.X + 23 && this.position.Y < playerPosition.Y)
                         {
                             timer = 1f;
                             behaviorState = BehaviorState.Charging;

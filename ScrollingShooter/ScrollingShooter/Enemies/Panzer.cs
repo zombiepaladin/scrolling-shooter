@@ -21,8 +21,8 @@ namespace ScrollingShooter
     }
 
     /// <summary>
-    /// A ground tank that shoot at the Player if they are in range,
-    /// moves slowly towards them but stops when they are close.
+    /// A ground tank that shoot at the player if they are in range,
+    /// moves slowly towards them.
     /// </summary>
     public class Panzer : Enemy
     {
@@ -30,7 +30,7 @@ namespace ScrollingShooter
         Texture2D spritesheet;
         Vector2 position;
         Rectangle[] spriteBounds = new Rectangle[8];
-        PanzerAimState aimState;
+        PanzerAimState aimState = PanzerAimState.South;
         float defaultGunTimer = 0;
 
         /// <summary>
@@ -107,20 +107,20 @@ namespace ScrollingShooter
         /// <param name="elapsedTime">In-game time between previous and current frame</param>
         public override void Update(float elapsedTime)
         {
-            //Sense the Player's position
-            PlayerShip Player = ScrollingShooterGame.Game.Player;
-            Vector2 PlayerPosition = new Vector2(Player.Bounds.Center.X,
-                Player.Bounds.Center.Y);
+            //Sense the player's position
+            PlayerShip player = ScrollingShooterGame.Game.Player;
+            Vector2 playerPosition = new Vector2(player.Bounds.Center.X,
+                player.Bounds.Center.Y);
 
-            //Get the vector from Panzer's position to the Player's position
-            Vector2 toPlayer = PlayerPosition - this.position;
+            //Get the vector from Panzer's position to the player's position
+            Vector2 toPlayer = playerPosition - this.position;
 
             if ((toPlayer.LengthSquared() < 70000) && (toPlayer.LengthSquared() > 5000))
             {
-                //get a vector in the direction of the player
+                //points the Panzer towards the player
                 toPlayer.Normalize();
 
-                //chase the Player
+                //chase the player
                 this.position += toPlayer * elapsedTime * 25;
                 
                 //update the steering
@@ -167,7 +167,7 @@ namespace ScrollingShooter
         }
 
         /// <summary>
-        /// Fires a bullet from the Panzer towards the Player
+        /// Fires a bullet from the Panzer towards the player
         /// </summary>
         /// <param name="elapsedTime">In-game time between previous and current frame</param>
         public void FireCannon(float elapsedTime)

@@ -1,4 +1,4 @@
-﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using System.Collections.Generic;
@@ -105,6 +105,7 @@ namespace ScrollingShooter
             this.position = position;
             phase = AlienPhase.Wait;
             timer = 0;
+
             spritesheet = content.Load<Texture2D>("Spritesheets/newshn.shp.000000");
 
             spriteBounds[(int)AlienHeadPart.Face].X = 7;
@@ -176,8 +177,7 @@ namespace ScrollingShooter
         {
             //get a new random number
             int random = randomGen.Next(0, 100);
-            
-            
+           
 
             switch (phase)
             {
@@ -227,7 +227,7 @@ namespace ScrollingShooter
                             break;
 
                         case AlienBreathingPhase.Inhale:
-                            //ScrollingShooterGame.Game.Player.MoveShip(mouthPos);
+                            ScrollingShooterGame.Game.Player.MoveShip(mouthPos);
                             if(timer >= 3)
                                 breathingPhase = AlienBreathingPhase.BreatheOut;
                             break;

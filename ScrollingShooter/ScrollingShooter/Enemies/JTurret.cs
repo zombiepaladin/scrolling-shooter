@@ -6,9 +6,9 @@ using Microsoft.Xna.Framework.Content;
 namespace ScrollingShooter
 {
     /// <summary>
-    /// An enemy turret that turns to the Player and fires at them
+    /// An enemy turret that turns to the player and fires at them
     /// </summary>
-    public class JTurretScrolling : Enemy
+    public class JTurret : Enemy
     {
         // Turret Variables
         /// <summary>
@@ -66,7 +66,7 @@ namespace ScrollingShooter
         /// </summary>
         /// <param name="content">A ContentManager to load resources with</param>
         /// <param name="position">The position of the turret in the game world</param>
-        public JTurretScrolling(uint id, ContentManager content, Vector2 position) : base (id)
+        public JTurret(uint id, ContentManager content, Vector2 position) : base (id)
         {
             this.position = position;
 
@@ -113,14 +113,14 @@ namespace ScrollingShooter
             {
                 // TODO: Figure out why the bullet spawn doesn't always match up perfectly with the cannon barrel
 
-                // We sense the Player's ship!                  
+                // We sense the player's ship!                  
                 // Get a normalized turning vector
                 toPlayer.Normalize();
 
                 // Rotate towards them!
                 this.alpha = (float)Math.Atan2(toPlayer.Y, toPlayer.X) - MathHelper.PiOver2;
 
-                // If it is time to shoot, fire a bullet towards the Player
+                // If it is time to shoot, fire a bullet towards the player
                 if (shotDelay > 1f)
                 {
                     // Rotation Matrix to get the rotated offset vectors

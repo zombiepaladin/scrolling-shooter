@@ -1,4 +1,4 @@
-﻿﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using System.Collections.Generic;
@@ -13,6 +13,8 @@ namespace ScrollingShooter
     {
         // Orb state variables
         Texture2D spritesheet;
+        Vector2 position;
+        Rectangle spriteBounds = new Rectangle();
 
         float angle;
 

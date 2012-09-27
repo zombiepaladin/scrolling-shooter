@@ -1,4 +1,4 @@
-﻿﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,7 +10,6 @@ namespace ScrollingShooter
     /// </summary>
     public enum EnemyType
     {
-        AlienTurretScrolling,
         Dart,
         GreenGoblin,
         LaserDrone,
@@ -21,7 +20,7 @@ namespace ScrollingShooter
         Arrow,
         LavaFighter,
         StdBaddy,
-        beamShip,
+        BeamShip,
         Kamikaze,
         Panzer,
         Panzer2,
@@ -37,13 +36,21 @@ namespace ScrollingShooter
         DrillLeft,
         DrillRight,
         SuicideBomber,
-        JTurretScrolling,
-        //alienBossParts
         AlienHead,
-        AlienTurret,
-        LeftClaw,
-        RightClaw,
         ShieldGenerator,
+        AlienTurret,
+        RightClaw,
+        LeftClaw,
+        TwinJet,
+        Bird,
+        BrainBoss,
+        BrainBossPsyEmitter,
+        BrainBossProtection,
+        TurretSingle,
+        TurretDouble,
+        TurretTower,
+        JTurretScrolling,
+        AlienTurretScrolling,
     }
 
     /// <summary>
@@ -54,7 +61,7 @@ namespace ScrollingShooter
         /// <summary>
         /// The enemy's health
         /// </summary>
-        public float Health;
+        public float Health = 1;
 
         /// <summary>
         /// Constructs a new enemy

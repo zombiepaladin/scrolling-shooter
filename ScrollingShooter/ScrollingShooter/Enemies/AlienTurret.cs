@@ -1,4 +1,4 @@
-﻿﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using System.Collections.Generic;
@@ -97,6 +97,7 @@ namespace ScrollingShooter
         /// <param name="elapsedTime">The in-game time between the previous and current frame</param>
         public override void Update(float elapsedTime)
         {
+            Health--;
             timer += elapsedTime;
             if (Health <= 0)
                 phase = AlienTurretPhase.Dead;

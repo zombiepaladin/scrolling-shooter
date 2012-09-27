@@ -83,26 +83,20 @@
   <object name="PlayerStart" x="185" y="13775"/>
   <object x="185" y="13775"/>
   <object name="Enemy" type="DeerTickDown" x="178" y="12953" width="24" height="28"/>
-  <object name="Enemy" type="DeerTickDown" x="72" y="12992" width="24" height="28"/>
-  <object name="Enemy" type="DeerTickDown" x="288" y="12992" width="24" height="28"/>
-  <object name="Enemy" type="DeerTickDown" x="72" y="12387" width="24" height="28"/>
-  <object name="Enemy" type="DeerTickDown" x="178" y="12348" width="24" height="28"/>
   <object name="Enemy" type="DeerTickDown" x="288" y="12387" width="24" height="28"/>
   <object name="Enemy" type="DeerTickDown" x="288" y="11883" width="24" height="28"/>
   <object name="Enemy" type="DeerTickDown" x="72" y="11883" width="24" height="28"/>
-  <object name="Enemy" type="DeerTickDown" x="178" y="11844" width="24" height="28"/>
   <object name="Enemy" type="DeerTickDown" x="288" y="11267" width="24" height="28"/>
   <object name="Enemy" type="DeerTickDown" x="72" y="11267" width="24" height="28"/>
   <object name="Enemy" type="DeerTickDown" x="178" y="11228" width="24" height="28"/>
   <object name="Enemy" type="LaserDrone" x="264" y="10976" width="24" height="28"/>
-  <object x="336" y="11116"/>
   <object name="Enemy" type="LaserDrone" x="192" y="10276" width="24" height="28"/>
   <object name="Enemy" type="LaserDrone" x="192" y="9492" width="24" height="28"/>
-  <object name="Enemy" type="beamShip" x="120" y="10612" width="24" height="28"/>
-  <object name="Enemy" type="beamShip" x="288" y="10136" width="24" height="28"/>
-  <object name="Enemy" type="beamShip" x="192" y="9436" width="24" height="28"/>
-  <object name="Enemy" type="beamShip" x="264" y="11536" width="24" height="28"/>
-  <object name="Enemy" type="beamShip" x="120" y="11536" width="24" height="28"/>
+  <object name="Enemy" type="BeamShip" x="120" y="10612" width="24" height="28"/>
+  <object name="Enemy" type="BeamShip" x="288" y="10136" width="24" height="28"/>
+  <object name="Enemy" type="BeamShip" x="192" y="9436" width="24" height="28"/>
+  <object name="Enemy" type="BeamShip" x="264" y="11536" width="24" height="28"/>
+  <object name="Enemy" type="BeamShip" x="120" y="11536" width="24" height="28"/>
   <object name="Enemy" type="Cobalt" x="120" y="11004" width="24" height="28"/>
   <object name="Enemy" type="Cobalt" x="264" y="11004" width="24" height="28"/>
   <object name="Enemy" type="Cobalt" x="120" y="10556" width="24" height="28"/>
@@ -138,25 +132,18 @@
   <object name="Enemy" type="JTurretScrolling" x="278" y="13076" width="24" height="28"/>
   <object name="Enemy" type="JTurretScrolling" x="120" y="12808" width="24" height="28"/>
   <object name="Enemy" type="JTurretScrolling" x="242" y="12808" width="24" height="28"/>
-  <object name="Enemy" type="JTurretScrolling" x="120" y="12752" width="24" height="28"/>
-  <object name="Enemy" type="JTurretScrolling" x="242" y="12752" width="24" height="28"/>
   <object name="Enemy" type="JTurretScrolling" x="120" y="12696" width="24" height="28"/>
   <object name="Enemy" type="JTurretScrolling" x="242" y="12696" width="24" height="28"/>
   <object name="Enemy" type="AlienTurretScrolling" x="144" y="10796" width="24" height="28"/>
-  <object name="Enemy" type="JTurretScrolling" x="168" y="12488" width="24" height="28"/>
   <object name="Enemy" type="JTurretScrolling" x="72" y="12488" width="24" height="28"/>
   <object name="Enemy" type="JTurretScrolling" x="288" y="12292" width="24" height="28"/>
-  <object name="Enemy" type="JTurretScrolling" x="192" y="12292" width="24" height="28"/>
   <object name="Enemy" type="JTurretScrolling" x="288" y="12432" width="24" height="28"/>
   <object name="Enemy" type="JTurretScrolling" x="72" y="12180" width="24" height="28"/>
   <object name="Enemy" type="JTurretScrolling" x="177" y="11803" width="24" height="28"/>
-  <object name="Enemy" type="JTurretScrolling" x="177" y="11743" width="24" height="28"/>
-  <object name="Enemy" type="JTurretScrolling" x="177" y="11859" width="24" height="28"/>
   <object name="Enemy" type="JTurretScrolling" x="177" y="11915" width="24" height="28"/>
   <object name="Enemy" type="JTurretScrolling" x="178" y="11673" width="24" height="28"/>
   <object name="Enemy" type="JTurretScrolling" x="72" y="11620" width="24" height="28"/>
   <object name="Enemy" type="JTurretScrolling" x="288" y="11620" width="24" height="28"/>
-  <object name="Enemy" type="AlienTurretScrolling" x="175" y="12792" width="24" height="28"/>
   <object name="Enemy" type="AlienTurretScrolling" x="220" y="11351" width="24" height="28"/>
   <object name="Enemy" type="AlienTurretScrolling" x="150" y="11350" width="24" height="28"/>
   <object name="Enemy" type="AlienTurretScrolling" x="255" y="9702" width="24" height="28"/>
@@ -174,7 +161,7 @@
   <object name="Enemy" type="JTurretScrolling" x="111" y="8583" width="24" height="28"/>
   <object name="Enemy" type="JTurretScrolling" x="274" y="8387" width="24" height="28"/>
   <object name="Enemy" type="JTurretScrolling" x="240" y="8764" width="24" height="28"/>
-  <object name="Enemy" type="AlienTurretScrolling" x="174" y="12715" width="24" height="28"/>
+  <object name="Enemy" type="AlienTurretScrolling" x="181" y="12754" width="24" height="28"/>
   <object name="Enemy" type="JTurretScrolling" x="72" y="11368" width="24" height="28"/>
   <object name="Enemy" type="JTurretScrolling" x="288" y="11368" width="24" height="28"/>
   <object name="Enemy" type="AlienTurretScrolling" x="33" y="8077" width="24" height="28"/>

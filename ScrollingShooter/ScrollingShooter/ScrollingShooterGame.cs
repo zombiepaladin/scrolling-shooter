@@ -94,8 +94,9 @@ namespace ScrollingShooter
             GameObjectManager.CreateEnemy(EnemyType.BrainBoss, new Vector2(200, 4200));
             //Player.ApplyPowerup(PowerupType.Fireball);
 
+            Splash = new GameStart();
             LevelManager.LoadContent();
-            LevelManager.LoadLevel("Level_1_Tilemap_2");
+            LevelManager.LoadLevel("Airbase");
             GuiManager.LoadContent();
             GameState = GameState.Initializing;
         }
@@ -125,13 +126,11 @@ namespace ScrollingShooter
             // Update according to current game state
             switch (GameState)
             {
-                case GameState.Initializing:
-                    if (!LevelManager.Loading)
-                        GameState = GameState.Gameplay;
-                    break;
-
+                case GameState.Initializing: 
+                        GameState = GameState.Splash;
+                        break;
                 case GameState.Splash:
-
+                        Splash.Update(elapsedTime);
                     if (!LevelManager.Loading && Keyboard.GetState().IsKeyDown(Keys.Space))
                     {
                         GameState = GameState.Gameplay;
@@ -179,7 +178,9 @@ namespace ScrollingShooter
             switch (GameState)
             {
                 case GameState.Splash:
-                    // TODO: Render splash screen
+                    spriteBatch.Begin();
+                    Splash.Draw(elapsedGameTime, spriteBatch);
+                    spriteBatch.End();
                     break;
 
                 case GameState.Gameplay:

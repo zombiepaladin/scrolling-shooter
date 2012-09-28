@@ -332,29 +332,29 @@ namespace ScrollingShooter
             switch (numArms)
             {
                 case 1:
-                    targetShotDelay = 0.3f;
-                    targetShotSpeed = 200;
-                    rotationSpeed = targetRotationSpeed = (float)Math.PI * 5;
+                    targetShotDelay = 0.2f;
+                    targetShotSpeed = 150;
+                    rotationSpeed = targetRotationSpeed = (float)Math.PI / 5f;
                     break;
                 case 2:
-                    targetShotDelay = 0.3f;
-                    targetShotSpeed = 250;
-                    targetRotationSpeed = (float)Math.PI / 5;
+                    targetShotDelay = 0.175f;
+                    targetShotSpeed = 200;
+                    targetRotationSpeed = (float)Math.PI / 4.5f;
                     break;
                 case 3:
-                    targetShotDelay = 0.3f;
-                    targetShotSpeed = 300;
-                    targetRotationSpeed = (float)Math.PI / 5f;
+                    targetShotDelay = 0.15f;
+                    targetShotSpeed = 250;
+                    targetRotationSpeed = (float)Math.PI / 4f;
                     break;
                 case 4:
-                    targetShotDelay = 0.3f;
+                    targetShotDelay = 0.125f;
                     targetShotSpeed = 300;
-                    targetRotationSpeed = (float)Math.PI / 5f;
+                    targetRotationSpeed = (float)Math.PI / 3.5f;
                     break;
                 case 5:
-                    targetShotDelay = 0.3f;
-                    targetShotSpeed = 300;
-                    targetRotationSpeed = (float)Math.PI / 5f;
+                    targetShotDelay = 0.1f;
+                    targetShotSpeed = 350;
+                    targetRotationSpeed = (float)Math.PI / 3f;
                     break;
             }
 

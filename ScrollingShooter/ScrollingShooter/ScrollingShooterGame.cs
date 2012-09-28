@@ -80,6 +80,7 @@ namespace ScrollingShooter
 
             // TODO: use this.Content to load your game content here
             Player = GameObjectManager.CreatePlayerShip(PlayerShipType.Shrike, new Vector2(300, 300));
+            GameObjectManager.CreateEnemy(EnemyType.Seed, new Vector2(100, 4200));
             //Player.ApplyPowerup(PowerupType.Fireball);
 
             LevelManager.LoadContent();

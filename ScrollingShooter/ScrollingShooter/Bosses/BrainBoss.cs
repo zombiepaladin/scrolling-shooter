@@ -230,7 +230,7 @@ namespace ScrollingShooter
                         lightningRecharge = .66f;
 
                         for (int i = 0; i < 15; i++)
-                            ((EnemyLightningZap)ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.EnemyLightningZap, this.position + centerOffset)).Initialize((float)(rand.NextDouble() * Math.PI * 2), this.brainSpriteBounds.Width);
+                            ((EnemyLightningZap)ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.EnemyLightningZap, this.position + centerOffset)).Initialize((float)(rand.NextDouble() * Math.PI * 2), this.brainSpriteBounds.Width / 2);
                     }
                     break;
             }

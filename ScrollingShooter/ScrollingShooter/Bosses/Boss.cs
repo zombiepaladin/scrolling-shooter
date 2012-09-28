@@ -1,4 +1,4 @@
-﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace ScrollingShooter
@@ -8,8 +8,9 @@ namespace ScrollingShooter
     /// </summary>
     public enum BossType
     {
+        GiantAlien,
         Blimp,
-        TwinJetManager
+        TwinJetManager,
     }
 
     /// <summary>

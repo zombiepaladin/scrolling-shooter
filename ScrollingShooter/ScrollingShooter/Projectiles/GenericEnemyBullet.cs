@@ -34,7 +34,7 @@ namespace ScrollingShooter
 
             this.position = position;
 
-            // This bullet aims once at the Player and then continues in that direction
+            // This bullet aims once at the player and then continues in that direction
             Vector2 target = new Vector2(ScrollingShooterGame.Game.Player.Bounds.Center.X, ScrollingShooterGame.Game.Player.Bounds.Center.Y);
             Vector2 toTarget = target - this.position;
             toTarget.Normalize();

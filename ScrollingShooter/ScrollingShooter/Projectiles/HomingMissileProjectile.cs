@@ -1,4 +1,4 @@
-﻿//Homing Missile Projectile Class:
+//Homing Missile Projectile Class:
 //Coders: Nicholas Boen
 //Date: 9/1/2012
 //Time: 11:25 P.M.
@@ -72,6 +72,7 @@ namespace ScrollingShooter
         private int targetVectorScalar;
 
         private float rotation;
+
         #endregion
 
         #region Constructors
@@ -83,9 +84,23 @@ namespace ScrollingShooter
         /// <param name="content">A ContentManager to load content from</param>
         /// <param name="newPosition">A position on the screen</param>
         /// <param name="missileLevel">The level of the missile powerup when this missile was shot</param>
-        public HomingMissileProjectile(ContentManager content, Vector2 newPosition, uint id):base(id)
+        public HomingMissileProjectile(ContentManager content, Vector2 newPosition, short missileLevel, uint id):base(id)
         {
-            Initialize(content, newPosition, PlayerShip.HomingMissileLevel, (int)id);
+            Initialize(content, newPosition, missileLevel, 1);
+        }
+
+        /// <summary>
+        /// An overridden constructor that ceates a new missile and requires a seed value, use this
+        /// when making quick successive calls to the constructor (the interative variable makes a 
+        /// good seed modifier)
+        /// </summary>
+        /// <param name="content">A ContentManager to load content from</param>
+        /// <param name="newPosition">A position on the screen</param>
+        /// <param name="missileLevel">The level of the missile powerup when this missile was shot</param>
+        /// <param name="randomSeedModifier">Indicates the modifier to the random seed for calculating position, 1 is default</param>
+        public HomingMissileProjectile(ContentManager content, Vector2 newPosition, short missileLevel, int randomSeedModifier, uint id):base(id)
+        {
+            Initialize(content, newPosition, missileLevel, randomSeedModifier);
         }
 
         #endregion

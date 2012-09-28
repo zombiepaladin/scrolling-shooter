@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ProjectGuid>{268B1713-BD39-49CB-BEFD-DB11C562192C}</ProjectGuid>
@@ -13,7 +13,7 @@
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>
     <XnaFrameworkVersion>v4.0</XnaFrameworkVersion>
     <XnaPlatform>Windows</XnaPlatform>
-    <XnaProfile>HiDef</XnaProfile>
+    <XnaProfile>Reach</XnaProfile>
     <XnaCrossPlatformGroupID>2f3702e0-31cb-4e01-b188-d4df49201fa6</XnaCrossPlatformGroupID>
     <XnaOutputType>Game</XnaOutputType>
     <ApplicationIcon>Game.ico</ApplicationIcon>
@@ -93,9 +93,6 @@
     <Reference Include="System">
       <Private>False</Private>
     </Reference>
-    <Reference Include="System.Data" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml">
       <Private>False</Private>
     </Reference>
@@ -111,6 +108,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Bosses\Blimp.cs" />
+    <Compile Include="Bosses\Bird.cs" />
     <Compile Include="Bosses\Boss.cs" />
     <Compile Include="Bosses\BossFlightPattern.cs" />
     <Compile Include="Bosses\TwinJet.cs" />
@@ -118,7 +116,16 @@
     <Compile Include="Bosses\Lavabug.cs" />
     <Compile Include="Bosses\Lavabug2.cs" />
     <Compile Include="Bosses\Mandible.cs" />
+    <Compile Include="Bosses\GiantAlien.cs" />
+    <Compile Include="Bosses\MBCloseC.cs" />
+    <Compile Include="Bosses\MoonBoss.cs" />
+    <Compile Include="Enemies\BigBad.cs" />
+    <Compile Include="Enemies\AlienHead.cs" />
+    <Compile Include="Enemies\AlienTurret.cs" />
+    <Compile Include="Bosses\BrainBoss.cs" />
     <Compile Include="Enemies\Bomber.cs" />
+    <Compile Include="Enemies\BrainBossPsiEmitter.cs" />
+    <Compile Include="Enemies\BrainBossProtection.cs" />
     <Compile Include="Enemies\Drill.cs" />
     <Compile Include="Enemies\Arrow.cs" />
     <Compile Include="Enemies\beamShip.cs" />
@@ -129,7 +136,12 @@
     <Compile Include="Enemies\Enemy.cs" />
     <Compile Include="Enemies\GreenGoblin.cs" />
     <Compile Include="Enemies\LaserDrone.cs" />
+    <Compile Include="Enemies\MoonSpinner.cs" />
+    <Compile Include="Enemies\LavaFighter.cs" />
     <Compile Include="Enemies\Panzer2.cs" />
+    <Compile Include="Enemies\LeftClaw.cs" />
+    <Compile Include="Enemies\RightClaw.cs" />
+    <Compile Include="Enemies\ShieldGenerator.cs" />
     <Compile Include="Enemies\SuicideBomber.cs" />
     <Compile Include="Enemies\Seed.cs" />
     <Compile Include="Enemies\JTurret.cs" />
@@ -137,17 +149,25 @@
     <Compile Include="Enemies\StdBaddy.cs" />
     <Compile Include="Enemies\Kamikaze.cs" />
     <Compile Include="Enemies\Panzer.cs" />
+    <Compile Include="Enemies\TurretDouble.cs" />
+    <Compile Include="Enemies\TurretSingle.cs" />
+    <Compile Include="Enemies\TurretTower.cs" />
     <Compile Include="GameObjects\BoundingBox.cs" />
     <Compile Include="GameObjects\CollisionPair.cs" />
     <Compile Include="GameObjects\GameObject.cs" />
     <Compile Include="GameObjects\GameObjectManager.cs" />
     <Compile Include="Animation.cs" />
+    <Compile Include="GuiManager.cs" />
     <Compile Include="LevelManager.cs" />
     <Compile Include="Powerups\Railgun.cs" />
     <Compile Include="Powerups\ShotgunPowerup.cs" />
     <Compile Include="Powerups\BubbleBeamPowerup.cs" />
+    <Compile Include="Projectiles\AlienTurretOrb.cs" />
+    <Compile Include="Projectiles\GreenOrb.cs" />
+    <Compile Include="Projectiles\Pincher.cs" />
     <Compile Include="Projectiles\Boss_TwinJetBullet.cs" />
     <Compile Include="Projectiles\Boss_TwinJetMissile.cs" />
+    <Compile Include="Projectiles\BirdWrath.cs" />
     <Compile Include="Projectiles\BubbleBullet.cs" />
     <Compile Include="Powerups\FreezewavePowerup.cs" />
     <Compile Include="Enemies\JetMinion.cs" />
@@ -173,6 +193,10 @@
     <Compile Include="Projectiles\EnemyFlameball.cs" />
     <Compile Include="Projectiles\DroneLaser.cs" />
     <Compile Include="Projectiles\EnemyBullet.cs" />
+    <Compile Include="Projectiles\EnemyLightingZap.cs" />
+    <Compile Include="Projectiles\EnemyPsiBall.cs" />
+    <Compile Include="Projectiles\Cannonball.cs" />
+    <Compile Include="Projectiles\EnemyTurretTowerBullet.cs" />
     <Compile Include="Projectiles\EnergyBlast.cs" />
     <Compile Include="Projectiles\DroneWave.cs" />
     <Compile Include="Projectiles\EBullet.cs" />
@@ -199,6 +223,9 @@
     <Compile Include="Program.cs" />
     <Compile Include="ScrollingShooterGame.cs" />
     <Compile Include="Ships\ShrikeShip.cs" />
+    <Compile Include="SplashScreens\EndLevelOne.cs" />
+    <Compile Include="SplashScreens\GameStart.cs" />
+    <Compile Include="SplashScreens\SplashScreen.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />
@@ -241,6 +268,7 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\Microsoft.Xna.GameStudio.targets" />
   <!--

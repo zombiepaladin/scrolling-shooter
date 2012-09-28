@@ -16,7 +16,7 @@ namespace ScrollingShooter
     public abstract class Shield : GameObject
     {
         /// <summary>
-        /// The shield's velocity, perhaps for rotation?
+        /// The shiled's velocity, perhaps for rotation?
         /// </summary>
         protected Vector2 velocity;
 
@@ -44,7 +44,7 @@ namespace ScrollingShooter
 
         /// <summary>
         /// The location of the sprite in the game world,
-        /// although we want it to follow the Player ship's movement
+        /// although we want it to follow the player ship's movement
         /// </summary>
         public override Rectangle Bounds
         {

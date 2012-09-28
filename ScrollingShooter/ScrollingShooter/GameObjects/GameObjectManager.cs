@@ -823,6 +823,10 @@ namespace ScrollingShooter
                     enemy = new MoonSpinner(id, content, position);
                     break;
 
+                case EnemyType.MoonShield:
+                    enemy = new MoonShield(id, content, position);
+                    break;
+
                 default:
                     throw new NotImplementedException("The enemy type " + Enum.GetName(typeof(EnemyType), enemyType) + " is not supported");
             }

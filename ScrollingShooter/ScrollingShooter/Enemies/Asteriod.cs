@@ -51,7 +51,7 @@ namespace ScrollingShooter
         /// </summary>
         public override Rectangle Bounds
         {
-            get { return SPRITEBOUNDS[_size - 1]; }
+            get { return new Rectangle((int)_position.X, (int)_position.Y, SPRITEBOUNDS[_size - 1].Width, SPRITEBOUNDS[_size - 1].Height); }
         }
 
         /// <summary>

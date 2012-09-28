@@ -156,7 +156,7 @@ namespace ScrollingShooter
         public PlayerShip(uint id, ContentManager content) : base(id) 
         {
             bulletFired = content.Load<SoundEffect>("SFX/anti_tank_gun_single_shot");
-            bubbleBeamFired = content.Load<SoundEffect>("SFX/outofammo");
+            bubbleBeamFired = content.Load<SoundEffect>("SFX/8bit_gunloop_explosion");
             fireBallFired = content.Load<SoundEffect>("SFX/whoosh1");
             freezeWaveFired = content.Load<SoundEffect>("SFX/whoosh2");
             railGunFired = content.Load<SoundEffect>("SFX/foom_0");

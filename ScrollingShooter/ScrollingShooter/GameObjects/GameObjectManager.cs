@@ -595,6 +595,9 @@ namespace ScrollingShooter
                 case ProjectileType.EnemyLightningZap:
                     projectile = new EnemyLightningZap(id, content, position);
                     break;
+                case ProjectileType.CobaltBomb:
+                    projectile = new CobaltBomb(id, content, position);
+                    break;
 
                 default:
                     throw new NotImplementedException("The projectile type " + Enum.GetName(typeof(ProjectileType), projectileType) + " is not supported");

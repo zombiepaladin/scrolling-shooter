@@ -54,6 +54,7 @@ namespace ScrollingShooter
         EnemyLightningZap = 164,
         EnemyTurretTowerBullet = 165,
         AlienTurretOrbScrolling,
+        CobaltBomb,
 
     }
 

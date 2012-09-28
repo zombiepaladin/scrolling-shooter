@@ -78,14 +78,10 @@ Content\SFX\thunk.xnb
 Content\SFX\zoom3.xnb
 Content\SFX\22.xnb
 Content\SFX\ambient_techno1.xnb
-Content\SFX\arrr.xnb
-Content\SFX\beep.xnb
-Content\SFX\block.xnb
 Content\SFX\coldsnap.xnb
 Content\SFX\dead.xnb
 Content\SFX\earth.xnb
 Content\SFX\flopp med underleppa (flanger9).xnb
-Content\SFX\foom_0.xnb
 Content\SFX\gun_fire.xnb
 Content\SFX\gun_fire2.xnb
 Content\SFX\ice.xnb
@@ -94,7 +90,6 @@ Content\SFX\laser1.xnb
 Content\SFX\laser2.xnb
 Content\SFX\laser3.xnb
 Content\SFX\monster.xnb
-Content\SFX\outofammo.xnb
 Content\SFX\pusou.xnb
 Content\SFX\sci-fi 1_2.xnb
 Content\SFX\short wind sound.xnb
@@ -106,8 +101,11 @@ Content\SFX\spell3.xnb
 Content\SFX\spell4.xnb
 Content\SFX\teleport.xnb
 Content\SFX\warcry.xnb
+Content\SFX\Unlincensed\outofammo.xnb
+Content\SFX\Unlincensed\weapload.xnb
+Content\SFX\block.xnb
+Content\SFX\foom_0.xnb
 Content\SFX\wave2.xnb
-Content\SFX\weapload.xnb
 Content\SFX\whoosh (phaser).xnb
 Content\SFX\whoosh1.xnb
 Content\SFX\whoosh2.xnb

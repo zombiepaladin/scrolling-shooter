@@ -554,11 +554,6 @@
       <Importer>WavImporter</Importer>
       <Processor>SoundEffectProcessor</Processor>
     </Compile>
-    <Compile Include="SFX\arrr.wav">
-      <Name>arrr</Name>
-      <Importer>WavImporter</Importer>
-      <Processor>SoundEffectProcessor</Processor>
-    </Compile>
     <Compile Include="SFX\block.wav">
       <Name>block</Name>
       <Importer>WavImporter</Importer>
@@ -629,7 +624,7 @@
       <Importer>WavImporter</Importer>
       <Processor>SoundEffectProcessor</Processor>
     </Compile>
-    <Compile Include="SFX\outofammo.wav">
+    <Compile Include="SFX\Unlincensed\outofammo.wav">
       <Name>outofammo</Name>
       <Importer>WavImporter</Importer>
       <Processor>SoundEffectProcessor</Processor>
@@ -694,7 +689,7 @@
       <Importer>WavImporter</Importer>
       <Processor>SoundEffectProcessor</Processor>
     </Compile>
-    <Compile Include="SFX\weapload.wav">
+    <Compile Include="SFX\Unlincensed\weapload.wav">
       <Name>weapload</Name>
       <Importer>WavImporter</Importer>
       <Processor>SoundEffectProcessor</Processor>

@@ -152,7 +152,7 @@ namespace ScrollingShooter
                 // Unpase on space press
                 if (Keyboard.GetState().IsKeyDown(Keys.Space)) Paused = false;
             }
-            else
+            else if(!Loading)
             {
                 // Update the scrolling distance - the distance
                 // the screen has scrolled past the Player

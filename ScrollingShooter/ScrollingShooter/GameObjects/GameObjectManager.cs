@@ -264,6 +264,22 @@ namespace ScrollingShooter
             return ex;
         }
 
+        /// <summary>
+        /// Factory method for creating an explosion
+        /// </summary>
+        /// <param name="colliderID">The source of the explosion</param>
+        /// <param name="scale">The scale of the explosion</param>
+        /// <returns>The newly-spawned explosion</returns>
+        public Explosion2 CreateExplosion2(uint colliderID, float scale)
+        {
+            Explosion2 ex;
+            uint id = NextID();
+            Vector2 pos = new Vector2(GetObject(colliderID).Bounds.X, GetObject(colliderID).Bounds.Y);
+            ex = new Explosion2(id, pos, content, scale);
+            QueueGameObjectForCreation(ex);
+            return ex;
+        }
+
 
         /// <summary>
         /// Factory method to create a Player ship

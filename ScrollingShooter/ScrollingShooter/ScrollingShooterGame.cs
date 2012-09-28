@@ -238,7 +238,7 @@ namespace ScrollingShooter
                             {
                                 //Player take damage
                                 GameObjectManager.DestroyObject(collider.ID);
-                                GameObjectManager.CreateExplosion(collider.ID);
+                                GameObjectManager.CreateExplosion2(collider.ID, 0.5f);
                             }
                             break;
 
@@ -250,7 +250,7 @@ namespace ScrollingShooter
                             if (player.Health <= 0)
                             {
                                 GameObjectManager.DestroyObject(player.ID);
-                                GameObjectManager.CreateExplosion(player.ID);
+                                GameObjectManager.CreateExplosion2(player.ID, 1);
                             }
 
                             GameObjectManager.DestroyObject(collider.ID);
@@ -277,6 +277,7 @@ namespace ScrollingShooter
                             {
                                 GameObjectManager.DestroyObject(collider.ID);
                                 GameObjectManager.CreateExplosion(collider.ID);
+                                GameObjectManager.CreateExplosion2(collider.ID, 0.5f);
                             }
                             // Destroy projectile
                             // Note, if there are special things for the bullet, add them here
@@ -293,6 +294,7 @@ namespace ScrollingShooter
                             {
                                 GameObjectManager.DestroyObject(collider.ID);
                                 GameObjectManager.CreateExplosion(collider.ID);
+                                GameObjectManager.CreateExplosion2(collider.ID, 1.5f);
                             }
                             // Destroy projectile
                             // Note, if there are special things for the bullet, add them here

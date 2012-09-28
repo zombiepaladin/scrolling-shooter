@@ -233,7 +233,6 @@
   <ItemGroup>
     <Content Include="Game.ico" />
     <Content Include="GameThumbnail.png" />
-    <Content Include="SplashScreens\Credits.txt" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\ScrollingShooterWindowsLibrary\ScrollingShooterWindowsLibrary.csproj">

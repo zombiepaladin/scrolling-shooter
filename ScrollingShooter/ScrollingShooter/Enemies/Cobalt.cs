@@ -62,13 +62,13 @@ namespace ScrollingShooter
             {
                 if (toPlayer.LengthSquared() < 10000)
                 {
-                    if (delay > 1f)
+                    if (delay > .5f)
                     {
                         //Player is close fire weapons
                         Vector2 travel = position;
-                        travel.X = Bounds.X + Bounds.Width / 2;
-                        travel.Y = Bounds.Y + Bounds.Height;
-                        ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.ShotgunBullet, travel);
+                        travel.X += Bounds.Width / 2;
+                        travel.Y += Bounds.Height / 2;
+                        ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.CobaltBomb, travel);
                         delay = 0;
                     }
                 }
@@ -102,5 +102,32 @@ namespace ScrollingShooter
                 spriteBatch.Draw(spritesheet, Bounds, spriteBounds, Color.White);
         }
 
+    }
+    public class CobaltBomb : Projectile
+    {
+        /// <summary>
+        /// Creates a new blimp bullet
+        /// </summary>
+        /// <param name="content">A ContentManager to load content from</param>
+        /// <param name="position">A position on the screen</param>
+        public CobaltBomb(uint id, ContentManager content, Vector2 position)
+            : base(id)
+        {
+            this.spriteSheet = content.Load<Texture2D>("Spritesheets/newsh(.shp.000000");
+
+            this.spriteBounds = new Rectangle(48, 197, 13, 11);
+
+            this.position = position;
+
+            // Sense the player's position
+            PlayerShip player = ScrollingShooterGame.Game.player;
+            Vector2 playerPosition = new Vector2(player.Bounds.Center.X, player.Bounds.Center.Y);
+
+            // Get a vector from our position to the player's position
+            Vector2 toPlayer = playerPosition - this.position;
+
+            velocity = toPlayer;
+
+        }
     }
 }

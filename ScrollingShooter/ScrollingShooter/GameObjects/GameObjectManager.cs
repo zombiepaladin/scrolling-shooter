@@ -385,6 +385,10 @@ namespace ScrollingShooter
                     projectile = new blueBeam(id, content, position);
                     break;
 
+                case ProjectileType.CobaltBomb:
+                    projectile = new CobaltBomb(id, content, position);
+                    break;
+
                     //This method doesn't fit the trishield very well, so this code is a bit poor in quality.
                 case ProjectileType.TrishieldBall:
                     for (int i = 0; i < 2; i++)

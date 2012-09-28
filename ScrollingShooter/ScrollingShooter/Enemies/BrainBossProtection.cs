@@ -1,4 +1,6 @@
-﻿using System;
+﻿//Samuel Fike
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +10,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace ScrollingShooter
 {
-    //DOCUMENTATION PENDING!
+    
 
     class BrainBossProtection : Enemy
     {
@@ -35,6 +37,12 @@ namespace ScrollingShooter
 
         private float shotTimer = 0.1f;
 
+        /// <summary>
+        /// The armor and eye for the BrainBoss
+        /// </summary>
+        /// <param name="id">The game id to assign to the new object</param>
+        /// <param name="content">A ContentManager to load content from</param>
+        /// <param name="position">A position on the screen</param>
         public BrainBossProtection(uint id, ContentManager content, Vector2 position)
             : base(id)
         {
@@ -58,8 +66,34 @@ namespace ScrollingShooter
             helmetCenterOffset = new Vector2(helmetSpriteBounds.Width / 2, helmetSpriteBounds.Height / 2 + 10);
         }
 
+        /// <summary>
+        /// Returns true if the protection is in the destroyed state.
+        /// </summary>
+        /// <returns></returns>
+        public bool isDestroyed()
+        {
+            return partsLeft <= 0;
+        }
+
+        /// <summary>
+        /// Updates the protection every frame
+        /// </summary>
+        /// <param name="elapsedTime">Time passed since last frame</param>
         public override void Update(float elapsedTime)
         {
+            if (partsLeft <= 0)
+            {
+                Health = 0;
+                return;
+            }
+
+            if (Health <= 0)
+            {
+                partsLeft--;
+                Health = 100;
+                ScrollingShooterGame.GameObjectManager.CreateExplosion(ID);
+            }
+
             shotTimer -= elapsedTime;
 
             if (partsLeft == 3) // eye is functional
@@ -97,29 +131,19 @@ namespace ScrollingShooter
             }
         }
 
-        public void takeDamage(int damage)
-        {
-            if (partsLeft <= 0)
-                return;
-
-            Health -= damage;
-
-            if (Health <= 0)
-            {
-                partsLeft--;
-                Health = 100;
-                ScrollingShooterGame.GameObjectManager.CreateExplosion(ID);
-            }
-
-            if (partsLeft <= 0)
-                Health = 0;
-        }
-
+        /// <summary>
+        /// Returns the bounds of the armor
+        /// </summary>
         public override Rectangle Bounds
         {
             get { return new Rectangle((int)position.X, (int)position.Y, eyeSpriteBounds.Width, eyeSpriteBounds.Height); }
         }
 
+        /// <summary>
+        /// Draws the parts of the protection that are alive
+        /// </summary>
+        /// <param name="elapsedTime">The elapsed time between the previous and current frame</param>
+        /// <param name="spriteBatch">An already-initialized SpriteBatch, ready for Draw() commands</param>
         public override void Draw(float elapsedTime, Microsoft.Xna.Framework.Graphics.SpriteBatch spriteBatch)
         {
             if(partsLeft > 1)

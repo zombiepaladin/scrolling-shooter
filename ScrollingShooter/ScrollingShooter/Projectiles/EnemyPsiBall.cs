@@ -34,6 +34,11 @@ namespace ScrollingShooter
         private float angle = 0;
 
         /// <summary>
+        /// Scale of the ball
+        /// </summary>
+        private Vector2 scale;
+
+        /// <summary>
         /// If true, turns a random color every time it renders.
         /// </summary>
         private bool randomize = false;
@@ -74,6 +79,8 @@ namespace ScrollingShooter
             this.velocity = new Vector2(0, 0);
 
             this.position = position;
+
+            scale = new Vector2(.75f, .75f);
 
             color = Color.White;
             
@@ -126,10 +133,18 @@ namespace ScrollingShooter
 
             rangeLeft -= (int) (speed * elapsedTime);
 
+            if (scale.X < 5)
+                scale.X += 10 * elapsedTime;
+
             if (rangeLeft <= 0)
             {
                 ScrollingShooterGame.GameObjectManager.DestroyObject(this.ID);
             }
+        }
+
+        public override Rectangle Bounds
+        {
+            get { return new Rectangle((int)position.X, (int)position.Y, (int) (spriteBounds.Width * scale.X), (int) (spriteBounds.Height * scale.Y)); }
         }
 
         /// <summary>
@@ -145,7 +160,7 @@ namespace ScrollingShooter
                 color.G = (byte)rand.Next(255);
                 color.B = (byte)rand.Next(255);
             }
-            spriteBatch.Draw(spriteSheet, Bounds, spriteBounds, color, 0f, origin, SpriteEffects.None, 1f);
+            spriteBatch.Draw(spriteSheet, position, spriteBounds, color, angle, origin, scale, SpriteEffects.None, 1f);
         }
     }
 }

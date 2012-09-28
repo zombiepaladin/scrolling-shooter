@@ -1,4 +1,8 @@
-﻿using System;
+﻿//Samuel Fike
+
+
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -167,13 +171,14 @@ namespace ScrollingShooter
         /// <param name="elapsedTime">Time passed since last frame</param>
         public override void Update(float elapsedTime)
         {
-            if (state == PsiEmitterState.DESTROYED)
+
+            if (state == PsiEmitterState.INACTIVE || state == PsiEmitterState.DESTROYED)
                 return;
+
+            if (state != PsiEmitterState.FIRING) //can't die unless firing
+                Health = 99999;
 
             this.psiOrbRotation += (float)Math.PI * elapsedTime;
-
-            if (state == PsiEmitterState.INACTIVE)
-                return;
 
             if (timeUntilDirectionSwitch <= 0)
             {
@@ -192,6 +197,15 @@ namespace ScrollingShooter
 
                 case PsiEmitterState.FIRING:
                     timeUntilNextShot -= elapsedTime;
+
+                    if (Health <= 0)
+                    {
+                        recoverTime = 3f;
+                        state = PsiEmitterState.RECOVERING;
+                        Health = 100;
+                        ScrollingShooterGame.GameObjectManager.CreateExplosion(ID);
+                        return;
+                    }
 
                     if (currentShotSpeed < targetShotSpeed)
                         currentShotSpeed += 25 * elapsedTime;
@@ -255,10 +269,17 @@ namespace ScrollingShooter
 
                         tintColor = Color.White;
 
+                        Health = 100;
+
                         state = PsiEmitterState.FIRING;
                     }
                     break;
             }
+        }
+
+        public bool isDestroyed()
+        {
+            return state == PsiEmitterState.DESTROYED;
         }
 
         /// <summary>
@@ -299,22 +320,6 @@ namespace ScrollingShooter
             }
         }
 
-        public void takeDamage(int damage)
-        {
-            if (state != PsiEmitterState.FIRING)
-                return;
-
-            Health -= damage;
-
-            if (Health <= 0)
-            {
-                recoverTime = 3f;
-                state = PsiEmitterState.RECOVERING;
-                Health = 100;
-                ScrollingShooterGame.GameObjectManager.CreateExplosion(ID);
-            }
-        }
-
         /// <summary>
         /// Sets shot speed, delay, and rotation speed according to the firing state of the psi emitter
         /// </summary>
@@ -332,24 +337,24 @@ namespace ScrollingShooter
                     rotationSpeed = targetRotationSpeed = (float)Math.PI * 5;
                     break;
                 case 2:
-                    targetShotDelay = 0.25f;
+                    targetShotDelay = 0.3f;
                     targetShotSpeed = 250;
                     targetRotationSpeed = (float)Math.PI / 5;
                     break;
                 case 3:
-                    targetShotDelay = 0.225f;
+                    targetShotDelay = 0.3f;
                     targetShotSpeed = 300;
-                    targetRotationSpeed = (float)Math.PI / 4.5f;
+                    targetRotationSpeed = (float)Math.PI / 5f;
                     break;
                 case 4:
-                    targetShotDelay = 0.2f;
-                    targetShotSpeed = 400;
-                    targetRotationSpeed = (float)Math.PI / 4.5f;
+                    targetShotDelay = 0.3f;
+                    targetShotSpeed = 300;
+                    targetRotationSpeed = (float)Math.PI / 5f;
                     break;
                 case 5:
-                    targetShotDelay = 0.175f;
-                    targetShotSpeed = 500;
-                    targetRotationSpeed = (float)Math.PI / 4f;
+                    targetShotDelay = 0.3f;
+                    targetShotSpeed = 300;
+                    targetRotationSpeed = (float)Math.PI / 5f;
                     break;
             }
 
@@ -375,6 +380,7 @@ namespace ScrollingShooter
         public void startAttacking()
         {
             this.state = PsiEmitterState.FIRING;
+            Health = 100;
             updateShotValues();
         }
 

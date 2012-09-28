@@ -13,6 +13,10 @@ namespace ScrollingShooter
     public class BigMeteor : Meteor
     {
 
+        private Vector2 startPos;
+
+        private int shotsLeft = 10;
+
         /// <summary>
         /// Creates a new big meteor
         /// </summary>
@@ -23,14 +27,45 @@ namespace ScrollingShooter
             //Different sprite - Have to use a right-facing meteor and rotate it 90 degrees, the down-facing meteor has a weird border that shows up
             this.spriteBounds = new Rectangle(108, 183, 12, 12);
 
+            this.startPos = position;
             //Large meteors travel twice as fast as normal.
             velocity *= 2;
 
+            Randomize();
+        }
+
+        private void Randomize()
+        {
             //Random enlargement
-            Random rand = new Random((int) (position.X * position.Y)); //Time-dependent seed would generate the same number for every object when they are created right after eachother.
-            scale *= 7 + rand.Next(4);
+            Random rand = new Random((int)(position.X * position.Y)); //Time-dependent seed would generate the same number for every object when they are created right after eachother.
+            scale = 4 + rand.Next(7);
+
+            position.X = rand.Next((int)startPos.X*2);
+            position.Y = startPos.Y - rand.Next(200);
 
             //TODO: Make damage scale with size.
+        }
+
+        public override Rectangle Bounds
+        {
+            get
+            {
+                return new Rectangle((int) position.X, (int) position.Y, (int) (spriteBounds.Width * scale), (int) (spriteBounds.Height * scale));
+            }
+        }
+
+        public override void Update(float elapsedTime)
+        {
+            base.Update(elapsedTime);
+
+            if (position.Y > startPos.Y + 500)
+            {
+                shotsLeft--;
+                if (shotsLeft <= 0)
+                    ScrollingShooterGame.GameObjectManager.DestroyObject(this.ID);
+                else
+                    Randomize();
+            }
         }
 
         /// <summary>

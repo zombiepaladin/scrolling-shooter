@@ -224,6 +224,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="ScrollingShooterGame.cs" />
     <Compile Include="Ships\ShrikeShip.cs" />
+    <Compile Include="SplashScreens\Credits.cs" />
     <Compile Include="SplashScreens\EndLevelOne.cs" />
     <Compile Include="SplashScreens\GameStart.cs" />
     <Compile Include="SplashScreens\SplashScreen.cs" />
@@ -231,6 +232,7 @@
   <ItemGroup>
     <Content Include="Game.ico" />
     <Content Include="GameThumbnail.png" />
+    <Content Include="SplashScreens\Credits.txt" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\ScrollingShooterWindowsLibrary\ScrollingShooterWindowsLibrary.csproj">

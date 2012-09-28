@@ -1,0 +1,5 @@
+﻿4
+Instructor; Nathen Bean
+Programmers; Devin Kelly-Collins   Jason Shaw; Austin Murphey
+This game was developed as a project for CIS 450, Intro to Game Design
+Thank you for playing

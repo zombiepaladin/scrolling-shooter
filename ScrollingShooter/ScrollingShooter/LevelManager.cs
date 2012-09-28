@@ -72,7 +72,7 @@ namespace ScrollingShooter
             };
 
             // Create our first splash screen
-            CurrentSplash = new GameStart();
+            CurrentSplash = new Credits();
         }
 
 
@@ -156,6 +156,10 @@ namespace ScrollingShooter
                 if (!loading && Keyboard.GetState().IsKeyDown(Keys.Space))
                 {
                     levelState = LevelState.Gameplay;
+                }
+                else
+                {
+                    CurrentSplash.Update(elapsedTime);
                 }
             }
             else // Update the level

@@ -61,6 +61,9 @@ namespace ScrollingShooter
                 TextureEnabled = true,
                 VertexColorEnabled = true,
             };
+
+            // Create our first splash screen
+            CurrentSplash = new Credits();
         }
 
 
@@ -118,7 +121,7 @@ namespace ScrollingShooter
                                 break;
 
                             case "Enemy":
-                                go = ScrollingShooterGame.GameObjectManager.CreateEnemy((EnemyType)Enum.Parse(typeof(EnemyType), goData.Type), position);
+                                go = ScrollingShooterGame.GameObjectManager.CreateEnemy((EnemyType)Enum.Parse(typeof(EnemyType), goData.Type), position, new object[] { 2 });
                                 CurrentMap.GameObjectGroups[i].GameObjectData[j].ID = go.ID;
                                 go.LayerDepth = CurrentMap.GameObjectGroups[i].LayerDepth;
                                 go.ScrollingSpeed = CurrentMap.GameObjectGroups[i].ScrollingSpeed;
@@ -151,6 +154,10 @@ namespace ScrollingShooter
             {
                 // Unpase on space press
                 if (Keyboard.GetState().IsKeyDown(Keys.Space)) Paused = false;
+                else
+                {
+                    CurrentSplash.Update(elapsedTime);
+                }
             }
             else
             {

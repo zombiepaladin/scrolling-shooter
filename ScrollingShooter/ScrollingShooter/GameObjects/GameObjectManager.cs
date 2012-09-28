@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -238,7 +238,11 @@ namespace ScrollingShooter
                 case BossType.TwinJetManager:
                     boss = new TwinJetManager(id, content, position);
                     break;
-                
+
+                case BossType.MoonBoss:
+                    boss = new MoonBoss(id, content, position);
+                    break;
+
                 default:
                     throw new NotImplementedException("The boss type " + Enum.GetName(typeof(BossType), enemyType) + " is not supported");
             }
@@ -592,6 +596,11 @@ namespace ScrollingShooter
                     projectile = new EnemyLightningZap(id, content, position);
                     break;
 
+
+                case ProjectileType.Laser:
+                    projectile = new Bullet(id, content, position);
+                    break;
+
                 default:
                     throw new NotImplementedException("The projectile type " + Enum.GetName(typeof(ProjectileType), projectileType) + " is not supported");
             }
@@ -638,7 +647,7 @@ namespace ScrollingShooter
         /// <param name="enemyType">The type of enemy to spawn</param>
         /// <param name="position">The location to spawn the enemy</param>
         /// <returns></returns>
-        public Enemy CreateEnemy(EnemyType enemyType, Vector2 position)
+        public Enemy CreateEnemy(EnemyType enemyType, Vector2 position, object[] args = null)
         {
             Enemy enemy;
             uint id = NextID();
@@ -764,6 +773,9 @@ namespace ScrollingShooter
 
                 case EnemyType.TwinJet:
                     enemy = new TwinJet(id, content, position);
+                    break;
+                case EnemyType.Asteriod:
+                    enemy = new Asteriod(id, content, position, (int)args[0]);
                     break;
 
                 case EnemyType.AlienTurret:

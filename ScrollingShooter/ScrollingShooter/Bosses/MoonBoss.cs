@@ -13,7 +13,7 @@ namespace ScrollingShooter
     /// <summary>
     /// This is going to hopfuly finalize the MoonBoss Since git hub lost these files and I have no way of getting them back I hope this works. 
     /// </summary>
-    class MoonBoss:Enemy
+    class MoonBoss : Boss
     {
         float dgt1 = 0;
         float dgt2 = 0;
@@ -42,7 +42,7 @@ namespace ScrollingShooter
             Health = 600;
             this.position = position;
             CC = new MBCloseC(id, content, position);
-            spritesheet = content.Load<Texture2D>("Spritesheets/MoonBoss.png");
+            spritesheet = content.Load<Texture2D>("Spritesheets/MoonBoss");
 
             spriteBounds[(int)MBState.Full].X = 0;
             spriteBounds[(int)MBState.Full].Y = 0;

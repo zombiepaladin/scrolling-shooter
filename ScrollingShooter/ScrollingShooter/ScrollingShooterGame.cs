@@ -13,6 +13,18 @@ using ScrollingShooterWindowsLibrary;
 namespace ScrollingShooter
 {
     /// <summary>
+    /// Indicates the state of the game
+    /// </summary>
+    enum GameState
+    {
+        Initializing,
+        Splash,
+        Gameplay,
+        Scoring,
+        Credits,
+    }
+
+    /// <summary>
     /// This is the main type for your game
     /// </summary>
     public class ScrollingShooterGame : Microsoft.Xna.Framework.Game
@@ -27,9 +39,13 @@ namespace ScrollingShooter
         public static ScrollingShooterGame Game;
         public static GameObjectManager GameObjectManager;
         public static LevelManager LevelManager;
+        public static GuiManager GuiManager;
 
         public PlayerShip Player;
-        Song song;
+        Song Music;
+        SplashScreen Splash;
+
+        GameState GameState;
 
         public ScrollingShooterGame()
         {
@@ -51,6 +67,7 @@ namespace ScrollingShooter
         {
             // TODO: Add your initialization logic here
             LevelManager = new LevelManager(this);
+            GuiManager = new GuiManager(this);
 
             base.Initialize();
         }
@@ -72,13 +89,13 @@ namespace ScrollingShooter
             GameObjectManager = new GameObjectManager(Content);
 
             // TODO: use this.Content to load your game content here
-
             Player = GameObjectManager.CreatePlayerShip(PlayerShipType.Shrike, new Vector2(300, 300));
             GameObjectManager.CreatePowerup(PowerupType.Fireball, new Vector2(100, 200));
-            //Player.ApplyPowerup(PowerupType.Fireball);
 
             LevelManager.LoadContent();
-            LevelManager.LoadLevel("Level_1_Tilemap_2");
+            LevelManager.LoadLevel("Airbase");
+            GuiManager.LoadContent();
+            GameState = GameState.Initializing;
         }
 
         /// <summary>
@@ -101,13 +118,98 @@ namespace ScrollingShooter
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
 
-            // TODO: Add your update logic here
             float elapsedTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-            LevelManager.Update(elapsedTime);
+            // Update according to current game state
+            switch (GameState)
+            {
+                case GameState.Initializing:
+                    if (!LevelManager.Loading)
+                        GameState = GameState.Gameplay;
+                    break;
 
-            GameObjectManager.Update(elapsedTime);
+                case GameState.Splash:
 
+                    if (!LevelManager.Loading && Keyboard.GetState().IsKeyDown(Keys.Space))
+                    {
+                        GameState = GameState.Gameplay;
+                        Music = LevelManager.CurrentSong;
+                        if (Music != null) MediaPlayer.Play(Music);
+                    }
+                    break;
+
+                case GameState.Gameplay:
+                    LevelManager.Update(elapsedTime);
+                    GameObjectManager.Update(elapsedTime);
+                    ProcessCollisions();
+                    break;
+
+                case GameState.Scoring:
+                    if (!GuiManager.Tallying && Keyboard.GetState().IsKeyDown(Keys.Space))
+                    {
+                        GameState = GameState.Splash;
+                        Music = Splash.Music;
+                        if (Music != null) MediaPlayer.Play(Music);
+                    }
+                    break;
+
+                case GameState.Credits:
+                    // TODO: Launch new game when player hits space
+                    break;
+            }
+
+            base.Update(gameTime);
+        }
+
+        /// <summary>
+        /// This is called when the game should draw itself.
+        /// </summary>
+        /// <param name="gameTime">Provides a snapshot of timing values.</param>
+        protected override void Draw(GameTime gameTime)
+        {
+            // Set the viewport to the entire screen
+            GraphicsDevice.Viewport = gameViewport;
+            GraphicsDevice.Clear(Color.Black);
+
+            float elapsedGameTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+            // Render according to current game state
+            switch (GameState)
+            {
+                case GameState.Splash:
+                    // TODO: Render splash screen
+                    break;
+
+                case GameState.Gameplay:
+
+                    // Render the game world
+                    GraphicsDevice.Viewport = worldViewport;
+                    LevelManager.Draw(elapsedGameTime);
+
+                    // Render the gui
+                    GraphicsDevice.Viewport = guiViewport;
+                    // TODO: Render gui
+
+                    break;
+
+                case GameState.Scoring:
+                    // TODO: Render the end-of-level scoring screen
+                    break;
+
+                case GameState.Credits:
+                    // TODO: Render the credits screen
+                    break;
+            }
+
+            base.Draw(gameTime);
+        }
+
+
+        /// <summary>
+        /// Helper method for processing gameobject collisions
+        /// </summary>
+        void ProcessCollisions()
+        {
             // Process collisions
             foreach (CollisionPair pair in GameObjectManager.Collisions)
             {
@@ -136,7 +238,7 @@ namespace ScrollingShooter
                             {
                                 //Player take damage
                                 GameObjectManager.DestroyObject(collider.ID);
-                                GameObjectManager.CreateExplosion(collider.ID);
+                                GameObjectManager.CreateExplosion2(collider.ID, 0.5f);
                             }
                             break;
 
@@ -148,7 +250,7 @@ namespace ScrollingShooter
                             if (player.Health <= 0)
                             {
                                 GameObjectManager.DestroyObject(player.ID);
-                                GameObjectManager.CreateExplosion(player.ID);
+                                GameObjectManager.CreateExplosion2(player.ID, 1);
                             }
 
                             GameObjectManager.DestroyObject(collider.ID);
@@ -175,6 +277,7 @@ namespace ScrollingShooter
                             {
                                 GameObjectManager.DestroyObject(collider.ID);
                                 GameObjectManager.CreateExplosion(collider.ID);
+                                GameObjectManager.CreateExplosion2(collider.ID, 0.5f);
                             }
                             // Destroy projectile
                             // Note, if there are special things for the bullet, add them here
@@ -191,6 +294,7 @@ namespace ScrollingShooter
                             {
                                 GameObjectManager.DestroyObject(collider.ID);
                                 GameObjectManager.CreateExplosion(collider.ID);
+                                GameObjectManager.CreateExplosion2(collider.ID, 1.5f);
                             }
                             // Destroy projectile
                             // Note, if there are special things for the bullet, add them here
@@ -199,33 +303,6 @@ namespace ScrollingShooter
                     }
                 }
             }
-
-            base.Update(gameTime);
-        }
-
-        /// <summary>
-        /// This is called when the game should draw itself.
-        /// </summary>
-        /// <param name="gameTime">Provides a snapshot of timing values.</param>
-        protected override void Draw(GameTime gameTime)
-        {
-            // Set the viewport to the entire screen
-            GraphicsDevice.Viewport = gameViewport;
-            GraphicsDevice.Clear(Color.Black);
-
-            // TODO: Add your drawing code here
-            float elapsedGameTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
-
-            // Render the game world
-            GraphicsDevice.Viewport = worldViewport;
-            LevelManager.Draw(elapsedGameTime);
-
-
-            // Render the gui
-            GraphicsDevice.Viewport = guiViewport;
-
-
-            base.Draw(gameTime);
         }
     }
 }

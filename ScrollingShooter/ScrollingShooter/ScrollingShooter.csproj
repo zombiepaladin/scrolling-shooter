@@ -119,6 +119,7 @@
     <Compile Include="Bosses\GiantAlien.cs" />
     <Compile Include="Bosses\MBCloseC.cs" />
     <Compile Include="Bosses\MoonBoss.cs" />
+    <Compile Include="Effects\Explosion2.cs" />
     <Compile Include="Enemies\BigBad.cs" />
     <Compile Include="Enemies\AlienHead.cs" />
     <Compile Include="Enemies\AlienTurret.cs" />
@@ -157,6 +158,7 @@
     <Compile Include="GameObjects\GameObject.cs" />
     <Compile Include="GameObjects\GameObjectManager.cs" />
     <Compile Include="Animation.cs" />
+    <Compile Include="GuiManager.cs" />
     <Compile Include="LevelManager.cs" />
     <Compile Include="Powerups\Railgun.cs" />
     <Compile Include="Powerups\ShotgunPowerup.cs" />

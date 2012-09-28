@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Audio;
 using System;
 using System.Collections.Generic;
 
@@ -39,6 +40,8 @@ namespace ScrollingShooter
         /// </summary>
         public float Health = 100;
 
+        #region Timers
+
         // Timers
         /// <summary>
         /// Timer for the default gun
@@ -62,6 +65,14 @@ namespace ScrollingShooter
         /// Timer to adjust refire rate of railgun
         /// </summary>
         float railgunTimer = 0;
+
+        #endregion
+
+        #region Sound Effects
+
+        SoundEffect bulletFired;
+
+        #endregion
 
         /// <summary>
         /// Rectangle to draw the railgun when the powerup is enabled
@@ -134,9 +145,13 @@ namespace ScrollingShooter
 
         /// <summary>
         /// Creates a new Player ship instance
+        /// and initializes sound effects
         /// </summary>
         /// <param name="id">the unique id of the Player ship</param>
-        public PlayerShip(uint id) : base(id) { }
+        public PlayerShip(uint id, ContentManager content) : base(id) 
+        {
+            bulletFired = content.Load<SoundEffect>("SFX/anti_tank_gun_single_shot");
+        }
 
 
         /// <summary>
@@ -358,6 +373,7 @@ namespace ScrollingShooter
                     if (defaultGunTimer > 0.25f)
                     {
                         ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.Bullet, position);
+                        bulletFired.Play();
                         defaultGunTimer = 0f;
                     }
 

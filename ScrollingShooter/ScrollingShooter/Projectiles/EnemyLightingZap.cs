@@ -16,7 +16,7 @@ namespace ScrollingShooter
         /// <summary>
         /// Travel speed of the lightning
         /// </summary>
-        private const int SPEED = 200;
+        private const int SPEED = 300;
 
         /// <summary>
         /// Distance until the lightning dies

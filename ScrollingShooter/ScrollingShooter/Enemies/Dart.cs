@@ -45,17 +45,17 @@ namespace ScrollingShooter
 
             spriteBounds[(int)DartSteeringState.Left].X = 98;
             spriteBounds[(int)DartSteeringState.Left].Y = 84;
-            spriteBounds[(int)DartSteeringState.Left].Width = 20;
+            spriteBounds[(int)DartSteeringState.Left].Width = 22;
             spriteBounds[(int)DartSteeringState.Left].Height = 28;
 
             spriteBounds[(int)DartSteeringState.Straight].X = 122;
             spriteBounds[(int)DartSteeringState.Straight].Y = 84;
-            spriteBounds[(int)DartSteeringState.Straight].Width = 20;
+            spriteBounds[(int)DartSteeringState.Straight].Width = 22;
             spriteBounds[(int)DartSteeringState.Straight].Height = 28;
 
             spriteBounds[(int)DartSteeringState.Right].X = 147;
             spriteBounds[(int)DartSteeringState.Right].Y = 84;
-            spriteBounds[(int)DartSteeringState.Right].Width = 20;
+            spriteBounds[(int)DartSteeringState.Right].Width = 22;
             spriteBounds[(int)DartSteeringState.Right].Height = 28;
 
             steeringState = DartSteeringState.Straight;
@@ -68,6 +68,9 @@ namespace ScrollingShooter
         /// <param name="elapsedTime">The in-game time between the previous and current frame</param>
         public override void  Update(float elapsedTime)
         {
+            //Scroll with the screen
+            position.Y += ScrollingSpeed * elapsedTime;
+
             // Sense the Player's position
             PlayerShip Player = ScrollingShooterGame.Game.Player;
             Vector2 PlayerPosition = new Vector2(Player.Bounds.Center.X, Player.Bounds.Center.Y);
@@ -82,7 +85,7 @@ namespace ScrollingShooter
                 toPlayer.Normalize();
 
                 // Steer towards them!
-                //this.position += toPlayer * elapsedTime * 100;
+                this.position += toPlayer * elapsedTime * 100;
 
                 // Change the steering state to reflect our direction
                 if (toPlayer.X < -0.5f) steeringState = DartSteeringState.Left;

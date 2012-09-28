@@ -120,14 +120,13 @@ namespace ScrollingShooter
         public override void Update(float elapsedTime)
         {
             // Sense the player's position
-            PlayerShip player = ScrollingShooterGame.Game.Player;
-            Vector2 playerPosition = new Vector2(player.Bounds.Center.X, player.Bounds.Center.Y);
+            Vector2 playerPosition = new Vector2(ScrollingShooterGame.Game.Player.Bounds.Center.X, ScrollingShooterGame.Game.Player.Bounds.Center.Y);
 
             switch (aiState)
             {
                 case AIState.Chasing:
                     getInPosition(playerPosition, elapsedTime);
-                    if (Math.Abs(playerPosition.X - Bounds.Center.X) < 40 && Bounds.Center.Y < playerPosition.Y)
+                    if (Math.Abs(playerPosition.X - (position.X + 34)) < 75 && Bounds.Center.Y < playerPosition.Y)
                     {
                         //transition to firing state
                         fireTimeRemaining = FIRE_TIME;
@@ -191,14 +190,14 @@ namespace ScrollingShooter
         /// <param name="elapsedTime">The point that the ship should target</param>
         private void getInPosition(Vector2 point, float elapsedTime)
         {
-            //Try to stay ~100 away from the player in Y direction
-            if (point.Y < position.Y + 150 && position.Y > 10)
+            //Try to stay away from the player in Y direction
+            if (point.Y < Bounds.Center.Y + 200 && Bounds.Center.Y > 10)
                 position.Y -= currentSpeed * elapsedTime;
             else if (point.Y > position.Y + 175)
                 position.Y += currentSpeed * elapsedTime;
 
             //Try to get infront of the player
-            if (Math.Abs(point.X - Bounds.Center.X) > 10)
+            if (Math.Abs(point.X - (position.X + 34)) > 10)
             {
                 if (point.X < Bounds.Center.X)
                     position.X -= currentSpeed * elapsedTime;

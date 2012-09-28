@@ -156,16 +156,20 @@ namespace ScrollingShooter
             {
                 // Update the scrolling distance - the distance
                 // the screen has scrolled past the Player
-                float scrollDelta = elapsedTime * (CurrentMap.Layers[CurrentMap.PlayerLayer].ScrollingSpeed);
-                scrollDistance += scrollDelta;
-                ScrollingShooterGame.Game.Player.Position -= new Vector2(0, scrollDelta / 2);
-
-                // Scroll all the tile layers
-                for (int i = 0; i < CurrentMap.LayerCount; i++)
+                if (Scrolling)
                 {
-                    CurrentMap.Layers[i].ScrollOffset += elapsedTime * CurrentMap.Layers[i].ScrollingSpeed;
-                }
 
+                    float scrollDelta = elapsedTime * (CurrentMap.Layers[CurrentMap.PlayerLayer].ScrollingSpeed);
+                    scrollDistance += scrollDelta;
+                    ScrollingShooterGame.Game.Player.Position -= new Vector2(0, scrollDelta / 2);
+
+                    // Scroll all the tile layers
+                    for (int i = 0; i < CurrentMap.LayerCount; i++)
+                    {
+                        CurrentMap.Layers[i].ScrollOffset += elapsedTime * CurrentMap.Layers[i].ScrollingSpeed;
+                    }
+
+                }
                 // Update only the game objects that appear near our scrolling region
                 Rectangle bounds = new Rectangle(0,
                     (int)(-scrollDistance / 2) + 300,

@@ -91,11 +91,9 @@ namespace ScrollingShooter
             // TODO: use this.Content to load your game content here
             Player = GameObjectManager.CreatePlayerShip(PlayerShipType.Shrike, new Vector2(300, 300));
             GameObjectManager.CreatePowerup(PowerupType.Fireball, new Vector2(100, 200));
-            GameObjectManager.CreateEnemy(EnemyType.BrainBoss, new Vector2(200, 4200));
-            //Player.ApplyPowerup(PowerupType.Fireball);
 
             LevelManager.LoadContent();
-            LevelManager.LoadLevel("Level_1_Tilemap_2");
+            LevelManager.LoadLevel("Airbase");
             GuiManager.LoadContent();
             GameState = GameState.Initializing;
         }

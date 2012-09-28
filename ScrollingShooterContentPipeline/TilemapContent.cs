@@ -84,6 +84,11 @@ namespace ScrollingShooterContentPipeline
         public int PlayerLayer;
 
         /// <summary>
+        /// The music to play in this level
+        /// </summary>
+        public string MusicTitle;
+
+        /// <summary>
         /// The properties defined on this tilemap.  These are loaded
         /// from the tmx file, and should be converted to more efficient 
         /// and meaningful variables in the TilemapProcessor 

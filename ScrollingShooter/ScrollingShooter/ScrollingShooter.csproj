@@ -159,6 +159,7 @@
     <Compile Include="GameObjects\GameObject.cs" />
     <Compile Include="GameObjects\GameObjectManager.cs" />
     <Compile Include="Animation.cs" />
+    <Compile Include="GuiManager.cs" />
     <Compile Include="LevelManager.cs" />
     <Compile Include="Powerups\MulticannonPowerup.cs" />
     <Compile Include="Powerups\Railgun.cs" />

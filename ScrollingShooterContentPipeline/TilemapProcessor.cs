@@ -24,6 +24,22 @@ namespace ScrollingShooterContentPipeline
         /// <returns>The processed TilemapContent instance</returns>
         public override TilemapContent Process(TilemapContent input, ContentProcessorContext context)
         {
+            // Process the properties of this tilemap
+            foreach (string property in input.Properties.Keys)
+            {
+                switch (property)
+                {
+                    case "Music":
+                        input.MusicTitle = input.Properties[property];
+                        break;
+
+                    default:
+                        ParamArrayAttribute[] attrs = new ParamArrayAttribute[0];
+                        context.Logger.LogMessage("Unknown property " + property + " in tilemap", attrs);
+                        break;
+                }
+            }
+
             // Restructure the image paths used in this tilemap
             for (int i = 0; i < input.ImagePaths.Length; i++)
             {

@@ -9,9 +9,15 @@ using Microsoft.Xna.Framework;
 
 namespace ScrollingShooter
 {
+    /// <summary>
+    /// A splash screen to display the credits.
+    /// </summary>
     public class Credits : SplashScreen
     {
-        private enum CreditsState
+        /// <summary>
+        /// Different states for the credits screen.
+        /// </summary>
+        public enum CreditsState
         {
             Display,
             NonDisplay,
@@ -23,7 +29,7 @@ namespace ScrollingShooter
         private const string SPRITESHEET = "SpriteFonts/Pescadero";
         private const float STATE_TIME = 1f;
 
-        //Instance
+        //Instance variables
         SpriteFont _spriteFont;
         Vector2 _position;
         private bool _loading;
@@ -33,6 +39,20 @@ namespace ScrollingShooter
         private int _index;
         private string _displayString;
 
+        /// <summary>
+        /// Returns the current state of the screen. Once all the credits have been displayed the State will be Finished.
+        /// </summary>
+        public CreditsState State
+        {
+            get
+            {
+                return _state;
+            }
+        }
+
+        /// <summary>
+        /// Creates a new credtis screen.
+        /// </summary>
         public Credits()
         {
             _spriteFont = ScrollingShooterGame.Game.Content.Load<SpriteFont>(SPRITESHEET);
@@ -44,6 +64,10 @@ namespace ScrollingShooter
             LoadCredits();
         }
     
+        /// <summary>
+        /// Updates the display of the credits screen.
+        /// </summary>
+        /// <param name="elapsedTime">Time since the last call.</param>
         public override void Update(float elapsedTime)
         {
             _timer += elapsedTime;
@@ -68,15 +92,25 @@ namespace ScrollingShooter
                     default:
                         throw new Exception("Unexpected State.");
                 }
-            }
-                        
+            }          
         }
 
+        /// <summary>
+        /// Draws the credits screen.
+        /// </summary>
+        /// <param name="elapsedTime">Time since the last call.</param>
+        /// <param name="spriteBatch">SpriteBatch to draw too.</param>
         public override void Draw(float elapsedTime, Microsoft.Xna.Framework.Graphics.SpriteBatch spriteBatch)
         {
             spriteBatch.DrawString(_spriteFont, _displayString, _position, Color.White);
         }
 
+        /// <summary>
+        /// Loads in the credtis from FILE. The file must be setup like so:
+        /// The first line should define how many lines follow.
+        /// Every screen in the credits screen should be separted by a new line.
+        /// If the screen needs a new line in itself, place a ;
+        /// </summary>
         private void LoadCredits()
         {
             Thread loadingThread = new Thread(() =>

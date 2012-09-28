@@ -95,7 +95,7 @@ namespace ScrollingShooter
             Player.ApplyPowerup(PowerupType.Railgun);
 
             LevelManager.LoadContent();
-            LevelManager.LoadLevel("AlienBaseSafe");
+            LevelManager.LoadLevel("crystalland");
             GuiManager.LoadContent();
             GameState = GameState.Initializing;
         }

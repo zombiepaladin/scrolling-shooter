@@ -1039,13 +1039,23 @@ namespace ScrollingShooter
             }
 
             // Grab the game object's bounding box
-            BoundingBox box = boundingBoxes[id];
+            BoundingBox box = null;
+            try
+            {
+                box = boundingBoxes[id];
+            }
+            catch
+            {
+            }
 
             // Remove the game objects' bounds from our horizontal axis lists
-            horizontalAxis.Remove(box.Left);
-            horizontalAxis.Remove(box.Right);
-            verticalAxis.Remove(box.Top);
-            verticalAxis.Remove(box.Bottom);
+            if (box != null)
+            {
+                horizontalAxis.Remove(box.Left);
+                horizontalAxis.Remove(box.Right);
+                verticalAxis.Remove(box.Top);
+                verticalAxis.Remove(box.Bottom);
+            }
 
             // Remove the game object's bounding box
             boundingBoxes.Remove(id);

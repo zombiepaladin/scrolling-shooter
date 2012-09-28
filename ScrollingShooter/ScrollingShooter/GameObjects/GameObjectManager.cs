@@ -155,7 +155,7 @@ namespace ScrollingShooter
         public uint[] QueryRegion(Rectangle bounds)
         {
             HashSet<uint> matches = new HashSet<uint>();
-
+            /*
             // Find the minimal index in the horizontal axis list using binary search
             Bound left = new Bound(null, bounds.Left, BoundType.Min);
 
@@ -171,16 +171,16 @@ namespace ScrollingShooter
                 minHorizontalIndex = ~minHorizontalIndex;
             }
 
-            Bound right = new Bound(null, bounds.Left, BoundType.Max);
+            Bound right = new Bound(null, bounds.Right, BoundType.Max);
             int maxHorizontalIndex = horizontalAxis.BinarySearch(right);
             if (maxHorizontalIndex < 0) maxHorizontalIndex = ~maxHorizontalIndex;
 
             for (int i = minHorizontalIndex; i < maxHorizontalIndex; i++)
             {
                 matches.Add(horizontalAxis[i].Box.GameObjectID);
-            }
+            }*/
 
-            Bound top = new Bound(null, bounds.Left, BoundType.Min);
+            Bound top = new Bound(null, bounds.Top, BoundType.Min);
             int minVerticalIndex = verticalAxis.BinarySearch(top);
             if (minVerticalIndex < 0) minVerticalIndex = ~minVerticalIndex;
 

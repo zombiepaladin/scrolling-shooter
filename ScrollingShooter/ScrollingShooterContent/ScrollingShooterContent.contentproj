@@ -445,15 +445,20 @@
       <Importer>TmxImporter</Importer>
       <Processor>TilemapProcessor</Processor>
     </Compile>
-    <Compile Include="Sound\BGM\Hard as Nails 11-13-28.mp3">
+    <Compile Include="Music\Hard as Nails 11-13-28.mp3">
       <Name>Hard as Nails 11-13-28</Name>
       <Importer>Mp3Importer</Importer>
       <Processor>SongProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Sound\SFX\" />
+    <Compile Include="Spritesheets\MoonBoss.png">
+      <Name>MoonBoss</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Compile Include="Tilemaps\Level_1_Tilemap_2.tmx">
       <Name>Level_1_Tilemap_2</Name>
@@ -537,6 +542,13 @@
       <Name>Credits</Name>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="SFX\anti_tank_gun_single_shot.wav">
+      <Name>anti_tank_gun_single_shot</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+    </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />
   <!--  To modify your build process, add your task inside one of the targets below and uncomment it. 

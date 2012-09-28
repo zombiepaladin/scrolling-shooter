@@ -43,7 +43,7 @@ namespace ScrollingShooter
             this._position = position;
             this._spritesheet = content.Load<Texture2D>(SPRITESHEET);
             this._size = size;
-            this.Health = size * 100;
+            this.Health = size * 10;
         }
 
         /// <summary>
@@ -63,13 +63,30 @@ namespace ScrollingShooter
             _position += VELOCITIES[_size - 1];
             
             //If the asteriod is destroyed then spawn more in it's place.
-            if (Health <= 0 && _size > 1)
+            /*if (Health <= 0 && _size > 1)
             {
-                for (int i = 0; i < _size; i++)
+                EnemyType et;
+                switch (_size)
                 {
-                    ScrollingShooterGame.GameObjectManager.CreateEnemy(EnemyType.Asteriod, _position, new object[] { _size - 1 });
+                    case 2:
+                        et = EnemyType.Asteriod1;
+                        break;
+                    case 3:
+                        et = EnemyType.Asteriod2;
+                        break;
+                    case 4:
+                        et = EnemyType.Asteriod3;
+                        break;
+                    default:
+                        et = EnemyType.Asteriod1;
+                        break;
                 }
-            }
+
+                for (int i = 0; i < 4; i++)
+                {
+                    ScrollingShooterGame.GameObjectManager.CreateEnemy(et, _position);
+                }
+            }*/
         }
 
         /// <summary>

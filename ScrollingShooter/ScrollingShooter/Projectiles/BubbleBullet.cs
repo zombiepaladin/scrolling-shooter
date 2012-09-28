@@ -10,14 +10,14 @@ namespace ScrollingShooter
     /// </summary>
     public class BubbleBullet : Projectile
     {
-        private static int powerLevel = 0;
+        private static int PL = 0;
         public static int POWER_LEVEL
         {
-            get { return powerLevel; }
+            get { return PL; }
             set
             {
                 if (value <= 4)
-                    powerLevel = value;
+                    PL = value;
             }
         }
 
@@ -30,7 +30,7 @@ namespace ScrollingShooter
             new Rectangle(35, 0, 11, 11),
             new Rectangle(48, 0, 11, 11)
         };
-        private const int BASE_DAMAGE = 10;
+        private const int BASE_DAMAGE = 2;
         private static Random rand = new Random();
         
         //Instance vars

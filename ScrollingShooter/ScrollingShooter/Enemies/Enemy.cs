@@ -37,7 +37,10 @@ namespace ScrollingShooter
         DrillRight,
         SuicideBomber,
         AlienHead,
-        Asteriod,
+        Asteriod1,
+        Asteriod2,
+        Asteriod3,
+        Asteriod4,
         ShieldGenerator,
         AlienTurret,
         RightClaw,
@@ -50,6 +53,7 @@ namespace ScrollingShooter
         TurretSingle,
         TurretDouble,
         TurretTower,
+        MoonSpiner,
     }
 
     /// <summary>

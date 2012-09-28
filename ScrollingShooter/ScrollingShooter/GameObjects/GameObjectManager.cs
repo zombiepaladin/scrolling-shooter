@@ -774,8 +774,21 @@ namespace ScrollingShooter
                 case EnemyType.TwinJet:
                     enemy = new TwinJet(id, content, position);
                     break;
-                case EnemyType.Asteriod:
-                    enemy = new Asteriod(id, content, position, (int)args[0]);
+
+                case EnemyType.Asteriod1:
+                    enemy = new Asteriod(id, content, position, 1);
+                    break;
+
+                case EnemyType.Asteriod2:
+                    enemy = new Asteriod(id, content, position, 2);
+                    break;
+
+                case EnemyType.Asteriod3:
+                    enemy = new Asteriod(id, content, position, 3);
+                    break;
+
+                case EnemyType.Asteriod4:
+                    enemy = new Asteriod(id, content, position, 4);
                     break;
 
                 case EnemyType.AlienTurret:
@@ -804,6 +817,10 @@ namespace ScrollingShooter
 
                 case EnemyType.BrainBossProtection:
                     enemy = new BrainBossProtection(id, content, position);
+                    break;
+
+                case EnemyType.MoonSpiner:
+                    enemy = new MoonSpinner(id, content, position);
                     break;
 
                 default:

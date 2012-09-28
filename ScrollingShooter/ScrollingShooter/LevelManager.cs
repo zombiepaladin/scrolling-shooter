@@ -21,7 +21,7 @@ namespace ScrollingShooter
         SpriteBatch spriteBatch;
         BasicEffect basicEffect;
 
-        float scrollDistance;
+        public float scrollDistance;
         Rectangle scrollBounds;
 
         public bool Loading = true;
@@ -135,6 +135,7 @@ namespace ScrollingShooter
 
                 // Mark level as loaded
                 Loading = false;
+                Scrolling = true;
             };
 
             Thread loadingThread = new Thread(threadStarter);

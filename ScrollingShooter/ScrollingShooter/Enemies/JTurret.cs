@@ -94,6 +94,9 @@ namespace ScrollingShooter
         /// <param name="elapsedTime">The in-game time between the previous and current frame</param>
         public override void Update(float elapsedTime)
         {
+            //Scroll with the screen
+            //position.Y += ScrollingSpeed * elapsedTime;
+
             //Enable proper scrolling
             Vector2 scrollVector = new Vector2(0, 1);
             scrollVector.Normalize();

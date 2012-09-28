@@ -65,22 +65,26 @@ namespace ScrollingShooter
         /// <param name="elapsedTime">Time elapsed</param>
         public override void Update(float elapsedTime)
         {
+            //Scroll with the screen
+            position.Y += ScrollingSpeed * elapsedTime;
+
             dgt += elapsedTime;
             PlayerShip ps = ScrollingShooterGame.Game.Player;
             Vector2 pp = new Vector2(ps.Bounds.Center.X, ps.Bounds.Center.Y);
             Vector2 dp = pp - this.position;
-            if (dp.LengthSquared() > 30000)
+            if (dp.LengthSquared() < 30000)
             {
                 dp.Normalize();
                 this.position += dp * elapsedTime * 100;
                 if (dp.X < -0.5f) steeringState = StdBaddyStearingState.Left;
                 else if (dp.X > 0.5f) steeringState = StdBaddyStearingState.Right;
                 else steeringState = StdBaddyStearingState.Streight;
-            }
-            if (dgt > .75f)
-            {
-                ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.EBullet, position);
-                dgt = 0;
+
+                if (dgt > .75f)
+                {
+                    ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.EBullet, position);
+                    dgt = 0;
+                }
             }
         }
         /// <summary>

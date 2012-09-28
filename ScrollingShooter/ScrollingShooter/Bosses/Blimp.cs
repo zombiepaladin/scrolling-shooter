@@ -81,7 +81,10 @@ namespace ScrollingShooter
         /// <param name="elapsedTime">The in-game time between the previous and current frame</param>
         public override void Update(float elapsedTime)
         {
-            position.Y = ScrollingSpeed * elapsedTime;
+            if (position.Y >= ScrollingShooterGame.LevelManager.scrollDistance + 10) ScrollingShooterGame.LevelManager.Scrolling = false;
+
+            //Scroll with the screen
+            position.Y += ScrollingSpeed * elapsedTime;
 
             // If the blimp is below 25% health switch the sprite
             if (this.Health / maxHealth < 0.25f) state = BlimpState.Below25;

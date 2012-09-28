@@ -38,7 +38,7 @@ namespace ScrollingShooter
         /// <summary>
         /// The time in seconds the laser lasts.
         /// </summary>
-        private const float FIRE_TIME = 2f;
+        private const float FIRE_TIME = 3.5f;
 
         /// <summary>
         /// The top speed that the drone moves.
@@ -193,13 +193,13 @@ namespace ScrollingShooter
             //Try to stay away from the player in Y direction
             if (point.Y < Bounds.Center.Y + 200 && Bounds.Center.Y > 10)
                 position.Y -= currentSpeed * elapsedTime;
-            else if (point.Y > Bounds.Center.Y + 200)
+            else if (point.Y > position.Y + 175)
                 position.Y += currentSpeed * elapsedTime;
 
             //Try to get infront of the player
             if (Math.Abs(point.X - (position.X + 34)) > 10)
             {
-                if (point.X < (position.X + 34))
+                if (point.X < Bounds.Center.X)
                     position.X -= currentSpeed * elapsedTime;
                 else
                     position.X += currentSpeed * elapsedTime;

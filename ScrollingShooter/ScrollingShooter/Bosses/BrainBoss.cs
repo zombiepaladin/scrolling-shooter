@@ -209,7 +209,6 @@ namespace ScrollingShooter
                     break;
 
                 case BrainBossState.DeathCharge:
-
                     if (Health <= 0)
                     {
                         ScrollingShooterGame.GameObjectManager.DestroyObject(this.ID);

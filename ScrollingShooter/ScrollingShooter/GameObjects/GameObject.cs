@@ -5,6 +5,21 @@ using Microsoft.Xna.Framework.Content;
 namespace ScrollingShooter
 {
     /// <summary>
+    /// Object's type for use in collisions
+    /// </summary>
+    public enum ObjectType
+    {
+        Player = 0,
+        PlayerProjectile = 1,
+        Enemy = 2,
+        EnemyProjectile = 3,
+        Boss = 4,
+        Powerup = 5,
+        Shield = 6,
+        Other = 7, // used as the default for random things like explosions
+    }
+
+    /// <summary>
     /// The base class for all game object
     /// </summary>
     public abstract class GameObject
@@ -15,11 +30,15 @@ namespace ScrollingShooter
         /// </summary>
         public readonly uint ID;
 
+        /// Object's type for use in collisions
+        /// </summary>
+        public ObjectType ObjectType = ObjectType.Other;
+
         /// <summary>
         /// The depth at which this GameObject's sprite is drawn
         /// </summary>
         public float LayerDepth;
-
+        
         /// <summary>
         /// The bounds of this game object in the game world
         /// </summary>

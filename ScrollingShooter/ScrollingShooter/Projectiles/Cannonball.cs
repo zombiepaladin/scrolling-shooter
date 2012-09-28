@@ -15,7 +15,8 @@ namespace ScrollingShooter
         /// </summary>
         /// <param name="content">A ContentManager to load content from</param>
         /// <param name="position">A position on the screen</param>
-        public Cannonball(ContentManager content, Vector2 position)
+        public Cannonball(uint id, ContentManager content, Vector2 position)
+            : base(id)
         {
             this.spriteSheet = content.Load<Texture2D>("Spritesheets/tyrian.shp.01D8A7");
 

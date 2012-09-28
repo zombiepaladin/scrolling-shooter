@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using System.Collections.Generic;
+using Microsoft.Xna.Framework.Audio;
 using System;
 
 namespace ScrollingShooter
@@ -19,6 +20,8 @@ namespace ScrollingShooter
         Texture2D spritesheet;
         Vector2 position;
         Rectangle[] spriteBounds = new Rectangle[3];
+
+        SoundEffect alienTurretFired;
 
         const int MAX_HEALTH = 500;
         int frame;
@@ -51,7 +54,7 @@ namespace ScrollingShooter
             this.position = position;
             phase = AlienTurretPhase.Wait;
             Health = MAX_HEALTH;
-
+            alienTurretFired = content.Load<SoundEffect>("SFX/mutantdie");
             spritesheet = content.Load<Texture2D>("Spritesheets/newshh.shp.000000");
 
             spriteBounds[(int)AlienTurretAnimation.Open].X = 48;
@@ -122,6 +125,7 @@ namespace ScrollingShooter
                 case AlienTurretPhase.Firing:
                     if (timer >= .2)
                     {
+                        alienTurretFired.Play();
                         timer = 0;
                        ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.AlienTurretOrbScrolling, position);
                         phase = AlienTurretPhase.Closing;

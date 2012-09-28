@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Audio;
 
 namespace ScrollingShooter
 {
@@ -19,6 +20,7 @@ namespace ScrollingShooter
     public class DeerTick : Enemy
     {   
         // Deer Tick state variables
+        SoundEffect deerTickFire;
         Texture2D spritesheet;
         Vector2 position;
         Rectangle[] spriteBounds = new Rectangle[3];
@@ -45,6 +47,7 @@ namespace ScrollingShooter
             : base(id)
         {
             this.position = position;
+            deerTickFire = content.Load<SoundEffect>("SFX/laser1");
 
             spritesheet = content.Load<Texture2D>("Spritesheets/newsh2.shp.000000");
 
@@ -92,6 +95,7 @@ namespace ScrollingShooter
             if (shotTimer <= 0) //If a DT_SHOT_DELAY amount of time has passed, shoot a bullet
             {
                 ShootGenericEnemyBullet();
+                
                 shotTimer = DT_SHOT_DELAY; //reset the timer
             }
         }
@@ -102,6 +106,7 @@ namespace ScrollingShooter
         private void ShootGenericEnemyBullet()
         {
             ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.GenericEnemyBullet, new Vector2(Bounds.Center.X, Bounds.Center.Y));
+            deerTickFire.Play();
         }
 
         /// <summary>

@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Audio;
 
 namespace ScrollingShooter
 {
@@ -24,6 +25,8 @@ namespace ScrollingShooter
         Rectangle[] spriteBounds = new Rectangle[3];
         StdBaddyStearingState steeringState = StdBaddyStearingState.Streight;
 
+        SoundEffect stdEnemyFired;
+
 
         public override Rectangle Bounds
         {
@@ -39,6 +42,8 @@ namespace ScrollingShooter
             : base(id)
         {
             this.position = position;
+
+            stdEnemyFired = content.Load<SoundEffect>("SFX/gun_fire2");
 
             spritesheet = content.Load<Texture2D>("Spritesheets/newsh2.shp.000000");
 
@@ -80,6 +85,7 @@ namespace ScrollingShooter
             if (dgt > .75f)
             {
                 ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.EBullet, position);
+                stdEnemyFired.Play();
                 dgt = 0;
             }
         }

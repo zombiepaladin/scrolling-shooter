@@ -72,7 +72,10 @@ namespace ScrollingShooter
 
         SoundEffect bulletFired;
         //New Sound effects
-        SoundEffect birdCrap;
+        SoundEffect bubbleBeamFired;
+        SoundEffect fireBallFired;
+        SoundEffect freezeWaveFired;
+        SoundEffect railGunFired;
 
         #endregion
 
@@ -83,7 +86,7 @@ namespace ScrollingShooter
 
         public Rectangle RailgunBounds
         {
-            get { return new Rectangle((int)(position.X + (Bounds.Width / 2) - 4), (int)(position.Y - (Bounds.Height / 2)), railgunSpriteBounds.Width, railgunSpriteBounds.Height); }
+            get { return new Rectangle((int)(position.X)-3, (int)(position.Y - (Bounds.Height)), railgunSpriteBounds.Width, railgunSpriteBounds.Height); }
         }
 
         // Powerup Levels
@@ -153,6 +156,10 @@ namespace ScrollingShooter
         public PlayerShip(uint id, ContentManager content) : base(id) 
         {
             bulletFired = content.Load<SoundEffect>("SFX/anti_tank_gun_single_shot");
+            bubbleBeamFired = content.Load<SoundEffect>("SFX/outofammo");
+            fireBallFired = content.Load<SoundEffect>("SFX/whoosh1");
+            freezeWaveFired = content.Load<SoundEffect>("SFX/whoosh2");
+            railGunFired = content.Load<SoundEffect>("SFX/foom_0");
         }
 
 
@@ -351,6 +358,7 @@ namespace ScrollingShooter
                     {
                         if (defaultGunTimer > .5f)
                         {
+                            freezeWaveFired.Play();
                             ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.FreezewaveProjectile, position);
                         }
                     }
@@ -360,6 +368,7 @@ namespace ScrollingShooter
                         if (defaultGunTimer > BubbleBullet.FIRE_INTERVAL_MS)
                         {
                             ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.BubbleBullet, position);
+                            bubbleBeamFired.Play();
                             defaultGunTimer = 0f;
                         }
                     }
@@ -460,6 +469,7 @@ namespace ScrollingShooter
         void TriggerFireball()
         {
             ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.Fireball, position);
+            fireBallFired.Play();
         }
 
         /// <summary>
@@ -468,8 +478,9 @@ namespace ScrollingShooter
         /// </summary>
         void TriggerRailgun()
         {
+            railGunFired.Play();
             ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.RGSabot, 
-                new Vector2(position.X + (Bounds.Width / 2) - 4, position.Y));
+                new Vector2(position.X - (Bounds.Width/2 )+7, position.Y-5));
             //Simuated recoil
             position.Y += 10;
         }

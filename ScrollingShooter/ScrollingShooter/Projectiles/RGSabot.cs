@@ -28,9 +28,14 @@ namespace ScrollingShooter
             //Source of effect sprite
             this.effectSpriteBounds = new Rectangle(84, 14, 11, 27);
 
-            this.velocity = new Vector2(0, -1000);
-
+            this.velocity = new Vector2(0, -1);
             this.position = position;
+        }
+
+        public override void Update(float elapsedTime)
+        {
+            velocity.Normalize();
+            position += velocity * elapsedTime*500;
         }
 
         /// <summary>

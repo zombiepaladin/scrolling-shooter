@@ -92,7 +92,7 @@ namespace ScrollingShooter
             Player = GameObjectManager.CreatePlayerShip(PlayerShipType.Shrike, new Vector2(300, 300));
             GameObjectManager.CreatePowerup(PowerupType.Fireball, new Vector2(100, 200));
             GameObjectManager.CreateEnemy(EnemyType.BrainBoss, new Vector2(200, 4200));
-            Player.ApplyPowerup(PowerupType.Birdcrap);
+            Player.ApplyPowerup(PowerupType.Railgun);
 
             LevelManager.LoadContent();
             LevelManager.LoadLevel("AlienBaseSafe");

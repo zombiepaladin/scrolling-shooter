@@ -92,5 +92,14 @@ namespace ScrollingShooter
                 spriteBatch.Draw(spriteSheet, position, spriteBounds[explosionState], Color.White, 0f, new Vector2(Bounds.Width / 2, Bounds.Height / 2), Scale, SpriteEffects.None, 1f);
             }
         }
+
+        /// <summary>
+        /// Scrolls the object with the map
+        /// </summary>
+        /// <param name="elapsedTime">The in-game time between the previous and current frame</param>
+        public override void ScrollWithMap(float elapsedTime)
+        {
+            // Does nothing
+        }
     }
 }

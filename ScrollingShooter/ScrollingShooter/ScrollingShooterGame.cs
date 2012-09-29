@@ -93,7 +93,7 @@ namespace ScrollingShooter
             GameObjectManager.CreatePowerup(PowerupType.Fireball, new Vector2(100, 200));
 
             LevelManager.LoadContent();
-            LevelManager.LoadLevel("Airbase");
+            LevelManager.LoadLevel("AlienBaseSafe");
             GuiManager.LoadContent();
             GameState = GameState.Initializing;
         }

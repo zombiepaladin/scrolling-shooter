@@ -173,32 +173,18 @@ namespace ScrollingShooter
                         CurrentMap.Layers[i].ScrollOffset += elapsedTime * CurrentMap.Layers[i].ScrollingSpeed;
                     }
 					// Scrolls objects with the map
-					foreach (uint goID in ScrollingShooterGame.GameObjectManager.QueryRegion(bounds))
-					{
-						GameObject go = ScrollingShooterGame.GameObjectManager.GetObject(goID);
-						if (go is Enemy) 
-						{
-							Enemy enemy = go as enemy;
-							enemy.ScrollWithMap(elapsedTime);
-						}
-						else if (go is Powerup)
-						{
-							Powerup powerup = go as powerup;
-							powerup.ScrollWithMap(elapsedTime);
-						}
-						else if (go is Boss)
-						{
-							Boss boss = go as boss;
-							boss.ScrollWithMap(elapsedTime);
-						}
-					}
+                    foreach (uint goID in ScrollingShooterGame.GameObjectManager.scrollingObjects)
+                    {
+                        GameObject go = ScrollingShooterGame.GameObjectManager.GetObject(goID);
+                        go.ScrollWithMap(elapsedTime);
+                    }
 
                 }
                 // Update only the game objects that appear near our scrolling region
                 Rectangle bounds = new Rectangle(0,
-                    (int)(-scrollDistance / 2) - 300,
+                    (int)(-scrollDistance / 2) - 400,
                     CurrentMap.Width * CurrentMap.TileWidth,
-                    16 * CurrentMap.TileHeight + 300);
+                    16 * CurrentMap.TileHeight + 400);
                 foreach (uint goID in ScrollingShooterGame.GameObjectManager.QueryRegion(bounds))
                 {
                     GameObject go = ScrollingShooterGame.GameObjectManager.GetObject(goID);

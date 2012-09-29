@@ -94,11 +94,6 @@ namespace ScrollingShooter
         /// <param name="elapsedTime">The in-game time between the previous and current frame</param>
         public override void Update(float elapsedTime)
         {
-            //Enable proper scrolling
-            Vector2 scrollVector = new Vector2(0, 1);
-            scrollVector.Normalize();
-            this.position += scrollVector*ScrollingSpeed*elapsedTime;
-            
             // Update the shot timer
             shotDelay += elapsedTime;
 
@@ -168,7 +163,9 @@ namespace ScrollingShooter
         /// <param name="elapsedTime">The in-game time between the previous and current frame</param>
 		public override void ScrollWithMap(float elapsedTime)
 		{
-			position.Y += ScrollingSpeed * elapsedTime;
+
+            //if (-ScrollingShooterGame.LevelManager.scrollDistance / 2 > position.Y) 
+                position.Y += ScrollingSpeed * elapsedTime;
 		}
     }
 }

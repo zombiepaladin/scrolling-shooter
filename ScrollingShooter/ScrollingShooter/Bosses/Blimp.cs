@@ -25,7 +25,7 @@ namespace ScrollingShooter
         BlimpState state;
         int maxHealth = 300;
         Vector2 velocity;
-        int screenWidth = 384; //Hardcoded until I get a better way to get the width
+        int screenWidth = 384;
         float gunTimer;
 
         /// <summary>
@@ -81,14 +81,13 @@ namespace ScrollingShooter
         /// <param name="elapsedTime">The in-game time between the previous and current frame</param>
         public override void Update(float elapsedTime)
         {
-			// Stop scrolling when the boss has been reached
-            //if (position.Y >= ScrollingShooterGame.LevelManager.scrollDistance + 10) ScrollingShooterGame.LevelManager.Scrolling = false;
+            if (-ScrollingShooterGame.LevelManager.scrollDistance / 2 <= position.Y  - 10) ScrollingShooterGame.LevelManager.Scrolling = false;
 
             // If the blimp is below 25% health switch the sprite
             if (this.Health / maxHealth < 0.25f) state = BlimpState.Below25;
 
             // If the blimp is at 0 health delete it
-            else if (Health == 0)
+            else if (Health <= 0)
             {
                 ScrollingShooterGame.GameObjectManager.DestroyObject(this.ID);
                 return;
@@ -190,7 +189,7 @@ namespace ScrollingShooter
         public override void Update(float elapsedTime)
         {
             // If the LeftGun is dead delete it
-            if (Health == 0)
+            if (Health <= 0)
             {
                 ScrollingShooterGame.GameObjectManager.DestroyObject(this.ID);
                 return;
@@ -212,7 +211,7 @@ namespace ScrollingShooter
                 Vector2 toPlayer = playerPosition - this.position;
 
                 // Shoots if the player is at the correct range
-                if (toPlayer.LengthSquared() < 200000 && toPlayer.LengthSquared() > 22050)
+                if ( (toPlayer.Y < 355 && toPlayer.X < 370) && toPlayer.LengthSquared() > 22050)
                 {
                     Vector2 travel = position;
                     travel.X += 8;
@@ -222,15 +221,6 @@ namespace ScrollingShooter
                 }
             }
         }
-		
-		/// <summary>
-        /// Scrolls the object with the map
-        /// </summary>
-        /// <param name="elapsedTime">The in-game time between the previous and current frame</param>
-		public override void ScrollWithMap(float elapsedTime)
-		{
-			//Does nothing since movement is based off the position of the blimp
-		}
 
         /// <summary>
         /// Draw the LeftGun on-screen
@@ -240,6 +230,15 @@ namespace ScrollingShooter
         public override void Draw(float elapsedTime, SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(spritesheet, Bounds, spriteBounds, Color.White);
+        }
+
+        /// <summary>
+        /// Scrolls the object with the map
+        /// </summary>
+        /// <param name="elapsedTime">The in-game time between the previous and current frame</param>
+        public override void ScrollWithMap(float elapsedTime)
+        {
+            position.Y += ship.ScrollingSpeed * elapsedTime;
         }
     }
 
@@ -293,8 +292,8 @@ namespace ScrollingShooter
         {
             this.gunTimer += elapsedTime;
 
-            // If the gun is dead please delete it
-            if (Health == 0)
+            // If the gun is dead delete it
+            if (Health <= 0)
             {
                 ScrollingShooterGame.GameObjectManager.DestroyObject(this.ID);
                 return;
@@ -312,9 +311,10 @@ namespace ScrollingShooter
 
                 // Get a vector from our position to the player's position
                 Vector2 toPlayer = playerPosition - this.position;
+                toPlayer.Length();
 
                 //Shoots if the player is at the correct range
-                if (toPlayer.LengthSquared() < 200000 && toPlayer.LengthSquared() > 22050)
+                if ( (toPlayer.Y < 355 && toPlayer.X < 370) && toPlayer.LengthSquared() > 22050)
                 {
                     Vector2 travel = position;
                     travel.X += 8;
@@ -324,15 +324,6 @@ namespace ScrollingShooter
                 }
             }
         }
-		
-		/// <summary>
-        /// Scrolls the object with the map
-        /// </summary>
-        /// <param name="elapsedTime">The in-game time between the previous and current frame</param>
-		public override void ScrollWithMap(float elapsedTime)
-		{
-			//Does nothing since movement is based off the position of the blimp
-		}
 
         /// <summary>
         /// Draw the RightGun on-screen
@@ -342,6 +333,15 @@ namespace ScrollingShooter
         public override void Draw(float elapsedTime, SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(spritesheet, Bounds, spriteBounds, Color.White);
+        }
+
+        /// <summary>
+        /// Scrolls the object with the map
+        /// </summary>
+        /// <param name="elapsedTime">The in-game time between the previous and current frame</param>
+        public override void ScrollWithMap(float elapsedTime)
+        {
+            position.Y += ship.ScrollingSpeed * elapsedTime;
         }
     }
 

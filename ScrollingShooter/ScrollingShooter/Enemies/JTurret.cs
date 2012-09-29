@@ -163,9 +163,7 @@ namespace ScrollingShooter
         /// <param name="elapsedTime">The in-game time between the previous and current frame</param>
 		public override void ScrollWithMap(float elapsedTime)
 		{
-
-            //if (-ScrollingShooterGame.LevelManager.scrollDistance / 2 > position.Y) 
-                position.Y += ScrollingSpeed * elapsedTime;
+            position.Y += ScrollingSpeed * elapsedTime;
 		}
     }
 }

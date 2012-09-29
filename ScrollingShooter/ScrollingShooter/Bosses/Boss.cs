@@ -28,5 +28,7 @@ namespace ScrollingShooter
         /// </summary>
         /// <param name="id">The unique id of the enemy instance</param>
         public Boss(uint id) : base(id) { }
+		
+		public abstract void ScrollWithMap(float elapsedTime);
     }
 }

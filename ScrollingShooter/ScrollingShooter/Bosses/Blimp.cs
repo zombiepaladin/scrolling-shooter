@@ -81,10 +81,8 @@ namespace ScrollingShooter
         /// <param name="elapsedTime">The in-game time between the previous and current frame</param>
         public override void Update(float elapsedTime)
         {
-            if (position.Y >= ScrollingShooterGame.LevelManager.scrollDistance + 10) ScrollingShooterGame.LevelManager.Scrolling = false;
-
-            //Scroll with the screen
-            position.Y += ScrollingSpeed * elapsedTime;
+			// Stop scrolling when the boss has been reached
+            //if (position.Y >= ScrollingShooterGame.LevelManager.scrollDistance + 10) ScrollingShooterGame.LevelManager.Scrolling = false;
 
             // If the blimp is below 25% health switch the sprite
             if (this.Health / maxHealth < 0.25f) state = BlimpState.Below25;
@@ -132,12 +130,21 @@ namespace ScrollingShooter
         {
             spriteBatch.Draw(spritesheet, Bounds, spriteBounds[(int)state], Color.White);
         }
+		
+		/// <summary>
+        /// Scrolls the object with the map
+        /// </summary>
+        /// <param name="elapsedTime">The in-game time between the previous and current frame</param>
+		public override void ScrollWithMap(float elapsedTime)
+		{
+			position.Y += ScrollingSpeed * elapsedTime;
+		}
     }
 
     /// <summary>
     /// The LeftGun for the Blimp Boss
     /// </summary>
-    public class LeftGun : Enemy
+    public class LeftGun : Boss
     {
         //LeftGun State Variables
         Texture2D spritesheet;
@@ -215,6 +222,15 @@ namespace ScrollingShooter
                 }
             }
         }
+		
+		/// <summary>
+        /// Scrolls the object with the map
+        /// </summary>
+        /// <param name="elapsedTime">The in-game time between the previous and current frame</param>
+		public override void ScrollWithMap(float elapsedTime)
+		{
+			//Does nothing since movement is based off the position of the blimp
+		}
 
         /// <summary>
         /// Draw the LeftGun on-screen
@@ -230,7 +246,7 @@ namespace ScrollingShooter
     /// <summary>
     /// The RightGun for the Blimp Boss
     /// </summary>
-    public class RightGun : Enemy
+    public class RightGun : Boss
     {
         //LeftGun State Variables
         Texture2D spritesheet;
@@ -308,6 +324,15 @@ namespace ScrollingShooter
                 }
             }
         }
+		
+		/// <summary>
+        /// Scrolls the object with the map
+        /// </summary>
+        /// <param name="elapsedTime">The in-game time between the previous and current frame</param>
+		public override void ScrollWithMap(float elapsedTime)
+		{
+			//Does nothing since movement is based off the position of the blimp
+		}
 
         /// <summary>
         /// Draw the RightGun on-screen

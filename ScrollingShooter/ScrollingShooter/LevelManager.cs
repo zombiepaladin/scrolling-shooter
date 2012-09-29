@@ -172,6 +172,26 @@ namespace ScrollingShooter
                     {
                         CurrentMap.Layers[i].ScrollOffset += elapsedTime * CurrentMap.Layers[i].ScrollingSpeed;
                     }
+					// Scrolls objects with the map
+					foreach (uint goID in ScrollingShooterGame.GameObjectManager.QueryRegion(bounds))
+					{
+						GameObject go = ScrollingShooterGame.GameObjectManager.GetObject(goID);
+						if (go is Enemy) 
+						{
+							Enemy enemy = go as enemy;
+							enemy.ScrollWithMap(elapsedTime);
+						}
+						else if (go is Powerup)
+						{
+							Powerup powerup = go as powerup;
+							powerup.ScrollWithMap(elapsedTime);
+						}
+						else if (go is Boss)
+						{
+							Boss boss = go as boss;
+							boss.ScrollWithMap(elapsedTime);
+						}
+					}
 
                 }
                 // Update only the game objects that appear near our scrolling region

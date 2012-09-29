@@ -66,5 +66,7 @@ namespace ScrollingShooter
         /// </summary>
         /// <param name="id">The unique id of the enemy instance</param>
         public Enemy(uint id) : base(id) { }
+		
+		public abstrat void ScrollWithMap(float elapsedTime);
     }
 }

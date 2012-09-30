@@ -20,7 +20,7 @@ namespace ScrollingShooter
         turningOff = 3,
     }
 
-    class Bird : Enemy
+    class Bird : Boss
     {
         // Dart state variables
         Texture2D spritesheet;
@@ -108,9 +108,10 @@ namespace ScrollingShooter
         public Bird(uint id, ContentManager content, Vector2 position)
             : base(id)
         {
-            this.position = new Vector2(300, 800);
-            //ScrollingShooterGame.LevelManager.Scrolling = false;
-                
+            position.Y += 800; 
+            this.position = position;
+            ScrollingShooterGame.LevelManager.Scrolling = true;
+            this.Health = 20;
             this.position = position;
             spritesheet = content.Load<Texture2D>("Spritesheets/newsh0.shp.000001");
 
@@ -184,7 +185,7 @@ namespace ScrollingShooter
                 case birdEntranceState.flyOver:
                     this.position.Y -= elapsedTime * 500;
 
-                    if (position.Y <= 3892) // -200
+                    if (position.Y <= 0) // -200
                     {
                         BES = birdEntranceState.enter;
                     }
@@ -195,7 +196,7 @@ namespace ScrollingShooter
                     {
                         BES = birdEntranceState.normal;
                     }
-                    ScrollingShooterGame.LevelManager.Scrolling = false;
+                    //ScrollingShooterGame.LevelManager.Scrolling = false;
                     break;
                 case birdEntranceState.normal:
                     fireTimer += elapsedTime;
@@ -279,8 +280,14 @@ namespace ScrollingShooter
                     break;
                 case birdEntranceState.exit:
                     this.position.Y += elapsedTime * 500;
-                    ScrollingShooterGame.LevelManager.Scrolling = true;
+                    //ScrollingShooterGame.LevelManager.Scrolling = true;
                     break;
+            }
+            if (Health <= 1)
+            {
+                LeftLaser.isOn = false;
+                RightLaser.isOn = false;
+                ScrollingShooterGame.LevelManager.Scrolling = true;
             }
         }
 
@@ -332,7 +339,7 @@ namespace ScrollingShooter
 
         public void collision()
         {
-            ScrollingShooterGame.LevelManager.Scrolling = true;
+           ScrollingShooterGame.LevelManager.Scrolling = true;
         }
     }
 

@@ -31,6 +31,8 @@ namespace ScrollingShooter
         HashSet<CollisionPair> verticalOverlaps;
         HashSet<CollisionPair> collisions;
 
+        public List<uint> scrollingObjects;
+
         //control the lavabug boss
         bool lavaFlip;
 
@@ -48,6 +50,7 @@ namespace ScrollingShooter
             destroyedGameObjects = new Queue<GameObject>();
 
             boundingBoxes = new Dictionary<uint, BoundingBox>();
+            scrollingObjects = new List<uint>();
             horizontalAxis = new List<Bound>();
             verticalAxis = new List<Bound>();
 
@@ -70,6 +73,7 @@ namespace ScrollingShooter
             while (createdGameObjects.Count > 0)
             {
                 GameObject go = createdGameObjects.Dequeue();
+                if (go is Enemy || go is Boss || go is Powerup) scrollingObjects.Add(go.ID);
                 AddGameObject(go);
             }
 
@@ -77,6 +81,7 @@ namespace ScrollingShooter
             while (destroyedGameObjects.Count > 0)
             {
                 GameObject go = destroyedGameObjects.Dequeue();
+                if (go is Enemy || go is Boss || go is Powerup) scrollingObjects.Remove(go.ID);
                 RemoveGameObject(go);
             } 
             
@@ -1042,7 +1047,15 @@ namespace ScrollingShooter
             }
 
             // Grab the game object's bounding box
-            BoundingBox box = boundingBoxes[id];
+            BoundingBox box;
+            try
+            {
+                box = boundingBoxes[id];
+            }
+            catch (KeyNotFoundException ke) 
+            {
+                return;
+            }
 
             // Remove the game objects' bounds from our horizontal axis lists
             horizontalAxis.Remove(box.Left);

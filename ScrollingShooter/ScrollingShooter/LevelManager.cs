@@ -172,6 +172,13 @@ namespace ScrollingShooter
                     {
                         CurrentMap.Layers[i].ScrollOffset += elapsedTime * CurrentMap.Layers[i].ScrollingSpeed;
                     }
+					// Scrolls objects with the map
+                    foreach (uint goID in ScrollingShooterGame.GameObjectManager.scrollingObjects)
+                    {
+                        GameObject go = ScrollingShooterGame.GameObjectManager.GetObject(goID);
+                        go.ScrollWithMap(elapsedTime);
+                        ScrollingShooterGame.GameObjectManager.UpdateGameObject(goID);
+                    }
 
                 }
                 // Update only the game objects that appear near our scrolling region

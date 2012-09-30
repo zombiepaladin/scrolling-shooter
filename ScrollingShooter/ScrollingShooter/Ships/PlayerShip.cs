@@ -38,7 +38,17 @@ namespace ScrollingShooter
         /// <summary>
         /// Player's Health
         /// </summary>
-        public float Health = 100;
+        public float Health;
+
+        /// <summary>
+        /// Player's Max Health
+        /// </summary>
+        public float MaxHealth = 100;
+
+        /// <summary>
+        /// Player's Lives
+        /// </summary>
+        public int Lives = 5;
 
         #region Timers
 
@@ -151,6 +161,8 @@ namespace ScrollingShooter
         public PlayerShip(uint id, ContentManager content) : base(id) 
         {
             bulletFired = content.Load<SoundEffect>("SFX/anti_tank_gun_single_shot");
+            Health = MaxHealth;
+            Score = 0;
         }
 
 
@@ -319,6 +331,16 @@ namespace ScrollingShooter
                     }
                 }
             }
+            // Do player clamping
+            // Note: 384 = worldView width / 2 and 360 = worldView height / 2
+            // I assumed it would be faster to compare hardcoded numbers than to reference the variable directly
+            if ((position.X - Bounds.Width / 2) < 0) position.X = Bounds.Width / 2;
+            else if ((position.X + Bounds.Width / 2) > 384) position.X = 384 - Bounds.Width / 2;
+            if (position.Y < ((ScrollingShooterGame.LevelManager.scrollDistance * -0.5f) + Bounds.Height / 2))
+                position.Y = (ScrollingShooterGame.LevelManager.scrollDistance * -0.5f) + Bounds.Height / 2;
+            else if (position.Y > ((ScrollingShooterGame.LevelManager.scrollDistance * -0.5f) + 360 - Bounds.Height / 2))
+                position.Y = (ScrollingShooterGame.LevelManager.scrollDistance * -0.5f) + 360 - Bounds.Height / 2;
+
             // Fire bomb
             if (currentKeyboardState.IsKeyDown(Keys.B))
             {

@@ -1,6 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Audio;
+using System;
+using System.Collections.Generic;
 
 //Authors: Adam Clark
 //         Josh Zavala
@@ -19,6 +23,10 @@ namespace ScrollingShooter
         float defaultGunTimer = 0; //maybe more
         private Mandible _mandible1;
         private Mandible _mandible2;
+
+        #region Sound Effects
+        SoundEffect laserFired;
+        #endregion
 
         /// <summary>
         /// The bounding rectangle of the Lavabug
@@ -49,6 +57,7 @@ namespace ScrollingShooter
             spriteBounds[0].Y = 20;
             spriteBounds[0].Width = 70;
             spriteBounds[0].Height = 132;
+            laserFired = content.Load<SoundEffect>("SFX/gamalaser");
 
             _mandible1 = (Mandible)ScrollingShooterGame.GameObjectManager.CreateEnemy(EnemyType.Mandible, new Vector2(150, 120));
             _mandible2 = (Mandible)ScrollingShooterGame.GameObjectManager.CreateEnemy(EnemyType.Mandible, new Vector2(500, 120));
@@ -103,8 +112,9 @@ namespace ScrollingShooter
             if (defaultGunTimer > .5f)
             {
                 //Make use of the ToPlayerBullet class
-                ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.Photon, position);
+                ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.Laser, position);
                 defaultGunTimer = 0;
+                laserFired.Play();
             }
         }
 

@@ -1,6 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Audio;
+using System;
+using System.Collections.Generic;
+
 
 //Author: Josh Zavala
 namespace ScrollingShooter
@@ -32,6 +37,9 @@ namespace ScrollingShooter
         Rectangle[] spriteBounds = new Rectangle[8];
         PanzerAimState aimState = PanzerAimState.South;
         float defaultGunTimer = 0;
+        #region Sound Effects
+        SoundEffect bulletFired;
+        #endregion
 
         /// <summary>
         /// The bounding rectangle of the Panzer
@@ -56,6 +64,7 @@ namespace ScrollingShooter
         {
             this.position = position;
             spritesheet = content.Load<Texture2D>("Spritesheets/newsh2.shp.000000");
+            bulletFired = content.Load<SoundEffect>("SFX/anti_tank_gun_single_shot");
 
             spriteBounds[(int)PanzerAimState.North].X = 74;
             spriteBounds[(int)PanzerAimState.North].Y = 28;
@@ -178,6 +187,7 @@ namespace ScrollingShooter
                 //Make use of the ToPlayerBullet class
                 ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.ToPlayerBullet, position);
                 defaultGunTimer = 0;
+                bulletFired.Play();
             }
         }
 

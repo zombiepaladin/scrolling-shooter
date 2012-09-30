@@ -1,6 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Audio;
+using System;
+using System.Collections.Generic;
 
 namespace ScrollingShooter
 {
@@ -20,6 +24,9 @@ namespace ScrollingShooter
         Rectangle[] spriteBounds = new Rectangle[3];
         LavaFighterSteeringState steeringState = LavaFighterSteeringState.Straight;
         float gunTimer = 0;
+        #region Sound Effects
+        SoundEffect bulletFired;
+        #endregion
 
         /// <summary>
         /// The bounding rectangle of the Dart
@@ -40,6 +47,7 @@ namespace ScrollingShooter
             this.position = position;
 
             spritesheet = content.Load<Texture2D>("Spritesheets/newshe.shp.000000");
+            bulletFired = content.Load<SoundEffect>("SFX/gamalaser");
 
             spriteBounds[(int)LavaFighterSteeringState.Left].X = 76;
             spriteBounds[(int)LavaFighterSteeringState.Left].Y = 197;
@@ -92,6 +100,7 @@ namespace ScrollingShooter
                     {
                         ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.ToPlayerBullet, position);
                         gunTimer = 0f;
+                        bulletFired.Play();
                     }
                 }
                 else if (toPlayer.X > 0.5f)
@@ -102,6 +111,7 @@ namespace ScrollingShooter
                     {
                         ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.ToPlayerBullet, position);
                         gunTimer = 0f;
+                        bulletFired.Play();
                     }
                 }
                 else

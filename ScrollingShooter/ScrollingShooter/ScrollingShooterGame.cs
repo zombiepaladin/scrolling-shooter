@@ -296,6 +296,7 @@ namespace ScrollingShooter
                             // If health <= 0, kill boss
                             if (boss.Health <= 0)
                             {
+                                if (boss is Blimp) boss.Update(0);
                                 GameObjectManager.DestroyObject(collider.ID);
                                 GameObjectManager.CreateExplosion(collider.ID);
                                 GameObjectManager.CreateExplosion2(collider.ID, 1.5f);

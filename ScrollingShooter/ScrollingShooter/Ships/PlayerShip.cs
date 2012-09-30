@@ -188,7 +188,7 @@ namespace ScrollingShooter
             }
 
             // Store the new powerup in the PowerupType bitmask
-            this.PowerupType |= powerup;
+            this.PowerupType = powerup;
 
             //Apply special logic for powerups here
             switch (powerup)
@@ -231,6 +231,7 @@ namespace ScrollingShooter
             bombTimer += elapsedTime;
             railgunTimer += elapsedTime;
             homingMissileTimer -= elapsedTime;
+            shotgunTimer += elapsedTime;
 
             if (!drunk)
             {
@@ -392,7 +393,7 @@ namespace ScrollingShooter
                     }
 
                     // Default gun
-                    if (defaultGunTimer > 0.25f)
+                    if (defaultGunTimer > 0.25f & PowerupType == 0)
                     {
                         ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.Bullet, position);
                         bulletFired.Play();

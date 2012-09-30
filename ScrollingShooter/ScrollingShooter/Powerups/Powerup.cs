@@ -39,11 +39,6 @@ namespace ScrollingShooter
         protected Texture2D spriteSheet;
 
         /// <summary>
-        /// The portion of the spritesheet containing the powerup
-        /// </summary>
-        protected Rectangle spriteSource;
-
-        /// <summary>
         /// The bounding rectangle of the powerup in the game
         /// </summary>
         protected Rectangle spriteBounds;
@@ -58,7 +53,7 @@ namespace ScrollingShooter
         /// </summary>
         public override Rectangle Bounds
         {
-            get { return spriteBounds; }
+            get { return new Rectangle((int)position.X, (int)position.Y, spriteBounds.Width, spriteBounds.Height); }
         }
 
         /// <summary>
@@ -76,9 +71,7 @@ namespace ScrollingShooter
         /// <param name="id">The powerup's unique id</param>
         public Powerup(uint id)
             : base(id)
-        { 
-        
-        }
+        {}
 
         /// <summary>
         /// Updates the powerup.
@@ -99,7 +92,7 @@ namespace ScrollingShooter
         /// </param>
         public override void Draw(float elaspedTime, SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(spriteSheet, Bounds, spriteSource, Color.White, 0f, new Vector2(Bounds.Width / 2, Bounds.Height / 2), SpriteEffects.None, LayerDepth);
+            spriteBatch.Draw(spriteSheet, Bounds, spriteBounds, Color.White, 0f, new Vector2(Bounds.Width / 2, Bounds.Height / 2), SpriteEffects.None, LayerDepth);
         }
 
         /// <summary>
@@ -108,7 +101,7 @@ namespace ScrollingShooter
         /// <param name="elapsedTime">The in-game time between the previous and current frame</param>
         public override void ScrollWithMap(float elapsedTime)
         {
-            spriteBounds.Y += (int)(ScrollingSpeed * elapsedTime);
+            position.Y += ScrollingSpeed * elapsedTime;
         }
     }
 }

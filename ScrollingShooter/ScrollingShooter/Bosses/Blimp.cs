@@ -23,10 +23,13 @@ namespace ScrollingShooter
         Vector2 position;
         Rectangle[] spriteBounds = new Rectangle[2];
         BlimpState state;
-        int maxHealth = 10;
+        int maxHealth = 100;
         Vector2 velocity;
         int screenWidth = 384;
         float gunTimer;
+
+        public LeftGun leftGun;
+        public RightGun rightGun;
 
         /// <summary>
         /// The bounding rectangle of the SuicideBomber
@@ -65,7 +68,7 @@ namespace ScrollingShooter
 
             spriteBounds[(int)BlimpState.Below25].X = 121;
             spriteBounds[(int)BlimpState.Below25].Y = 10;
-            spriteBounds[(int)BlimpState.Below25].Width = 24;
+            spriteBounds[(int)BlimpState.Below25].Width = 70;
             spriteBounds[(int)BlimpState.Below25].Height = 130;
 
             this.state = BlimpState.Normal;
@@ -85,6 +88,12 @@ namespace ScrollingShooter
 
             // If the blimp is below 25% health switch the sprite
             if (this.Health / maxHealth < 0.25f) state = BlimpState.Below25;
+
+            if (this.Health <= 0)
+            {
+                ScrollingShooterGame.GameObjectManager.DestroyObject(leftGun.ID);
+                ScrollingShooterGame.GameObjectManager.DestroyObject(rightGun.ID);
+            }
 
             // Move the blimp
             if (position.X - 11 <= 5 || position.X + 69 >= this.screenWidth - 30) velocity.X *= -1;

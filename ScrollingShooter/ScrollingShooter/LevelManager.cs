@@ -192,6 +192,15 @@ namespace ScrollingShooter
                     go.Update(elapsedTime);
                     ScrollingShooterGame.GameObjectManager.UpdateGameObject(goID);
                 }
+                // Remove objects that we have passed
+                Rectangle deleteBounds = new Rectangle(0,
+                    (int)(-scrollDistance / 2) + (16 * CurrentMap.TileHeight + 50),
+                    CurrentMap.Width * CurrentMap.TileWidth,
+                    4480 - ((int)(-scrollDistance / 2) + (16 * CurrentMap.TileHeight + 50)));
+                foreach (uint goID in ScrollingShooterGame.GameObjectManager.QueryRegion(deleteBounds))
+                {
+                    ScrollingShooterGame.GameObjectManager.DestroyObject(goID);
+                }
             }
         }
 

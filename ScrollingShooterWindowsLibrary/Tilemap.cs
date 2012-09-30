@@ -98,7 +98,6 @@ namespace ScrollingShooterWindowsLibrary
         public void LoadContent(ContentManager contentManager)
         {
             Textures = new Texture2D[ImagePaths.Length];
-
             for (int i = 0; i < ImagePaths.Length; i++)
             {
                 Textures[i] = contentManager.Load<Texture2D>(ImagePaths[i]);

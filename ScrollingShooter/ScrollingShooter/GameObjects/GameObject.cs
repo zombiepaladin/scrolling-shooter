@@ -38,6 +38,11 @@ namespace ScrollingShooter
         /// The depth at which this GameObject's sprite is drawn
         /// </summary>
         public float LayerDepth;
+
+        /// <summary>
+        /// Object's Score Value, or Total if Player
+        /// </summary>
+        public int Score = 1;
         
         /// <summary>
         /// The bounds of this game object in the game world

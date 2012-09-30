@@ -133,7 +133,11 @@ namespace ScrollingShooter
                     {
                         GameState = GameState.Gameplay;
                         Music = LevelManager.CurrentSong;
-                        if (Music != null) MediaPlayer.Play(Music);
+                        if (Music != null)
+                        {
+                            MediaPlayer.Play(Music);
+                            MediaPlayer.IsRepeating = true;
+                        }
                     }
                     break;
 

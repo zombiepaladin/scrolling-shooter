@@ -69,7 +69,8 @@ namespace ScrollingShooter
             PlayerShip ps = ScrollingShooterGame.Game.Player;
             Vector2 pp = new Vector2(ps.Bounds.Center.X, ps.Bounds.Center.Y);
             Vector2 dp = pp - this.position;
-            if (dp.LengthSquared() < 30000)
+
+            if (this.position.Y > -ScrollingShooterGame.LevelManager.scrollDistance / 2 && this.position.Y <= ps.Position.Y + 40)
             {
                 dp.Normalize();
                 this.position += dp * elapsedTime * 100;

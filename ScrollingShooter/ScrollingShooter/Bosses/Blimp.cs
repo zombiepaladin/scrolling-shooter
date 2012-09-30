@@ -23,7 +23,7 @@ namespace ScrollingShooter
         Vector2 position;
         Rectangle[] spriteBounds = new Rectangle[2];
         BlimpState state;
-        int maxHealth = 300;
+        int maxHealth = 10;
         Vector2 velocity;
         int screenWidth = 384;
         float gunTimer;
@@ -85,13 +85,6 @@ namespace ScrollingShooter
 
             // If the blimp is below 25% health switch the sprite
             if (this.Health / maxHealth < 0.25f) state = BlimpState.Below25;
-
-            // If the blimp is at 0 health delete it
-            else if (Health <= 0)
-            {
-                ScrollingShooterGame.GameObjectManager.DestroyObject(this.ID);
-                return;
-            }
 
             // Move the blimp
             if (position.X - 11 <= 5 || position.X + 69 >= this.screenWidth - 30) velocity.X *= -1;
@@ -188,13 +181,6 @@ namespace ScrollingShooter
         /// <param name="elapsedTime">The in-game time between the previous and current frame</param>
         public override void Update(float elapsedTime)
         {
-            // If the LeftGun is dead delete it
-            if (Health <= 0)
-            {
-                ScrollingShooterGame.GameObjectManager.DestroyObject(this.ID);
-                return;
-            }
-
             // Updates the position of the LeftGun based on the position of the ship
             this.position.X = ship.Position.X - 11;
             this.position.Y = ship.Position.Y + 36;
@@ -291,13 +277,6 @@ namespace ScrollingShooter
         public override void Update(float elapsedTime)
         {
             this.gunTimer += elapsedTime;
-
-            // If the gun is dead delete it
-            if (Health <= 0)
-            {
-                ScrollingShooterGame.GameObjectManager.DestroyObject(this.ID);
-                return;
-            }
 
             //Updates the position of the gun relative to the ship
             this.position.X = ship.Position.X + 69;

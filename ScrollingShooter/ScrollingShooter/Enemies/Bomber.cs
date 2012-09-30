@@ -194,13 +194,15 @@ namespace ScrollingShooter
 
 
             if (playerPosition.X - Bounds.Center.X < -20 - offset)
+
             {
                 steeringState = BomberSteeringState.Left;
                 this.position.X -= elapsedTime * 40 * velocity;
             }
             else
-            {
+
                 if (playerPosition.X - Bounds.Center.X > 20 - offset)
+
                 {
                     steeringState = BomberSteeringState.Right;
                     this.position.X += elapsedTime * 40 * velocity;
@@ -256,5 +258,13 @@ namespace ScrollingShooter
             //bomberCount--;
         }
 
+		/// <summary>
+        /// Scrolls the object with the map
+        /// </summary>
+        /// <param name="elapsedTime">The in-game time between the previous and current frame</param>
+		public override void ScrollWithMap(float elapsedTime)
+		{
+			position.Y += ScrollingSpeed * elapsedTime;
+		}
     }
 }

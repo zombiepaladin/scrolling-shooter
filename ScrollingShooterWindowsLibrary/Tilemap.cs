@@ -86,6 +86,10 @@ namespace ScrollingShooterWindowsLibrary
         /// </summary>
         public int PlayerLayer;
 
+        /// <summary>
+        /// The music to play in this level
+        /// </summary>
+        public string MusicTitle;
 
         /// <summary>
         /// Loads the dependent content for the tilemap

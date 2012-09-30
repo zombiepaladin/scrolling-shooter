@@ -6,10 +6,10 @@ using Microsoft.Xna.Framework.Content;
 namespace ScrollingShooter
 {
     /// <summary>
-    /// An enemy turret that turns to the player and fires at them
+    /// An enemy turret that turns to the player and fires at them, has 2 cannons
     /// </summary>
-    public class JTurret : Enemy
-    {
+    public class TurretDouble : Enemy
+    {   
         // Turret Variables
         /// <summary>
         /// spritesheet with the turret texture
@@ -39,14 +39,12 @@ namespace ScrollingShooter
         /// <summary>
         /// Int to determine which cannon we are firing from: 0 = right barrel, 1 = left barrel
         /// </summary>
-        int barrel = 0;
+        int barrel = 0; 
 
         /// <summary>
         /// Rotation of the turret
         /// </summary>
         float alpha;
-
-        public float Alpha { get { return alpha; } }
 
         /// <summary>
         /// Shot delay of the turret
@@ -54,7 +52,12 @@ namespace ScrollingShooter
         float shotDelay;
 
         /// <summary>
-        /// The bounding rectangle of the Dart
+        /// Bullet velocity
+        /// <summary>
+        float bulletVel = 250f;
+
+        /// <summary>
+        /// The bounding rectangle of the Turret
         /// </summary>
         public override Rectangle Bounds
         {
@@ -62,11 +65,12 @@ namespace ScrollingShooter
         }
 
         /// <summary>
-        /// Creates a new instance of an enemy turret
+        /// Creates a new instance of an enemy turret with 2 cannons
         /// </summary>
         /// <param name="content">A ContentManager to load resources with</param>
         /// <param name="position">The position of the turret in the game world</param>
-        public JTurret(uint id, ContentManager content, Vector2 position) : base (id)
+        public TurretDouble(uint id, ContentManager content, Vector2 position)
+            :base(id)
         {
             this.position = position;
 
@@ -81,33 +85,33 @@ namespace ScrollingShooter
 
             shotDelay = 0;
 
-            // Offset from the center to the tip of the left barrel and subtract half the width of the bullet (2.5f) and half the width of the turret
-            offsetLeft = new Vector2(-4 - 2f, (float)this.Bounds.Height / 2);
+            // Offset from the center to the tip of the left barrel
+            offsetLeft = new Vector2(-4, (float)this.Bounds.Height / 2);
 
-            // Offset from the center to the tip of the right barrel and subtract half the width of the bullet (2.5f) and half the width of the turret
-            offsetRight = new Vector2(4 - 2f, (float)this.Bounds.Height / 2);
+            // Offset from the center to the tip of the right barrel
+            offsetRight = new Vector2(4, (float)this.Bounds.Height / 2);
+
+            Health = 10;
         }
 
         /// <summary>
         /// Updates the Turret
         /// </summary>
         /// <param name="elapsedTime">The in-game time between the previous and current frame</param>
-        public override void Update(float elapsedTime)
+        public override void  Update(float elapsedTime)
         {
             // Update the shot timer
             shotDelay += elapsedTime;
 
-            // Sense the Player's position
-            PlayerShip Player = ScrollingShooterGame.Game.Player;
-            Vector2 PlayerPosition = new Vector2(Player.Bounds.Center.X, Player.Bounds.Center.Y);
+            // Sense the player's position
+            PlayerShip player = ScrollingShooterGame.Game.Player;
+            Vector2 playerPosition = new Vector2(player.Bounds.X, player.Bounds.Y);
 
-            // Get a vector from our position to the Player's position
-            Vector2 toPlayer = PlayerPosition - this.position;
+            // Get a vector from our position to the player's position
+            Vector2 toPlayer = playerPosition - this.position;
 
-            if (toPlayer.LengthSquared() < 150000)
+            if(toPlayer.LengthSquared() < 150000)
             {
-                // TODO: Figure out why the bullet spawn doesn't always match up perfectly with the cannon barrel
-
                 // We sense the player's ship!                  
                 // Get a normalized turning vector
                 toPlayer.Normalize();
@@ -116,7 +120,7 @@ namespace ScrollingShooter
                 this.alpha = (float)Math.Atan2(toPlayer.Y, toPlayer.X) - MathHelper.PiOver2;
 
                 // If it is time to shoot, fire a bullet towards the player
-                if (shotDelay > 1f)
+                if (shotDelay > 0.5f)
                 {
                     // Rotation Matrix to get the rotated offset vectors
                     Matrix rotMatrix = Matrix.CreateRotationZ(alpha);
@@ -137,14 +141,13 @@ namespace ScrollingShooter
                     }
 
                     // Spawn the bullet
-                    // TODO: Add this to the enemy projectiles list once it's created
-                    ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.EnemyBullet, position + offset);
+                    ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.EnemyBullet, this.position + offset, bulletVel * toPlayer);
 
                     // Reset the shot delay
                     shotDelay = 0;
                 }
 
-            }
+            }                        
         }
 
         /// <summary>
@@ -156,14 +159,6 @@ namespace ScrollingShooter
         {
             spriteBatch.Draw(spritesheet, Bounds, spriteBounds, Color.White, alpha, new Vector2(spriteBounds.Width / 2, spriteBounds.Height / 2), SpriteEffects.None, 0f);
         }
-		
-		/// <summary>
-        /// Scrolls the object with the map
-        /// </summary>
-        /// <param name="elapsedTime">The in-game time between the previous and current frame</param>
-		public override void ScrollWithMap(float elapsedTime)
-		{
-            position.Y += ScrollingSpeed * elapsedTime;
-		}
+
     }
 }

@@ -52,6 +52,7 @@ Content\Tilesets\shapeswmodified.xnb
 Content\Spritesheets\accessories.xnb
 Content\Spritesheets\vulcano.xnb
 Content\Spritesheets\MoonBoss.xnb
+Content\Spritesheets\explosion.xnb
 Content\Tilesets\bossFloorTexture.xnb
 Content\Tilesets\shapeszFinalLvlMod.xnb
 Content\Tilesets\shapesFinalLvlMod.xnb
@@ -65,5 +66,6 @@ Content\Tilemaps\Level_1_Tilemap_2.xnb
 Content\Tilemaps\AlienBaseSafe.xnb
 Content\SpriteFonts\Pescadero.xnb
 Content\debugFont.xnb
-Content\Sound\BGM\Hard as Nails 11-13-28.xnb
-Content\Sound\BGM\Hard as Nails 11-13-28.wma
+Content\Music\Hard as Nails 11-13-28.xnb
+Content\SFX\anti_tank_gun_single_shot.xnb
+Content\Music\Hard as Nails 11-13-28.wma

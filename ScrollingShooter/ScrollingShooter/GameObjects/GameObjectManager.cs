@@ -31,6 +31,8 @@ namespace ScrollingShooter
         HashSet<CollisionPair> verticalOverlaps;
         HashSet<CollisionPair> collisions;
 
+        public List<uint> scrollingObjects;
+
         //control the lavabug boss
         bool lavaFlip;
 
@@ -48,6 +50,7 @@ namespace ScrollingShooter
             destroyedGameObjects = new Queue<GameObject>();
 
             boundingBoxes = new Dictionary<uint, BoundingBox>();
+            scrollingObjects = new List<uint>();
             horizontalAxis = new List<Bound>();
             verticalAxis = new List<Bound>();
 
@@ -70,6 +73,7 @@ namespace ScrollingShooter
             while (createdGameObjects.Count > 0)
             {
                 GameObject go = createdGameObjects.Dequeue();
+                if (go is Enemy || go is Boss || go is Powerup) scrollingObjects.Add(go.ID);
                 AddGameObject(go);
             }
 
@@ -77,6 +81,7 @@ namespace ScrollingShooter
             while (destroyedGameObjects.Count > 0)
             {
                 GameObject go = destroyedGameObjects.Dequeue();
+                if (go is Enemy || go is Boss || go is Powerup) scrollingObjects.Remove(go.ID);
                 RemoveGameObject(go);
             } 
             
@@ -155,7 +160,7 @@ namespace ScrollingShooter
         public uint[] QueryRegion(Rectangle bounds)
         {
             HashSet<uint> matches = new HashSet<uint>();
-
+            /*
             // Find the minimal index in the horizontal axis list using binary search
             Bound left = new Bound(null, bounds.Left, BoundType.Min);
 
@@ -171,16 +176,16 @@ namespace ScrollingShooter
                 minHorizontalIndex = ~minHorizontalIndex;
             }
 
-            Bound right = new Bound(null, bounds.Left, BoundType.Max);
+            Bound right = new Bound(null, bounds.Right, BoundType.Max);
             int maxHorizontalIndex = horizontalAxis.BinarySearch(right);
             if (maxHorizontalIndex < 0) maxHorizontalIndex = ~maxHorizontalIndex;
 
             for (int i = minHorizontalIndex; i < maxHorizontalIndex; i++)
             {
                 matches.Add(horizontalAxis[i].Box.GameObjectID);
-            }
+            }*/
 
-            Bound top = new Bound(null, bounds.Left, BoundType.Min);
+            Bound top = new Bound(null, bounds.Top, BoundType.Min);
             int minVerticalIndex = verticalAxis.BinarySearch(top);
             if (minVerticalIndex < 0) minVerticalIndex = ~minVerticalIndex;
 
@@ -210,6 +215,7 @@ namespace ScrollingShooter
             objectCount++;
             return id;
         }
+
 
         /// <summary>
         /// Helper method for enqueueing our game object for creation at the 
@@ -241,6 +247,7 @@ namespace ScrollingShooter
                 default:
                     throw new NotImplementedException("The boss type " + Enum.GetName(typeof(BossType), enemyType) + " is not supported");
             }
+            boss.ObjectType = ObjectType.Boss;
             QueueGameObjectForCreation(boss);
             return boss;
         }
@@ -251,6 +258,7 @@ namespace ScrollingShooter
         /// </summary>
         /// <param name="colliderID">The source of the explosion</param>
         /// <returns>The newly-spawned explosion</returns>
+
         public Explosion CreateExplosion(uint colliderID)
         {
             Explosion ex;
@@ -260,6 +268,23 @@ namespace ScrollingShooter
             QueueGameObjectForCreation(ex);
             return ex;
         }
+
+        /// <summary>
+        /// Factory method for creating an explosion
+        /// </summary>
+        /// <param name="colliderID">The source of the explosion</param>
+        /// <param name="scale">The scale of the explosion</param>
+        /// <returns>The newly-spawned explosion</returns>
+        public Explosion2 CreateExplosion2(uint colliderID, float scale)
+        {
+            Explosion2 ex;
+            uint id = NextID();
+            Vector2 pos = new Vector2(GetObject(colliderID).Bounds.X, GetObject(colliderID).Bounds.Y);
+            ex = new Explosion2(id, pos, content, scale);
+            QueueGameObjectForCreation(ex);
+            return ex;
+        }
+
 
         /// <summary>
         /// Factory method to create a Player ship
@@ -282,9 +307,11 @@ namespace ScrollingShooter
                     throw new NotImplementedException("The Player ship type " + Enum.GetName(typeof(PlayerShipType), PlayerShipType) + " is not supported");
             }
 
+            PlayerShip.ObjectType = ObjectType.Player;
             QueueGameObjectForCreation(PlayerShip);
             return PlayerShip;
         }
+
 
         /// <summary>
         /// Factory method for spawning a projectile
@@ -310,15 +337,19 @@ namespace ScrollingShooter
                 case PowerupType.BubbleBeam:
                     powerup = new BubbleBeamPowerup(id, content, position);
                     break;
+
                 case PowerupType.Freezewave:
                     powerup = new FreezewavePowerup(id, content, position);
                     break;
+                
                 case PowerupType.Blades:
                     powerup = new BladesPowerup(id, content, position);
                     break;
+                
                 case PowerupType.EightBallShield: //added EightBallShield
                     powerup = new EightBallShieldPowerup(id, content, position);
                     break;
+                
                 case PowerupType.TriShield:
                     powerup = new TriShieldPowerup(id, content, position);
                     break;
@@ -360,9 +391,10 @@ namespace ScrollingShooter
                     break;
 
                 default:
-                    throw new NotImplementedException("The powerup type " + Enum.GetName(typeof(PowerupType), powerupType) + " is not supported");
+                    throw new NotImplementedException("The powerup type " + Enum.GetName(typeof(ProjectileType), powerupType) + " is not supported");
             }
 
+            powerup.ObjectType = ObjectType.Powerup;
             QueueGameObjectForCreation(powerup);
             return powerup;
         }
@@ -375,6 +407,18 @@ namespace ScrollingShooter
         /// <param name="position">The position of the projectile in the game world</param>
         /// <returns>The game object id of the projectile</returns>
         public Projectile CreateProjectile(ProjectileType projectileType, Vector2 position)
+        {
+            return CreateProjectile(projectileType, position, Vector2.Zero);
+        }
+
+
+        /// <summary>
+        /// Factory method for spawning a projectile
+        /// </summary>
+        /// <param name="projectileType">The type of projectile to create</param>
+        /// <param name="position">The position of the projectile in the game world</param>
+        /// <returns>The game object id of the projectile</returns>
+        public Projectile CreateProjectile(ProjectileType projectileType, Vector2 position, Vector2 velocity)
         {
             Projectile projectile = null;
             uint id = NextID();
@@ -468,9 +512,9 @@ namespace ScrollingShooter
                     break;
 
                 case ProjectileType.EnergyBlast:
-
                     projectile = new EnergyBlast(id, content, position, ScrollingShooterGame.Game.Player.energyBlastLevel);
                     break;
+
                 case ProjectileType.EnemyBullet:
 
                     // Bullet velocity
@@ -488,6 +532,7 @@ namespace ScrollingShooter
                 case ProjectileType.EnemyBomb:
                     projectile = new Bomb(id, content, position, false);
                     break;
+
                 case ProjectileType.ShotgunBullet:
                     projectile = new ShotgunBullet(id, content, position, BulletDirection.Straight);
                     QueueGameObjectForCreation(new ShotgunBullet(NextID(), content, position, BulletDirection.Left));
@@ -557,7 +602,7 @@ namespace ScrollingShooter
                     break;
 
                 case ProjectileType.HomingMissile:
-                    projectile = new HomingMissileProjectile(content, position, id);
+                    projectile = new HomingMissileProjectile(content, position, 1, id);
                     break;
 
                 case ProjectileType.EnemyPsyBall:
@@ -572,7 +617,11 @@ namespace ScrollingShooter
                     throw new NotImplementedException("The projectile type " + Enum.GetName(typeof(ProjectileType), projectileType) + " is not supported");
             }
 
-            if(projectile != null)  QueueGameObjectForCreation(projectile);
+            if ((int)projectileType < 100)
+                projectile.ObjectType = ObjectType.PlayerProjectile;
+            else
+                projectile.ObjectType = ObjectType.EnemyProjectile;
+            QueueGameObjectForCreation(projectile);
             return projectile;
         }
 
@@ -598,9 +647,11 @@ namespace ScrollingShooter
                     throw new NotImplementedException("EightBallShield failed.");
             }
 
+            shield.ObjectType = ObjectType.Shield;
             QueueGameObjectForCreation(shield);
             return shield;
         }
+
 
         /// <summary>
         /// Factory method for spawning enemies.
@@ -647,6 +698,18 @@ namespace ScrollingShooter
                     enemy = new Arrow(id, content, position);
                     break;
 
+                case EnemyType.TurretSingle:
+                    enemy = new TurretSingle(id, content, position);
+                    break;
+
+                case EnemyType.TurretDouble:
+                    enemy = new TurretDouble(id, content, position);
+                    break;
+
+                case EnemyType.TurretTower:
+                    enemy = new TurretTower(id, content, position);
+                    break;
+                
                 case EnemyType.StdBaddy:
                     enemy = new StdBaddy(id, content, position);
                     break;
@@ -756,6 +819,7 @@ namespace ScrollingShooter
                     throw new NotImplementedException("The enemy type " + Enum.GetName(typeof(EnemyType), enemyType) + " is not supported");
             }
 
+            enemy.ObjectType = ObjectType.Enemy;
             QueueGameObjectForCreation(enemy);
             return enemy;
         }
@@ -983,7 +1047,15 @@ namespace ScrollingShooter
             }
 
             // Grab the game object's bounding box
-            BoundingBox box = boundingBoxes[id];
+            BoundingBox box;
+            try
+            {
+                box = boundingBoxes[id];
+            }
+            catch (KeyNotFoundException ke) 
+            {
+                return;
+            }
 
             // Remove the game objects' bounds from our horizontal axis lists
             horizontalAxis.Remove(box.Left);

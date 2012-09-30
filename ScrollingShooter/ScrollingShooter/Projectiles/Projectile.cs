@@ -52,6 +52,7 @@ namespace ScrollingShooter
         BirdWrath = 121,
         EnemyPsyBall = 163,
         EnemyLightningZap = 164,
+        EnemyTurretTowerBullet = 165,
     }
 
     /// <summary>
@@ -60,6 +61,8 @@ namespace ScrollingShooter
     public abstract class Projectile : GameObject
     {
         public static int POWER_LEVEL = 1;
+
+        public float Damage = 1;
 
         /// <summary>
         /// The projectile's velocity
@@ -114,6 +117,15 @@ namespace ScrollingShooter
         public override void Draw(float elapsedTime, SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(spriteSheet, Bounds, spriteBounds, Color.White, 0f, new Vector2(Bounds.Width / 2, Bounds.Height / 2), SpriteEffects.None, 1f);
+        }
+
+        /// <summary>
+        /// Scrolls the object with the map
+        /// </summary>
+        /// <param name="elapsedTime">The in-game time between the previous and current frame</param>
+        public override void ScrollWithMap(float elapsedTime)
+        {
+            // Does nothing
         }
     }
 }

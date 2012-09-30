@@ -13,7 +13,7 @@ namespace ScrollingShooter
         /// Creates a new Blades powerup
         /// </summary>
         /// <param name="contentManager">A ContentManager to load resources with</param>
-        /// <param name="position">The position of the Player which the blades will go on top of</param>
+        /// <param name="position">The position of the player which the blades will go on top of</param>
        public BladesPowerup(uint id, ContentManager contentManager, Vector2 position) : base(id)
         {
             this.type = PowerupType.Blades;

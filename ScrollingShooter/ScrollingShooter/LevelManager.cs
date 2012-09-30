@@ -21,7 +21,7 @@ namespace ScrollingShooter
         SpriteBatch spriteBatch;
         BasicEffect basicEffect;
 
-        float scrollDistance;
+        public float scrollDistance;
         Rectangle scrollBounds;
 
         public bool Loading = true;
@@ -76,6 +76,16 @@ namespace ScrollingShooter
             {
                 CurrentMap = game.Content.Load<Tilemap>("Tilemaps/" + level);
                 CurrentMap.LoadContent(game.Content);
+                
+                // Load the background music
+                if (CurrentMap.MusicTitle != null && CurrentMap.MusicTitle != "")
+                {
+                    CurrentSong = game.Content.Load<Song>("Music/" + CurrentMap.MusicTitle);
+                }
+                else
+                {
+                    CurrentSong = null;
+                }
 
                 // Load the background music
                 if (CurrentMap.MusicTitle != null && CurrentMap.MusicTitle != "")
@@ -133,6 +143,9 @@ namespace ScrollingShooter
                     }
                 }
 
+                //Start level off to scroll
+                Scrolling = true;
+
                 // Mark level as loaded
                 Loading = false;
             };
@@ -168,13 +181,19 @@ namespace ScrollingShooter
                     {
                         CurrentMap.Layers[i].ScrollOffset += elapsedTime * CurrentMap.Layers[i].ScrollingSpeed;
                     }
-
+					// Scrolls objects with the map
+                    foreach (uint goID in ScrollingShooterGame.GameObjectManager.scrollingObjects)
+                    {
+                        GameObject go = ScrollingShooterGame.GameObjectManager.GetObject(goID);
+                        go.ScrollWithMap(elapsedTime);
+                        ScrollingShooterGame.GameObjectManager.UpdateGameObject(goID);
+                    }
                 }
                 // Update only the game objects that appear near our scrolling region
                 Rectangle bounds = new Rectangle(0,
-                    (int)(-scrollDistance / 2) + 300,
+                    (int)(-scrollDistance / 2) - 300,
                     CurrentMap.Width * CurrentMap.TileWidth,
-                    16 * CurrentMap.TileHeight);
+                    16 * CurrentMap.TileHeight + 300);
                 foreach (uint goID in ScrollingShooterGame.GameObjectManager.QueryRegion(bounds))
                 {
                     GameObject go = ScrollingShooterGame.GameObjectManager.GetObject(goID);
@@ -191,11 +210,12 @@ namespace ScrollingShooter
         /// <param name="elapsedTime">The time between this and the last frame</param>
         public void Draw(float elapsedTime)
         {
-            if (Paused)
+
+            if (Paused)   
             {
                 // TODO: Draw "Paused" Overlay
             }
-
+            
             // Draw level
             Viewport viewport = game.GraphicsDevice.Viewport;
             basicEffect.World = Matrix.CreateScale(2, 2, 1);
@@ -217,7 +237,8 @@ namespace ScrollingShooter
 
                 for (int y = miny; y < maxy; y++)
                 {
-                    // Since our maps are only as wide as our rendering area,
+
+                    // Since our maps are only as wide as our rendering area, 
                     // no need for optimizaiton here
                     for (int x = 0; x < CurrentMap.Width; x++)
                     {
@@ -239,10 +260,9 @@ namespace ScrollingShooter
 
             // Draw only the game objects that appear within our scrolling region
             Rectangle bounds = new Rectangle(0,
-                (int)(-scrollDistance / 2),
+                (int)(-scrollDistance / 2 - 300),
                 CurrentMap.Width * CurrentMap.TileWidth,
-                16 * CurrentMap.TileHeight);
-
+                16 * CurrentMap.TileHeight + 300);
             foreach (uint goID in ScrollingShooterGame.GameObjectManager.QueryRegion(bounds))
             {
                 GameObject go = ScrollingShooterGame.GameObjectManager.GetObject(goID);
@@ -250,7 +270,6 @@ namespace ScrollingShooter
             }
 
             spriteBatch.End();
-
         }
     }
 }

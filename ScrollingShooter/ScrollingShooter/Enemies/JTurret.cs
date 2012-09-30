@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework.Content;
 namespace ScrollingShooter
 {
     /// <summary>
-    /// An enemy turret that turns to the Player and fires at them
+    /// An enemy turret that turns to the player and fires at them
     /// </summary>
     public class JTurret : Enemy
     {
@@ -108,14 +108,14 @@ namespace ScrollingShooter
             {
                 // TODO: Figure out why the bullet spawn doesn't always match up perfectly with the cannon barrel
 
-                // We sense the Player's ship!                  
+                // We sense the player's ship!                  
                 // Get a normalized turning vector
                 toPlayer.Normalize();
 
                 // Rotate towards them!
                 this.alpha = (float)Math.Atan2(toPlayer.Y, toPlayer.X) - MathHelper.PiOver2;
 
-                // If it is time to shoot, fire a bullet towards the Player
+                // If it is time to shoot, fire a bullet towards the player
                 if (shotDelay > 1f)
                 {
                     // Rotation Matrix to get the rotated offset vectors
@@ -156,6 +156,14 @@ namespace ScrollingShooter
         {
             spriteBatch.Draw(spritesheet, Bounds, spriteBounds, Color.White, alpha, new Vector2(spriteBounds.Width / 2, spriteBounds.Height / 2), SpriteEffects.None, 0f);
         }
-
+		
+		/// <summary>
+        /// Scrolls the object with the map
+        /// </summary>
+        /// <param name="elapsedTime">The in-game time between the previous and current frame</param>
+		public override void ScrollWithMap(float elapsedTime)
+		{
+            position.Y += ScrollingSpeed * elapsedTime;
+		}
     }
 }

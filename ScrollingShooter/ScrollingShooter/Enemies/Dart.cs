@@ -45,17 +45,17 @@ namespace ScrollingShooter
 
             spriteBounds[(int)DartSteeringState.Left].X = 98;
             spriteBounds[(int)DartSteeringState.Left].Y = 84;
-            spriteBounds[(int)DartSteeringState.Left].Width = 20;
+            spriteBounds[(int)DartSteeringState.Left].Width = 22;
             spriteBounds[(int)DartSteeringState.Left].Height = 28;
 
             spriteBounds[(int)DartSteeringState.Straight].X = 122;
             spriteBounds[(int)DartSteeringState.Straight].Y = 84;
-            spriteBounds[(int)DartSteeringState.Straight].Width = 20;
+            spriteBounds[(int)DartSteeringState.Straight].Width = 22;
             spriteBounds[(int)DartSteeringState.Straight].Height = 28;
 
             spriteBounds[(int)DartSteeringState.Right].X = 147;
             spriteBounds[(int)DartSteeringState.Right].Y = 84;
-            spriteBounds[(int)DartSteeringState.Right].Width = 20;
+            spriteBounds[(int)DartSteeringState.Right].Width = 22;
             spriteBounds[(int)DartSteeringState.Right].Height = 28;
 
             steeringState = DartSteeringState.Straight;
@@ -100,6 +100,14 @@ namespace ScrollingShooter
         {
             spriteBatch.Draw(spritesheet, Bounds, spriteBounds[(int)steeringState], Color.White, 0f, new Vector2(Bounds.Width / 2, Bounds.Height / 2), SpriteEffects.None, 1f);
         }
-
+		
+		/// <summary>
+        /// Scrolls the object with the map
+        /// </summary>
+        /// <param name="elapsedTime">The in-game time between the previous and current frame</param>
+		public override void ScrollWithMap(float elapsedTime)
+		{
+			position.Y += ScrollingSpeed * elapsedTime;
+		}
     }
 }

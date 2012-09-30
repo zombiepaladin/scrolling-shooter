@@ -1,4 +1,4 @@
-﻿﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,7 +20,7 @@ namespace ScrollingShooter
         Arrow,
         LavaFighter,
         StdBaddy,
-        beamShip,
+        BeamShip,
         Kamikaze,
         Panzer,
         Panzer2,
@@ -36,7 +36,19 @@ namespace ScrollingShooter
         DrillLeft,
         DrillRight,
         SuicideBomber,
-        TwinJet
+        AlienHead,
+        ShieldGenerator,
+        AlienTurret,
+        RightClaw,
+        LeftClaw,
+        TwinJet,
+        Bird,
+        BrainBoss,
+        BrainBossPsyEmitter,
+        BrainBossProtection,
+        TurretSingle,
+        TurretDouble,
+        TurretTower,
     }
 
     /// <summary>
@@ -47,12 +59,21 @@ namespace ScrollingShooter
         /// <summary>
         /// The enemy's health
         /// </summary>
-        public float Health;
+        public float Health = 1;
 
         /// <summary>
         /// Constructs a new enemy
         /// </summary>
         /// <param name="id">The unique id of the enemy instance</param>
         public Enemy(uint id) : base(id) { }
+
+        /// <summary>
+        /// Scrolls the object with the map
+        /// </summary>
+        /// <param name="elapsedTime">The in-game time between the previous and current frame</param>
+		public override void ScrollWithMap(float elapsedTime) 
+        {
+            // Does nothing
+        }
     }
 }

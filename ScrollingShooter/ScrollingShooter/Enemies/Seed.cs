@@ -102,6 +102,15 @@ namespace ScrollingShooter
         {
             //Do nothing.
         }
+
+        /// <summary>
+        /// Scrolls the object with the map
+        /// </summary>
+        /// <param name="elapsedTime">The in-game time between the previous and current frame</param>
+        public override void ScrollWithMap(float elapsedTime)
+        {
+            // Does nothing
+        }
     }
 
     /// <summary>
@@ -165,17 +174,17 @@ namespace ScrollingShooter
         }
 
         /// <summary>
-        /// Updates the seed ship. Ship will move towards the Player and fire bullets when it is close.
+        /// Updates the seed ship. Ship will move towards the player and fire bullets when it is close.
         /// </summary>
         /// <param name="elapsedTime">Time since last update.</param>
         public override void Update(float elapsedTime)
         {
             _timer += elapsedTime;
 
-            //Move towards the Player.
-            PlayerShip Player = ScrollingShooterGame.Game.Player;
-            Vector2 PlayerPosition = new Vector2(Player.Bounds.Center.X, Player.Bounds.Center.Y);
-            Vector2 toPlayer = PlayerPosition - this._position;
+            //Move towards the player.
+            PlayerShip player = ScrollingShooterGame.Game.Player;
+            Vector2 playerPosition = new Vector2(player.Bounds.Center.X, player.Bounds.Center.Y);
+            Vector2 toPlayer = playerPosition - this._position;
             this._position += toPlayer * (float)((double)elapsedTime * .5);
             
             switch (_state)

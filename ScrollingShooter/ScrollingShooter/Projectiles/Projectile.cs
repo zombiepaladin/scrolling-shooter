@@ -23,6 +23,7 @@ namespace ScrollingShooter
         Meteor,
         BigMeteor,
         HomingMissile,
+        FreezewaveProjectile,
 
         // Enemy projectiles start with an index of 100;
         // this allows us to differentiate between projectiles
@@ -42,8 +43,16 @@ namespace ScrollingShooter
         Photon = 112,
         BlimpShotgun = 113,
         BlimpBullet = 114,
-        TwinJetBullet = 115,
-        TwinJetMissile = 116,
+        Pincher = 115, 
+        GreenOrb = 116,
+        AlienTurretOrb = 117,
+        TwinJetBullet = 118,
+        TwinJetMissile = 119,
+        Laser = 120,
+        BirdWrath = 121,
+        EnemyPsyBall = 163,
+        EnemyLightningZap = 164,
+        EnemyTurretTowerBullet = 165,
     }
 
     /// <summary>
@@ -52,6 +61,8 @@ namespace ScrollingShooter
     public abstract class Projectile : GameObject
     {
         public static int POWER_LEVEL = 1;
+
+        public float Damage = 1;
 
         /// <summary>
         /// The projectile's velocity
@@ -106,6 +117,15 @@ namespace ScrollingShooter
         public override void Draw(float elapsedTime, SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(spriteSheet, Bounds, spriteBounds, Color.White, 0f, new Vector2(Bounds.Width / 2, Bounds.Height / 2), SpriteEffects.None, 1f);
+        }
+
+        /// <summary>
+        /// Scrolls the object with the map
+        /// </summary>
+        /// <param name="elapsedTime">The in-game time between the previous and current frame</param>
+        public override void ScrollWithMap(float elapsedTime)
+        {
+            // Does nothing
         }
     }
 }

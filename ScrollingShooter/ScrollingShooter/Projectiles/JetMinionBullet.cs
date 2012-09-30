@@ -1,4 +1,4 @@
-﻿//Jet Minion Bullet Class:
+//Jet Minion Bullet Class:
 //Coders: Nicholas Boen
 //Date: 9/9/2012
 //Time: 12:08 A.M.

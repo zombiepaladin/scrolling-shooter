@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Audio;
 using System;
 using System.Collections.Generic;
 
@@ -32,13 +33,26 @@ namespace ScrollingShooter
     /// </summary>
     public abstract class PlayerShip : GameObject
     {
+        public static short HomingMissileLevel = 0;
+
+        /// <summary>
+        /// Player's Health
+        /// </summary>
+        public float Health = 10000;
+
+        #region Timers
+
         // Timers
         /// <summary>
         /// Timer for the default gun
         /// </summary>
         public float defaultGunTimer = 5;
         float bombTimer = 1.5f;
-        
+        float shotgunTimer = 0.5f;
+
+        private float homingMissileFireRate = 3;
+        private float homingMissileTimer = 0;
+
         //Timer for how longs the blades have been active.
         float bladesPowerupTimer = 0;
 
@@ -46,11 +60,19 @@ namespace ScrollingShooter
         /// Timer for the energy blast gun
         /// </summary>
         public float energyBlastTimer = 0;
-        
+
         /// <summary>
         /// Timer to adjust refire rate of railgun
         /// </summary>
         float railgunTimer = 0;
+
+        #endregion
+
+        #region Sound Effects
+
+        SoundEffect bulletFired;
+
+        #endregion
 
         /// <summary>
         /// Rectangle to draw the railgun when the powerup is enabled
@@ -66,7 +88,7 @@ namespace ScrollingShooter
         /// <summary>
         /// Level of the energy blast powerup
         /// </summary>
-        public int energyBlastLevel = 0;
+        public int energyBlastLevel = -1;
 
         /// <summary>
         /// The velocity of the ship - varies from ship to ship
@@ -77,8 +99,7 @@ namespace ScrollingShooter
         /// The position of the ship in the game world.  We use a Vector2 for position 
         /// rather than a Rectangle, as floats allow us to move less than a pixel
         /// </summary>
-        protected Vector2 position = new Vector2(300,300);
-
+        protected Vector2 position = new Vector2(300, 300);
         public Vector2 Position
         {
             get { return position; }
@@ -108,7 +129,7 @@ namespace ScrollingShooter
         PowerupType PowerupType = PowerupType.None;
 
         /// This drunk status of the ship.  If the bool is true, movements are reversed, and damage is doubled.
-        /// The drunk counter represents how many more frame updates before the Player is sober again.
+        /// The drunk counter represents how many more frame updates before the player is sober again.
         bool drunk = false;
         int drunkCounter = 0;
 
@@ -118,16 +139,19 @@ namespace ScrollingShooter
         /// </summary>
         public override Rectangle Bounds
         {
-            get { return new Rectangle((int)position.X, (int)position.Y, spriteBounds[0].Width, spriteBounds[0].Height); }
+            get { return new Rectangle((int)Position.X, (int)Position.Y, spriteBounds[0].Width, spriteBounds[0].Height); }
         }
 
 
         /// <summary>
         /// Creates a new Player ship instance
+        /// and initializes sound effects
         /// </summary>
-        
         /// <param name="id">the unique id of the Player ship</param>
-        public PlayerShip(uint id) : base(id) { }
+        public PlayerShip(uint id, ContentManager content) : base(id) 
+        {
+            bulletFired = content.Load<SoundEffect>("SFX/anti_tank_gun_single_shot");
+        }
 
 
         /// <summary>
@@ -145,6 +169,12 @@ namespace ScrollingShooter
                 return;
             }
 
+            //This will level us up if we hit another homing missile
+            if ((powerup & PowerupType.HomingMissiles) > 0)
+            {
+                HomingMissileLevel = (short)MathHelper.Min(HomingMissileLevel + 1, 3);
+            }
+
             // Store the new powerup in the PowerupType bitmask
             this.PowerupType |= powerup;
 
@@ -154,14 +184,21 @@ namespace ScrollingShooter
                 case PowerupType.Blades:
                     ApplyBlades();
                     break;
+
                 case PowerupType.EightBallShield:
                     TriggerEightBallShield();
                     break;
+
                 case PowerupType.TriShield:
                     ApplyTriShield();
                     break;
+
                 case PowerupType.Ale:
                     GetDrunk();
+                    break;
+
+                case PowerupType.EnergyBlast:
+                    energyBlastLevel++;
                     break;
             }
         }
@@ -181,15 +218,16 @@ namespace ScrollingShooter
             energyBlastTimer -= elapsedTime;
             bombTimer += elapsedTime;
             railgunTimer += elapsedTime;
+            homingMissileTimer -= elapsedTime;
 
-            if(!drunk)
+            if (!drunk)
             {
                 // Steer the ship up or down according to user input
-                if(currentKeyboardState.IsKeyDown(Keys.Up))
+                if (currentKeyboardState.IsKeyDown(Keys.Up))
                 {
                     position.Y -= elapsedTime * velocity.Y;
-                } 
-                else if(currentKeyboardState.IsKeyDown(Keys.Down))
+                }
+                else if (currentKeyboardState.IsKeyDown(Keys.Down))
                 {
                     position.Y += elapsedTime * velocity.Y;
                 }
@@ -231,7 +269,7 @@ namespace ScrollingShooter
             //Player is drunk and movements are reversed.
             else
             {
-                //Decrease drunkCounter and make the Player sober if their drunk time is up.
+                //Decrease drunkCounter and make the player sober if their drunk time is up.
                 drunkCounter--;
                 if (drunkCounter == 0)
                 {
@@ -284,7 +322,7 @@ namespace ScrollingShooter
             // Fire bomb
             if (currentKeyboardState.IsKeyDown(Keys.B))
             {
-                //checks if Player has the bomb power up
+                //checks if player has the bomb power up
                 if ((PowerupType & PowerupType.Bomb) > 0)
                 {
                     if (bombTimer > 1.5f)
@@ -298,17 +336,22 @@ namespace ScrollingShooter
             {
                 unApplyBlades();
             }
-            
+
             // Used to test the energy blast powerup levels
             //if (currentKeyboardState.IsKeyDown(Keys.F) && oldKeyboardState.IsKeyUp(Keys.F))
             //    energyBlastLevel++;
-
             if ((PowerupType & PowerupType.Blades) == 0)
             {
-
                 // Fire weapons
                 if (currentKeyboardState.IsKeyDown(Keys.Space))
                 {
+                    if ((PowerupType & PowerupType.Freezewave) > 0)
+                    {
+                        if (defaultGunTimer > .5f)
+                        {
+                            ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.FreezewaveProjectile, position);
+                        }
+                    }
                     // Streaming weapons
                     if ((PowerupType & PowerupType.BubbleBeam) > 0)
                     {
@@ -320,20 +363,28 @@ namespace ScrollingShooter
                     }
 
                     // Fires a shotgun shot if the shotgun powerup is active and half a second has passed since the last shot
-                    if ((PowerupType & PowerupType.ShotgunPowerup) > 0 &&
-                             defaultGunTimer > 0.5f)
+                    if ((PowerupType & PowerupType.ShotgunPowerup) > 0 && shotgunTimer > 0.5f)
                     {
                         TriggerShotgun();
-                        defaultGunTimer = 0;
+                        shotgunTimer = 0;
                     }
 
                     // Default gun
                     if (defaultGunTimer > 0.25f)
                     {
                         ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.Bullet, position);
+                        bulletFired.Play();
                         defaultGunTimer = 0f;
                     }
 
+                    if((PowerupType & PowerupType.HomingMissiles) > 0)
+                    {
+                        if (homingMissileTimer <= 0)
+                        {
+                            homingMissileTimer = homingMissileFireRate;
+                            TriggerHomingMissile();
+                        }
+                    }
 
                     //Conditionals to fire railgun.
                     if ((PowerupType & PowerupType.Railgun) > 0)
@@ -344,13 +395,13 @@ namespace ScrollingShooter
                             railgunTimer = 0f;
                         }
                     }
-                        
+
                     // Energy Blast Gun
                     if (((PowerupType & PowerupType.EnergyBlast) > 0) && energyBlastTimer < 0)
                     {
                         TriggerEnergyBlast();
                     }
-                    
+
                     // Fire-once weapons
                     if (oldKeyboardState.IsKeyUp(Keys.Space))
                     {
@@ -358,7 +409,7 @@ namespace ScrollingShooter
                         if ((PowerupType & PowerupType.Fireball) > 0)
                             TriggerFireball();
 
-                         if ((PowerupType & PowerupType.DroneWave) > 0)
+                        if ((PowerupType & PowerupType.DroneWave) > 0)
                         {
                             TriggerDroneWave();
                         }
@@ -367,15 +418,17 @@ namespace ScrollingShooter
                     if ((PowerupType & PowerupType.Frostball) > 0)
                         TriggerFrostball();
 
+
                     if ((PowerupType & PowerupType.Birdcrap) > 0)
                     {
                         TriggerBirdcrap();
                     }
-                     if ((PowerupType & PowerupType.Bomb) > 0)
+
+                    if ((PowerupType & PowerupType.Bomb) > 0)
                         TriggerBomb();
                 }
             }
-                    
+
             // store the current keyboard state for next frame
             oldKeyboardState = currentKeyboardState;
         }
@@ -390,11 +443,11 @@ namespace ScrollingShooter
         {
             if ((PowerupType & PowerupType.Railgun) > 0)
                 spriteBatch.Draw(spriteSheet, RailgunBounds, railgunSpriteBounds, Color.White);
-            
-            spriteBatch.Draw(spriteSheet, Bounds, spriteBounds[(int)steeringState], Color.White, 0f, new Vector2(Bounds.Width / 2, Bounds.Height / 2), SpriteEffects.None, LayerDepth);
+
+            spriteBatch.Draw(spriteSheet, Position, spriteBounds[(int)steeringState], Color.White, 0f, new Vector2(Bounds.Width / 2, Bounds.Height / 2), 1f, SpriteEffects.None, LayerDepth);
 
             // Draw shadow
-            spriteBatch.Draw(spriteSheet, new Rectangle(Bounds.X + 20, Bounds.Y + 100, Bounds.Width, Bounds.Height), spriteBounds[(int)steeringState], Color.Black, 0f, new Vector2(Bounds.Width / 2, Bounds.Height / 2), SpriteEffects.None, LayerDepth);
+            spriteBatch.Draw(spriteSheet, new Vector2(20, 100), spriteBounds[(int)steeringState], Color.Black, 0f, new Vector2(Bounds.Width / 2, Bounds.Height / 2), 1f, SpriteEffects.None, LayerDepth);
         }
 
 
@@ -418,28 +471,27 @@ namespace ScrollingShooter
             //Simuated recoil
             position.Y += 10;
         }
-		
-		
-		/// <summary>
+
+
+        /// <summary>
         /// A helper function that starts a meteor storm,
         /// corresponding to the meteor powerup
         /// </summary>
         void TriggerMeteor()
         {
             //TODO: Constantly do a tiny amount of damage to all enemies during the storm.
-			
-			//Reduce object creation by creating variables before loop.
-			Vector2 position = new Vector2();
+
+            //Reduce object creation by creating variables before loop.
+            Vector2 position = new Vector2();
             Random rand = new Random();
-			
-			//Add a bunch of decorative meteors
-			for (int i = 0; i < 300; i++)
-			{
+
+            //Add a bunch of decorative meteors
+            for (int i = 0; i < 300; i++)
+            {
                 position.X = rand.Next(800);
                 position.Y = -rand.Next(4000) - 200;
 
                 ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.Meteor, position);
-
 			}
 			//Add a few large meteors
             for (int i = 0; i < 10; i++)
@@ -461,7 +513,7 @@ namespace ScrollingShooter
         }
 
         /// <summary>
-        /// Makes the Player drunk.  If the Player is already drunk the Player is just made drunk for longer.  The drunk counter is
+        /// Makes the player drunk.  If the player is already drunk the player is just made drunk for longer.  The drunk counter is
         /// increased by a random number.  Time to be drunk is between 5 and 10 seconds.
         /// </summary>
         void GetDrunk()
@@ -472,7 +524,7 @@ namespace ScrollingShooter
         }
 
         /// <summary>
-        /// Makes the Player sober.  Activated when the drunk time has run out.
+        /// Makes the player sober.  Activated when the drunk time has run out.
         /// </summary>
         void SoberUp()
         {
@@ -487,7 +539,9 @@ namespace ScrollingShooter
         {
             // TODO: Fire Bomb
         }
-                /// <summary>
+
+
+        /// <summary>
         /// A helper that fires birdcrap from the ship. Coraspondes to the birdcrap power up.
         /// </summary>
         void TriggerBirdcrap()
@@ -507,14 +561,14 @@ namespace ScrollingShooter
 
         /// <summary>
         /// A helper function that initializes the blades powerup.
-        /// //Puts a giant spinning blade over Player position and doubles the Players velocity.
+        /// //Puts a giant spinning blade over player position and doubles the players velocity.
         /// </summary>
         void ApplyBlades()
         {
             ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.Blades, position);
             this.velocity *= 2;
             bladesPowerupTimer = 0;
-            //TO DO: make Player invulerable for 10 secs, since not implemented yet.
+            //TO DO: make player invulerable for 10 secs, since not implemented yet.
         }
 
         /// <summary>
@@ -525,8 +579,7 @@ namespace ScrollingShooter
             this.PowerupType = this.PowerupType ^= PowerupType.Blades;
             this.velocity /= 2;
             bladesPowerupTimer = 0;
-            //TO DO: make Player vulerable again, since not implemented yet.
-
+            //TO DO: make player vulerable again, since not implemented yet.
         }
 
 
@@ -562,28 +615,55 @@ namespace ScrollingShooter
         /// </summary>
         void TriggerEnergyBlast()
         {
-            // Set the offset depending on which sprite we are using, note blastWidth is the sprite's width/2 as found in the EnergyBlast class
-            int blastWidth = 4;
             energyBlastTimer = 0.5f;
             if (energyBlastLevel == 1)
-            {
-                blastWidth = 6;
                 energyBlastTimer = 0.4f;
-            }
             else if (energyBlastLevel == 2)
-            {
-                blastWidth = 5;
                 energyBlastTimer = 0.3f;
-            }
             else if (energyBlastLevel >= 3)
-            {
-                blastWidth = 11;
                 energyBlastTimer = 0.25f;
-            }
-            Vector2 position = new Vector2(this.position.X + this.Bounds.Width / 2 - blastWidth, this.position.Y);
-
+            
             ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.EnergyBlast, position);
-            //ScrollingShooterGame.Game.projectiles.Add(new EnergyBlast(ScrollingShooterGame.Game.Content, position, energyBlastLevel));
+        }
+
+        /// <summary>
+        /// Handles the firing of a homing missile
+        /// </summary>
+        void TriggerHomingMissile()
+        {
+            switch (HomingMissileLevel)
+            {
+                case 1:
+                    ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.HomingMissile, position);
+                    ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.HomingMissile, position);
+                    ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.HomingMissile, position);
+                    break;
+                case 2:
+                    ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.HomingMissile, position);
+                    ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.HomingMissile, position);
+                    ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.HomingMissile, position);
+                    ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.HomingMissile, position);
+                    ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.HomingMissile, position);
+                    break;
+                case 3:
+                    ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.HomingMissile, position);
+                    ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.HomingMissile, position);
+                    ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.HomingMissile, position);
+                    ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.HomingMissile, position);
+                    ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.HomingMissile, position);
+                    ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.HomingMissile, position);
+                    ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.HomingMissile, position);
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        public void MoveShip(Vector2 direction)
+        {
+            Vector2 newDir = direction - position;
+            newDir.Normalize();
+            position += newDir * 2;
         }
     }
 }

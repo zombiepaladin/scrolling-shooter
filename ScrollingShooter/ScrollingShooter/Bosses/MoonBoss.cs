@@ -42,6 +42,7 @@ namespace ScrollingShooter
             Health = 600;
             this.position = position;
             CC = new MBCloseC(id, content, position);
+            CC.Health = 600;
             spritesheet = content.Load<Texture2D>("Spritesheets/MoonBoss.png");
 
             spriteBounds[(int)MBState.Full].X = 0;
@@ -104,6 +105,7 @@ namespace ScrollingShooter
                 rc2 += elapsedTime;
             }
             CC.Update(elapsedTime);
+            CC.Health = Health;
         }
         /// <summary>
         /// Draws the Moon Boss.
@@ -114,5 +116,6 @@ namespace ScrollingShooter
         {
             spriteBatch.Draw(spritesheet, Bounds, spriteBounds[(int)state], Color.White);
         }
+       
     }
 }

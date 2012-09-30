@@ -16,7 +16,7 @@ namespace ScrollingShooter
         Vector2 position;
         Rectangle spriteBounds;
         float delay;
-
+        
         /// <summary>
         /// The bounding rectangle of the Cobalt
         /// </summary>
@@ -41,6 +41,8 @@ namespace ScrollingShooter
             spriteBounds.Y = 55;
             spriteBounds.Width = 37;
             spriteBounds.Height = 28;
+
+            Health = 5;
         }
 
         /// <summary>

@@ -133,11 +133,19 @@ namespace ScrollingShooter
                     {
                         GameState = GameState.Gameplay;
                         Music = LevelManager.CurrentSong;
-                        if (Music != null) MediaPlayer.Play(Music);
+                        if (Music != null)
+                        {
+                            MediaPlayer.Play(Music);
+                            MediaPlayer.IsRepeating = true;
+                        }
                     }
                     break;
 
                 case GameState.Gameplay:
+                    if (MediaPlayer.State != MediaState.Playing && LevelManager.CurrentSong != null)
+                    {
+                        MediaPlayer.Play(LevelManager.CurrentSong);
+                    }
                     LevelManager.Update(elapsedTime);
                     GameObjectManager.Update(elapsedTime);
                     ProcessCollisions();
@@ -153,7 +161,8 @@ namespace ScrollingShooter
                     break;
 
                 case GameState.Credits:
-                    // TODO: Launch new game when player hits space
+                    Music = Content.Load<Song>("Music/Clearside  - Siste Viator.wav");
+                    MediaPlayer.Play(Music);
                     break;
             }
 
@@ -197,6 +206,7 @@ namespace ScrollingShooter
 
                 case GameState.Credits:
                     // TODO: Render the credits screen
+                    
                     break;
             }
 

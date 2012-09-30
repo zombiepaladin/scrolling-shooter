@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Media;
 
 namespace ScrollingShooter
 {
@@ -13,6 +14,7 @@ namespace ScrollingShooter
         public GameStart()
         {
             spriteFont = ScrollingShooterGame.Game.Content.Load<SpriteFont>("SpriteFonts/Pescadero");
+            Music = ScrollingShooterGame.Game.Content.Load<Song>("Music/SFDemo 6812 Clark Aboud.mp3");
         }
 
         public override void Update(float elapsedTime)

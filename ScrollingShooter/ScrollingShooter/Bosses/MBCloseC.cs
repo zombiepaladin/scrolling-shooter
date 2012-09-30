@@ -37,7 +37,6 @@ namespace ScrollingShooter
             : base(id)
         {
             this.position = position;
-            Health = 600;
 
             spritesheet = content.Load<Texture2D>("Spritesheets/newshb.shp.000000");
 

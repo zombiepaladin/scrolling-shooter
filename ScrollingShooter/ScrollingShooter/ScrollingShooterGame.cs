@@ -92,7 +92,7 @@ namespace ScrollingShooter
             Player = GameObjectManager.CreatePlayerShip(PlayerShipType.Shrike, new Vector2(300, 300));
 
             LevelManager.LoadContent();
-            LevelManager.LoadLevel("LavaLevel2");
+            LevelManager.LoadLevel("Airbase");
             GuiManager.LoadContent();
             GameState = GameState.Initializing;
         }

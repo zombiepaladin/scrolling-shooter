@@ -28,6 +28,14 @@ namespace ScrollingShooter
         HardRight = 4,
     }
 
+    public enum PlayerState
+    {
+        Alive = 0,      //The most common state, the player is alive and able to move around
+        Invincible,     //Occurs when the player has just been respawned and a life removed
+        Killed,         //Occurs when the player has just died and my have lives left
+        Dead            //The player is in this state when they die and have no lives left
+    }
+
     /// <summary>
     /// A base class for all Player ships
     /// </summary>
@@ -134,6 +142,25 @@ namespace ScrollingShooter
         int drunkCounter = 0;
 
         /// <summary>
+        /// Indicates the number of lives the player has left
+        /// </summary>
+        protected int lifeCounter;
+        /// <summary>
+        /// Indicates whether the player is invincible or not (i.e. bullets don't collide)
+        /// </summary>
+        protected bool isInvincible;
+        /// <summary>
+        /// Indicates the maximum amount of time the player
+        /// can be invincible upon spawning
+        /// </summary>
+        protected const int MaxTimeInvincible = 3;
+        /// <summary>
+        /// The amount of time left for the player to be invincible
+        /// </summary>
+        protected float invincibilityTimer;
+        //
+
+        /// <summary>
         /// The bounding rectangle for the ship.  Generated from the animation frame and the ship's
         /// position.
         /// </summary>
@@ -151,6 +178,7 @@ namespace ScrollingShooter
         public PlayerShip(uint id, ContentManager content) : base(id) 
         {
             bulletFired = content.Load<SoundEffect>("SFX/anti_tank_gun_single_shot");
+            lifeCounter = 3;
         }
 
 
@@ -319,6 +347,7 @@ namespace ScrollingShooter
                     }
                 }
             }
+
             // Fire bomb
             if (currentKeyboardState.IsKeyDown(Keys.B))
             {
@@ -332,6 +361,7 @@ namespace ScrollingShooter
                     }
                 }
             }
+
             if (bladesPowerupTimer > 10.0f && (PowerupType & PowerupType.Blades) > 0)
             {
                 unApplyBlades();
@@ -427,6 +457,16 @@ namespace ScrollingShooter
                     if ((PowerupType & PowerupType.Bomb) > 0)
                         TriggerBomb();
                 }
+            }
+
+            //Manages the timer for invincibility if the player is
+            //currently invincible
+            if (isInvincible)
+            {
+                invincibilityTimer -= elapsedTime;
+
+                if (invincibilityTimer <= 0)
+                    isInvincible = false;
             }
 
             // store the current keyboard state for next frame

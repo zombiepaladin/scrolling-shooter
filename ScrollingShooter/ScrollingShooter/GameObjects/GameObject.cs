@@ -70,5 +70,7 @@ namespace ScrollingShooter
         /// <param name="elaspedTime"></param>
         /// <param name="spriteBatch"></param>
         public abstract void Draw(float elapsedTime, SpriteBatch spriteBatch);
+
+        public abstract void ScrollWithMap(float elapsedTime);
     }
 }

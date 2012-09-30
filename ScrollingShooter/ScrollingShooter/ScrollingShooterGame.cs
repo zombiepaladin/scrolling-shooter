@@ -90,7 +90,6 @@ namespace ScrollingShooter
 
             // TODO: use this.Content to load your game content here
             Player = GameObjectManager.CreatePlayerShip(PlayerShipType.Shrike, new Vector2(300, 300));
-            GameObjectManager.CreatePowerup(PowerupType.Fireball, new Vector2(100, 200));
 
             LevelManager.LoadContent();
             LevelManager.LoadLevel("LavaLevel2");
@@ -234,11 +233,12 @@ namespace ScrollingShooter
                         case ObjectType.Enemy:
                             Enemy enemy = collider as Enemy;
                             if (enemy.GetType() == typeof(Kamikaze) || enemy.GetType() == typeof(Mandible) ||
-                                enemy.GetType() == typeof(SuicideBomber) || enemy.GetType() == typeof(Mine))
+                                enemy.GetType() == typeof(SuicideBomber) || enemy.GetType() == typeof(Mine) ||
+                                enemy.GetType() == typeof(Rock))
                             {
                                 //Player take damage
                                 GameObjectManager.DestroyObject(collider.ID);
-                                GameObjectManager.CreateExplosion(collider.ID);
+                                GameObjectManager.CreateExplosion2(collider.ID, 0.5f);
                             }
                             break;
 
@@ -250,7 +250,7 @@ namespace ScrollingShooter
                             if (player.Health <= 0)
                             {
                                 GameObjectManager.DestroyObject(player.ID);
-                                GameObjectManager.CreateExplosion(player.ID);
+                                GameObjectManager.CreateExplosion2(player.ID, 1);
                             }
 
                             GameObjectManager.DestroyObject(collider.ID);
@@ -277,6 +277,7 @@ namespace ScrollingShooter
                             {
                                 GameObjectManager.DestroyObject(collider.ID);
                                 GameObjectManager.CreateExplosion(collider.ID);
+                                GameObjectManager.CreateExplosion2(collider.ID, 0.5f);
                             }
                             // Destroy projectile
                             // Note, if there are special things for the bullet, add them here
@@ -293,6 +294,7 @@ namespace ScrollingShooter
                             {
                                 GameObjectManager.DestroyObject(collider.ID);
                                 GameObjectManager.CreateExplosion(collider.ID);
+                                GameObjectManager.CreateExplosion2(collider.ID, 1.5f);
                             }
                             // Destroy projectile
                             // Note, if there are special things for the bullet, add them here

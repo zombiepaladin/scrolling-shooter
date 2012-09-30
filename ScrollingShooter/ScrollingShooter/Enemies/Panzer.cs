@@ -180,5 +180,10 @@ namespace ScrollingShooter
                 defaultGunTimer = 0;
             }
         }
+
+        public override void ScrollWithMap(float elapsedTime)
+        {
+            position.Y += ScrollingSpeed * elapsedTime;
+        }
     }
 }

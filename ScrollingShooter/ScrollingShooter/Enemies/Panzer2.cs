@@ -172,5 +172,10 @@ namespace ScrollingShooter
                 //ScrollingShooterGame.GameObjectManager.CreateExplosion(this.ID);
             }
         }
+
+        public override void ScrollWithMap(float elapsedTime)
+        {
+            position.Y += ScrollingSpeed * elapsedTime;
+        }
     }
 }

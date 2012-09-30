@@ -31,6 +31,8 @@ namespace ScrollingShooter
         HashSet<CollisionPair> verticalOverlaps;
         HashSet<CollisionPair> collisions;
 
+        public List<uint> scrollingObjects;
+
         //control the lavabug boss
         bool lavaFlip;
 
@@ -48,6 +50,7 @@ namespace ScrollingShooter
             destroyedGameObjects = new Queue<GameObject>();
 
             boundingBoxes = new Dictionary<uint, BoundingBox>();
+            scrollingObjects = new List<uint>();
             horizontalAxis = new List<Bound>();
             verticalAxis = new List<Bound>();
 
@@ -70,6 +73,7 @@ namespace ScrollingShooter
             while (createdGameObjects.Count > 0)
             {
                 GameObject go = createdGameObjects.Dequeue();
+                if (go is Enemy || go is Boss || go is Powerup) scrollingObjects.Add(go.ID);
                 AddGameObject(go);
             }
 
@@ -77,6 +81,7 @@ namespace ScrollingShooter
             while (destroyedGameObjects.Count > 0)
             {
                 GameObject go = destroyedGameObjects.Dequeue();
+                if (go is Enemy || go is Boss || go is Powerup) scrollingObjects.Remove(go.ID);
                 RemoveGameObject(go);
             } 
             
@@ -155,7 +160,7 @@ namespace ScrollingShooter
         public uint[] QueryRegion(Rectangle bounds)
         {
             HashSet<uint> matches = new HashSet<uint>();
-
+            /*
             // Find the minimal index in the horizontal axis list using binary search
             Bound left = new Bound(null, bounds.Left, BoundType.Min);
 
@@ -171,16 +176,16 @@ namespace ScrollingShooter
                 minHorizontalIndex = ~minHorizontalIndex;
             }
 
-            Bound right = new Bound(null, bounds.Left, BoundType.Max);
+            Bound right = new Bound(null, bounds.Right, BoundType.Max);
             int maxHorizontalIndex = horizontalAxis.BinarySearch(right);
             if (maxHorizontalIndex < 0) maxHorizontalIndex = ~maxHorizontalIndex;
 
             for (int i = minHorizontalIndex; i < maxHorizontalIndex; i++)
             {
                 matches.Add(horizontalAxis[i].Box.GameObjectID);
-            }
+            }*/
 
-            Bound top = new Bound(null, bounds.Left, BoundType.Min);
+            Bound top = new Bound(null, bounds.Top, BoundType.Min);
             int minVerticalIndex = verticalAxis.BinarySearch(top);
             if (minVerticalIndex < 0) minVerticalIndex = ~minVerticalIndex;
 
@@ -260,6 +265,22 @@ namespace ScrollingShooter
             uint id = NextID();
             Vector2 pos = new Vector2(GetObject(colliderID).Bounds.X, GetObject(colliderID).Bounds.Y);
             ex = new Explosion(id, pos, content);
+            QueueGameObjectForCreation(ex);
+            return ex;
+        }
+
+        /// <summary>
+        /// Factory method for creating an explosion
+        /// </summary>
+        /// <param name="colliderID">The source of the explosion</param>
+        /// <param name="scale">The scale of the explosion</param>
+        /// <returns>The newly-spawned explosion</returns>
+        public Explosion2 CreateExplosion2(uint colliderID, float scale)
+        {
+            Explosion2 ex;
+            uint id = NextID();
+            Vector2 pos = new Vector2(GetObject(colliderID).Bounds.X, GetObject(colliderID).Bounds.Y);
+            ex = new Explosion2(id, pos, content, scale);
             QueueGameObjectForCreation(ex);
             return ex;
         }
@@ -1026,7 +1047,15 @@ namespace ScrollingShooter
             }
 
             // Grab the game object's bounding box
-            BoundingBox box = boundingBoxes[id];
+            BoundingBox box;
+            try
+            {
+                box = boundingBoxes[id];
+            }
+            catch (KeyNotFoundException ke) 
+            {
+                return;
+            }
 
             // Remove the game objects' bounds from our horizontal axis lists
             horizontalAxis.Remove(box.Left);

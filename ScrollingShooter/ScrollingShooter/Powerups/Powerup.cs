@@ -47,6 +47,11 @@ namespace ScrollingShooter
         /// The bounding rectangle of the powerup in the game
         /// </summary>
         protected Rectangle spriteBounds;
+
+        /// <summary>
+        /// The position of the Powerup
+        /// </summary>
+        protected Vector2 position;
         
         /// <summary>
         /// The location of the powerup in the game world
@@ -71,7 +76,9 @@ namespace ScrollingShooter
         /// <param name="id">The powerup's unique id</param>
         public Powerup(uint id)
             : base(id)
-        { }
+        { 
+        
+        }
 
         /// <summary>
         /// Updates the powerup.
@@ -101,7 +108,7 @@ namespace ScrollingShooter
         /// <param name="elapsedTime">The in-game time between the previous and current frame</param>
         public override void ScrollWithMap(float elapsedTime)
         {
-            // Does nothing
+            spriteBounds.Y += (int)(ScrollingSpeed * elapsedTime);
         }
     }
 }

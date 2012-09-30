@@ -1047,7 +1047,15 @@ namespace ScrollingShooter
             }
 
             // Grab the game object's bounding box
-            BoundingBox box = boundingBoxes[id];
+            BoundingBox box;
+            try
+            {
+                box = boundingBoxes[id];
+            }
+            catch (KeyNotFoundException ke) 
+            {
+                return;
+            }
 
             // Remove the game objects' bounds from our horizontal axis lists
             horizontalAxis.Remove(box.Left);

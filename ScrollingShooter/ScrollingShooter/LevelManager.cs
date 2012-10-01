@@ -21,7 +21,7 @@ namespace ScrollingShooter
         SpriteBatch spriteBatch;
         BasicEffect basicEffect;
 
-        float scrollDistance;
+        public float scrollDistance;
         Rectangle scrollBounds;
 
         public bool Loading = true;
@@ -133,8 +133,12 @@ namespace ScrollingShooter
                     }
                 }
 
+                //Start level off to scroll
+                Scrolling = true;
+
                 // Mark level as loaded
                 Loading = false;
+                Scrolling = true;
             };
 
             Thread loadingThread = new Thread(threadStarter);
@@ -156,26 +160,46 @@ namespace ScrollingShooter
             {
                 // Update the scrolling distance - the distance
                 // the screen has scrolled past the Player
-                float scrollDelta = elapsedTime * (CurrentMap.Layers[CurrentMap.PlayerLayer].ScrollingSpeed);
-                scrollDistance += scrollDelta;
-                ScrollingShooterGame.Game.Player.Position -= new Vector2(0, scrollDelta / 2);
-
-                // Scroll all the tile layers
-                for (int i = 0; i < CurrentMap.LayerCount; i++)
+                if (Scrolling)
                 {
-                    CurrentMap.Layers[i].ScrollOffset += elapsedTime * CurrentMap.Layers[i].ScrollingSpeed;
-                }
 
+                    float scrollDelta = elapsedTime * (CurrentMap.Layers[CurrentMap.PlayerLayer].ScrollingSpeed);
+                    scrollDistance += scrollDelta;
+                    ScrollingShooterGame.Game.Player.Position -= new Vector2(0, scrollDelta / 2);
+
+                    // Scroll all the tile layers
+                    for (int i = 0; i < CurrentMap.LayerCount; i++)
+                    {
+                        CurrentMap.Layers[i].ScrollOffset += elapsedTime * CurrentMap.Layers[i].ScrollingSpeed;
+                    }
+					// Scrolls objects with the map
+                    foreach (uint goID in ScrollingShooterGame.GameObjectManager.scrollingObjects)
+                    {
+                        GameObject go = ScrollingShooterGame.GameObjectManager.GetObject(goID);
+                        go.ScrollWithMap(elapsedTime);
+                        ScrollingShooterGame.GameObjectManager.UpdateGameObject(goID);
+                    }
+
+                }
                 // Update only the game objects that appear near our scrolling region
                 Rectangle bounds = new Rectangle(0,
-                    (int)(-scrollDistance / 2) + 300,
+                    (int)(-scrollDistance / 2) - 100,
                     CurrentMap.Width * CurrentMap.TileWidth,
-                    16 * CurrentMap.TileHeight);
+                    16 * CurrentMap.TileHeight + 100);
                 foreach (uint goID in ScrollingShooterGame.GameObjectManager.QueryRegion(bounds))
                 {
                     GameObject go = ScrollingShooterGame.GameObjectManager.GetObject(goID);
                     go.Update(elapsedTime);
                     ScrollingShooterGame.GameObjectManager.UpdateGameObject(goID);
+                }
+                // Remove objects that we have passed
+                Rectangle deleteBounds = new Rectangle(0,
+                    (int)(-scrollDistance / 2) + (16 * CurrentMap.TileHeight + 50),
+                    CurrentMap.Width * CurrentMap.TileWidth,
+                    4480 - ((int)(-scrollDistance / 2) + (16 * CurrentMap.TileHeight + 50)));
+                foreach (uint goID in ScrollingShooterGame.GameObjectManager.QueryRegion(deleteBounds))
+                {
+                    ScrollingShooterGame.GameObjectManager.DestroyObject(goID);
                 }
             }
         }
@@ -235,9 +259,9 @@ namespace ScrollingShooter
 
             // Draw only the game objects that appear within our scrolling region
             Rectangle bounds = new Rectangle(0,
-                (int)(-scrollDistance / 2),
+                (int)(-scrollDistance / 2 - 100),
                 CurrentMap.Width * CurrentMap.TileWidth,
-                16 * CurrentMap.TileHeight);
+                16 * CurrentMap.TileHeight + 100);
 
             foreach (uint goID in ScrollingShooterGame.GameObjectManager.QueryRegion(bounds))
             {

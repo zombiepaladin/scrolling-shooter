@@ -17,9 +17,9 @@ namespace ScrollingShooter
         public FrostballPowerup(uint id, ContentManager contentManager, Vector2 position) : base(id)
         {
             this.type = PowerupType.Frostball;
-            this.spriteSource = new Rectangle(0, 170, 23, 23);
+            this.spriteBounds = new Rectangle(0, 170, 23, 23);
             this.spriteSheet = contentManager.Load<Texture2D>("Spritesheets/tyrian.shp.010008");
-            this.spriteBounds = new Rectangle((int)position.X, (int)position.Y, 23, 23);
+            this.position = position;
         }
     }
 }

@@ -47,8 +47,8 @@ namespace ScrollingShooter
 
         public GameState GameState { get; private set; }
 
-        public static int TotalKills;
-        public static int TotalScore;
+        public int TotalKills;
+        public int TotalScore;
 
 
         public ScrollingShooterGame()
@@ -152,6 +152,7 @@ namespace ScrollingShooter
                     break;
 
                 case GameState.Scoring:
+                    GuiManager.Update(elapsedTime);
                     if (GuiManager.tallyState == GuiManager.TallyingState.PressSpaceToContinue
                         && Keyboard.GetState().IsKeyDown(Keys.Space))
                     {
@@ -202,7 +203,7 @@ namespace ScrollingShooter
 
                 case GameState.Scoring:
                     // TODO: Render the end-of-level scoring screen
-                    GuiManager.DrawScoringScreen(elapsedGameTime);
+                    GuiManager.DrawScoringScreen(elapsedGameTime, spriteBatch);
                     break;
 
                 case GameState.Credits:
@@ -260,8 +261,7 @@ namespace ScrollingShooter
                             {
                                 GameObjectManager.DestroyObject(player.ID);
                                 GameObjectManager.CreateExplosion2(player.ID, 1);
-                                player.Score = 0;
-                                player.Kills = 0;
+                                player.Score -= 100;
                             }
 
                             GameObjectManager.DestroyObject(collider.ID);

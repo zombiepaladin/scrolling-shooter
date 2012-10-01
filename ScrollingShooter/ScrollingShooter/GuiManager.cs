@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 
 namespace ScrollingShooter
 {
@@ -11,6 +13,9 @@ namespace ScrollingShooter
     {
         ScrollingShooterGame game;
         SpriteBatch spriteBatch;
+
+        SpriteFont spriteFont;
+        SoundEffect progressSound;
 
         /// <summary>
         /// Various states of the tallying screen
@@ -48,6 +53,9 @@ namespace ScrollingShooter
         public GuiManager(ScrollingShooterGame game)
         {
             this.game = game;
+            spriteFont = game.Content.Load<SpriteFont>("SpriteFonts/Pescadero");
+
+            progressSound = game.Content.Load<SoundEffect>("SFX/anti_tank_gun_single_shot");
         }
 
         /// <summary>
@@ -72,37 +80,40 @@ namespace ScrollingShooter
 
                 if (tallyState == TallyingState.Initial)
                 {
-                    //Change to title, play sfx
+                    tallyState = TallyingState.Title;
+                    progressSound.Play();
                     tallyTimer = 0;
                 }
-                else if (tallyState == TallyingState.Title && tallyTimer >= 1000)
+                else if (tallyState == TallyingState.Title && tallyTimer >= 1)
                 {
                     tallyState = TallyingState.Kills;
-                    //play sfx
+                    progressSound.Play();
                     tallyTimer = 0;
                 }
-                else if (tallyState == TallyingState.Kills && tallyTimer >= 1000)
+                else if (tallyState == TallyingState.Kills && tallyTimer >= 1)
                 {
                     tallyState = TallyingState.Score;
-                    //play sfx
+                    progressSound.Play();
                     tallyTimer = 0;
                 }
-                else if (tallyState == TallyingState.Score && tallyTimer >= 1000)
+                else if (tallyState == TallyingState.Score && tallyTimer >= 1)
                 {
                     tallyState = TallyingState.TotalKills;
-                    //play sfx
+                    game.TotalKills += game.Player.Kills;
+                    progressSound.Play();
                     tallyTimer = 0;
                 }
-                else if (tallyState == TallyingState.TotalKills && tallyTimer >= 1000)
+                else if (tallyState == TallyingState.TotalKills && tallyTimer >= 1)
                 {
                     tallyState = TallyingState.TotalScore;
-                    //play sfx
+                    game.TotalScore += game.Player.Score;
+                    progressSound.Play();
                     tallyTimer = 0;
                 }
-                else if (tallyState == TallyingState.TotalScore && tallyTimer >= 1000)
+                else if (tallyState == TallyingState.TotalScore && tallyTimer >= 1)
                 {
                     tallyState = TallyingState.PressSpaceToContinue;
-                    //play sfx
+                    progressSound.Play();
                     tallyTimer = 0;
                 }
             }
@@ -121,29 +132,52 @@ namespace ScrollingShooter
         /// Draws the end-of-level scoring screen
         /// </summary>
         /// <param name="elapsedTime"></param>
-        public void DrawScoringScreen(float elapsedTime)
+        public void DrawScoringScreen(float elapsedTime, SpriteBatch spriteBatch)
         {
+            spriteBatch.Begin();
             if (tallyState >= TallyingState.Title)
             {
                 //Draw title
+                spriteBatch.DrawString(spriteFont, "Level Score:", 
+                    new Microsoft.Xna.Framework.Vector2(500, 100),
+                        Microsoft.Xna.Framework.Color.White, 0, Vector2.Zero, 3, SpriteEffects.None, 0);
             }
             if (tallyState >= TallyingState.Kills)
             {
                 //Draw kills
+                spriteBatch.DrawString(spriteFont, string.Format("Kills: {0}", game.Player.Kills),
+                    new Microsoft.Xna.Framework.Vector2(450, 200),
+                        Microsoft.Xna.Framework.Color.White, 0, Vector2.Zero, 3, SpriteEffects.None, 0);
             }
             if (tallyState >= TallyingState.Score)
             {
                 //Draw score
+                spriteBatch.DrawString(spriteFont, string.Format("Score: {0}", game.Player.Score),
+                    new Microsoft.Xna.Framework.Vector2(450, 275),
+                        Microsoft.Xna.Framework.Color.White, 0, Vector2.Zero, 3, SpriteEffects.None, 0);
             }
             if (tallyState >= TallyingState.TotalKills)
             {
                 //Draw total kills
+                spriteBatch.DrawString(spriteFont, string.Format("Total Kills: {0}", game.TotalKills),
+                    new Microsoft.Xna.Framework.Vector2(450, 350),
+                        Microsoft.Xna.Framework.Color.White, 0, Vector2.Zero, 3, SpriteEffects.None, 0);
             }
             if (tallyState >= TallyingState.TotalScore)
             {
                 //Draw total score
+                spriteBatch.DrawString(spriteFont, string.Format("Total Score: {0}", game.TotalScore),
+                    new Microsoft.Xna.Framework.Vector2(450, 425),
+                        Microsoft.Xna.Framework.Color.White, 0, Vector2.Zero, 3, SpriteEffects.None, 0);
             }
-            // TODO: Draw the scoring screen
+            if (tallyState >= TallyingState.PressSpaceToContinue)
+            {
+                //Draw the last string
+                spriteBatch.DrawString(spriteFont, string.Format("Press Space to Continue", game.TotalScore),
+                    new Microsoft.Xna.Framework.Vector2(350, 600),
+                        Microsoft.Xna.Framework.Color.White,0, Vector2.Zero, 3, SpriteEffects.None, 0);
+            }
+            spriteBatch.End();
         }
     }
 }

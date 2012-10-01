@@ -15,7 +15,7 @@ namespace ScrollingShooter
     /// <summary>
     /// Indicates the state of the game
     /// </summary>
-    enum GameState
+    public enum GameState
     {
         Initializing,
         Splash,
@@ -46,7 +46,11 @@ namespace ScrollingShooter
         Song Music;
         SplashScreen Splash;
 
-        GameState GameState;
+        public GameState GameState { get; private set; }
+
+        public int TotalKills;
+        public int TotalScore;
+
 
         public ScrollingShooterGame()
         {
@@ -69,6 +73,9 @@ namespace ScrollingShooter
             // TODO: Add your initialization logic here
             LevelManager = new LevelManager(this);
             GuiManager = new GuiManager(this);
+
+            TotalKills = 0;
+            TotalScore = 0;
 
             base.Initialize();
         }
@@ -165,7 +172,9 @@ namespace ScrollingShooter
                     break;
 
                 case GameState.Scoring:
-                    if (!GuiManager.Tallying && Keyboard.GetState().IsKeyDown(Keys.Space))
+                    GuiManager.Update(elapsedTime);
+                    if (GuiManager.tallyState == GuiManager.TallyingState.PressSpaceToContinue
+                        && Keyboard.GetState().IsKeyDown(Keys.Space))
                     {
                         GameState = GameState.Splash;
                         Music = Splash.Music;
@@ -208,12 +217,13 @@ namespace ScrollingShooter
 
                     // Render the gui
                     GraphicsDevice.Viewport = guiViewport;
-                    // TODO: Render gui
+                    GuiManager.DrawHUD(elapsedGameTime);
 
                     break;
 
                 case GameState.Scoring:
                     // TODO: Render the end-of-level scoring screen
+                    GuiManager.DrawScoringScreen(elapsedGameTime, spriteBatch);
                     break;
 
                 case GameState.Credits:
@@ -266,6 +276,8 @@ namespace ScrollingShooter
                                     GameObjectManager.DestroyObject(collider.ID);
                                     GameObjectManager.CreateExplosion2(collider.ID, 0.5f);
                                 }
+                                // Update the player's score
+                                player.Score += enemy.Score;
                             }
                             break;
 
@@ -280,6 +292,7 @@ namespace ScrollingShooter
                                 player.DoDamage(projectile.Damage);
 
                                 GameObjectManager.DestroyObject(collider.ID);
+                                player.Score -= 100;
                             }
                             break;
                     }
@@ -289,7 +302,7 @@ namespace ScrollingShooter
                 else if (objectA.ObjectType == ObjectType.PlayerProjectile || objectB.ObjectType == ObjectType.PlayerProjectile)
                 {
                     Projectile playerProjectile = ((objectA.ObjectType == ObjectType.PlayerProjectile) ? objectA : objectB) as Projectile;
-                    GameObject collider = (objectA.ObjectType == ObjectType.Player) ? objectB : objectA;
+                    GameObject collider = (objectA.ObjectType == ObjectType.PlayerProjectile) ? objectB : objectA;
 
                     // Process collisions
                     switch (collider.ObjectType)
@@ -305,6 +318,8 @@ namespace ScrollingShooter
                                 GameObjectManager.DestroyObject(collider.ID);
                                 GameObjectManager.CreateExplosion(collider.ID);
                                 GameObjectManager.CreateExplosion2(collider.ID, 0.5f);
+                                Player.Kills++;
+                                Player.Score += enemy.Score;
                             }
                             // Destroy projectile
                             // Note, if there are special things for the bullet, add them here
@@ -319,9 +334,12 @@ namespace ScrollingShooter
                             // If health <= 0, kill boss
                             if (boss.Health <= 0)
                             {
+                                if (boss is Blimp) boss.Update(0);
                                 GameObjectManager.DestroyObject(collider.ID);
                                 GameObjectManager.CreateExplosion(collider.ID);
                                 GameObjectManager.CreateExplosion2(collider.ID, 1.5f);
+                                Player.Kills++;
+                                Player.Score += boss.Score;
                             }
                             // Destroy projectile
                             // Note, if there are special things for the bullet, add them here

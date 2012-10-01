@@ -21,9 +21,9 @@ namespace ScrollingShooter
         public TriShieldPowerup(uint id, ContentManager contentManager, Vector2 position) : base(id)
         {
             this.type = PowerupType.TriShield;
-            this.spriteSource = new Rectangle(72, 198, 24, 28);
+            this.spriteBounds = new Rectangle(72, 198, 24, 28);
             this.spriteSheet = contentManager.Load<Texture2D>("Spritesheets/tyrian.shp.010008");
-            this.spriteBounds = new Rectangle((int)position.X, (int)position.Y, 24, 28);
+            this.position = position;
         }
     }
 }

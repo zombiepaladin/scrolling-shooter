@@ -44,14 +44,30 @@ namespace ScrollingShooter
         public static short HomingMissileLevel = 0;
 
         /// <summary>
-        /// A constant for the maximum health the player
-        /// can have
-        /// </summary>
-        public const int MaxHealth = 50;
-        /// <summary>
         /// Player's Health
         /// </summary>
-        public float Health = MaxHealth;
+        public float Health;
+
+        /// <summary>
+        /// Player's Max Health
+        /// </summary>
+        public float MaxHealth = 100;
+
+        /// <summary>
+        /// Player's Lives
+        /// </summary>
+        public int Lives = 5;
+
+        /// <summary>
+        /// Player's Score
+        /// </summary>
+        public int Score = 0;
+
+        /// <summary>
+        /// Player's Kill count
+        /// </summary>
+        public int Kills = 0;
+
 
         #region Timers
 
@@ -214,6 +230,8 @@ namespace ScrollingShooter
         {
             bulletFired = content.Load<SoundEffect>("SFX/anti_tank_gun_single_shot");
             lifeCounter = 3;
+            Health = MaxHealth;
+            Score = 0;
         }
 
         /// <summary>
@@ -238,7 +256,7 @@ namespace ScrollingShooter
             }
 
             // Store the new powerup in the PowerupType bitmask
-            this.PowerupType |= powerup;
+            this.PowerupType = powerup;
 
             //Apply special logic for powerups here
             switch (powerup)
@@ -311,6 +329,7 @@ namespace ScrollingShooter
             bombTimer += elapsedTime;
             railgunTimer += elapsedTime;
             homingMissileTimer -= elapsedTime;
+            shotgunTimer += elapsedTime;
 
             if (Health <= 0)
             {
@@ -418,6 +437,15 @@ namespace ScrollingShooter
                     }
                 }
             }
+            // Do player clamping
+            // Note: 384 = worldView width / 2 and 360 = worldView height / 2
+            // I assumed it would be faster to compare hardcoded numbers than to reference the variable directly
+            if ((position.X - Bounds.Width / 2) < 0) position.X = Bounds.Width / 2;
+            else if ((position.X + Bounds.Width / 2) > 384) position.X = 384 - Bounds.Width / 2;
+            if (position.Y < ((ScrollingShooterGame.LevelManager.scrollDistance * -0.5f) + Bounds.Height / 2))
+                position.Y = (ScrollingShooterGame.LevelManager.scrollDistance * -0.5f) + Bounds.Height / 2;
+            else if (position.Y > ((ScrollingShooterGame.LevelManager.scrollDistance * -0.5f) + 360 - Bounds.Height / 2))
+                position.Y = (ScrollingShooterGame.LevelManager.scrollDistance * -0.5f) + 360 - Bounds.Height / 2;
 
             // Fire bomb
             if (currentKeyboardState.IsKeyDown(Keys.B))
@@ -471,7 +499,7 @@ namespace ScrollingShooter
                     }
 
                     // Default gun
-                    if (defaultGunTimer > 0.25f)
+                    if (defaultGunTimer > 0.25f & PowerupType == 0)
                     {
                         ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.Bullet, position);
                         bulletFired.Play();

@@ -235,9 +235,16 @@ namespace ScrollingShooter
             switch (enemyType)
             {
                 case BossType.Blimp:
-                    boss = new Blimp(id, position, content);
-                    QueueGameObjectForCreation(new LeftGun(NextID(), content, boss as Blimp));
-                    QueueGameObjectForCreation(new RightGun(NextID(), content, boss as Blimp));
+                    Blimp blimp = new Blimp(id, position, content);
+                    LeftGun leftGun = new LeftGun(NextID(), content, blimp);
+                    RightGun rightGun = new RightGun(NextID(), content, blimp);
+                    leftGun.ObjectType = ObjectType.Boss;
+                    rightGun.ObjectType = ObjectType.Boss;
+                    blimp.leftGun = leftGun;
+                    blimp.rightGun = rightGun;
+                    QueueGameObjectForCreation(leftGun);
+                    QueueGameObjectForCreation(rightGun);
+                    boss = blimp;
                     break;
 
                 case BossType.TwinJetManager:
@@ -534,19 +541,23 @@ namespace ScrollingShooter
                     break;
 
                 case ProjectileType.ShotgunBullet:
-                    projectile = new ShotgunBullet(id, content, position, BulletDirection.Straight);
-                    QueueGameObjectForCreation(new ShotgunBullet(NextID(), content, position, BulletDirection.Left));
-                    QueueGameObjectForCreation(new ShotgunBullet(NextID(), content, position, BulletDirection.Right));
-                    QueueGameObjectForCreation(new ShotgunBullet(NextID(), content, position, BulletDirection.HardLeft));
-                    QueueGameObjectForCreation(new ShotgunBullet(NextID(), content, position, BulletDirection.HardRight));
+                    projectile = new ShotgunBullet(id, content, position, BulletDirection.HardLeft);
+                    for (int i = 1; i < 5; i++)
+                    {
+                        ShotgunBullet sb = new ShotgunBullet(NextID(), content, position, (BulletDirection)i);
+                        sb.ObjectType = ObjectType.PlayerProjectile;
+                        QueueGameObjectForCreation(sb);
+                    };
                     break;
 
                 case ProjectileType.BlimpShotgun:
-                    projectile = new BlimpShotgun(id, content, position, BulletDirection.Straight);
-                    QueueGameObjectForCreation(new BlimpShotgun(NextID(), content, position, BulletDirection.Left));
-                    QueueGameObjectForCreation(new BlimpShotgun(NextID(), content, position, BulletDirection.Right));
-                    QueueGameObjectForCreation(new BlimpShotgun(NextID(), content, position, BulletDirection.HardLeft));
-                    QueueGameObjectForCreation(new BlimpShotgun(NextID(), content, position, BulletDirection.HardRight));
+                    projectile = new BlimpShotgun(id, content, position, BulletDirection.HardLeft);
+                    for (int i = 1; i < 5; i++)
+                    {
+                        BlimpShotgun bs = new BlimpShotgun(NextID(), content, position, (BulletDirection)i);
+                        bs.ObjectType = ObjectType.EnemyProjectile;
+                        QueueGameObjectForCreation(bs);
+                    };
                     break;
 
                 case ProjectileType.Meteor:
@@ -612,6 +623,9 @@ namespace ScrollingShooter
                 case ProjectileType.EnemyLightningZap:
                     projectile = new EnemyLightningZap(id, content, position);
                     break;
+                case ProjectileType.CobaltBomb:
+                    projectile = new CobaltBomb(id, content, position);
+                     break;
 
                 default:
                     throw new NotImplementedException("The projectile type " + Enum.GetName(typeof(ProjectileType), projectileType) + " is not supported");

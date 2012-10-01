@@ -19,9 +19,9 @@ namespace ScrollingShooter
             : base(id)
         {
             this.type = PowerupType.EightBallShield;
-            this.spriteSource = new Rectangle(167, 85, 26, 26);
+            this.spriteBounds = new Rectangle(167, 85, 26, 26);
             this.spriteSheet = contentManager.Load<Texture2D>("Spritesheets/tyrian.shp.010008");
-            this.spriteBounds = new Rectangle((int)position.X, (int)position.Y, 23, 23);
+            this.position = position;
         }
     }
 }

@@ -537,6 +537,16 @@
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
+<<<<<<< HEAD
+=======
+  <ItemGroup>
+    <Compile Include="Spritesheets\explosion.png">
+      <Name>explosion</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+>>>>>>> fa297499ed95e7a56027e50234564dcdcd121c10
   <ItemGroup>
     <None Include="Credits.txt">
       <Name>Credits</Name>
@@ -550,6 +560,7 @@
       <Processor>SoundEffectProcessor</Processor>
     </Compile>
   </ItemGroup>
+<<<<<<< HEAD
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />
   <!--  To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
@@ -558,4 +569,21 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+=======
+  <ItemGroup>
+    <Compile Include="Spritesheets\gui.png">
+      <Name>gui</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />
+  <!--  To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+>>>>>>> fa297499ed95e7a56027e50234564dcdcd121c10
 </Project>

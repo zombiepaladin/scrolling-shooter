@@ -191,7 +191,7 @@ namespace ScrollingShooter
 
                     // Render the gui
                     GraphicsDevice.Viewport = guiViewport;
-                    // TODO: Render gui
+                    GuiManager.DrawHUD(elapsedGameTime);
 
                     break;
 
@@ -241,7 +241,9 @@ namespace ScrollingShooter
                             {
                                 //Player take damage
                                 GameObjectManager.DestroyObject(collider.ID);
-                                GameObjectManager.CreateExplosion(collider.ID);
+                                GameObjectManager.CreateExplosion2(collider.ID, 0.5f);
+                                // Update the player's score
+                                player.Score += enemy.Score;
                             }
                             break;
 
@@ -253,7 +255,7 @@ namespace ScrollingShooter
                             if (player.Health <= 0)
                             {
                                 GameObjectManager.DestroyObject(player.ID);
-                                GameObjectManager.CreateExplosion(player.ID);
+                                GameObjectManager.CreateExplosion2(player.ID, 1);
                             }
 
                             GameObjectManager.DestroyObject(collider.ID);
@@ -280,6 +282,10 @@ namespace ScrollingShooter
                             {
                                 GameObjectManager.DestroyObject(collider.ID);
                                 GameObjectManager.CreateExplosion(collider.ID);
+                                GameObjectManager.CreateExplosion2(collider.ID, 0.5f);
+                                // Since we don't have direct access to this projectile's owner and since this is
+                                // currently a single player game, add the score the the main player
+                                Player.Score += enemy.Score;
                             }
                             // Destroy projectile
                             // Note, if there are special things for the bullet, add them here
@@ -296,6 +302,10 @@ namespace ScrollingShooter
                             {
                                 GameObjectManager.DestroyObject(collider.ID);
                                 GameObjectManager.CreateExplosion(collider.ID);
+                                GameObjectManager.CreateExplosion2(collider.ID, 1.5f);
+                                // Since we don't have direct access to this projectile's owner and since this is
+                                // currently a single player game, add the score the the main player
+                                Player.Score += boss.Score;
                             }
                             // Destroy projectile
                             // Note, if there are special things for the bullet, add them here

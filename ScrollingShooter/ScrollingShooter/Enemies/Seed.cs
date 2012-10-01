@@ -102,6 +102,15 @@ namespace ScrollingShooter
         {
             //Do nothing.
         }
+
+        /// <summary>
+        /// Scrolls the object with the map
+        /// </summary>
+        /// <param name="elapsedTime">The in-game time between the previous and current frame</param>
+        public override void ScrollWithMap(float elapsedTime)
+        {
+            // Does nothing
+        }
     }
 
     /// <summary>

@@ -54,31 +54,31 @@
       <Name>shapes%29</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
-      <ProcessorParameters_ColorKeyColor>191, 220, 191, 255</ProcessorParameters_ColorKeyColor>
+      <ProcessorParameters_ColorKeyColor>0, 0, 0, 255</ProcessorParameters_ColorKeyColor>
     </Compile>
     <Compile Include="Tilesets\shapesw.png">
       <Name>shapesw</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
-      <ProcessorParameters_ColorKeyColor>191, 220, 191, 255</ProcessorParameters_ColorKeyColor>
+      <ProcessorParameters_ColorKeyColor>0, 0, 0, 255</ProcessorParameters_ColorKeyColor>
     </Compile>
     <Compile Include="Tilesets\shapesx.png">
       <Name>shapesx</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
-      <ProcessorParameters_ColorKeyColor>191, 220, 191, 255</ProcessorParameters_ColorKeyColor>
+      <ProcessorParameters_ColorKeyColor>0, 0, 0, 255</ProcessorParameters_ColorKeyColor>
     </Compile>
     <Compile Include="Tilesets\shapesy.png">
       <Name>shapesy</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
-      <ProcessorParameters_ColorKeyColor>191, 220, 191, 255</ProcessorParameters_ColorKeyColor>
+      <ProcessorParameters_ColorKeyColor>0, 0, 0, 255</ProcessorParameters_ColorKeyColor>
     </Compile>
     <Compile Include="Tilesets\shapesz.png">
       <Name>shapesz</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
-      <ProcessorParameters_ColorKeyColor>191, 220, 191, 255</ProcessorParameters_ColorKeyColor>
+      <ProcessorParameters_ColorKeyColor>0, 0, 0, 255</ProcessorParameters_ColorKeyColor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -336,22 +336,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="SpriteFonts\Pescadero.spritefont">
-      <Name>Pescadero</Name>
-      <Importer>FontDescriptionImporter</Importer>
-      <Processor>FontDescriptionProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\..\ScrollingShooterContentPipeline\ScrollingShooterContentPipeline.csproj">
       <Project>{178E30B3-9F27-4FF1-B6A0-4866B6FA0875}</Project>
       <Name>ScrollingShooterContentPipeline</Name>
     </ProjectReference>
-    <Compile Include="Tilemaps\moon.tmx">
-      <Name>moon</Name>
-      <Importer>TmxImporter</Importer>
-      <Processor>TilemapProcessor</Processor>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Tilemaps\example.tmx">
@@ -458,7 +446,13 @@
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Compile Include="Spritesheets\explosion.png">
+      <Name>explosion</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
   <ItemGroup>
     <Compile Include="Tilemaps\Level_1_Tilemap_2.tmx">
       <Name>Level_1_Tilemap_2</Name>
@@ -503,73 +497,12 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Tilesets\Black.png">
-      <Name>Black</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Tilesets\DarkMoon.png">
-      <Name>DarkMoon</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Tilesets\moon.png">
-      <Name>moon</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Tilesets\ToDark.png">
-      <Name>ToDark</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Spritesheets\MoonBoss.png">
-      <Name>MoonBoss</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-<<<<<<< HEAD
-=======
-  <ItemGroup>
-    <Compile Include="Spritesheets\explosion.png">
-      <Name>explosion</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
->>>>>>> fa297499ed95e7a56027e50234564dcdcd121c10
-  <ItemGroup>
-    <None Include="Credits.txt">
-      <Name>Credits</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="SFX\anti_tank_gun_single_shot.wav">
       <Name>anti_tank_gun_single_shot</Name>
       <Importer>WavImporter</Importer>
       <Processor>SoundEffectProcessor</Processor>
     </Compile>
   </ItemGroup>
-<<<<<<< HEAD
-  <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />
-  <!--  To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
-=======
   <ItemGroup>
     <Compile Include="Spritesheets\gui.png">
       <Name>gui</Name>
@@ -585,5 +518,4 @@
   <Target Name="AfterBuild">
   </Target>
   -->
->>>>>>> fa297499ed95e7a56027e50234564dcdcd121c10
 </Project>

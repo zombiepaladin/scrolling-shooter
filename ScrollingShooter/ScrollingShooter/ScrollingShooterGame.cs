@@ -91,12 +91,8 @@ namespace ScrollingShooter
             // TODO: use this.Content to load your game content here
             Player = GameObjectManager.CreatePlayerShip(PlayerShipType.Shrike, new Vector2(300, 300));
 
-            //GameObjectManager.CreateEnemy(EnemyType.Asteriod, new Vector2(200), new object[] { 3 });
-
             LevelManager.LoadContent();
-
-            //Test out moon level.
-            LevelManager.LoadLevel("moon");
+            LevelManager.LoadLevel("Airbase");
             GuiManager.LoadContent();
             GameState = GameState.Initializing;
         }
@@ -300,6 +296,7 @@ namespace ScrollingShooter
                             // If health <= 0, kill boss
                             if (boss.Health <= 0)
                             {
+                                if (boss is Blimp) boss.Update(0);
                                 GameObjectManager.DestroyObject(collider.ID);
                                 GameObjectManager.CreateExplosion(collider.ID);
                                 GameObjectManager.CreateExplosion2(collider.ID, 1.5f);

@@ -12,16 +12,6 @@ using ScrollingShooterWindowsLibrary;
 namespace ScrollingShooter
 {
     /// <summary>
-    /// Indicates if we are currently in-level or displaying the
-    /// pre-level Splash screen.
-    /// </summary>
-    enum LevelState
-    {
-        Splash,
-        Gameplay,
-    }
-
-    /// <summary>
     /// A class for managing the loading, updating, and rendering of
     /// levels.
     /// </summary>
@@ -37,9 +27,7 @@ namespace ScrollingShooter
         public bool Loading = true;
         public bool Paused = false;
         public bool Scrolling = false;
-        private LevelState levelState;
 
-        public SplashScreen CurrentSplash;
         public Tilemap CurrentMap;
         public Song CurrentSong;
 
@@ -73,9 +61,6 @@ namespace ScrollingShooter
                 TextureEnabled = true,
                 VertexColorEnabled = true,
             };
-
-            // Create our first splash screen
-            CurrentSplash = new Credits();
         }
 
 
@@ -85,7 +70,6 @@ namespace ScrollingShooter
         /// <param name="level">The name of the level to load</param>
         public void LoadLevel(string level)
         {
-            levelState = LevelState.Splash;
             Loading = true;
 
             ThreadStart threadStarter = delegate
@@ -134,7 +118,7 @@ namespace ScrollingShooter
                                 break;
 
                             case "Enemy":
-                                go = ScrollingShooterGame.GameObjectManager.CreateEnemy((EnemyType)Enum.Parse(typeof(EnemyType), goData.Type), position, new object[] { 2 });
+                                go = ScrollingShooterGame.GameObjectManager.CreateEnemy((EnemyType)Enum.Parse(typeof(EnemyType), goData.Type), position);
                                 CurrentMap.GameObjectGroups[i].GameObjectData[j].ID = go.ID;
                                 go.LayerDepth = CurrentMap.GameObjectGroups[i].LayerDepth;
                                 go.ScrollingSpeed = CurrentMap.GameObjectGroups[i].ScrollingSpeed;
@@ -167,18 +151,7 @@ namespace ScrollingShooter
         /// <param name="elapsedTime">the time elapsed between this and the previous frame</param>
         public void Update(float elapsedTime)
         {
-            if (levelState == LevelState.Splash) // Update the loading screen
-            {
-                if (!Loading && Keyboard.GetState().IsKeyDown(Keys.Space))
-                {
-                    levelState = LevelState.Gameplay;
-                }
-                else
-                {
-                    CurrentSplash.Update(elapsedTime);
-                }
-            }
-            else if (Paused)
+            if (Paused)
             {
                 // Unpase on space press
                 if (Keyboard.GetState().IsKeyDown(Keys.Space)) Paused = false;
@@ -210,14 +183,23 @@ namespace ScrollingShooter
                 }
                 // Update only the game objects that appear near our scrolling region
                 Rectangle bounds = new Rectangle(0,
-                    (int)(-scrollDistance / 2) - 300,
+                    (int)(-scrollDistance / 2) - 100,
                     CurrentMap.Width * CurrentMap.TileWidth,
-                    16 * CurrentMap.TileHeight + 300);
+                    16 * CurrentMap.TileHeight + 100);
                 foreach (uint goID in ScrollingShooterGame.GameObjectManager.QueryRegion(bounds))
                 {
                     GameObject go = ScrollingShooterGame.GameObjectManager.GetObject(goID);
                     go.Update(elapsedTime);
                     ScrollingShooterGame.GameObjectManager.UpdateGameObject(goID);
+                }
+                // Remove objects that we have passed
+                Rectangle deleteBounds = new Rectangle(0,
+                    (int)(-scrollDistance / 2) + (16 * CurrentMap.TileHeight + 50),
+                    CurrentMap.Width * CurrentMap.TileWidth,
+                    4480 - ((int)(-scrollDistance / 2) + (16 * CurrentMap.TileHeight + 50)));
+                foreach (uint goID in ScrollingShooterGame.GameObjectManager.QueryRegion(deleteBounds))
+                {
+                    ScrollingShooterGame.GameObjectManager.DestroyObject(goID);
                 }
             }
         }
@@ -277,9 +259,9 @@ namespace ScrollingShooter
 
             // Draw only the game objects that appear within our scrolling region
             Rectangle bounds = new Rectangle(0,
-                (int)(-scrollDistance / 2 - 300),
+                (int)(-scrollDistance / 2 - 100),
                 CurrentMap.Width * CurrentMap.TileWidth,
-                16 * CurrentMap.TileHeight + 300);
+                16 * CurrentMap.TileHeight + 100);
 
             foreach (uint goID in ScrollingShooterGame.GameObjectManager.QueryRegion(bounds))
             {

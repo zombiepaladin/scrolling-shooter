@@ -188,7 +188,7 @@ namespace ScrollingShooter
             }
 
             // Store the new powerup in the PowerupType bitmask
-            this.PowerupType |= powerup;
+            this.PowerupType = powerup;
 
             //Apply special logic for powerups here
             switch (powerup)
@@ -207,9 +207,6 @@ namespace ScrollingShooter
 
                 case PowerupType.Ale:
                     GetDrunk();
-                    break;
-                case PowerupType.BubbleBeam:
-                    BubbleBullet.POWER_LEVEL++;
                     break;
 
                 case PowerupType.EnergyBlast:
@@ -234,6 +231,7 @@ namespace ScrollingShooter
             bombTimer += elapsedTime;
             railgunTimer += elapsedTime;
             homingMissileTimer -= elapsedTime;
+            shotgunTimer += elapsedTime;
 
             if (!drunk)
             {
@@ -380,7 +378,7 @@ namespace ScrollingShooter
                     // Streaming weapons
                     if ((PowerupType & PowerupType.BubbleBeam) > 0)
                     {
-                        if (defaultGunTimer > .05f)
+                        if (defaultGunTimer > BubbleBullet.FIRE_INTERVAL_MS)
                         {
                             ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.BubbleBullet, position);
                             defaultGunTimer = 0f;
@@ -395,7 +393,7 @@ namespace ScrollingShooter
                     }
 
                     // Default gun
-                    if (defaultGunTimer > 0.25f)
+                    if (defaultGunTimer > 0.25f & PowerupType == 0)
                     {
                         ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.Bullet, position);
                         bulletFired.Play();

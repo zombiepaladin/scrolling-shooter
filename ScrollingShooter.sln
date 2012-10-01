@@ -1,13 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScrollingShooterContentPipeline", "ScrollingShooterContentPipeline\ScrollingShooterContentPipeline.csproj", "{178E30B3-9F27-4FF1-B6A0-4866B6FA0875}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScrollingShooterWindowsLibrary", "ScrollingShooterWindowsLibrary\ScrollingShooterWindowsLibrary.csproj", "{57AE1B90-1244-4AAC-97E8-0EC2D5B94872}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScrollingShooter", "ScrollingShooter\ScrollingShooter\ScrollingShooter.csproj", "{268B1713-BD39-49CB-BEFD-DB11C562192C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScrollingShooterContent", "ScrollingShooter\ScrollingShooterContent\ScrollingShooterContent.contentproj", "{21D9E5D6-1D43-44CF-9793-0603D96E2527}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScrollingShooterContentPipeline", "ScrollingShooterContentPipeline\ScrollingShooterContentPipeline.csproj", "{178E30B3-9F27-4FF1-B6A0-4866B6FA0875}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScrollingShooterWindowsLibrary", "ScrollingShooterWindowsLibrary\ScrollingShooterWindowsLibrary.csproj", "{57AE1B90-1244-4AAC-97E8-0EC2D5B94872}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +15,12 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{268B1713-BD39-49CB-BEFD-DB11C562192C}.Debug|x86.ActiveCfg = Debug|x86
+		{268B1713-BD39-49CB-BEFD-DB11C562192C}.Debug|x86.Build.0 = Debug|x86
+		{268B1713-BD39-49CB-BEFD-DB11C562192C}.Release|x86.ActiveCfg = Release|x86
+		{268B1713-BD39-49CB-BEFD-DB11C562192C}.Release|x86.Build.0 = Release|x86
+		{21D9E5D6-1D43-44CF-9793-0603D96E2527}.Debug|x86.ActiveCfg = Debug|x86
+		{21D9E5D6-1D43-44CF-9793-0603D96E2527}.Release|x86.ActiveCfg = Release|x86
 		{178E30B3-9F27-4FF1-B6A0-4866B6FA0875}.Debug|x86.ActiveCfg = Debug|x86
 		{178E30B3-9F27-4FF1-B6A0-4866B6FA0875}.Debug|x86.Build.0 = Debug|x86
 		{178E30B3-9F27-4FF1-B6A0-4866B6FA0875}.Release|x86.ActiveCfg = Debug|x86
@@ -23,12 +29,6 @@ Global
 		{57AE1B90-1244-4AAC-97E8-0EC2D5B94872}.Debug|x86.Build.0 = Debug|x86
 		{57AE1B90-1244-4AAC-97E8-0EC2D5B94872}.Release|x86.ActiveCfg = Release|x86
 		{57AE1B90-1244-4AAC-97E8-0EC2D5B94872}.Release|x86.Build.0 = Release|x86
-		{268B1713-BD39-49CB-BEFD-DB11C562192C}.Debug|x86.ActiveCfg = Debug|x86
-		{268B1713-BD39-49CB-BEFD-DB11C562192C}.Debug|x86.Build.0 = Debug|x86
-		{268B1713-BD39-49CB-BEFD-DB11C562192C}.Release|x86.ActiveCfg = Release|x86
-		{268B1713-BD39-49CB-BEFD-DB11C562192C}.Release|x86.Build.0 = Release|x86
-		{21D9E5D6-1D43-44CF-9793-0603D96E2527}.Debug|x86.ActiveCfg = Debug|x86
-		{21D9E5D6-1D43-44CF-9793-0603D96E2527}.Release|x86.ActiveCfg = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

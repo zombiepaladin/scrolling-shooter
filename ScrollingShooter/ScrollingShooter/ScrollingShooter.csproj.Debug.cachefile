@@ -52,10 +52,12 @@ Content\Tilesets\shapeswmodified.xnb
 Content\Spritesheets\accessories.xnb
 Content\Spritesheets\vulcano.xnb
 Content\Spritesheets\MoonBoss.xnb
+Content\Spritesheets\explosion.xnb
 Content\Tilesets\bossFloorTexture.xnb
 Content\Tilesets\shapeszFinalLvlMod.xnb
 Content\Tilesets\shapesFinalLvlMod.xnb
 Content\Spritesheets\newsh0.shp.000001.xnb
+Content\Spritesheets\gui.xnb
 Content\Tilemaps\example.xnb
 Content\Tilemaps\example2.xnb
 Content\Tilemaps\crystalland.xnb
@@ -67,6 +69,4 @@ Content\SpriteFonts\Pescadero.xnb
 Content\debugFont.xnb
 Content\Music\Hard as Nails 11-13-28.xnb
 Content\SFX\anti_tank_gun_single_shot.xnb
-Content\Spritesheets\explosion.xnb
-Content\Spritesheets\gui.xnb
 Content\Music\Hard as Nails 11-13-28.wma

@@ -101,5 +101,12 @@
   <object name="Enemy" type="GreenGoblin" x="197" y="4012" width="38" height="35"/>
   <object name="Enemy" type="GreenGoblin" x="268" y="3919" width="38" height="35"/>
   <object name="Enemy" type="SuicideBomber" x="292" y="4214" width="32" height="33"/>
+  <object name="Powerup" type="Fireball" x="186" y="3695"/>
+  <object name="Powerup" type="HomingMissiles" x="47" y="3242"/>
+  <object name="Powerup" type="ShotgunPowerup" x="301" y="2723"/>
+  <object name="Powerup" type="Ale" x="130" y="2145"/>
+  <object name="Powerup" type="EnergyBlast" x="322" y="1538"/>
+  <object name="Powerup" type="TriShield" x="191" y="797"/>
+  <object name="Powerup" type="Frostball" x="82" y="682"/>
  </objectgroup>
 </map>

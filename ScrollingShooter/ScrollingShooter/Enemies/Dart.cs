@@ -75,7 +75,7 @@ namespace ScrollingShooter
             // Get a vector from our position to the Player's position
             Vector2 toPlayer = PlayerPosition - this.position;
 
-            if(toPlayer.LengthSquared() < 40000)
+            if (this.position.Y > -ScrollingShooterGame.LevelManager.scrollDistance / 2 && this.position.Y <= Player.Position.Y + 40)
             {
                 // We sense the Player's ship!                  
                 // Get a normalized steering vector

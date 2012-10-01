@@ -11,7 +11,6 @@ namespace ScrollingShooter
         GiantAlien,
         Blimp,
         TwinJetManager,
-        MoonBoss,
     }
 
     /// <summary>

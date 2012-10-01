@@ -50,6 +50,17 @@ namespace ScrollingShooter
         /// </summary>
         public int Lives = 5;
 
+        /// <summary>
+        /// Player's Score
+        /// </summary>
+        public int Score = 0;
+
+        /// <summary>
+        /// Player's Kill count
+        /// </summary>
+        public int Kills = 0;
+
+
         #region Timers
 
         // Timers

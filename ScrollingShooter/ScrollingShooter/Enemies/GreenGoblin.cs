@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Content;
 
 namespace ScrollingShooter
 {
+
     /// <summary>
     /// Represents the three animation frames for the Green Goblin ship
     /// </summary>
@@ -31,6 +32,7 @@ namespace ScrollingShooter
         // Count of pixels currently moved 
         int diagCount;
         float gunTimer = 0;
+        int screenWidth = 360; //Hardcoded until I get a better way to get the width
 
         /// <summary>
         /// The bounding rectangle of the Green Goblin
@@ -85,11 +87,13 @@ namespace ScrollingShooter
 
             gunTimer += elapsedTime;
 
+            if (playerPosition.Y + 70 < this.position.Y) return;
+
             // Get the distance between the player and this along the X axis
             float playerDistance = Math.Abs(playerPosition.X - this.position.X);
 
             // Make sure the player is within range
-            if (playerDistance < 60 && gunTimer > 0.20 && playerPosition.Y > (this.position.Y + 30))
+            if (playerDistance < 60 && gunTimer > 0.25 && playerPosition.Y > (this.position.Y + 30))
             {
                 ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.EnemyFlameball, position);
                 gunTimer = 0;
@@ -98,15 +102,54 @@ namespace ScrollingShooter
             //Ship flies from top to bottom
             this.position.Y += 1;
 
+            // Once diagonal motion has reach its length, switch directions
+            if (diagCount == diagFlightLength || this.position.X >= screenWidth || this.position.X <= 5)
+            {
+                // If going right, switch to left
+                if (0 == steeringState.CompareTo(GreenGoblinSteeringState.Right))
+                {
+                    this.position.X -= 2;
+                    steeringState = GreenGoblinSteeringState.Left;
+                    diagCount = 0;
+                    rand = new Random();
+                    diagFlightLength = rand.Next(20, 100);
+                }
+
+                // If going left, switch to right    
+                else if (0 == steeringState.CompareTo(GreenGoblinSteeringState.Left))
+                {
+                    this.position.X += 2;
+                    steeringState = GreenGoblinSteeringState.Right;
+                    diagCount = 0;
+                    rand = new Random();
+                    diagFlightLength = rand.Next(20, 100);
+                }
+
+            }
+
             // If the ship hasn't reached the turning point
-            if (diagCount < diagFlightLength)
+            else if (diagCount < diagFlightLength)
             {
                 //If the ship has just been created
                 if (0 == steeringState.CompareTo(GreenGoblinSteeringState.Straight))
                 {
                     this.position.X += 2;
-                    steeringState = GreenGoblinSteeringState.Right;
-                    diagCount++;
+                    rand = new Random();
+                    int direction = rand.Next(0, 10);
+                    if (direction >= 5)
+                    {
+                        steeringState = GreenGoblinSteeringState.Right;
+                    }
+                    else if (direction < 5)
+                    {
+                        steeringState = GreenGoblinSteeringState.Left;
+                    }
+
+                    else
+                    {
+                        diagCount++;
+                    }
+                        diagCount++;
                 }
 
                 // If the ship is going right
@@ -122,29 +165,6 @@ namespace ScrollingShooter
                     this.position.X -= 2;
                     diagCount++;
                 }
-            }
-
-            // Once diagonal motion has reach its length, switch directions
-            else if (diagCount == diagFlightLength)
-            {
-                // If going right, switch to left
-                if (0 == steeringState.CompareTo(GreenGoblinSteeringState.Right))
-                {
-                    this.position.X -= 1;
-                    steeringState = GreenGoblinSteeringState.Left;
-                    diagCount = 0;
-                    diagFlightLength = rand.Next(20, 150);
-                }
-
-                // If going left, switch to right    
-                else if (0 == steeringState.CompareTo(GreenGoblinSteeringState.Left))
-                {
-                    this.position.X += 1;
-                    steeringState = GreenGoblinSteeringState.Right;
-                    diagCount = 0;
-                    diagFlightLength = rand.Next(20, 150);
-                }
-
             }
 
             else
@@ -163,6 +183,15 @@ namespace ScrollingShooter
         {
             spriteBatch.Draw(spritesheet, Bounds, spriteBounds[(int)steeringState], Color.White);
         }
+		
+		/// <summary>
+        /// Scrolls the object with the map
+        /// </summary>
+        /// <param name="elapsedTime">The in-game time between the previous and current frame</param>
+		public override void ScrollWithMap(float elapsedTime)
+		{
+			position.Y += elapsedTime * ScrollingSpeed;
+		}
 
     }
 }

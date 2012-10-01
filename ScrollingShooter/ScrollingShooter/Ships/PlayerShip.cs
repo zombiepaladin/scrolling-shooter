@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Audio;
 using System;
 using System.Collections.Generic;
 
@@ -37,7 +38,30 @@ namespace ScrollingShooter
         /// <summary>
         /// Player's Health
         /// </summary>
-        public float Health = 100;
+        public float Health;
+
+        /// <summary>
+        /// Player's Max Health
+        /// </summary>
+        public float MaxHealth = 100;
+
+        /// <summary>
+        /// Player's Lives
+        /// </summary>
+        public int Lives = 5;
+
+        /// <summary>
+        /// Player's Score
+        /// </summary>
+        public int Score = 0;
+
+        /// <summary>
+        /// Player's Kill count
+        /// </summary>
+        public int Kills = 0;
+
+
+        #region Timers
 
         // Timers
         /// <summary>
@@ -62,6 +86,14 @@ namespace ScrollingShooter
         /// Timer to adjust refire rate of railgun
         /// </summary>
         float railgunTimer = 0;
+
+        #endregion
+
+        #region Sound Effects
+
+        SoundEffect bulletFired;
+
+        #endregion
 
         /// <summary>
         /// Rectangle to draw the railgun when the powerup is enabled
@@ -134,9 +166,15 @@ namespace ScrollingShooter
 
         /// <summary>
         /// Creates a new Player ship instance
+        /// and initializes sound effects
         /// </summary>
         /// <param name="id">the unique id of the Player ship</param>
-        public PlayerShip(uint id) : base(id) { }
+        public PlayerShip(uint id, ContentManager content) : base(id) 
+        {
+            bulletFired = content.Load<SoundEffect>("SFX/anti_tank_gun_single_shot");
+            Health = MaxHealth;
+            Score = 0;
+        }
 
 
         /// <summary>
@@ -161,7 +199,7 @@ namespace ScrollingShooter
             }
 
             // Store the new powerup in the PowerupType bitmask
-            this.PowerupType |= powerup;
+            this.PowerupType = powerup;
 
             //Apply special logic for powerups here
             switch (powerup)
@@ -207,6 +245,7 @@ namespace ScrollingShooter
             bombTimer += elapsedTime;
             railgunTimer += elapsedTime;
             homingMissileTimer -= elapsedTime;
+            shotgunTimer += elapsedTime;
 
             if (!drunk)
             {
@@ -307,6 +346,16 @@ namespace ScrollingShooter
                     }
                 }
             }
+            // Do player clamping
+            // Note: 384 = worldView width / 2 and 360 = worldView height / 2
+            // I assumed it would be faster to compare hardcoded numbers than to reference the variable directly
+            if ((position.X - Bounds.Width / 2) < 0) position.X = Bounds.Width / 2;
+            else if ((position.X + Bounds.Width / 2) > 384) position.X = 384 - Bounds.Width / 2;
+            if (position.Y < ((ScrollingShooterGame.LevelManager.scrollDistance * -0.5f) + Bounds.Height / 2))
+                position.Y = (ScrollingShooterGame.LevelManager.scrollDistance * -0.5f) + Bounds.Height / 2;
+            else if (position.Y > ((ScrollingShooterGame.LevelManager.scrollDistance * -0.5f) + 360 - Bounds.Height / 2))
+                position.Y = (ScrollingShooterGame.LevelManager.scrollDistance * -0.5f) + 360 - Bounds.Height / 2;
+
             // Fire bomb
             if (currentKeyboardState.IsKeyDown(Keys.B))
             {
@@ -358,9 +407,10 @@ namespace ScrollingShooter
                     }
 
                     // Default gun
-                    if (defaultGunTimer > 0.25f)
+                    if (defaultGunTimer > 0.25f & PowerupType == 0)
                     {
                         ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.Bullet, position);
+                        bulletFired.Play();
                         defaultGunTimer = 0f;
                     }
 
@@ -651,6 +701,15 @@ namespace ScrollingShooter
             Vector2 newDir = direction - position;
             newDir.Normalize();
             position += newDir * 2;
+        }
+
+        /// <summary>
+        /// Scrolls the object with the map
+        /// </summary>
+        /// <param name="elapsedTime">The in-game time between the previous and current frame</param>
+        public override void ScrollWithMap(float elapsedTime)
+        {
+            // Does nothing
         }
     }
 }

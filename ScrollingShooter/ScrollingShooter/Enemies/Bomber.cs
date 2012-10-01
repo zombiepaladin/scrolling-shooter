@@ -221,7 +221,7 @@ namespace ScrollingShooter
                 }
 
 
-            }
+            
 
             //if (groupFireTimer > (10f * bomberCount) && bombTimer > 1.5f)
             //{

@@ -83,8 +83,8 @@ namespace ScrollingShooter
                 GameObject go = destroyedGameObjects.Dequeue();
                 if (go is Enemy || go is Boss || go is Powerup) scrollingObjects.Remove(go.ID);
                 RemoveGameObject(go);
-            } 
-            
+            }
+
             // Update our game objects
             //foreach (GameObject go in gameObjects.Values)
             //{
@@ -243,6 +243,10 @@ namespace ScrollingShooter
                 case BossType.TwinJetManager:
                     boss = new TwinJetManager(id, content, position);
                     break;
+                case BossType.Bird:
+                    boss = new Bird(id,content,position);
+                    break;
+
                 
                 default:
                     throw new NotImplementedException("The boss type " + Enum.GetName(typeof(BossType), enemyType) + " is not supported");
@@ -341,15 +345,15 @@ namespace ScrollingShooter
                 case PowerupType.Freezewave:
                     powerup = new FreezewavePowerup(id, content, position);
                     break;
-                
+
                 case PowerupType.Blades:
                     powerup = new BladesPowerup(id, content, position);
                     break;
-                
+
                 case PowerupType.EightBallShield: //added EightBallShield
                     powerup = new EightBallShieldPowerup(id, content, position);
                     break;
-                
+
                 case PowerupType.TriShield:
                     powerup = new TriShieldPowerup(id, content, position);
                     break;
@@ -432,11 +436,11 @@ namespace ScrollingShooter
                 case ProjectileType.Fireball:
                     projectile = new Fireball(id, content, position);
                     break;
-                
+
                 case ProjectileType.BubbleBullet:
                     projectile = new BubbleBullet(id, content, position);
                     break;
-                
+
                 case ProjectileType.Bomb:
                     projectile = new Bomb(id, content, position, true);
                     break;
@@ -487,11 +491,11 @@ namespace ScrollingShooter
                     projectile = new GenericEnemyBullet(id, content, position);
                     break;
 
-                case ProjectileType.DroneWave:                    
+                case ProjectileType.DroneWave:
                     // waveIndex helps draw the wave to the left and right of the ship, while waveSpacing holds the vector difference of space between each drone.
                     // Drone count is managed by 2*i.
                     Vector2 waveIndex = new Vector2(-1, 1);
-                    Vector2 waveSpacing = new Vector2(40,30);
+                    Vector2 waveSpacing = new Vector2(40, 30);
                     for (int i = 0; i < 5; i++)
                     {
                         projectile = new DroneWave(id, content, position + waveSpacing * waveIndex * i);
@@ -576,7 +580,7 @@ namespace ScrollingShooter
                 case ProjectileType.FreezewaveProjectile:
                     projectile = new FreezewaveProjectile(id, content, position);
                     break;
-                    
+
                 case ProjectileType.Photon:
                     projectile = new Photon(id, content, position);
                     break;
@@ -709,7 +713,7 @@ namespace ScrollingShooter
                 case EnemyType.TurretTower:
                     enemy = new TurretTower(id, content, position);
                     break;
-                
+
                 case EnemyType.StdBaddy:
                     enemy = new StdBaddy(id, content, position);
                     break;
@@ -778,7 +782,7 @@ namespace ScrollingShooter
                 case EnemyType.SuicideBomber:
                     enemy = new SuicideBomber(id, content, position);
                     break;
-                
+
                 case EnemyType.LavaFighter:
                     enemy = new LavaFighter(id, content, position);
                     break;
@@ -799,9 +803,6 @@ namespace ScrollingShooter
                     enemy = new LeftClaw(id, content, position);
                     break;
 
-                case EnemyType.Bird:
-                    enemy = new Bird(id, content, position);
-                    break;
 
                 case EnemyType.BrainBoss:
                     enemy = new BrainBoss(id, content, position);
@@ -947,7 +948,7 @@ namespace ScrollingShooter
             return index;
         }
 
-        
+
         /// <summary>
         /// Helper method that adds a GameObject to the GameObjectManager
         /// </summary>
@@ -1052,7 +1053,7 @@ namespace ScrollingShooter
             {
                 box = boundingBoxes[id];
             }
-            catch (KeyNotFoundException ke) 
+            catch (KeyNotFoundException ke)
             {
                 return;
             }

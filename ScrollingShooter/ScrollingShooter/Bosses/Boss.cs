@@ -11,6 +11,7 @@ namespace ScrollingShooter
         GiantAlien,
         Blimp,
         TwinJetManager,
+        Bird
     }
 
     /// <summary>

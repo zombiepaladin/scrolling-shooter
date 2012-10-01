@@ -11,7 +11,13 @@ namespace ScrollingShooter
     enum SplashScreenType
     {
         GameStart,
+        Beginning,
         EndLevelOne,
+        EndLevelTwo,
+        EndLevelThree,
+        EndLevelFour,
+        EndLevelFive,
+        EndLevelSix
     }
 
     /// <summary>
@@ -28,6 +34,11 @@ namespace ScrollingShooter
         /// The level to load after this splash screen exits
         /// </summary>
         public string NextLevel;
+
+        /// <summary>
+        /// Whether the splash screen is done or not
+        /// </summary>
+        public bool Done;
 
         /// <summary>
         /// Updates the splash screen. 

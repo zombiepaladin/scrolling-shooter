@@ -94,7 +94,7 @@ namespace ScrollingShooter
             GameObjectManager.CreateEnemy(EnemyType.BrainBoss, new Vector2(200, 4200));
             //Player.ApplyPowerup(PowerupType.Fireball);
 
-            Splash = new GameStart();
+            Splash = new EndLevelSix();
             LevelManager.LoadContent();
             LevelManager.LoadLevel("Airbase");
             GuiManager.LoadContent();
@@ -131,7 +131,7 @@ namespace ScrollingShooter
                         break;
                 case GameState.Splash:
                         Splash.Update(elapsedTime);
-                    if (!LevelManager.Loading && Keyboard.GetState().IsKeyDown(Keys.Space))
+                    if (!LevelManager.Loading && (Keyboard.GetState().IsKeyDown(Keys.Space) || Splash.Done))
                     {
                         GameState = GameState.Gameplay;
                         Music = LevelManager.CurrentSong;

@@ -42,6 +42,7 @@ namespace ScrollingShooter
         public static GuiManager GuiManager;
 
         public PlayerShip Player;
+
         Song Music;
         SplashScreen Splash;
 
@@ -96,7 +97,9 @@ namespace ScrollingShooter
             GameObjectManager = new GameObjectManager(Content);
 
             // TODO: use this.Content to load your game content here
-            Player = GameObjectManager.CreatePlayerShip(PlayerShipType.Shrike, new Vector2(300, 300));
+            //Player = GameObjectManager.CreatePlayerShip(PlayerShipType.Shrike, new Vector2(300, 300));
+
+            StartGame();
 
             LevelManager.LoadContent();
             LevelManager.LoadLevel("Airbase");
@@ -130,8 +133,16 @@ namespace ScrollingShooter
             switch (GameState)
             {
                 case GameState.Initializing:
+
+                    if (Player == null)
+                    {
+                        StartGame();
+                    }
+
                     if (!LevelManager.Loading)
+                    {
                         GameState = GameState.Gameplay;
+                    }
                     break;
 
                 case GameState.Splash:
@@ -139,15 +150,25 @@ namespace ScrollingShooter
                     if (!LevelManager.Loading && Keyboard.GetState().IsKeyDown(Keys.Space))
                     {
                         GameState = GameState.Gameplay;
+                        //StartGame();
                         Music = LevelManager.CurrentSong;
                         if (Music != null) MediaPlayer.Play(Music);
                     }
+
                     break;
 
                 case GameState.Gameplay:
                     LevelManager.Update(elapsedTime);
                     GameObjectManager.Update(elapsedTime);
                     ProcessCollisions();
+
+                    if (Player.GetState == PlayerState.Dead)
+                    {
+                        GameState = ScrollingShooter.GameState.Initializing;
+                        GameObjectManager.DestroyObject(Player.ID);
+                       Player = null;
+                    }
+
                     break;
 
                 case GameState.Scoring:
@@ -241,31 +262,38 @@ namespace ScrollingShooter
                             break;
 
                         case ObjectType.Enemy:
-                            Enemy enemy = collider as Enemy;
-                            if (enemy.GetType() == typeof(Kamikaze) ||
-                                enemy.GetType() == typeof(SuicideBomber))
+
+                            //Only need to collide if player is not dead or invincible
+                            if (Player != null && player.GetState == PlayerState.Alive) 
                             {
-                                //Player take damage
-                                GameObjectManager.DestroyObject(collider.ID);
-                                GameObjectManager.CreateExplosion2(collider.ID, 0.5f);
+                                Enemy enemy = collider as Enemy;
+                                if (enemy.GetType() == typeof(Kamikaze) ||
+                                    enemy.GetType() == typeof(SuicideBomber))
+                                {
+                                    //Player take damage
+                                    //player.DoDamage(projectile.Damage);
+
+                                    GameObjectManager.DestroyObject(collider.ID);
+                                    GameObjectManager.CreateExplosion2(collider.ID, 0.5f);
+                                }
                                 // Update the player's score
                                 player.Score += enemy.Score;
                             }
                             break;
 
                         case ObjectType.EnemyProjectile:
-                            Projectile projectile = collider as Projectile;
 
-                            // Damage player
-                            player.Health -= projectile.Damage;
-                            if (player.Health <= 0)
+                            //Only need to collide if player is not dead or invincible
+                            if (Player != null && player.GetState == PlayerState.Alive)
                             {
-                                GameObjectManager.DestroyObject(player.ID);
-                                GameObjectManager.CreateExplosion2(player.ID, 1);
+                                Projectile projectile = collider as Projectile;
+
+                                // Damage player
+                                player.DoDamage(projectile.Damage);
+
+                                GameObjectManager.DestroyObject(collider.ID);
                                 player.Score -= 100;
                             }
-
-                            GameObjectManager.DestroyObject(collider.ID);
                             break;
                     }
                 }
@@ -319,7 +347,13 @@ namespace ScrollingShooter
                             break;
                     }
                 }
+
             }
+        }
+
+        public void StartGame()
+        {
+            Player = GameObjectManager.CreatePlayerShip(PlayerShipType.Shrike, new Vector2(300, 300));
         }
     }
 }

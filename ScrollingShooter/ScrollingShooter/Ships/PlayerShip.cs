@@ -44,9 +44,14 @@ namespace ScrollingShooter
         public static short HomingMissileLevel = 0;
 
         /// <summary>
+        /// A constant for the maximum health the player
+        /// can have
+        /// </summary>
+        public const int MaxHealth = 50;
+        /// <summary>
         /// Player's Health
         /// </summary>
-        public float Health = 100;
+        public float Health = MaxHealth;
 
         #region Timers
 
@@ -114,6 +119,10 @@ namespace ScrollingShooter
             set { position = value; }
         }
 
+        public Vector2 GetPosition()
+        {
+            return position;
+        }
         /// <summary>
         /// The spritesheet our ship is found upon
         /// </summary>
@@ -142,13 +151,13 @@ namespace ScrollingShooter
         int drunkCounter = 0;
 
         /// <summary>
+        /// Reflects the current state of the player
+        /// </summary>
+        protected PlayerState myState;
+        /// <summary>
         /// Indicates the number of lives the player has left
         /// </summary>
         protected int lifeCounter;
-        /// <summary>
-        /// Indicates whether the player is invincible or not (i.e. bullets don't collide)
-        /// </summary>
-        protected bool isInvincible;
         /// <summary>
         /// Indicates the maximum amount of time the player
         /// can be invincible upon spawning
@@ -158,7 +167,32 @@ namespace ScrollingShooter
         /// The amount of time left for the player to be invincible
         /// </summary>
         protected float invincibilityTimer;
-        //
+        /// <summary>
+        /// The amount of time between each switch between
+        /// drawing the player and not drawing the player
+        /// to create a flashing effect
+        /// </summary>
+        protected const float FlashingInterval = 0.1f;
+        /// <summary>
+        /// Keeps track of the time left before the player 
+        /// should switch to being drawn or not drawn
+        /// </summary>
+        protected float flashTimer;
+        /// <summary>
+        /// A flag to determine whether or not the player is
+        /// being drawn, used for flashing while Invincible
+        /// </summary>
+        protected bool isDrawn;
+        /// <summary>
+        /// The time to hang in the killed state before respawning the player
+        /// </summary>
+        protected const float KilledDelay = 0.8f;
+        /// <summary>
+        /// The timer that keeps track of the time spent in the killed state
+        /// </summary>
+        protected float killedTimer;
+
+
 
         /// <summary>
         /// The bounding rectangle for the ship.  Generated from the animation frame and the ship's
@@ -169,6 +203,7 @@ namespace ScrollingShooter
             get { return new Rectangle((int)Position.X, (int)Position.Y, spriteBounds[0].Width, spriteBounds[0].Height); }
         }
 
+        public PlayerState GetState { get { return myState; } }
 
         /// <summary>
         /// Creates a new Player ship instance
@@ -180,7 +215,6 @@ namespace ScrollingShooter
             bulletFired = content.Load<SoundEffect>("SFX/anti_tank_gun_single_shot");
             lifeCounter = 3;
         }
-
 
         /// <summary>
         /// Applies the specified powerup to the ship
@@ -231,12 +265,42 @@ namespace ScrollingShooter
             }
         }
 
+        #region Update Methods
 
         /// <summary>
         /// Updates the ship
         /// </summary>
         /// <param name="elapsedTime"></param>
         public override void Update(float elapsedTime)
+        {
+            switch (myState)
+            {
+                case PlayerState.Alive:
+                    NormalUpdate(elapsedTime);
+                    break;
+
+                case PlayerState.Invincible:
+                    NormalUpdate(elapsedTime);
+                    break;
+
+                case PlayerState.Killed:
+                    KilledUpdate(elapsedTime);
+                    break;
+
+                case PlayerState.Dead:
+                    break;
+
+                default:
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// This update gets called when the player state is 'Alive' or 'Invincible'
+        /// and the player has normal control
+        /// </summary>
+        /// <param name="elapsedTime"></param>
+        public void NormalUpdate(float elapsedTime)
         {
             KeyboardState currentKeyboardState = Keyboard.GetState();
 
@@ -247,6 +311,13 @@ namespace ScrollingShooter
             bombTimer += elapsedTime;
             railgunTimer += elapsedTime;
             homingMissileTimer -= elapsedTime;
+
+            if (Health <= 0)
+            {
+                myState = PlayerState.Killed;
+                ScrollingShooterGame.GameObjectManager.CreateExplosion2(this.ID, 0.3f);
+                killedTimer = KilledDelay;
+            }
 
             if (!drunk)
             {
@@ -407,7 +478,7 @@ namespace ScrollingShooter
                         defaultGunTimer = 0f;
                     }
 
-                    if((PowerupType & PowerupType.HomingMissiles) > 0)
+                    if ((PowerupType & PowerupType.HomingMissiles) > 0)
                     {
                         if (homingMissileTimer <= 0)
                         {
@@ -461,35 +532,129 @@ namespace ScrollingShooter
 
             //Manages the timer for invincibility if the player is
             //currently invincible
-            if (isInvincible)
+            if (myState == PlayerState.Invincible)
             {
+
+                flashTimer -= elapsedTime;
+
+                if (flashTimer <= 0)
+                {
+                    isDrawn = !isDrawn;
+                    flashTimer = FlashingInterval;
+                }
+
                 invincibilityTimer -= elapsedTime;
 
                 if (invincibilityTimer <= 0)
-                    isInvincible = false;
+                    myState = PlayerState.Alive;
             }
 
             // store the current keyboard state for next frame
             oldKeyboardState = currentKeyboardState;
+
         }
 
+        /// <summary>
+        /// This update gets called when the player state is 'Killed'
+        /// and the player has no control and is waiting to be respawned
+        /// </summary>
+        /// <param name="elapsedTime"></param>
+        public void KilledUpdate(float elapsedTime)
+        {
+            killedTimer -= elapsedTime;
+
+            if (killedTimer <= 0)
+            {
+                this.lifeCounter--;
+
+                if (this.lifeCounter < 0)
+                {
+                    myState = PlayerState.Dead;
+                }
+                else
+                {
+                    Respawn();
+                }
+            }
+            
+        }
+        #endregion
+
+        #region Draw Methods
 
         /// <summary>
         /// Draw the ship on-screen
         /// </summary>
         /// <param name="elaspedTime">The elapsed time</param>
         /// <param name="spriteBatch">An already-initialized spritebatch, ready for Draw() commands</param>
-        public override void Draw(float elaspedTime, SpriteBatch spriteBatch)
+        public override void Draw(float elapsedTime, SpriteBatch spriteBatch)
         {
+            switch (myState)
+            {
+                case PlayerState.Alive:
+                    AliveDraw(elapsedTime, spriteBatch);
+                    break;
+                    
+                case PlayerState.Invincible:
+                    InvincibleDraw(elapsedTime, spriteBatch);
+                    break;
+
+                case PlayerState.Killed:
+                    break;
+
+                case PlayerState.Dead:
+                    break;
+
+                default:
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// Handles drawing while the player is alive
+        /// </summary>
+        /// <param name="elapsedTime"></param>
+        /// <param name="spriteBatch"></param>
+        public void AliveDraw(float elapsedTime, SpriteBatch spriteBatch)
+        {
+            Vector2 shadowVector = new Vector2(Position.X + 20, Position.Y + 100);
+            Vector2 playerCenter = new Vector2(Bounds.Width / 2, Bounds.Height / 2);
+
+            if ((PowerupType & PowerupType.Railgun) > 0)
+            spriteBatch.Draw(spriteSheet, RailgunBounds, railgunSpriteBounds, Color.White);
+
+            spriteBatch.Draw(spriteSheet, Position, spriteBounds[(int)steeringState], Color.White, 0f, playerCenter, 1f, SpriteEffects.None, LayerDepth);
+
+            // Draw shadow
+            spriteBatch.Draw(spriteSheet, shadowVector, spriteBounds[(int)steeringState], Color.Black, 0f, playerCenter, 1f, SpriteEffects.None, LayerDepth);
+        }
+
+        /// <summary>
+        /// Handles drawing while the player is invincible.
+        /// Implements a flashing effect on the player ship
+        /// </summary>
+        /// <param name="elapsedTime"></param>
+        /// <param name="spriteBatch"></param>
+        public void InvincibleDraw(float elapsedTime, SpriteBatch spriteBatch)
+        {
+            Vector2 shadowVector = new Vector2(Position.X + 20, Position.Y + 100);
+            Vector2 playerCenter = new Vector2(Bounds.Width / 2, Bounds.Height / 2);
+
             if ((PowerupType & PowerupType.Railgun) > 0)
                 spriteBatch.Draw(spriteSheet, RailgunBounds, railgunSpriteBounds, Color.White);
 
-            spriteBatch.Draw(spriteSheet, Position, spriteBounds[(int)steeringState], Color.White, 0f, new Vector2(Bounds.Width / 2, Bounds.Height / 2), 1f, SpriteEffects.None, LayerDepth);
+            if (isDrawn) //Handles the flashing of the player
+            {
+                spriteBatch.Draw(spriteSheet, Position, spriteBounds[(int)steeringState], Color.White, 0f, playerCenter, 1f, SpriteEffects.None, LayerDepth);
 
-            // Draw shadow
-            spriteBatch.Draw(spriteSheet, new Vector2(20, 100), spriteBounds[(int)steeringState], Color.Black, 0f, new Vector2(Bounds.Width / 2, Bounds.Height / 2), 1f, SpriteEffects.None, LayerDepth);
+                // Draw shadow
+                spriteBatch.Draw(spriteSheet, shadowVector, spriteBounds[(int)steeringState], Color.Black, 0f, playerCenter, 1f, SpriteEffects.None, LayerDepth);
+            }
         }
 
+        #endregion
+
+        #region Powerup Methods
 
         /// <summary>
         /// A helper function that fires a fireball from the ship, 
@@ -571,10 +736,6 @@ namespace ScrollingShooter
             drunk = false;
         }
 
-        public Vector2 GetPosition()
-        {
-            return position;
-        }
         void TriggerBomb()
         {
             // TODO: Fire Bomb
@@ -699,6 +860,8 @@ namespace ScrollingShooter
             }
         }
 
+        #endregion
+
         public void MoveShip(Vector2 direction)
         {
             Vector2 newDir = direction - position;
@@ -713,6 +876,35 @@ namespace ScrollingShooter
         public override void ScrollWithMap(float elapsedTime)
         {
             // Does nothing
+        }
+
+        /// <summary>
+        /// Resets all relative variables when the player is killed
+        /// as well as changes state
+        /// </summary>
+        private void Respawn()
+        {
+            Health = MaxHealth;
+            HomingMissileLevel = 0;
+            energyBlastLevel = -1;
+            drunk = false;
+            drunkCounter = 0;
+            invincibilityTimer = MaxTimeInvincible;
+            flashTimer = FlashingInterval;
+            isDrawn = true;
+            this.PowerupType = PowerupType.None;
+            steeringState = SteeringState.Straight;
+
+            myState = PlayerState.Invincible;
+        }
+
+        /// <summary>
+        /// Takes from the players health the amount given
+        /// </summary>
+        /// <param name="amount"></param>
+        public void DoDamage(float amount)
+        {
+            this.Health -= amount;
         }
     }
 }

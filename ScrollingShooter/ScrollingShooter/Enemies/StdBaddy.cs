@@ -70,7 +70,7 @@ namespace ScrollingShooter
             Vector2 pp = new Vector2(ps.Bounds.Center.X, ps.Bounds.Center.Y);
             Vector2 dp = pp - this.position;
 
-            if (this.position.Y > -ScrollingShooterGame.LevelManager.scrollDistance / 2 && this.position.Y <= ps.Position.Y + 40)
+            if (this.position.Y > -ScrollingShooterGame.LevelManager.scrollDistance / 2 && this.position.Y <= ps.Position.Y + 75)
             {
                 dp.Normalize();
                 this.position += dp * elapsedTime * 100;

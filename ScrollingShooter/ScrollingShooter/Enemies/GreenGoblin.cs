@@ -87,6 +87,8 @@ namespace ScrollingShooter
 
             gunTimer += elapsedTime;
 
+            if (playerPosition.Y + 70 < this.position.Y) return;
+
             // Get the distance between the player and this along the X axis
             float playerDistance = Math.Abs(playerPosition.X - this.position.X);
 

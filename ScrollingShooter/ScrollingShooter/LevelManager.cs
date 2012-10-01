@@ -12,6 +12,16 @@ using ScrollingShooterWindowsLibrary;
 namespace ScrollingShooter
 {
     /// <summary>
+    /// Indicates if we are currently in-level or displaying the
+    /// pre-level Splash screen.
+    /// </summary>
+    enum LevelState
+    {
+        Splash,
+        Gameplay,
+    }
+
+    /// <summary>
     /// A class for managing the loading, updating, and rendering of
     /// levels.
     /// </summary>
@@ -27,7 +37,9 @@ namespace ScrollingShooter
         public bool Loading = true;
         public bool Paused = false;
         public bool Scrolling = false;
+        private LevelState levelState;
 
+        public SplashScreen CurrentSplash;
         public Tilemap CurrentMap;
         public Song CurrentSong;
 
@@ -73,6 +85,7 @@ namespace ScrollingShooter
         /// <param name="level">The name of the level to load</param>
         public void LoadLevel(string level)
         {
+            levelState = LevelState.Splash;
             Loading = true;
 
             ThreadStart threadStarter = delegate
@@ -150,14 +163,21 @@ namespace ScrollingShooter
         /// <param name="elapsedTime">the time elapsed between this and the previous frame</param>
         public void Update(float elapsedTime)
         {
-            if (Paused)
+            if (levelState == LevelState.Splash) // Update the loading screen
             {
-                // Unpase on space press
-                if (Keyboard.GetState().IsKeyDown(Keys.Space)) Paused = false;
+                if (!Loading && Keyboard.GetState().IsKeyDown(Keys.Space))
+                {
+                    levelState = LevelState.Gameplay;
+                }
                 else
                 {
                     CurrentSplash.Update(elapsedTime);
                 }
+            }
+            else if (Paused)
+            {
+                // Unpase on space press
+                if (Keyboard.GetState().IsKeyDown(Keys.Space)) Paused = false;
             }
             else
             {

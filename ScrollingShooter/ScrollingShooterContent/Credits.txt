@@ -1,5 +1,9 @@
 ﻿4
-Instructor; Nathen Bean
-Programmers; Devin Kelly-Collins   Jason Shaw; Austin Murphey
-This game was developed as a project for CIS 450, Intro to Game Design
+Game Title; Production Studio; Publisher
+Studio Staff;Producers;Nathen Bean;Micheal Marlen
+Studio Staff;Programmers/Designers;Devin Kelly-Collins\tJoseph Shaw;Austin Murphy/tNick Boen;Matthew McHaney\tAdam Steen;Adam Clark\tNick Stanley;Josh Zavala\tMicheal Fountain;Sam Fike\tBen Jazen;Matthew Hart\tAndrew Bellinder;Nicholes Strub\tBrett Barger;Jiri Malina\tDaniel Rymph
+Artwork; Tiled(Cheroz.ex); Remastered Tyrian Graphics
+Music Credit;
+Developed with Microsoft's XNA framwork
+Babies Born; No babies were born during production (as far as we know)
 Thank you for playing

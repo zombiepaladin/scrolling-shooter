@@ -155,7 +155,7 @@ namespace ScrollingShooter
                     break;
                 case Dialog.conv9:
                     image = images.GetAster();
-                    line = "Normally yes, but we have a special plane for you.  You should be able to stand up to an \narmy with this beauty.";
+                    line = "Normally yes, but we have a special ship for you.  You should be able to stand up to an \narmy with this beauty.";
                     if (Keyboard.GetState().IsKeyDown(Keys.Enter) && keyUp)
                     {
                         keyUp = false;

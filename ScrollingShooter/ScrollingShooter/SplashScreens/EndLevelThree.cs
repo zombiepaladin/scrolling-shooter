@@ -27,6 +27,8 @@ namespace ScrollingShooter
             conv10,
             conv11,
             conv12,
+            conv13,
+            conv14,
             end
         }
 
@@ -154,7 +156,7 @@ namespace ScrollingShooter
                     break;
                 case Dialog.conv9:
                     image = images.GetAster();
-                    line = "Well...yes...it can.  We were prototyping it as a replacement for the space shuttle.";
+                    line = "Really?  Space?";
                     if (Keyboard.GetState().IsKeyDown(Keys.Enter) && keyUp)
                     {
                         keyUp = false;
@@ -163,7 +165,7 @@ namespace ScrollingShooter
                     break;
                 case Dialog.conv10:
                     image = images.GetJaxon();
-                    line = "Then I'm following Kiefer.";
+                    line = "Yes.  This ship has all kinds of features.  Can it survive in space?";
                     if (Keyboard.GetState().IsKeyDown(Keys.Enter) && keyUp)
                     {
                         keyUp = false;
@@ -172,7 +174,7 @@ namespace ScrollingShooter
                     break;
                 case Dialog.conv11:
                     image = images.GetAster();
-                    line = "Wait! Jaxon!";
+                    line = "Well...yes...it can.  We were prototyping it as a replacement for the space shuttle.";
                     if (Keyboard.GetState().IsKeyDown(Keys.Enter) && keyUp)
                     {
                         keyUp = false;
@@ -180,6 +182,24 @@ namespace ScrollingShooter
                     }
                     break;
                 case Dialog.conv12:
+                    image = images.GetJaxon();
+                    line = "Then I'm following Kiefer.";
+                    if (Keyboard.GetState().IsKeyDown(Keys.Enter) && keyUp)
+                    {
+                        keyUp = false;
+                        dialog = Dialog.conv13;
+                    }
+                    break;
+                case Dialog.conv13:
+                    image = images.GetAster();
+                    line = "Wait! Jaxon!";
+                    if (Keyboard.GetState().IsKeyDown(Keys.Enter) && keyUp)
+                    {
+                        keyUp = false;
+                        dialog = Dialog.conv14;
+                    }
+                    break;
+                case Dialog.conv14:
                     image = new Rectangle();
                     line = "(Aster is disconnected)";
                     if (Keyboard.GetState().IsKeyDown(Keys.Enter) && keyUp)

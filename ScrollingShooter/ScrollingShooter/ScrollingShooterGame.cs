@@ -98,7 +98,7 @@ namespace ScrollingShooter
             // TODO: use this.Content to load your game content here
             Player = GameObjectManager.CreatePlayerShip(PlayerShipType.Shrike, new Vector2(300, 300));
 
-            Splash = new Beginning();
+            Splash = new EndLevelSix();
             LevelManager.LoadContent();
             LevelManager.LoadLevel("AlienBaseSafe");
             GuiManager.LoadContent();

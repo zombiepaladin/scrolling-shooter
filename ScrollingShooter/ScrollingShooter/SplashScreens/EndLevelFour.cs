@@ -83,7 +83,7 @@ namespace ScrollingShooter
             {
                 case Dialog.conv1:
                     image = images.GetJaxon();
-                    line = " Kiefer!  Where are you?.";
+                    line = " Kiefer!  Where are you?";
                     if (Keyboard.GetState().IsKeyDown(Keys.Enter) && keyUp)
                     {
                         keyUp = false;
@@ -110,7 +110,7 @@ namespace ScrollingShooter
                     break;
                 case Dialog.conv4:
                     image = images.GetKiefer3();
-                    line = "It's too late for that.  My new firends helped me out.  They gave me all kinds of weapons \nand I was easily able to take over Kradstan and start that stupid war.  They wanted everyone \non Earth to start fighting each other.  I just wanted you dead.";
+                    line = "It's too late for that.  My new friends helped me out.  They gave me all kinds of weapons \nand I was easily able to take over Kradstan and start that stupid war.  They wanted everyone \non Earth to start fighting each other.  I just wanted you dead.";
                     if (Keyboard.GetState().IsKeyDown(Keys.Enter) && keyUp)
                     {
                         keyUp = false;
@@ -146,7 +146,7 @@ namespace ScrollingShooter
                     break;
                 case Dialog.conv8:
                     image = images.GetKiefer3();
-                    line = "They want the Earth.  With everyone fighting each other it would be easy to let us kill each \nother and take over when we are vulnerable.  I think things are different now though.";
+                    line = "They want the Earth.  With everyone fighting it would be easy to let you kill each \nother and take over when you are vulnerable.  I think things are different now though.";
                     if (Keyboard.GetState().IsKeyDown(Keys.Enter) && keyUp)
                     {
                         keyUp = false;

@@ -206,7 +206,7 @@ namespace ScrollingShooter
                     break;
                 case Dialog.conv14:
                     image = images.GetJaxon();
-                    line = "There's an alien base up here.  I'm close to the base now.";
+                    line = "There's an alien base up here.  I'm close to it now.";
                     if (Keyboard.GetState().IsKeyDown(Keys.Enter) && keyUp)
                     {
                         keyUp = false;
@@ -215,7 +215,7 @@ namespace ScrollingShooter
                     break;
                 case Dialog.conv15:
                     image = images.GetAster();
-                    line = "Jaxon...we've scanned the surface of the moon and we can see whre the weapon will fire \nnext.  They've got it over central Europe.";
+                    line = "Jaxon...we've scanned the surface of the moon and we can see where the weapon will fire \nnext.  They've got it over central Europe.";
                     if (Keyboard.GetState().IsKeyDown(Keys.Enter) && keyUp)
                     {
                         keyUp = false;

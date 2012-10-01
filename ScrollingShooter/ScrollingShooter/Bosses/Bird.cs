@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 
 namespace ScrollingShooter
@@ -38,7 +39,7 @@ namespace ScrollingShooter
         DroneLaser RightLaser;
 
 
-        int headAnimState = 0;
+        int headAnimState = 2;
         bool openingBeak = true;
         static int NUMBER_OF_ANIM_STATES = 4;
 
@@ -53,8 +54,14 @@ namespace ScrollingShooter
         bool laserStatus = false;
         LaserState laserState = 0;
 
+        bool leftLaserDestroyed = false;
+        bool rightLaserDestroyed = false;
         birdEntranceState BES;
 
+        SoundEffect scream;
+        SoundEffect fire;
+        SoundEffect hurt;
+        SoundEffect death;
 
         /// <summary>
         /// The bounding rectangle of the Bird
@@ -111,7 +118,7 @@ namespace ScrollingShooter
             position.Y += 800; 
             this.position = position;
             ScrollingShooterGame.LevelManager.Scrolling = true;
-            this.Health = 20;
+            this.Health = 100;
             this.position = position;
             spritesheet = content.Load<Texture2D>("Spritesheets/newsh0.shp.000001");
 
@@ -172,6 +179,12 @@ namespace ScrollingShooter
             RightLaser.laserPower = WeaponChargeLevel.Low;
             BES = birdEntranceState.flyOver;
 
+            scream = content.Load<SoundEffect>("SFX/hawk_scream");
+            scream.Play();
+            fire = content.Load<SoundEffect>("SFX/bird_fire");
+            hurt = content.Load<SoundEffect>("SFX/hurt_scream");
+            death = content.Load<SoundEffect>("SFX/death_scream");
+
         }
 
         /// <summary>
@@ -184,28 +197,50 @@ namespace ScrollingShooter
             {
                 case birdEntranceState.flyOver:
                     this.position.Y -= elapsedTime * 500;
-
-                    if (position.Y <= 0) // -200
+                    if (position.Y <= 2000) // -200
                     {
                         BES = birdEntranceState.enter;
                     }
                     break;
                 case birdEntranceState.enter:
-                    this.position.Y += elapsedTime * 100;
-                    if (position.Y >= 0)
-                    {
-                        BES = birdEntranceState.normal;
-                    }
-                    //ScrollingShooterGame.LevelManager.Scrolling = false;
-                    break;
-                case birdEntranceState.normal:
-                    fireTimer += elapsedTime;
-                    laserTimer += elapsedTime;
-
-                    float velocity = 1;
-                    // Sense the player's position
                     PlayerShip player = ScrollingShooterGame.Game.Player;
                     Vector2 playerPosition = new Vector2(player.Bounds.Center.X, player.Bounds.Center.Y);
+                    if (ScrollingShooterGame.LevelManager.scrollDistance > -7300 && ScrollingShooterGame.LevelManager.Scrolling == true)
+                    {
+                         ScrollingShooterGame.LevelManager.Scrolling = false;
+                        this.position.Y = 3400;
+                        scream.Play();
+                    }
+                    if (ScrollingShooterGame.LevelManager.Scrolling == false)
+                    {
+                        this.position.Y += elapsedTime * 100;
+                    }
+                    if (position.Y >= 3650 && ScrollingShooterGame.LevelManager.Scrolling == false)
+                    {
+                                BES = birdEntranceState.normal;
+                    }
+                    break;
+                case birdEntranceState.normal:
+                     fireTimer += elapsedTime;
+                    laserTimer += elapsedTime;
+
+                    if (Health < 75 && !leftLaserDestroyed)
+                    {
+                        leftLaserDestroyed = true;
+                        RightLaser.isOn = false;
+                        hurt.Play();
+                    }
+
+                    if (Health < 50 && !rightLaserDestroyed)
+                    {
+                        rightLaserDestroyed = true;
+                        LeftLaser.isOn = false;
+                        hurt.Play();
+                    }
+                    float velocity = 1;
+                    // Sense the player's position
+                    player = ScrollingShooterGame.Game.Player;
+                    playerPosition = new Vector2(player.Bounds.Center.X, player.Bounds.Center.Y);
 
 
                     if (playerPosition.X - Bounds.Center.X < -20)
@@ -224,6 +259,7 @@ namespace ScrollingShooter
                             if (fireTimer > 0.6f)
                             {
                                 ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.BirdWrath, position + beakPosition);
+                                fire.Play();
                                 fireTimer = 0f;
                             }
                         }
@@ -234,6 +270,7 @@ namespace ScrollingShooter
                     if (fireTimer > 1.5f)
                     {
                         ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.BirdWrath, position + beakPosition);
+                        fire.Play();
                         fireTimer = 0f;
                     }
 
@@ -256,8 +293,8 @@ namespace ScrollingShooter
                             }
                             break;
                         case LaserState.on:
-                            LeftLaser.isOn = true;
-                            RightLaser.isOn = true;
+                            if (!rightLaserDestroyed) LeftLaser.isOn = true;
+                            if (!leftLaserDestroyed) RightLaser.isOn = true;
                             LeftLaser.updatePosition(position.X + LeftLaserPosition.X, position.Y + LeftLaserPosition.Y);
                             RightLaser.updatePosition(position.X + RightLaserPosition.X, position.Y + RightLaserPosition.Y);
                             if (laserTimer > 3f)
@@ -280,14 +317,12 @@ namespace ScrollingShooter
                     break;
                 case birdEntranceState.exit:
                     this.position.Y += elapsedTime * 500;
-                    //ScrollingShooterGame.LevelManager.Scrolling = true;
                     break;
             }
             if (Health <= 1)
             {
-                LeftLaser.isOn = false;
-                RightLaser.isOn = false;
                 ScrollingShooterGame.LevelManager.Scrolling = true;
+                death.Play();
             }
         }
 
@@ -332,8 +367,8 @@ namespace ScrollingShooter
                     headAnimTimer = 0;
                 }
                 spriteBatch.Draw(spritesheet, HeadBounds, spriteBoundsAnim[headAnimState], Color.White);
-                spriteBatch.Draw(spritesheet, LaserLeftBounds, spriteBoundsLaser[laserAnimState], Color.White);
-                spriteBatch.Draw(spritesheet, LaserRightBounds, spriteBoundsLaser[laserAnimState], Color.White);
+                if (!leftLaserDestroyed) spriteBatch.Draw(spritesheet, LaserLeftBounds, spriteBoundsLaser[laserAnimState], Color.White);
+                if (!rightLaserDestroyed) spriteBatch.Draw(spritesheet, LaserRightBounds, spriteBoundsLaser[laserAnimState], Color.White);
             }
         }
 

@@ -377,7 +377,7 @@
       <Name>shapeswmodified</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
-      <ProcessorParameters_ColorKeyColor>191, 220, 191, 255</ProcessorParameters_ColorKeyColor>
+      <ProcessorParameters_ColorKeyColor>192, 220, 192, 255</ProcessorParameters_ColorKeyColor>
     </Compile>
     <Compile Include="Spritesheets\accessories.png">
       <Name>accessories</Name>
@@ -447,10 +447,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Spritesheets\explosion.png">
-      <Name>explosion</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
+    <Compile Include="SFX\hawk_scream.wav">
+      <Name>hawk_scream</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -499,6 +499,27 @@
   <ItemGroup>
     <Compile Include="SFX\anti_tank_gun_single_shot.wav">
       <Name>anti_tank_gun_single_shot</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="SFX\death_scream.wav">
+      <Name>death_scream</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="SFX\bird_fire.wav">
+      <Name>bird_fire</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="SFX\hurt_scream.wav">
+      <Name>hurt_scream</Name>
       <Importer>WavImporter</Importer>
       <Processor>SoundEffectProcessor</Processor>
     </Compile>

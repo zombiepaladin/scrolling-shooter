@@ -119,7 +119,6 @@
     <Compile Include="Bosses\GiantAlien.cs" />
     <Compile Include="Bosses\MBCloseC.cs" />
     <Compile Include="Bosses\MoonBoss.cs" />
-    <Compile Include="Effects\Explosion2.cs" />
     <Compile Include="Enemies\BigBad.cs" />
     <Compile Include="Enemies\AlienHead.cs" />
     <Compile Include="Enemies\AlienTurret.cs" />

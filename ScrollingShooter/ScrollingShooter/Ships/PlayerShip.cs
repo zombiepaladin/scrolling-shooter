@@ -38,7 +38,7 @@ namespace ScrollingShooter
         /// <summary>
         /// Player's Health
         /// </summary>
-        public float Health = 100;
+        public float Health = 10000;
 
         #region Timers
 
@@ -664,15 +664,6 @@ namespace ScrollingShooter
             Vector2 newDir = direction - position;
             newDir.Normalize();
             position += newDir * 2;
-        }
-
-        /// <summary>
-        /// Scrolls the object with the map
-        /// </summary>
-        /// <param name="elapsedTime">The in-game time between the previous and current frame</param>
-        public override void ScrollWithMap(float elapsedTime)
-        {
-            // Does nothing
         }
     }
 }

@@ -353,14 +353,5 @@ namespace ScrollingShooter
             spriteBounds[(int)animationFrame.dying5].Width = 48;
             spriteBounds[(int)animationFrame.dying5].Height = 48;
         }
-		
-		/// <summary>
-        /// Scrolls the object with the map
-        /// </summary>
-        /// <param name="elapsedTime">The in-game time between the previous and current frame</param>
-		public override void ScrollWithMap(float elapsedTime)
-		{
-			position.Y += ScrollingSpeed * elapsedTime;
-		}
     }
 }

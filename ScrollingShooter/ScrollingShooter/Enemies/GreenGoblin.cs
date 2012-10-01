@@ -83,7 +83,7 @@ namespace ScrollingShooter
             PlayerShip player = ScrollingShooterGame.Game.Player;
             Vector2 playerPosition = new Vector2(player.Bounds.Center.X, player.Bounds.Center.Y);
 
-            gunTimer += 0;
+            gunTimer += elapsedTime;
 
             // Get the distance between the player and this along the X axis
             float playerDistance = Math.Abs(playerPosition.X - this.position.X);
@@ -163,15 +163,6 @@ namespace ScrollingShooter
         {
             spriteBatch.Draw(spritesheet, Bounds, spriteBounds[(int)steeringState], Color.White);
         }
-		
-		/// <summary>
-        /// Scrolls the object with the map
-        /// </summary>
-        /// <param name="elapsedTime">The in-game time between the previous and current frame</param>
-		public override void ScrollWithMap(float elapsedTime)
-		{
-			position.Y += elapsedTime * ScrollingSpeed;
-		}
 
     }
 }

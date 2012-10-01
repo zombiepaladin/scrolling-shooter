@@ -264,7 +264,7 @@ namespace ScrollingShooter
                         case ObjectType.Enemy:
 
                             //Only need to collide if player is not dead or invincible
-                            if (Player != null || player.GetState == PlayerState.Alive) 
+                            if (Player != null && player.GetState == PlayerState.Alive) 
                             {
                                 Enemy enemy = collider as Enemy;
                                 if (enemy.GetType() == typeof(Kamikaze) ||
@@ -284,7 +284,7 @@ namespace ScrollingShooter
                         case ObjectType.EnemyProjectile:
 
                             //Only need to collide if player is not dead or invincible
-                            if (Player != null || player.GetState == PlayerState.Alive)
+                            if (Player != null && player.GetState == PlayerState.Alive)
                             {
                                 Projectile projectile = collider as Projectile;
 

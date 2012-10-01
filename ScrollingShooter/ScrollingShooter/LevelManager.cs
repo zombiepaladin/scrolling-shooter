@@ -118,7 +118,7 @@ namespace ScrollingShooter
                                 break;
 
                             case "Enemy":
-                                go = ScrollingShooterGame.GameObjectManager.CreateEnemy((EnemyType)Enum.Parse(typeof(EnemyType), goData.Type), position, new object[] { 2 });
+                                go = ScrollingShooterGame.GameObjectManager.CreateEnemy((EnemyType)Enum.Parse(typeof(EnemyType), goData.Type), position);
                                 CurrentMap.GameObjectGroups[i].GameObjectData[j].ID = go.ID;
                                 go.LayerDepth = CurrentMap.GameObjectGroups[i].LayerDepth;
                                 go.ScrollingSpeed = CurrentMap.GameObjectGroups[i].ScrollingSpeed;

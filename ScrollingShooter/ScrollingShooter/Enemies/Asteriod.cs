@@ -63,13 +63,13 @@ namespace ScrollingShooter
             _position += VELOCITIES[_size - 1];
             
             //If the asteriod is destroyed then spawn more in it's place.
-            if (Health <= 0 && _size > 1)
+            /*if (Health <= 0 && _size > 1)
             {
                 for (int i = 0; i < _size; i++)
                 {
                     ScrollingShooterGame.GameObjectManager.CreateEnemy(EnemyType.Asteriod, _position, new object[] { _size - 1 });
                 }
-            }
+            }*/
         }
 
         /// <summary>

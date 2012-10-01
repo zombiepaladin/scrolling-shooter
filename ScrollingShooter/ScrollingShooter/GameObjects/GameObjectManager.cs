@@ -1,297 +1,3 @@
-<<<<<<< HEAD
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.Graphics;
-
-namespace ScrollingShooter
-{
-    /// <summary>
-    /// A class for managing game objects
-    /// </summary>
-    public class GameObjectManager
-    {
-        ContentManager content;
-
-        uint objectCount = 0;
-
-        Dictionary<uint, GameObject> gameObjects;
-
-        Queue<GameObject> createdGameObjects;
-        Queue<GameObject> destroyedGameObjects;
-
-        Dictionary<uint, BoundingBox> boundingBoxes;
-
-        List<Bound> horizontalAxis;
-        List<Bound> verticalAxis;
-
-        HashSet<CollisionPair> horizontalOverlaps;
-        HashSet<CollisionPair> verticalOverlaps;
-        HashSet<CollisionPair> collisions;
-
-        //control the lavabug boss
-        bool lavaFlip;
-
-        /// <summary>
-        /// Constructs a new GameObjectManager instance
-        /// </summary>
-        /// <param name="content">A ContentManager to use in loading assets</param>
-        public GameObjectManager(ContentManager content)
-        {
-            this.content = content;
-
-            gameObjects = new Dictionary<uint, GameObject>();
-
-            createdGameObjects = new Queue<GameObject>();
-            destroyedGameObjects = new Queue<GameObject>();
-
-            boundingBoxes = new Dictionary<uint, BoundingBox>();
-            horizontalAxis = new List<Bound>();
-            verticalAxis = new List<Bound>();
-
-            horizontalOverlaps = new HashSet<CollisionPair>();
-            verticalOverlaps = new HashSet<CollisionPair>();
-            collisions = new HashSet<CollisionPair>();
-
-            //lavabug
-            lavaFlip = true;
-        }
-
-
-        /// <summary>
-        /// Updates the GameObjectManager, and all objects in the game
-        /// </summary>
-        /// <param name="elapsedTime">The time between this and the previous frame</param>
-        public void Update(float elapsedTime)
-        {
-            // Add newly created game objects
-            while (createdGameObjects.Count > 0)
-            {
-                GameObject go = createdGameObjects.Dequeue();
-                AddGameObject(go);
-            }
-
-            // Remove destroyed game objects
-            while (destroyedGameObjects.Count > 0)
-            {
-                GameObject go = destroyedGameObjects.Dequeue();
-                RemoveGameObject(go);
-            } 
-            
-            // Update our game objects
-            //foreach (GameObject go in gameObjects.Values)
-            //{
-            //    // Call the GameObject's own update method
-            //    go.Update(elapsedTime);
-
-            //    // Update the game object's bounds to reflect 
-            //    // changes this frame
-            //    UpdateGameObject(go.ID);
-            //}
-
-            // Update our axis lists
-            UpdateAxisLists();
-        }
-
-
-        /// <summary>
-        /// Draws all game Objects
-        /// </summary>
-        /// <param name="elapsedTime"></param>
-        /// <param name="spriteBatch"></param>
-        public void Draw(float elapsedTime, SpriteBatch spriteBatch)
-        {
-            foreach (GameObject go in gameObjects.Values)
-            {
-                go.Draw(elapsedTime, spriteBatch);
-            }
-        }
-
-
-        #region Query Methods
-
-        /// <summary>
-        /// A HashSet containing all unique collisions for
-        /// the current frame
-        /// </summary>
-        public HashSet<CollisionPair> Collisions
-        {
-            get { return collisions; }
-        }
-
-        /// <summary>
-        /// Returns the GameObject instance corresponding to the specified 
-        /// game object id
-        /// </summary>
-        /// <param name="id">The game object's ID</param>
-        /// <returns>The specified GameObject</returns>
-        public GameObject GetObject(uint id)
-        {
-            return gameObjects[id];
-        }
-
-
-        /// <summary>
-        /// Removes the indicated game object from the game
-        /// </summary>
-        /// <param name="id">The game object's ID</param>
-        /// <returns>The specified GameObject</returns>
-        public GameObject DestroyObject(uint id)
-        {
-            GameObject go = gameObjects[id];
-            destroyedGameObjects.Enqueue(go);
-            return go;
-        }
-
-
-        /// <summary>
-        /// Queries a rectangular region and retuns game object ids for
-        /// all game objects within that region
-        /// </summary>
-        /// <param name="bounds">A bounding rectangle for the region of interest</param>
-        /// <returns>An array of game object ids</returns>
-        public uint[] QueryRegion(Rectangle bounds)
-        {
-            HashSet<uint> matches = new HashSet<uint>();
-
-            // Find the minimal index in the horizontal axis list using binary search
-            Bound left = new Bound(null, bounds.Left, BoundType.Min);
-
-            int minHorizontalIndex = horizontalAxis.BinarySearch(left);
-            if (minHorizontalIndex < 0)
-            {
-                // If the index returned by binary search is negative,
-                // then our current bound value does not exist within the
-                // axis (most common case).  The bitwise compliement (~) of
-                // that index value indicates the index of the first element 
-                // in the axis list *larger* than our bound, and therefore
-                // the first potentailly intersecting item
-                minHorizontalIndex = ~minHorizontalIndex;
-            }
-
-            Bound right = new Bound(null, bounds.Left, BoundType.Max);
-            int maxHorizontalIndex = horizontalAxis.BinarySearch(right);
-            if (maxHorizontalIndex < 0) maxHorizontalIndex = ~maxHorizontalIndex;
-
-            for (int i = minHorizontalIndex; i < maxHorizontalIndex; i++)
-            {
-                matches.Add(horizontalAxis[i].Box.GameObjectID);
-            }
-
-            Bound top = new Bound(null, bounds.Left, BoundType.Min);
-            int minVerticalIndex = verticalAxis.BinarySearch(top);
-            if (minVerticalIndex < 0) minVerticalIndex = ~minVerticalIndex;
-
-            Bound bottom = new Bound(null, bounds.Bottom, BoundType.Max);
-            int maxVerticalIndex = verticalAxis.BinarySearch(bottom);
-            if (maxVerticalIndex < 0) maxVerticalIndex = ~maxVerticalIndex;
-
-            for (int i = minVerticalIndex; i < maxVerticalIndex; i++)
-            {
-                matches.Add(verticalAxis[i].Box.GameObjectID);
-            }
-
-            return matches.ToArray();
-        }
-
-        #endregion
-
-        #region Factory Methods
-
-        /// <summary>
-        /// Helper method that provides the next unique game object ID
-        /// </summary>
-        /// <returns>The next unique game object id</returns>
-        private uint NextID()
-        {
-            uint id = objectCount;
-            objectCount++;
-            return id;
-        }
-
-
-        /// <summary>
-        /// Helper method for enqueueing our game object for creation at the 
-        /// start of the next update cycle.  
-        /// </summary>
-        /// <param name="go">The ready-to-spawn game object</param>
-        private void QueueGameObjectForCreation(GameObject go)
-        {
-            createdGameObjects.Enqueue(go);
-        }
-
-
-        public Boss CreateBoss(BossType enemyType, Vector2 position)
-        {
-            Boss boss;
-            uint id = NextID();
-            switch (enemyType)
-            {
-                case BossType.Blimp:
-                    boss = new Blimp(id, position, content);
-                    QueueGameObjectForCreation(new LeftGun(NextID(), content, boss as Blimp));
-                    QueueGameObjectForCreation(new RightGun(NextID(), content, boss as Blimp));
-                    break;
-
-                case BossType.TwinJetManager:
-                    boss = new TwinJetManager(id, content, position);
-                    break;
-
-                case BossType.MoonBoss:
-                    boss = new MoonBoss(id, content, position);
-                    break;
-
-                default:
-                    throw new NotImplementedException("The boss type " + Enum.GetName(typeof(BossType), enemyType) + " is not supported");
-            }
-            boss.ObjectType = ObjectType.Boss;
-            QueueGameObjectForCreation(boss);
-            return boss;
-        }
-
-
-        /// <summary>
-        /// Factory method for creating an explosion
-        /// </summary>
-        /// <param name="colliderID">The source of the explosion</param>
-        /// <returns>The newly-spawned explosion</returns>
-
-        public Explosion CreateExplosion(uint colliderID)
-        {
-            Explosion ex;
-            uint id = NextID();
-            Vector2 pos = new Vector2(GetObject(colliderID).Bounds.X, GetObject(colliderID).Bounds.Y);
-            ex = new Explosion(id, pos, content);
-            QueueGameObjectForCreation(ex);
-            return ex;
-        }
-
-
-        /// <summary>
-        /// Factory method to create a Player ship
-        /// </summary>
-        /// <param name="PlayerShipType">The type of Player ship to create</param>
-        /// <param name="position">The position of the Player ship in the game world</param>
-        /// <returns>The game object id of the Player ship</returns>
-        public PlayerShip CreatePlayerShip(PlayerShipType PlayerShipType, Vector2 position)
-        {
-            PlayerShip PlayerShip;
-            uint id = NextID();
-
-            switch (PlayerShipType)
-            {
-                case PlayerShipType.Shrike:
-                    PlayerShip = new ShrikeShip(id, content, position);
-                    break;
-
-                default:
-                    throw new NotImplementedException("The Player ship type " + Enum.GetName(typeof(PlayerShipType), PlayerShipType) + " is not supported");
-            }
-
-=======
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -377,8 +83,8 @@ namespace ScrollingShooter
                 GameObject go = destroyedGameObjects.Dequeue();
                 if (go is Enemy || go is Boss || go is Powerup) scrollingObjects.Remove(go.ID);
                 RemoveGameObject(go);
-            } 
-            
+            }
+
             // Update our game objects
             //foreach (GameObject go in gameObjects.Values)
             //{
@@ -544,7 +250,7 @@ namespace ScrollingShooter
                 case BossType.TwinJetManager:
                     boss = new TwinJetManager(id, content, position);
                     break;
-                
+
                 default:
                     throw new NotImplementedException("The boss type " + Enum.GetName(typeof(BossType), enemyType) + " is not supported");
             }
@@ -608,7 +314,6 @@ namespace ScrollingShooter
                     throw new NotImplementedException("The Player ship type " + Enum.GetName(typeof(PlayerShipType), PlayerShipType) + " is not supported");
             }
 
->>>>>>> e27bb3cd33861b3496f772d59930bbb343c4f48a
             PlayerShip.ObjectType = ObjectType.Player;
             QueueGameObjectForCreation(PlayerShip);
             return PlayerShip;
@@ -643,15 +348,15 @@ namespace ScrollingShooter
                 case PowerupType.Freezewave:
                     powerup = new FreezewavePowerup(id, content, position);
                     break;
-                
+
                 case PowerupType.Blades:
                     powerup = new BladesPowerup(id, content, position);
                     break;
-                
+
                 case PowerupType.EightBallShield: //added EightBallShield
                     powerup = new EightBallShieldPowerup(id, content, position);
                     break;
-                
+
                 case PowerupType.TriShield:
                     powerup = new TriShieldPowerup(id, content, position);
                     break;
@@ -734,11 +439,11 @@ namespace ScrollingShooter
                 case ProjectileType.Fireball:
                     projectile = new Fireball(id, content, position);
                     break;
-                
+
                 case ProjectileType.BubbleBullet:
                     projectile = new BubbleBullet(id, content, position);
                     break;
-                
+
                 case ProjectileType.Bomb:
                     projectile = new Bomb(id, content, position, true);
                     break;
@@ -789,90 +494,11 @@ namespace ScrollingShooter
                     projectile = new GenericEnemyBullet(id, content, position);
                     break;
 
-                case ProjectileType.DroneWave:                    
+                case ProjectileType.DroneWave:
                     // waveIndex helps draw the wave to the left and right of the ship, while waveSpacing holds the vector difference of space between each drone.
                     // Drone count is managed by 2*i.
                     Vector2 waveIndex = new Vector2(-1, 1);
-                    Vector2 waveSpacing = new Vector2(40,30);
-<<<<<<< HEAD
-                    for (int i = 0; i < 5; i++)
-                    {
-                        projectile = new DroneWave(id, content, position + waveSpacing * waveIndex * i);
-                        QueueGameObjectForCreation(projectile);
-                        id = NextID();
-                        projectile = new DroneWave(id, content, position + waveSpacing * i);
-                        QueueGameObjectForCreation(projectile);
-                        id = NextID();
-                    }
-                    break;
-
-                case ProjectileType.TurretFireball:
-                    projectile = new TurretFireball(id, content, position);
-                    break;
-
-                case ProjectileType.JetMinionBullet:
-                    projectile = new JetMinionBullet(id, content, position);
-                    break;
-
-                case ProjectileType.EnergyBlast:
-                    projectile = new EnergyBlast(id, content, position, ScrollingShooterGame.Game.Player.energyBlastLevel);
-                    break;
-
-                case ProjectileType.EnemyBullet:
-
-                    // Bullet velocity
-                    float bulletVel = 200f;
-
-                    //ScrollingShooterGame.Game.projectiles.Add(new EnemyBullet(ScrollingShooterGame.Game.Content, this.position + offset, bulletVel * toPlayer));
-
-                    Vector2 toPlayer = (new Vector2(ScrollingShooterGame.Game.Player.Bounds.Center.X,
-                        ScrollingShooterGame.Game.Player.Bounds.Center.Y) - position);
-
-                    toPlayer.Normalize();
-
-                    projectile = new EnemyBullet(id, content, position, bulletVel * toPlayer);
-                    break;
-                case ProjectileType.EnemyBomb:
-                    projectile = new Bomb(id, content, position, false);
-                    break;
-
-                case ProjectileType.ShotgunBullet:
-                    projectile = new ShotgunBullet(id, content, position, BulletDirection.Straight);
-                    QueueGameObjectForCreation(new ShotgunBullet(NextID(), content, position, BulletDirection.Left));
-                    QueueGameObjectForCreation(new ShotgunBullet(NextID(), content, position, BulletDirection.Right));
-                    QueueGameObjectForCreation(new ShotgunBullet(NextID(), content, position, BulletDirection.HardLeft));
-                    QueueGameObjectForCreation(new ShotgunBullet(NextID(), content, position, BulletDirection.HardRight));
-                    break;
-
-                case ProjectileType.BlimpShotgun:
-                    projectile = new BlimpShotgun(id, content, position, BulletDirection.Straight);
-                    QueueGameObjectForCreation(new BlimpShotgun(NextID(), content, position, BulletDirection.Left));
-                    QueueGameObjectForCreation(new BlimpShotgun(NextID(), content, position, BulletDirection.Right));
-                    QueueGameObjectForCreation(new BlimpShotgun(NextID(), content, position, BulletDirection.HardLeft));
-                    QueueGameObjectForCreation(new BlimpShotgun(NextID(), content, position, BulletDirection.HardRight));
-                    break;
-
-                case ProjectileType.Meteor:
-                    projectile = new Meteor(id, content, position);
-                    break;
-
-                case ProjectileType.BigMeteor:
-                    projectile = new BigMeteor(id, content, position);
-                    break;
-
-                case ProjectileType.EnemyFlameball:
-                    projectile = new EnemyFlameball(id, content, position);
-                    break;
-
-                case ProjectileType.RGSabot:
-                    projectile = new RGSabot(id, content, position);
-                    break;
-
-                case ProjectileType.BlimpBullet:
-                    projectile = new BlimpBullet(id, content, position);
-                    break;
-
-=======
+                    Vector2 waveSpacing = new Vector2(40, 30);
                     for (int i = 0; i < 5; i++)
                     {
                         projectile = new DroneWave(id, content, position + waveSpacing * waveIndex * i);
@@ -954,7 +580,6 @@ namespace ScrollingShooter
                     projectile = new BlimpBullet(id, content, position);
                     break;
 
->>>>>>> e27bb3cd33861b3496f772d59930bbb343c4f48a
                 case ProjectileType.BirdWrath:
                     projectile = new BirdWrath(id, content, position);
                     break;
@@ -962,7 +587,7 @@ namespace ScrollingShooter
                 case ProjectileType.FreezewaveProjectile:
                     projectile = new FreezewaveProjectile(id, content, position);
                     break;
-                    
+
                 case ProjectileType.Photon:
                     projectile = new Photon(id, content, position);
                     break;
@@ -1000,11 +625,6 @@ namespace ScrollingShooter
                     break;
                 case ProjectileType.CobaltBomb:
                     projectile = new CobaltBomb(id, content, position);
-                     break;
-
-
-                case ProjectileType.Laser:
-                    projectile = new Bullet(id, content, position);
                     break;
 
                 default:
@@ -1053,7 +673,7 @@ namespace ScrollingShooter
         /// <param name="enemyType">The type of enemy to spawn</param>
         /// <param name="position">The location to spawn the enemy</param>
         /// <returns></returns>
-        public Enemy CreateEnemy(EnemyType enemyType, Vector2 position, object[] args = null)
+        public Enemy CreateEnemy(EnemyType enemyType, Vector2 position)
         {
             Enemy enemy;
             uint id = NextID();
@@ -1103,7 +723,7 @@ namespace ScrollingShooter
                 case EnemyType.TurretTower:
                     enemy = new TurretTower(id, content, position);
                     break;
-                
+
                 case EnemyType.StdBaddy:
                     enemy = new StdBaddy(id, content, position);
                     break;
@@ -1172,16 +792,13 @@ namespace ScrollingShooter
                 case EnemyType.SuicideBomber:
                     enemy = new SuicideBomber(id, content, position);
                     break;
-                
+
                 case EnemyType.LavaFighter:
                     enemy = new LavaFighter(id, content, position);
                     break;
 
                 case EnemyType.TwinJet:
                     enemy = new TwinJet(id, content, position);
-                    break;
-                case EnemyType.Asteriod:
-                    enemy = new Asteriod(id, content, position, (int)args[0]);
                     break;
 
                 case EnemyType.AlienTurret:
@@ -1344,122 +961,7 @@ namespace ScrollingShooter
             return index;
         }
 
-        
-<<<<<<< HEAD
-        /// <summary>
-        /// Helper method that adds a GameObject to the GameObjectManager
-        /// </summary>
-        /// <param name="gameObject">The Game Object to add</param>
-        private void AddGameObject(GameObject gameObject)
-        {
-            uint id = gameObject.ID;
 
-            // Store the game object in our list of all game objects
-            gameObjects.Add(id, gameObject);
-
-            // Create the game object's bounding box
-            BoundingBox box = new BoundingBox(id, gameObject.Bounds);
-            boundingBoxes.Add(id, box);
-
-            // Store the game object's bounds in our horizontal axis list
-            int leftIndex = InsertBoundIntoAxis(horizontalAxis, box.Left);
-            int rightIndex = InsertBoundIntoAxis(horizontalAxis, box.Right);
-
-            // Grab any game object ids for game objects whose bounds fall
-            // between the min and max bounds of our new game object
-            for (int i = leftIndex + 1; i < rightIndex; i++)
-            {
-                horizontalOverlaps.Add(new CollisionPair(id, horizontalAxis[i].Box.GameObjectID));
-            }
-
-            // Store the new game object's bounds in our vertical axis list
-            int topIndex = InsertBoundIntoAxis(verticalAxis, box.Top);
-            int bottomIndex = InsertBoundIntoAxis(verticalAxis, box.Bottom);
-
-            // Grab any game object ids for game objects whose bounds fall
-            // between the min and max of our new game object
-            for (int i = topIndex + 1; i < bottomIndex; i++)
-            {
-                verticalOverlaps.Add(new CollisionPair(id, verticalAxis[i].Box.GameObjectID));
-            }
-        }
-
-
-        /// <summary>
-        /// Updates the position of a GameObject within the axis
-        /// lists
-        /// </summary>
-        /// <param name="gameObjectID">The ID of the game object to update</param>
-        public void UpdateGameObject(uint gameObjectID)
-        {
-            // Grab our bounding box
-            BoundingBox box = boundingBoxes[gameObjectID];
-
-            // Grab our game object
-            GameObject go = gameObjects[gameObjectID];
-
-            // Apply the changes to bounding box
-            box.Left.Value = go.Bounds.Left;
-            box.Right.Value = go.Bounds.Right;
-            box.Top.Value = go.Bounds.Top;
-            box.Bottom.Value = go.Bounds.Bottom;
-        }
-
-        /// <summary>
-        /// Removes a Game object from the axis
-        /// </summary>
-        /// <param name="gameObject">The game object to remove</param>
-        private void RemoveGameObject(GameObject gameObject)
-        {
-            uint id = gameObject.ID;
-
-            // Remove the game object from our list of all game objects
-            gameObjects.Remove(id);
-
-            // Remove the game object from our collection of collisions
-            int i = collisions.Count - 1;
-            while (i >= 0)
-            {
-                CollisionPair pair = collisions.ElementAt(i);
-                if (pair.A == id || pair.B == id)
-                    collisions.Remove(pair);
-                i--;
-            }
-
-            // Remove the game object from our collection of overlaps
-            i = horizontalOverlaps.Count - 1;
-            while (i >= 0)
-            {
-                CollisionPair pair = horizontalOverlaps.ElementAt(i);
-                if (pair.A == id || pair.B == id)
-                    horizontalOverlaps.Remove(pair);
-                i--;
-            }
-            i = verticalOverlaps.Count - 1;
-            while (i >= 0)
-            {
-                CollisionPair pair = verticalOverlaps.ElementAt(i);
-                if (pair.A == id || pair.B == id)
-                    verticalOverlaps.Remove(pair);
-                i--;
-            }
-
-            // Grab the game object's bounding box
-            BoundingBox box = boundingBoxes[id];
-
-            // Remove the game objects' bounds from our horizontal axis lists
-            horizontalAxis.Remove(box.Left);
-            horizontalAxis.Remove(box.Right);
-            verticalAxis.Remove(box.Top);
-            verticalAxis.Remove(box.Bottom);
-
-            // Remove the game object's bounding box
-            boundingBoxes.Remove(id);
-        }
-
-        #endregion
-    }
-=======
         /// <summary>
         /// Helper method that adds a GameObject to the GameObjectManager
         /// </summary>
@@ -1564,7 +1066,7 @@ namespace ScrollingShooter
             {
                 box = boundingBoxes[id];
             }
-            catch (KeyNotFoundException ke) 
+            catch (KeyNotFoundException ke)
             {
                 return;
             }
@@ -1581,5 +1083,4 @@ namespace ScrollingShooter
 
         #endregion
     }
->>>>>>> e27bb3cd33861b3496f772d59930bbb343c4f48a
 }

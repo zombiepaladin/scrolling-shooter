@@ -44,6 +44,7 @@ namespace ScrollingShooter
         public PlayerShip Player;
         Song Music;
         SplashScreen Splash;
+        Credits Credits;
 
         GameState GameState;
 
@@ -94,6 +95,7 @@ namespace ScrollingShooter
             LevelManager.LoadContent();
             LevelManager.LoadLevel("Airbase");
             GuiManager.LoadContent();
+            Credits = new Credits();
             GameState = GameState.Initializing;
         }
 
@@ -153,7 +155,15 @@ namespace ScrollingShooter
                     break;
 
                 case GameState.Credits:
-                    // TODO: Launch new game when player hits space
+                    if (Credits.State == ScrollingShooter.Credits.CreditsState.Finished
+                        && Keyboard.GetState().IsKeyDown(Keys.Space))
+                    {
+                        GameState = ScrollingShooter.GameState.Gameplay;
+                    }
+                    else
+                    {
+                        Credits.Update(elapsedTime);
+                    }
                     break;
             }
 
@@ -176,7 +186,9 @@ namespace ScrollingShooter
             switch (GameState)
             {
                 case GameState.Splash:
-                    // TODO: Render splash screen
+                    spriteBatch.Begin(0, null, SamplerState.LinearClamp, null, null, null);
+                    Splash.Draw(elapsedGameTime, spriteBatch);
+                    spriteBatch.End();
                     break;
 
                 case GameState.Gameplay:
@@ -196,7 +208,9 @@ namespace ScrollingShooter
                     break;
 
                 case GameState.Credits:
-                    // TODO: Render the credits screen
+                    spriteBatch.Begin(0, null, SamplerState.LinearClamp, null, null, null);
+                    Credits.Draw(elapsedGameTime, spriteBatch);
+                    spriteBatch.End();
                     break;
             }
 
@@ -232,15 +246,12 @@ namespace ScrollingShooter
 
                         case ObjectType.Enemy:
                             Enemy enemy = collider as Enemy;
-                            if (enemy.GetType() == typeof(Kamikaze) ||
-                                enemy.GetType() == typeof(SuicideBomber))
-                            {
-                                //Player take damage
-                                GameObjectManager.DestroyObject(collider.ID);
-                                GameObjectManager.CreateExplosion2(collider.ID, 0.5f);
-                                // Update the player's score
-                                player.Score += enemy.Score;
-                            }
+                            //Player take damage
+                            player.Health -= enemy.Health;
+                            GameObjectManager.DestroyObject(collider.ID);
+                            GameObjectManager.CreateExplosion2(collider.ID, 0.5f);
+                            // Update the player's score
+                            player.Score += enemy.Score;
                             break;
 
                         case ObjectType.EnemyProjectile:

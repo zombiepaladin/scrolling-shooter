@@ -66,7 +66,6 @@
    <property name="LayerDepth" value="1"/>
   </properties>
   <object x="200" y="1298" height="3"/>
-  <object name="end" x="252" y="1427"/>
   <object name="PlayerStart" type="PlayerStart" x="189" y="5330"/>
   <object name="Enemy" type="Bomber" x="49" y="4925" width="39" height="40">
    <properties>
@@ -88,61 +87,123 @@
     <property name="EnemyType" value="Dart"/>
    </properties>
   </object>
-  <object name="Enemy" type="DeerTickLeft" x="327" y="4851" width="39" height="40">
+  <object name="Enemy" type="DeerTickLeft" x="326" y="4783" width="57" height="17">
    <properties>
     <property name="EnemyType" value="Dart"/>
    </properties>
   </object>
-  <object name="Enemy" type="DeerTickRight" x="41" y="4783" width="32" height="55"/>
-  <object name="Enemy" type="DeerTickRight" x="24" y="5050" width="32" height="55"/>
-  <object name="Enemy" type="DeerTickLeft" x="322" y="5013" width="39" height="40">
+  <object name="Enemy" type="DeerTickLeft" x="322" y="5013" width="70" height="18">
    <properties>
     <property name="EnemyType" value="Dart"/>
    </properties>
   </object>
-  <object name="Enemy" type="LaserDrone " x="119" y="3123" width="39" height="40">
+  <object name="Enemy" type="LaserDrone " x="90" y="3185" width="5" height="91">
    <properties>
     <property name="EnemyType" value="Dart"/>
    </properties>
   </object>
-  <object name="Enemy" type="LaserDrone " x="304" y="1879" width="39" height="40">
+  <object name="Enemy" type="LaserDrone " x="304" y="1879" width="11" height="105">
    <properties>
     <property name="EnemyType" value="Dart"/>
    </properties>
   </object>
-  <object name="Enemy" type="Cobalt" x="302" y="5245" width="32" height="55"/>
-  <object name="Enemy" type="Cobalt" x="295" y="4585" width="32" height="55"/>
-  <object name="Enemy" type="Cobalt" x="227" y="4429" width="32" height="55"/>
-  <object name="Enemy" type="Cobalt" x="139" y="4440" width="32" height="55"/>
-  <object name="Enemy" type="Cobalt" x="317" y="4120" width="32" height="55"/>
-  <object name="Enemy" type="Cobalt" x="96" y="3985" width="32" height="55"/>
   <object name="Enemy" type="Cobalt" x="279" y="3771" width="32" height="55"/>
-  <object name="Enemy" type="Cobalt" x="61" y="3754" width="32" height="55"/>
-  <object name="Enemy" type="Cobalt" x="64" y="2930" width="32" height="55"/>
-  <object name="Enemy" type="Cobalt" x="320" y="2979" width="32" height="55"/>
-  <object name="Enemy" type="Cobalt" x="56" y="2767" width="32" height="55"/>
-  <object name="Enemy" type="Cobalt" x="252" y="2739" width="32" height="55"/>
-  <object name="Enemy" type="Cobalt" x="161" y="2634" width="32" height="55"/>
-  <object name="Enemy" type="Seed" x="184" y="4578" width="39" height="40">
+  <object name="Enemy" type="Seed" x="179" y="3452" width="25" height="21">
    <properties>
     <property name="EnemyType" value="Dart"/>
    </properties>
   </object>
-  <object name="Enemy" type="Seed" x="179" y="3452" width="39" height="40">
+  <object name="Enemy" type="Seed" x="229" y="2393" width="11" height="9">
    <properties>
     <property name="EnemyType" value="Dart"/>
    </properties>
   </object>
-  <object name="Enemy" type="Seed" x="165" y="2206" width="39" height="40">
-   <properties>
-    <property name="EnemyType" value="Dart"/>
-   </properties>
-  </object>
-  <object name="Enemy" type="StdBaddy" x="110" y="2365" width="39" height="40">
+  <object name="Enemy" type="StdBaddy" x="44" y="2360" width="39" height="40">
    <properties>
     <property name="EnemyType" value="Dart"/>
    </properties>
   </object>
   <object name="Boss" type="Bird" x="123" y="4790" width="155" height="108"/>
+  <object name="Enemy" type="Seed" x="183" y="4131" width="16" height="18">
+   <properties>
+    <property name="EnemyType" value="Dart"/>
+   </properties>
+  </object>
+  <object name="Enemy" type="Seed" x="188" y="1915" width="9" height="20">
+   <properties>
+    <property name="EnemyType" value="Dart"/>
+   </properties>
+  </object>
+  <object name="Powerup" type="Fireball" x="172" y="4672" width="46" height="33"/>
+  <object name="PlayerEnd" type="end" x="-2" y="72" width="384" height="17">
+   <properties>
+    <property name="PlayerEnd" value="End"/>
+   </properties>
+  </object>
+  <object name="Powerup" type="Bomb" x="186" y="3996" width="46" height="33"/>
+  <object name="Enemy" type="Bomber" x="302" y="3325" width="39" height="40">
+   <properties>
+    <property name="EnemyType" value="Dart"/>
+   </properties>
+  </object>
+  <object name="Enemy" type="Bomber" x="227" y="3325" width="39" height="40">
+   <properties>
+    <property name="EnemyType" value="Dart"/>
+   </properties>
+  </object>
+  <object name="Enemy" type="Bomber" x="39" y="3321" width="39" height="40">
+   <properties>
+    <property name="EnemyType" value="Dart"/>
+   </properties>
+  </object>
+  <object name="Enemy" type="Bomber" x="114" y="3320" width="39" height="40">
+   <properties>
+    <property name="EnemyType" value="Dart"/>
+   </properties>
+  </object>
+  <object name="Enemy" type="Seed" x="174" y="2855" width="23" height="15">
+   <properties>
+    <property name="EnemyType" value="Dart"/>
+   </properties>
+  </object>
+  <object name="Enemy" type="Cobalt" x="71" y="3749" width="32" height="55"/>
+  <object name="Enemy" type="Cobalt" x="83" y="746" width="32" height="55"/>
+  <object name="Powerup" type="Bomb" x="184" y="907" width="46" height="33"/>
+  <object name="Enemy" type="Cobalt" x="280" y="731" width="32" height="55"/>
+  <object name="Enemy" type="Seed" x="64" y="1548" width="23" height="19">
+   <properties>
+    <property name="EnemyType" value="Dart"/>
+   </properties>
+  </object>
+  <object name="Enemy" type="Seed" x="299" y="1541" width="16" height="19">
+   <properties>
+    <property name="EnemyType" value="Dart"/>
+   </properties>
+  </object>
+  <object name="Enemy" type="StdBaddy" x="177" y="1491" width="39" height="40">
+   <properties>
+    <property name="EnemyType" value="Dart"/>
+   </properties>
+  </object>
+  <object name="Enemy" type="LaserDrone " x="277" y="3176" width="5" height="91">
+   <properties>
+    <property name="EnemyType" value="Dart"/>
+   </properties>
+  </object>
+  <object name="Enemy" type="LaserDrone " x="83" y="1892" width="11" height="105">
+   <properties>
+    <property name="EnemyType" value="Dart"/>
+   </properties>
+  </object>
+  <object name="Enemy" type="LaserDrone " x="83" y="933" width="11" height="105">
+   <properties>
+    <property name="EnemyType" value="Dart"/>
+   </properties>
+  </object>
+  <object name="Enemy" type="LaserDrone " x="302" y="924" width="11" height="105">
+   <properties>
+    <property name="EnemyType" value="Dart"/>
+   </properties>
+  </object>
  </objectgroup>
 </map>

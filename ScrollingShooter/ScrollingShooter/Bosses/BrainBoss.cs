@@ -155,12 +155,13 @@ namespace ScrollingShooter
         public override void Update(float elapsedTime)
         {
             //TODO: remove damage over time
+            /*
             this.Health -= 30 * elapsedTime;
             if (this.protection != null)
                 protection.Health -= 30 * elapsedTime;
             if (this.psiEmitter != null)
                 psiEmitter.Health -= 30 * elapsedTime;
-
+            */
             switch (state)
             {
                 case BrainBossState.Protected:

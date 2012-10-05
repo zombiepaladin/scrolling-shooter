@@ -479,26 +479,28 @@ namespace ScrollingShooter
         /// </summary>
         void TriggerMeteor()
         {
+            //TODO: Constantly do a tiny amount of damage to all enemies during the storm.
 
             //Reduce object creation by creating variables before loop.
-            Vector2 meteorPosition = new Vector2();
+            Vector2 position = new Vector2();
             Random rand = new Random();
-			
-			// (nevermind) Add a bunch of decorative meteors
-            /*
-			for (int i = 0; i < 300; i++)
-			{
-                meteorPosition.X = rand.Next(800);
-                meteorPosition.Y = -rand.Next(4000) - 200;
 
-                ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.Meteor, meteorPosition);
+            //Add a bunch of decorative meteors
+            for (int i = 0; i < 300; i++)
+            {
+                position.X = rand.Next(800);
+                position.Y = -rand.Next(4000) - 200;
+
+                ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.Meteor, position);
 			}
-            */
-            //Add one large meteor that repeats
-            meteorPosition.X = 220;
-            meteorPosition.Y = position.Y - 200;
+			//Add a few large meteors
+            for (int i = 0; i < 10; i++)
+            {
+                position.X = 50 + rand.Next(800);
+                position.Y = -rand.Next(8000) - 1000;
 
-            ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.BigMeteor, meteorPosition);
+                ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.BigMeteor, position);
+            }
         }
 
         /// <summary>

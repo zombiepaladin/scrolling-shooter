@@ -17,9 +17,9 @@ namespace ScrollingShooter
         public FireballPowerup(uint id, ContentManager contentManager, Vector2 position) : base(id)
         {
             this.type = PowerupType.Fireball;
-            this.spriteSource = new Rectangle(50, 115, 20, 21);
+            this.spriteBounds = new Rectangle(50, 115, 20, 21);
             this.spriteSheet = contentManager.Load<Texture2D>("Spritesheets/tyrian.shp.010008");
-            this.spriteBounds = new Rectangle((int)position.X, (int)position.Y, 23, 23);
+            this.position = position;
         }
     }
 }

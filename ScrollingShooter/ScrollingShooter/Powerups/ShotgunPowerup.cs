@@ -18,9 +18,9 @@ namespace ScrollingShooter
             : base(id)
         {
             this.type = PowerupType.ShotgunPowerup;
-            this.spriteSource = new Rectangle(97, 142, 22, 23);
+            this.spriteBounds = new Rectangle(97, 142, 22, 23);
             this.spriteSheet = contentManager.Load<Texture2D>("Spritesheets/tyrian.shp.010008");
-            this.spriteBounds = new Rectangle((int)position.X, (int)position.Y, 22, 23);
+            this.position = position;
         }
     }
 }

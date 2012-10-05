@@ -1,6 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Audio;
+using System;
+using System.Collections.Generic;
 
 //Authors: Adam Clark
 //         Josh Zavala
@@ -17,6 +21,12 @@ namespace ScrollingShooter
         Vector2 position;
         Rectangle[] spriteBounds = new Rectangle[1];
         float defaultGunTimer = 0; //maybe more
+        private Mandible _mandible1;
+        private Mandible _mandible2;
+
+        #region Sound Effects
+        SoundEffect laserFired;
+        #endregion
 
         /// <summary>
         /// The bounding rectangle of the Lavabug
@@ -42,14 +52,15 @@ namespace ScrollingShooter
             this.position = position;
             //spritesheet
             spritesheet = content.Load<Texture2D>("Spritesheets/accessories");
-            this.Health = 10;
+            this.Health = 30;
             spriteBounds[0].X = 4;
             spriteBounds[0].Y = 20;
             spriteBounds[0].Width = 70;
             spriteBounds[0].Height = 132;
+            laserFired = content.Load<SoundEffect>("SFX/gamalaser");
 
-            ScrollingShooterGame.GameObjectManager.CreateEnemy(EnemyType.Mandible, new Vector2(150, 120));
-            ScrollingShooterGame.GameObjectManager.CreateEnemy(EnemyType.Mandible, new Vector2(500, 120));
+            _mandible1 = (Mandible)ScrollingShooterGame.GameObjectManager.CreateEnemy(EnemyType.Mandible, new Vector2(150, 120));
+            _mandible2 = (Mandible)ScrollingShooterGame.GameObjectManager.CreateEnemy(EnemyType.Mandible, new Vector2(500, 120));
 
 
             //spritebounds
@@ -65,9 +76,11 @@ namespace ScrollingShooter
             PlayerShip player = ScrollingShooterGame.Game.Player;
             Vector2 playerPosition = new Vector2(player.Bounds.Center.X, player.Bounds.Center.Y);
 
-            this.Health -= elapsedTime;//TO DO: this a damage test. REMOVE
-
-
+            if (this.Health <= 15)
+            {
+                _mandible1.isFired = true;
+                _mandible2.isFired = true;
+            }
             if (this.Health <= 0)
             {
                 ScrollingShooterGame.GameObjectManager.CreateEnemy(EnemyType.Lavabug2, new Vector2(800, this.position.Y));
@@ -99,9 +112,15 @@ namespace ScrollingShooter
             if (defaultGunTimer > .5f)
             {
                 //Make use of the ToPlayerBullet class
-                ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.ToPlayerBullet, position);
+                ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.Laser, position);
                 defaultGunTimer = 0;
+                laserFired.Play();
             }
+        }
+
+        public override void ScrollWithMap(float elapsedTime)
+        {
+            position.Y += ScrollingSpeed * elapsedTime;
         }
 
 

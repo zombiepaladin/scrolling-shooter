@@ -64,6 +64,11 @@ namespace ScrollingShooter
         public float Health = 1;
 
         /// <summary>
+        /// The enemy's point value
+        /// </summary>
+        public int Score = 10;
+
+        /// <summary>
         /// Constructs a new enemy
         /// </summary>
         /// <param name="id">The unique id of the enemy instance</param>

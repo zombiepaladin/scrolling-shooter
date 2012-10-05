@@ -22,6 +22,10 @@ namespace ScrollingShooter
         /// The boss's health
         /// </summary>
         public float Health;
+        /// <summary>
+        /// The boss's point value
+        /// </summary>
+        public int Score = 100;
 
         /// <summary>
         /// Constructs a new boss

@@ -17,9 +17,9 @@ namespace ScrollingShooter
        public BladesPowerup(uint id, ContentManager contentManager, Vector2 position) : base(id)
         {
             this.type = PowerupType.Blades;
-            this.spriteSource = new Rectangle(144, 169, 24, 25);
+            this.spriteBounds = new Rectangle(144, 169, 24, 25);
             this.spriteSheet = contentManager.Load<Texture2D>("Spritesheets/tyrian.shp.010008");
-            this.spriteBounds = new Rectangle((int)position.X, (int)position.Y, 24, 25);
+            this.position = position;
         }
     }
 }

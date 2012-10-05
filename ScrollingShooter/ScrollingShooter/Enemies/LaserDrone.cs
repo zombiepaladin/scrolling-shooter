@@ -119,6 +119,11 @@ namespace ScrollingShooter
         /// <param name="elapsedTime">The in-game time between the previous and current frame</param>
         public override void Update(float elapsedTime)
         {
+            if (Health <= 0 && droneLaser != null)
+            {
+                ScrollingShooterGame.GameObjectManager.DestroyObject(droneLaser.ID);
+            }
+
             // Sense the player's position
             Vector2 playerPosition = new Vector2(ScrollingShooterGame.Game.Player.Bounds.Center.X, ScrollingShooterGame.Game.Player.Bounds.Center.Y);
 

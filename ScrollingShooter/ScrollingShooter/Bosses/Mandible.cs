@@ -89,5 +89,10 @@ namespace ScrollingShooter
         {
             spriteBatch.Draw(spritesheet, Bounds, spriteBounds[0], Color.White, 0f, new Vector2(Bounds.Width / 2, Bounds.Height / 2), SpriteEffects.None, 1f);
         }
+
+        public override void ScrollWithMap(float elapsedTime)
+        {
+            position.Y += ScrollingSpeed * elapsedTime;
+        }
     }
 }

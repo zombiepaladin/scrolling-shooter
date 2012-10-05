@@ -118,6 +118,11 @@ namespace ScrollingShooter
             }
         }
 
+        public override void ScrollWithMap(float elapsedTime)
+        {
+            position.Y += ScrollingSpeed * elapsedTime;
+        }
+
 
     }
 }

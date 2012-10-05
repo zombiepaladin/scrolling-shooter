@@ -1,6 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Audio;
+using System;
+using System.Collections.Generic;
 
 //Author: Josh Zavala
 namespace ScrollingShooter
@@ -32,6 +36,9 @@ namespace ScrollingShooter
         Rectangle[] spriteBounds = new Rectangle[8];
         Panzer2AimState aimState;
         float defaultGunTimer = 0;
+        #region Sound Effects
+        SoundEffect photonFired;
+        #endregion
 
         /// <summary>
         /// The bounding rectangle of the Panzer
@@ -56,6 +63,7 @@ namespace ScrollingShooter
         {
             this.position = position;
             spritesheet = content.Load<Texture2D>("Spritesheets/vulcano");
+            photonFired = content.Load<SoundEffect>("SFX/fireworksmortar3");
 
             spriteBounds[(int)Panzer2AimState.North].X = 7;
             spriteBounds[(int)Panzer2AimState.North].Y = 30;
@@ -168,9 +176,15 @@ namespace ScrollingShooter
                 //Make use of the ToPlayerBullet class
                 ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.Photon, position);
                 defaultGunTimer = 0;
+                photonFired.Play();
 
                 //ScrollingShooterGame.GameObjectManager.CreateExplosion(this.ID);
             }
+        }
+
+        public override void ScrollWithMap(float elapsedTime)
+        {
+            position.Y += ScrollingSpeed * elapsedTime;
         }
     }
 }

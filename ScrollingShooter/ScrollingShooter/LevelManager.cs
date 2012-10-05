@@ -26,7 +26,7 @@ namespace ScrollingShooter
 
         public bool Loading = true;
         public bool Paused = false;
-        public bool Scrolling = false;
+        public bool Scrolling = true;
 
         public Tilemap CurrentMap;
         public Song CurrentSong;
@@ -104,6 +104,7 @@ namespace ScrollingShooter
                         {
                             case "PlayerStart":
                                 ScrollingShooterGame.Game.Player.Position = position;
+                                ScrollingShooterGame.Game.Player.LayerDepth = CurrentMap.GameObjectGroups[i].LayerDepth;
                                 scrollDistance = -2 * position.Y + 300;
                                 break;
 

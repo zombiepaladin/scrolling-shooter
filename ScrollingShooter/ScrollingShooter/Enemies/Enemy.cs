@@ -49,6 +49,8 @@ namespace ScrollingShooter
         TurretSingle,
         TurretDouble,
         TurretTower,
+        Mine,
+        Rock
     }
 
     /// <summary>

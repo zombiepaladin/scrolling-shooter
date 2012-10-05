@@ -18,7 +18,7 @@ namespace ScrollingShooter
         Vector2 position;
         Rectangle[] spriteBounds = new Rectangle[1];
         bool isLeft;
-        bool isFired;
+        public bool isFired;
 
         /// <summary>
         /// The bounding rectangle of the Mandible
@@ -68,24 +68,11 @@ namespace ScrollingShooter
             PlayerShip player = ScrollingShooterGame.Game.Player;
             
             Vector2 playerPosition = new Vector2(player.Bounds.Center.X, player.Bounds.Center.Y);
-            Vector2 toPlayer = playerPosition - this.position;
-
-            Health -= elapsedTime; //TODO: remove this from testing
 
             // Move in front of player
-            if (Health <= 0)
-            {
-                if (!this.isFired)
-                {
-                    isFired = true;
-                    toPlayer.Normalize();
-                    this.position += toPlayer * elapsedTime * 500;
-                }
-                else
-                {
-                    this.position.Y += elapsedTime * 500;
-                }
-            }
+            if (this.isFired)
+                this.position.Y += elapsedTime * 500;
+
             if (!isFired)
             {
                 if (isLeft) this.position.X = playerPosition.X - 30; //change?
@@ -101,6 +88,11 @@ namespace ScrollingShooter
         public override void Draw(float elapsedTime, SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(spritesheet, Bounds, spriteBounds[0], Color.White, 0f, new Vector2(Bounds.Width / 2, Bounds.Height / 2), SpriteEffects.None, 1f);
+        }
+
+        public override void ScrollWithMap(float elapsedTime)
+        {
+            position.Y += ScrollingSpeed * elapsedTime;
         }
     }
 }

@@ -95,7 +95,7 @@ namespace ScrollingShooter
             Player.ApplyPowerup(PowerupType.BubbleBeam);
 
             LevelManager.LoadContent();
-            LevelManager.LoadLevel("Airbase");
+            LevelManager.LoadLevel("AlienBaseSafe");
             GuiManager.LoadContent();
             GameState = GameState.Initializing;
         }

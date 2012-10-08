@@ -624,11 +624,6 @@
       <Importer>WavImporter</Importer>
       <Processor>SoundEffectProcessor</Processor>
     </Compile>
-    <Compile Include="SFX\Unlincensed\outofammo.wav">
-      <Name>outofammo</Name>
-      <Importer>WavImporter</Importer>
-      <Processor>SoundEffectProcessor</Processor>
-    </Compile>
     <Compile Include="SFX\pusou.wav">
       <Name>pusou</Name>
       <Importer>WavImporter</Importer>
@@ -686,11 +681,6 @@
     </Compile>
     <Compile Include="SFX\wave2.wav">
       <Name>wave2</Name>
-      <Importer>WavImporter</Importer>
-      <Processor>SoundEffectProcessor</Processor>
-    </Compile>
-    <Compile Include="SFX\Unlincensed\weapload.wav">
-      <Name>weapload</Name>
       <Importer>WavImporter</Importer>
       <Processor>SoundEffectProcessor</Processor>
     </Compile>

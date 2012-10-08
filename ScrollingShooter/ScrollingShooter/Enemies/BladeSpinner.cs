@@ -104,6 +104,7 @@ namespace ScrollingShooter
             frame = animationFrame.flying1;
 
             frameTimer = 0;
+            Health = 5;
         }
 
         /// <summary>

@@ -219,9 +219,6 @@ namespace ScrollingShooter
                 case PowerupType.Ale:
                     GetDrunk();
                     break;
-                case PowerupType.BubbleBeam:
-                    BubbleBullet.POWER_LEVEL++;
-                    break;
 
                 case PowerupType.EnergyBlast:
                     energyBlastLevel++;
@@ -392,7 +389,7 @@ namespace ScrollingShooter
                     // Streaming weapons
                     if ((PowerupType & PowerupType.BubbleBeam) > 0)
                     {
-                        if (defaultGunTimer > .05f)
+                        if (defaultGunTimer > BubbleBullet.FIRE_INTERVAL_MS)
                         {
                             ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.BubbleBullet, position);
                             defaultGunTimer = 0f;

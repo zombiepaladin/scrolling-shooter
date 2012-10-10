@@ -90,7 +90,7 @@
   <object name="Enemy" type="MoonSpiner" x="288" y="8176"/>
   <object name="Enemy" type="MoonSpiner" x="264" y="8176"/>
   <object name="Enemy" type="MoonSpiner" x="240" y="8176"/>
-  <object x="48" y="7868"/>
+  <object name="Enemy" type="StdBaddy" x="48" y="7868"/>
   <object x="72" y="7868"/>
   <object x="96" y="7868"/>
   <object x="120" y="7868"/>

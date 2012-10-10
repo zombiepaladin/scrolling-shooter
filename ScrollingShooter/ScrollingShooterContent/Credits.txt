@@ -1,0 +1,9 @@
+﻿8
+"Game Title"; CIS 580 - Intro to Game Design; Kansas State University
+Studio Staff;Producers;Nathen Bean;Micheal Marlen
+Studio Staff;Programmers/Designers;Devin Kelly-Collins\tJoseph Shaw;Austin Murphy\tNick Boen;Matthew McHaney\tAdam Steen;Adam Clark\tNick Stanley;Josh Zavala\tMicheal Fountain;Sam Fike\tBen Jazen;Matthew Hart\tAndrew Bellinder;Nicholes Strub\tBrett Barger;Jiri Malina\tDaniel Rymph
+Artwork; Thorbjørn Lindeijer - Tiled Map Editor; Daniel Cook - Remastered Tyrian Graphics
+Music; Iwan Gabovitch - "Dust Loop - Sneaky Hidden Danger"; K. Alex Rosen - "Blitz Kaskade"
+Developed with Microsoft's XNA framwork
+Production Babies; No babies were born during production (as far as we know)
+Thank you for playing

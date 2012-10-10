@@ -23,7 +23,7 @@ namespace ScrollingShooter
         Vector2 position;
         Rectangle[] spriteBounds = new Rectangle[2];
         BlimpState state;
-        int maxHealth = 50;
+        int maxHealth = 100;
         Vector2 velocity;
         int screenWidth = 384;
         float gunTimer;

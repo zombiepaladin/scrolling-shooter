@@ -32,49 +32,19 @@ namespace ScrollingShooter
         };
         private const int BASE_DAMAGE = 2;
         private static Random rand = new Random();
-        
-        //Instance vars
-        private int _powerLevel;
-
-        public int Damage
-        {
-            get
-            {
-                return _powerLevel * BASE_DAMAGE;
-            }
-        }
 
         /// <summary>
-        /// Creates a new bubblebullet with the current power level.
+        /// Creates a new bubblebullet
         /// </summary>
-        /// <param name="id">Id of the object.</param>
         /// <param name="content">A ContentManager to load content from</param>
         /// <param name="position">Starting position on the screen</param>
         public BubbleBullet(uint id, ContentManager content, Vector2 position)
             : base(id)
         {
             this.spriteSheet = content.Load<Texture2D>(SPRITESHEET);
-            this.spriteBounds = SPRITEBOUNDS[POWER_LEVEL - 1];
+            this.spriteBounds = SPRITEBOUNDS;
             this.velocity = generateRandomVelocity(500);
             this.position = position;
-            this._powerLevel = POWER_LEVEL;
-        }
-
-        /// <summary>
-        /// Creates a bubble bullet with the given power level.
-        /// </summary>
-        /// <param name="id">Id of the object</param>
-        /// <param name="content">A ContentManager to load content from</param>
-        /// <param name="position">Starting position on the screen</param>
-        /// <param name="powerLevel">Power level to use.</param>
-        public BubbleBullet(uint id, ContentManager content, Vector2 position, int powerLevel)
-            : base(id)
-        {
-            this.spriteSheet = content.Load<Texture2D>(SPRITESHEET);
-            this.spriteBounds = SPRITEBOUNDS[powerLevel];
-            this.velocity = generateRandomVelocity(500);
-            this.position = position;
-            this._powerLevel = powerLevel;
         }
 
         /// <summary>

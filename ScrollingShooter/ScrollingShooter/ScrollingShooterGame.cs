@@ -98,12 +98,13 @@ namespace ScrollingShooter
             // TODO: use this.Content to load your game content here
             Player = GameObjectManager.CreatePlayerShip(PlayerShipType.Shrike, new Vector2(300, 300));
 
-            //GameObjectManager.CreateEnemy(EnemyType.Asteriod, new Vector2(200), new object[] { 3 });
-
             LevelManager.LoadContent();
-            LevelManager.LoadLevel("LavaLevel2");
             GuiManager.LoadContent();
             GameState = GameState.Initializing;
+
+            //These lines are only to display Assignment 1 through 3 for Devin Kelly-Collins
+            Player.ApplyPowerup(PowerupType.BubbleBeam);
+            LevelManager.LoadLevel("moon");
         }
 
         /// <summary>

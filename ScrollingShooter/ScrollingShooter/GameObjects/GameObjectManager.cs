@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -801,6 +801,22 @@ namespace ScrollingShooter
                     enemy = new TwinJet(id, content, position);
                     break;
 
+                case EnemyType.Asteriod1:
+                    enemy = new Asteriod(id, content, position, 1);
+                    break;
+
+                case EnemyType.Asteriod2:
+                    enemy = new Asteriod(id, content, position, 2);
+                    break;
+
+                case EnemyType.Asteriod3:
+                    enemy = new Asteriod(id, content, position, 3);
+                    break;
+
+                case EnemyType.Asteriod4:
+                    enemy = new Asteriod(id, content, position, 4);
+                    break;
+
                 case EnemyType.AlienTurret:
                     enemy = new AlienTurret(id, content, position);
                     break;
@@ -833,6 +849,14 @@ namespace ScrollingShooter
                     break;
                 case EnemyType.Rock:
                     enemy = new Rock(id, content, position);
+                    break;
+
+                case EnemyType.MoonSpiner:
+                    enemy = new MoonSpinner(id, content, position);
+                    break;
+
+                case EnemyType.MoonShield:
+                    enemy = new MoonShield(id, content, position);
                     break;
 
                 default:

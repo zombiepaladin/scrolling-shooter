@@ -4,9 +4,9 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 
 
-namespace ScrollingShooter.Enemies
+namespace ScrollingShooter
 {
-    class MoonSpinner:Enemy
+    public class MoonSpinner:Enemy
     {
         enum spinState
         {

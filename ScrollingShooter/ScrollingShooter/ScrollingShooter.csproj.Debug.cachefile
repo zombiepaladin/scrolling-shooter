@@ -51,6 +51,7 @@ Content\Spritesheets\EBullet.xnb
 Content\Tilesets\shapeswmodified.xnb
 Content\Spritesheets\accessories.xnb
 Content\Spritesheets\vulcano.xnb
+Content\Spritesheets\explosion.xnb
 Content\Tilesets\bossFloorTexture.xnb
 Content\Tilesets\shapeszFinalLvlMod.xnb
 Content\Tilesets\shapesFinalLvlMod.xnb
@@ -73,8 +74,6 @@ Content\Tilemaps\Level_1_Tilemap_2.xnb
 Content\Tilemaps\AlienBaseSafe.xnb
 Content\Music\Hard as Nails 11-13-28.xnb
 Content\SFX\anti_tank_gun_single_shot.xnb
-Content\Spritesheets\explosion.xnb
-Content\Spritesheets\gui.xnb
 Content\SFX\gamalaser.xnb
 Content\SFX\fireworksmortar3.xnb
 Content\Music\Hard as Nails 11-13-28.wma

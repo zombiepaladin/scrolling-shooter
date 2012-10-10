@@ -50,6 +50,9 @@
   </data>
  </layer>
  <objectgroup name="Enemies" width="16" height="320">
+  <properties>
+   <property name="ScrollingSpeed" value="50"/>
+  </properties>
   <object name="PlayerStart" type="Start" x="192" y="8848"/>
   <object x="312" y="336">
    <properties>

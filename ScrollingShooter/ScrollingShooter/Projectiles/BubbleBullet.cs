@@ -42,7 +42,7 @@ namespace ScrollingShooter
             : base(id)
         {
             this.spriteSheet = content.Load<Texture2D>(SPRITESHEET);
-            this.spriteBounds = SPRITEBOUNDS;
+            this.spriteBounds = SPRITEBOUNDS[POWER_LEVEL];
             this.velocity = generateRandomVelocity(500);
             this.position = position;
         }

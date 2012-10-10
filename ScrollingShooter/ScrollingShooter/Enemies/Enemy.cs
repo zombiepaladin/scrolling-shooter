@@ -54,7 +54,7 @@ namespace ScrollingShooter
         TurretDouble,
         TurretTower,
         Mine,
-        Rock
+        Rock,
         MoonSpiner,
         MoonShield,
     }

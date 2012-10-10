@@ -251,6 +251,10 @@ namespace ScrollingShooter
                     boss = new TwinJetManager(id, content, position);
                     break;
 
+                case BossType.MoonBoss:
+                    boss = new MoonBoss(id, content, position);
+                    break;
+
                 default:
                     throw new NotImplementedException("The boss type " + Enum.GetName(typeof(BossType), enemyType) + " is not supported");
             }

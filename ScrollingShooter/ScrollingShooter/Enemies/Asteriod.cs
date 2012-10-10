@@ -19,10 +19,10 @@ namespace ScrollingShooter
             new Rectangle(122, 2, 66, 76)
         };
         private static readonly Vector2[] VELOCITIES = new Vector2[] {
-            new Vector2(0, -200),
-            new Vector2(0, -100),
-            new Vector2(0, -50),
-            new Vector2(0, -25)
+            new Vector2(0, 8),
+            new Vector2(0, 4),
+            new Vector2(0, 2),
+            new Vector2(0, 1)
         };
         
         //Instance vars

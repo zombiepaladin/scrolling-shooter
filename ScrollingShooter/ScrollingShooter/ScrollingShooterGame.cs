@@ -141,6 +141,7 @@ namespace ScrollingShooter
                     if (!LevelManager.Loading && Keyboard.GetState().IsKeyDown(Keys.Space))
                     {
                         GameState = GameState.Gameplay;
+                        LevelManager.NextLevel();
                         Music = LevelManager.CurrentSong;
                         if (Music != null) MediaPlayer.Play(Music);
                     }

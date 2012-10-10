@@ -1,4 +1,6 @@
-﻿using System;
+﻿//Samuel Fike
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -99,6 +101,11 @@ namespace ScrollingShooter
         private int targetPositionY;
 
         /// <summary>
+        /// Time until next lightning burst in DeathCharge state
+        /// </summary>
+        private float lightningRecharge = 0f;
+
+        /// <summary>
         /// State of the brain boss
         /// </summary>
         private BrainBossState state = BrainBossState.Protected;
@@ -107,11 +114,6 @@ namespace ScrollingShooter
         /// Brain's armor that needs to be destroyed before fighting the brain
         /// </summary>
         private BrainBossProtection protection;
-
-        /// <summary>
-        /// Test timer for taking damage over time
-        /// </summary>
-        private float testTimer = 8f;
 
         /// <summary>
         /// Creates a new brain boss
@@ -152,24 +154,13 @@ namespace ScrollingShooter
         /// <param name="elapsedTime">Time passed since last frame</param>
         public override void Update(float elapsedTime)
         {
-            //TODO: remove test timer when damage is implemented
-
-            testTimer -= elapsedTime;
-
-            if (testTimer <= 0)
-            {
-                takeDamage(1000);
-                if (this.protection != null)
-                    protection.takeDamage(1000);
-                if (this.psiEmitter != null)
-                    psiEmitter.takeDamage(1000);
-                testTimer = 8f;
-            }
-
             switch (state)
             {
                 case BrainBossState.Protected:
-                    if (protection.Health <= 0)
+                    //can't die in this state
+                    Health = 999999;
+
+                    if (protection.isDestroyed())
                     {
                         ScrollingShooterGame.GameObjectManager.DestroyObject(protection.ID);
                         state = BrainBossState.MovingToCenter;
@@ -177,6 +168,9 @@ namespace ScrollingShooter
                     }
                     break;
                 case BrainBossState.MovingToCenter:
+                    //can't die in this state
+                    Health = 999999;
+
                     if (position.X < targetPositionX)
                         position.X += Math.Min(MOVE_SPEED * elapsedTime, Math.Abs(targetPositionX - position.X));
                     else if (position.X > targetPositionY)
@@ -196,9 +190,15 @@ namespace ScrollingShooter
                     break;
 
                 case BrainBossState.PsyAttack:
+                    //can't die in this state
+                    Health = 999999;
 
-                    if (psiEmitter.Health <= 0)
+                    if (psiEmitter.isDestroyed())
+                    {
+                        //Health when can be hit
+                        Health = 100;
                         state = BrainBossState.DeathCharge;
+                    }
                     break;
 
                 case BrainBossState.DeathCharge:
@@ -216,19 +216,18 @@ namespace ScrollingShooter
                     position.X += vector.X;
                     position.Y += vector.Y;
 
-                    for(int i = 0; i < 1; i++)
-                        ((EnemyLightningZap) ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.EnemyLightningZap, this.position + centerOffset)).Initialize((float) (rand.NextDouble() * Math.PI * 2), this.brainSpriteBounds.Width);
+                    lightningRecharge -= elapsedTime;
+                    if (lightningRecharge <= 0)
+                    {
+                        lightningRecharge = .66f;
 
+                        for (int i = 0; i < 15; i++)
+                            ((EnemyLightningZap)ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.EnemyLightningZap, this.position + centerOffset)).Initialize((float)(rand.NextDouble() * Math.PI * 2), this.brainSpriteBounds.Width / 2);
+                    }
                     break;
             }
 
             psiEmitter.updatePosition(this.position + centerOffset);
-        }
-
-        public void takeDamage(int damage)
-        {
-            if(state == BrainBossState.DeathCharge)
-                Health -= damage;
         }
 
         /// <summary>

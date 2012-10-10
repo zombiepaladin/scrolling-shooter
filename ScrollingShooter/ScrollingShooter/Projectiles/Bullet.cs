@@ -20,6 +20,8 @@ namespace ScrollingShooter
 
             this.spriteBounds = new Rectangle(38, 57, 7, 11);
 
+            this.Damage = 25;
+
             this.velocity = new Vector2(0, -300);
 
             this.position = position;

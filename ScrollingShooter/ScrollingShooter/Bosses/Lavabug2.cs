@@ -1,6 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Audio;
+using System;
+using System.Collections.Generic;
 
 //Authors: Adam Clark
 //         Josh Zavala
@@ -19,6 +23,10 @@ namespace ScrollingShooter
         Rectangle[] spriteBounds = new Rectangle[1];
         float defaultGunTimer = 0; //maybe more
         bool direction;
+
+        #region Sound Effects
+        SoundEffect photonFired;
+        #endregion
 
         /// <summary>
         /// The bounding rectangle of the LavaBug2
@@ -39,7 +47,7 @@ namespace ScrollingShooter
             : base(id)
         {
             this.position = position;
-            this.Health = 10; //TODO: change this to be higher
+            this.Health = 10; //TODO: change this to be higher?
             //spritesheet
             spritesheet = content.Load<Texture2D>("Spritesheets/accessories");
 
@@ -47,6 +55,7 @@ namespace ScrollingShooter
             spriteBounds[0].Y = 38;
             spriteBounds[0].Width = 62;
             spriteBounds[0].Height = 88;
+            photonFired = content.Load<SoundEffect>("SFX/gamalaser");
 
 
             //spritebounds
@@ -95,8 +104,9 @@ namespace ScrollingShooter
             if (defaultGunTimer > .5f)
             {
                 //Make use of the ToPlayerBullet class
-                ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.ToPlayerBullet, position);
+                ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.Photon, position);
                 defaultGunTimer = 0;
+                photonFired.Play();
             }
         }
     }

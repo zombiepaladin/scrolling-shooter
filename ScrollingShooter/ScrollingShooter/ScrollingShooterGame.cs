@@ -101,7 +101,7 @@ namespace ScrollingShooter
             //GameObjectManager.CreateEnemy(EnemyType.Asteriod, new Vector2(200), new object[] { 3 });
 
             LevelManager.LoadContent();
-            LevelManager.LoadLevel("Airbase");
+            LevelManager.LoadLevel("LavaLevel2");
             GuiManager.LoadContent();
             GameState = GameState.Initializing;
         }
@@ -245,8 +245,9 @@ namespace ScrollingShooter
 
                         case ObjectType.Enemy:
                             Enemy enemy = collider as Enemy;
-                            if (enemy.GetType() == typeof(Kamikaze) ||
-                                enemy.GetType() == typeof(SuicideBomber))
+                            if (enemy.GetType() == typeof(Kamikaze) || enemy.GetType() == typeof(Mandible) ||
+                                enemy.GetType() == typeof(SuicideBomber) || enemy.GetType() == typeof(Mine) ||
+                                enemy.GetType() == typeof(Rock))
                             {
                                 //Player take damage
                                 GameObjectManager.DestroyObject(collider.ID);

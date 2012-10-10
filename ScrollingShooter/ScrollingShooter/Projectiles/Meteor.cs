@@ -7,8 +7,7 @@ namespace ScrollingShooter
 {
 
     /// <summary>
-    /// A decorative meteor sprite, slight damage will be done to all enemies on screen every second while meteor storm is active,
-    /// instead of having each small meteor have collision detection.
+    /// A decorative meteor sprite, no collision detection needed;
     /// </summary>
     public class Meteor : Projectile
     {

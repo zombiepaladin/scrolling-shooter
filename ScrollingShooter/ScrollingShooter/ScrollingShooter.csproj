@@ -137,11 +137,13 @@
     <Compile Include="Enemies\Enemy.cs" />
     <Compile Include="Enemies\GreenGoblin.cs" />
     <Compile Include="Enemies\LaserDrone.cs" />
+    <Compile Include="Enemies\Mine.cs" />
     <Compile Include="Enemies\MoonSpinner.cs" />
     <Compile Include="Enemies\LavaFighter.cs" />
     <Compile Include="Enemies\Panzer2.cs" />
     <Compile Include="Enemies\LeftClaw.cs" />
     <Compile Include="Enemies\RightClaw.cs" />
+    <Compile Include="Enemies\Rock.cs" />
     <Compile Include="Enemies\ShieldGenerator.cs" />
     <Compile Include="Enemies\SuicideBomber.cs" />
     <Compile Include="Enemies\Seed.cs" />

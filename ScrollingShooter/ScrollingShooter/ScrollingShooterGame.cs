@@ -98,9 +98,8 @@ namespace ScrollingShooter
             // TODO: use this.Content to load your game content here
             Player = GameObjectManager.CreatePlayerShip(PlayerShipType.Shrike, new Vector2(300, 300));
 
-            Splash = new EndLevelSix();
             LevelManager.LoadContent();
-            LevelManager.LoadLevel("AlienBaseSafe");
+            LevelManager.LoadLevel("LavaLevel2");
             GuiManager.LoadContent();
             GameState = GameState.Initializing;
         }
@@ -243,8 +242,9 @@ namespace ScrollingShooter
 
                         case ObjectType.Enemy:
                             Enemy enemy = collider as Enemy;
-                            if (enemy.GetType() == typeof(Kamikaze) ||
-                                enemy.GetType() == typeof(SuicideBomber))
+                            if (enemy.GetType() == typeof(Kamikaze) || enemy.GetType() == typeof(Mandible) ||
+                                enemy.GetType() == typeof(SuicideBomber) || enemy.GetType() == typeof(Mine) ||
+                                enemy.GetType() == typeof(Rock))
                             {
                                 //Player take damage
                                 GameObjectManager.DestroyObject(collider.ID);

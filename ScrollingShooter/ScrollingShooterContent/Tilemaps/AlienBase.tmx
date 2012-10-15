@@ -4,7 +4,7 @@
   <image source="../Tilesets/bossFloorTexture.png" trans="bfdcbf" width="240" height="1652"/>
  </tileset>
  <tileset firstgid="591" name="newshn.shp.000000" tilewidth="24" tileheight="28">
-  <image source="../Tilesets/newshn.shp.000000.png" trans="bfdcbf" width="228" height="224"/>
+  <image source="../SpriteSheets/newshn.shp.000000.png" trans="bfdcbf" width="228" height="224"/>
  </tileset>
  <tileset firstgid="663" name="shapes)" tilewidth="24" tileheight="28">
   <image source="../Tilesets/shapes).png" trans="bfdcbf" width="240" height="1708"/>

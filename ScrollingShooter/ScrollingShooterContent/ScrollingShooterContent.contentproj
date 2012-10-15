@@ -447,14 +447,14 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
- <Compile Include="Spritesheets\explosion.png">
+    <Compile Include="Spritesheets\explosion.png">
       <Name>explosion</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
- <Compile Include="Spritesheets\characterPotraits.png">
+    <Compile Include="Spritesheets\characterPotraits.png">
       <Name>characterPotraits</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
@@ -529,6 +529,13 @@
       <Name>fireworksmortar3</Name>
       <Importer>WavImporter</Importer>
       <Processor>SoundEffectProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Tilemaps\AlienBase.tmx">
+      <Name>AlienBase</Name>
+      <Importer>TmxImporter</Importer>
+      <Processor>TilemapProcessor</Processor>
     </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />

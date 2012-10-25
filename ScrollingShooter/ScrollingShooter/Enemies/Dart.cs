@@ -23,6 +23,7 @@ namespace ScrollingShooter
         Vector2 position;
         Rectangle[] spriteBounds = new Rectangle[3];
         DartSteeringState steeringState = DartSteeringState.Straight;
+        float gunTimer;
 
         /// <summary>
         /// The bounding rectangle of the Dart
@@ -45,20 +46,22 @@ namespace ScrollingShooter
 
             spriteBounds[(int)DartSteeringState.Left].X = 98;
             spriteBounds[(int)DartSteeringState.Left].Y = 84;
-            spriteBounds[(int)DartSteeringState.Left].Width = 20;
+            spriteBounds[(int)DartSteeringState.Left].Width = 22;
             spriteBounds[(int)DartSteeringState.Left].Height = 28;
 
             spriteBounds[(int)DartSteeringState.Straight].X = 122;
             spriteBounds[(int)DartSteeringState.Straight].Y = 84;
-            spriteBounds[(int)DartSteeringState.Straight].Width = 20;
+            spriteBounds[(int)DartSteeringState.Straight].Width = 22;
             spriteBounds[(int)DartSteeringState.Straight].Height = 28;
 
             spriteBounds[(int)DartSteeringState.Right].X = 147;
             spriteBounds[(int)DartSteeringState.Right].Y = 84;
-            spriteBounds[(int)DartSteeringState.Right].Width = 20;
+            spriteBounds[(int)DartSteeringState.Right].Width = 22;
             spriteBounds[(int)DartSteeringState.Right].Height = 28;
 
             steeringState = DartSteeringState.Straight;
+
+            gunTimer = 0;
          
         }
 
@@ -68,6 +71,8 @@ namespace ScrollingShooter
         /// <param name="elapsedTime">The in-game time between the previous and current frame</param>
         public override void  Update(float elapsedTime)
         {
+            gunTimer += elapsedTime;
+
             // Sense the Player's position
             PlayerShip Player = ScrollingShooterGame.Game.Player;
             Vector2 PlayerPosition = new Vector2(Player.Bounds.Center.X, Player.Bounds.Center.Y);
@@ -75,19 +80,26 @@ namespace ScrollingShooter
             // Get a vector from our position to the Player's position
             Vector2 toPlayer = PlayerPosition - this.position;
 
-            if(toPlayer.LengthSquared() < 40000)
+            if (this.position.Y > -ScrollingShooterGame.LevelManager.scrollDistance / 2 && this.position.Y <= Player.Position.Y + 75)
             {
                 // We sense the Player's ship!                  
                 // Get a normalized steering vector
                 toPlayer.Normalize();
 
                 // Steer towards them!
-                //this.position += toPlayer * elapsedTime * 100;
+                this.position += toPlayer * elapsedTime * 100;
 
                 // Change the steering state to reflect our direction
                 if (toPlayer.X < -0.5f) steeringState = DartSteeringState.Left;
                 else if (toPlayer.X > 0.5f) steeringState = DartSteeringState.Right;
                 else steeringState = DartSteeringState.Straight;
+
+                // Shoot at the player
+                if (gunTimer >= 0.5f)
+                {
+                    ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.EnemyBullet, position);
+                    gunTimer = 0;
+                }
             }                        
         }
 
@@ -100,6 +112,14 @@ namespace ScrollingShooter
         {
             spriteBatch.Draw(spritesheet, Bounds, spriteBounds[(int)steeringState], Color.White, 0f, new Vector2(Bounds.Width / 2, Bounds.Height / 2), SpriteEffects.None, 1f);
         }
-
+		
+		/// <summary>
+        /// Scrolls the object with the map
+        /// </summary>
+        /// <param name="elapsedTime">The in-game time between the previous and current frame</param>
+		public override void ScrollWithMap(float elapsedTime)
+		{
+			position.Y += ScrollingSpeed * elapsedTime;
+		}
     }
 }

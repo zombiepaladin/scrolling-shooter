@@ -1,7 +1,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.Audio;
 
 namespace ScrollingShooter
 {
@@ -25,8 +24,6 @@ namespace ScrollingShooter
         Rectangle[] spriteBounds = new Rectangle[3];
         StdBaddyStearingState steeringState = StdBaddyStearingState.Streight;
 
-        SoundEffect stdEnemyFired;
-
 
         public override Rectangle Bounds
         {
@@ -42,8 +39,6 @@ namespace ScrollingShooter
             : base(id)
         {
             this.position = position;
-
-            stdEnemyFired = content.Load<SoundEffect>("SFX/gun_fire2");
 
             spritesheet = content.Load<Texture2D>("Spritesheets/newsh2.shp.000000");
 
@@ -74,19 +69,20 @@ namespace ScrollingShooter
             PlayerShip ps = ScrollingShooterGame.Game.Player;
             Vector2 pp = new Vector2(ps.Bounds.Center.X, ps.Bounds.Center.Y);
             Vector2 dp = pp - this.position;
-            if (dp.LengthSquared() > 30000)
+
+            if (this.position.Y > -ScrollingShooterGame.LevelManager.scrollDistance / 2 && this.position.Y <= ps.Position.Y + 75)
             {
                 dp.Normalize();
                 this.position += dp * elapsedTime * 100;
                 if (dp.X < -0.5f) steeringState = StdBaddyStearingState.Left;
                 else if (dp.X > 0.5f) steeringState = StdBaddyStearingState.Right;
                 else steeringState = StdBaddyStearingState.Streight;
-            }
-            if (dgt > .75f)
-            {
-                ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.EBullet, position);
-                stdEnemyFired.Play();
-                dgt = 0;
+
+                if (dgt > .75f)
+                {
+                    ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.EBullet, position);
+                    dgt = 0;
+                }
             }
         }
         /// <summary>
@@ -98,5 +94,14 @@ namespace ScrollingShooter
         {
             spriteBatch.Draw(spritesheet, Bounds, spriteBounds[(int)steeringState], Color.White);
         }
+		
+		/// <summary>
+        /// Scrolls the object with the map
+        /// </summary>
+        /// <param name="elapsedTime">The in-game time between the previous and current frame</param>
+		public override void ScrollWithMap(float elapsedTime)
+		{
+			position.Y += elapsedTime * ScrollingSpeed;
+		}
     }
 }

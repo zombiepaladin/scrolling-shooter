@@ -2,7 +2,6 @@ using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Audio;
 
 namespace ScrollingShooter
 {
@@ -103,6 +102,15 @@ namespace ScrollingShooter
         {
             //Do nothing.
         }
+
+        /// <summary>
+        /// Scrolls the object with the map
+        /// </summary>
+        /// <param name="elapsedTime">The in-game time between the previous and current frame</param>
+        public override void ScrollWithMap(float elapsedTime)
+        {
+            // Does nothing
+        }
     }
 
     /// <summary>
@@ -119,8 +127,6 @@ namespace ScrollingShooter
             Open = 0,
             Destroyed = 4,
         }
-
-        SoundEffect seedfired;
 
         //Constants
         private const string SPRITESHEET = "Spritesheets/newshd.shp.000000";
@@ -161,8 +167,6 @@ namespace ScrollingShooter
             : base(id)
         {
             this._position = position;
-
-            seedfired = content.Load<SoundEffect>("SFX/dead");
 
             this._spritesheet = content.Load<Texture2D>(SPRITESHEET);
 
@@ -207,7 +211,6 @@ namespace ScrollingShooter
                     if (firedBullets < NUM_OF_BULLETS_PER_FIRE && _timer >= FIRE_TIME)
                     {
                         ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.ToPlayerBullet, _position);
-                        seedfired.Play();
                         firedBullets++;
                     }
                     else if (firedBullets == NUM_OF_BULLETS_PER_FIRE)

@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.Audio;
 
 namespace ScrollingShooter
 {
@@ -39,7 +38,6 @@ namespace ScrollingShooter
         Texture2D beamSpriteSheet;
         Vector2 position;
         Rectangle[] spriteBounds = new Rectangle[3];
-        SoundEffect beamShipFired;
       
         //DartSteeringState steeringState = DartSteeringState.Straight;
 
@@ -100,9 +98,7 @@ namespace ScrollingShooter
             velocityY = new Vector2(0, 35);
             velocityX = new Vector2(80, 0);
             timer = -1;
-
-            beamShipFired = content.Load<SoundEffect>("SFX/monster");
-
+            
             spritesheet = content.Load<Texture2D>("Spritesheets/newsh2.shp.000000");
 
             //load the body of the craft from the spritesheet
@@ -168,7 +164,6 @@ namespace ScrollingShooter
                         ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.BlueBeam, new Vector2(this.position.X + weaponFireOffset.X + 1, this.position.Y + weaponFireOffset.Y + 8));
                         weaponFiring = false;
                         behaviorState = BehaviorState.Flying;
-                        beamShipFired.Play();
                     }
                     else
                         behaviorState = BehaviorState.Fleeing;

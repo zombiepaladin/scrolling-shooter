@@ -74,7 +74,7 @@ namespace ScrollingShooter
             jTurretFired = content.Load<SoundEffect>("SFX/earth");
 
             spritesheet = content.Load<Texture2D>("Spritesheets/newsh3.shp.000000");
-
+            
             spriteBounds.X = 161;
             spriteBounds.Y = 62;
             spriteBounds.Width = 14;
@@ -100,7 +100,6 @@ namespace ScrollingShooter
             //Enable proper scrolling
             Vector2 scrollVector = new Vector2(0, 1);
             scrollVector.Normalize();
-            this.position += scrollVector*ScrollingSpeed*elapsedTime;
             
             // Update the shot timer
             shotDelay += elapsedTime;
@@ -166,5 +165,9 @@ namespace ScrollingShooter
             spriteBatch.Draw(spritesheet, Bounds, spriteBounds, Color.White, alpha, new Vector2(spriteBounds.Width / 2, spriteBounds.Height / 2), SpriteEffects.None, 0f);
         }
 
+        public override void ScrollWithMap(float elapsedTime)
+        {
+            position.Y += elapsedTime * ScrollingSpeed;
+        }
     }
 }

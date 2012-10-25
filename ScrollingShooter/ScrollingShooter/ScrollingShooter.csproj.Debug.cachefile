@@ -1,43 +1,3 @@
-Content\SFX\8bit_bomb_explosion.xnb
-Content\SFX\8bit_gunloop_explosion.xnb
-Content\SFX\bzzzt.xnb
-Content\SFX\crash.xnb
-Content\SFX\ding2.xnb
-Content\SFX\mutantdie.xnb
-Content\SFX\thunk.xnb
-Content\SFX\zoom3.xnb
-Content\SFX\anti_tank_gun_single_shot.xnb
-Content\SFX\22.xnb
-Content\SFX\ambient_techno1.xnb
-Content\SFX\block.xnb
-Content\SFX\coldsnap.xnb
-Content\SFX\dead.xnb
-Content\SFX\earth.xnb
-Content\SFX\flopp med underleppa (flanger9).xnb
-Content\SFX\foom_0.xnb
-Content\SFX\gun_fire.xnb
-Content\SFX\gun_fire2.xnb
-Content\SFX\ice.xnb
-Content\SFX\laser.xnb
-Content\SFX\laser1.xnb
-Content\SFX\laser2.xnb
-Content\SFX\laser3.xnb
-Content\SFX\monster.xnb
-Content\SFX\pusou.xnb
-Content\SFX\sci-fi 1_2.xnb
-Content\SFX\short wind sound.xnb
-Content\SFX\sirldrende vann1.xnb
-Content\SFX\spell.xnb
-Content\SFX\spell1_0.xnb
-Content\SFX\spell2.xnb
-Content\SFX\spell3.xnb
-Content\SFX\spell4.xnb
-Content\SFX\teleport.xnb
-Content\SFX\warcry.xnb
-Content\SFX\wave2.xnb
-Content\SFX\whoosh (phaser).xnb
-Content\SFX\whoosh1.xnb
-Content\SFX\whoosh2.xnb
 Content\Spritesheets\birdcrapsprite.xnb
 Content\Tilesets\shapes).xnb
 Content\Tilesets\shapesw.xnb
@@ -92,7 +52,6 @@ Content\Tilesets\shapeswmodified.xnb
 Content\Spritesheets\accessories.xnb
 Content\Spritesheets\vulcano.xnb
 Content\Spritesheets\MoonBoss.xnb
-Content\Tilesets\newshn.shp.000000.xnb
 Content\Tilesets\bossFloorTexture.xnb
 Content\Tilesets\shapeszFinalLvlMod.xnb
 Content\Tilesets\shapesFinalLvlMod.xnb
@@ -107,4 +66,9 @@ Content\Tilemaps\AlienBaseSafe.xnb
 Content\SpriteFonts\Pescadero.xnb
 Content\debugFont.xnb
 Content\Music\Hard as Nails 11-13-28.xnb
+Content\SFX\anti_tank_gun_single_shot.xnb
+Content\Spritesheets\explosion.xnb
+Content\Spritesheets\gui.xnb
+Content\SFX\gamalaser.xnb
+Content\SFX\fireworksmortar3.xnb
 Content\Music\Hard as Nails 11-13-28.wma

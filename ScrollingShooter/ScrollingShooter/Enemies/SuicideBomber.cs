@@ -77,7 +77,7 @@ namespace ScrollingShooter
             // Get a vector from our position to the player's position
             Vector2 toPlayer = playerPosition - this.position;
 
-            if (toPlayer.LengthSquared() < 90000)
+            if (this.position.Y > -ScrollingShooterGame.LevelManager.scrollDistance / 2 && this.position.Y <= player.Position.Y + 90)
             {
                 // We sense the player's ship and get a normalized movement vector
                 toPlayer.Normalize();
@@ -110,5 +110,14 @@ namespace ScrollingShooter
             else
                 spriteBatch.Draw(spritesheet, Bounds, spriteBounds[(int)steeringState], Color.White);
         }
+		
+		/// <summary>
+        /// Scrolls the object with the map
+        /// </summary>
+        /// <param name="elapsedTime">The in-game time between the previous and current frame</param>
+		public override void ScrollWithMap(float elapsedTime)
+		{
+			position.Y += ScrollingSpeed * elapsedTime;
+		}
     }
 }

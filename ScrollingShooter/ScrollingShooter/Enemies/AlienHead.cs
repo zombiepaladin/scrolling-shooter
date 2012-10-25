@@ -177,10 +177,13 @@ namespace ScrollingShooter
         {
             //get a new random number
             int random = randomGen.Next(0, 100);
-           
+
 
             switch (phase)
             {
+                case AlienPhase.Dead:
+                    phase = AlienPhase.Wait;
+                    break;
                 case AlienPhase.Wait:
                     timer += elapsedTime;
                     if (timer >= 1)
@@ -227,6 +230,7 @@ namespace ScrollingShooter
                             break;
 
                         case AlienBreathingPhase.Inhale:
+                            ScrollingShooterGame.LevelManager.Scrolling = false;
                             ScrollingShooterGame.Game.Player.MoveShip(mouthPos);
                             if(timer >= 3)
                                 breathingPhase = AlienBreathingPhase.BreatheOut;
@@ -320,6 +324,11 @@ namespace ScrollingShooter
             spriteBatch.Draw(spritesheet, drawBounds[(int)AlienHeadPart.Face], spriteBounds[(int)AlienHeadPart.Face], Color.White, 0f, new Vector2(Bounds.Width / 2, Bounds.Height / 2), SpriteEffects.None, 1f);
             if(frame >= 0)
                 spriteBatch.Draw(spritesheet, drawBounds[(int)AlienHeadPart.FaceAnimation1], spriteBounds[(int)animationSequence[frame]], Color.White, 0f, new Vector2(Bounds.Width / 2, Bounds.Height / 2), SpriteEffects.None, 1f);            
+        }
+
+        public override void ScrollWithMap(float elapsedTime)
+        {
+           // position.Y += elapsedTime * ScrollingSpeed;
         }
 
     }

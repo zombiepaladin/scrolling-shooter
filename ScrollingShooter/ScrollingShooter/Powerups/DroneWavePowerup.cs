@@ -19,11 +19,11 @@ namespace ScrollingShooter
         {
             this.type = PowerupType.DroneWave;
 
-            this.spriteSource = new Rectangle(170, 198, 21, 22);
+            this.spriteBounds = new Rectangle(170, 198, 21, 22);
 
             this.spriteSheet = contentManager.Load<Texture2D>("Spritesheets/tyrian.shp.010008");
 
-            this.spriteBounds = new Rectangle((int)position.X, (int)position.Y, 21, 22);
+            this.position = position;
 
 
         }

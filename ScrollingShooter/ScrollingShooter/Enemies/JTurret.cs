@@ -2,7 +2,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.Audio;
 
 namespace ScrollingShooter
 {
@@ -16,7 +15,6 @@ namespace ScrollingShooter
         /// spritesheet with the turret texture
         /// </summary>
         Texture2D spritesheet;
-        SoundEffect jTurretFired;
 
         /// <summary>
         /// Position of the turret
@@ -71,7 +69,7 @@ namespace ScrollingShooter
         public JTurret(uint id, ContentManager content, Vector2 position) : base (id)
         {
             this.position = position;
-            jTurretFired = content.Load<SoundEffect>("SFX/earth");
+
             spritesheet = content.Load<Texture2D>("Spritesheets/newsh3.shp.000000");
 
             spriteBounds.X = 161;
@@ -96,11 +94,6 @@ namespace ScrollingShooter
         /// <param name="elapsedTime">The in-game time between the previous and current frame</param>
         public override void Update(float elapsedTime)
         {
-            //Enable proper scrolling
-            Vector2 scrollVector = new Vector2(0, 1);
-            scrollVector.Normalize();
-            this.position += scrollVector*ScrollingSpeed*elapsedTime;
-            
             // Update the shot timer
             shotDelay += elapsedTime;
 
@@ -146,7 +139,6 @@ namespace ScrollingShooter
                     // Spawn the bullet
                     // TODO: Add this to the enemy projectiles list once it's created
                     ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.EnemyBullet, position + offset);
-                    jTurretFired.Play();
 
                     // Reset the shot delay
                     shotDelay = 0;
@@ -164,6 +156,14 @@ namespace ScrollingShooter
         {
             spriteBatch.Draw(spritesheet, Bounds, spriteBounds, Color.White, alpha, new Vector2(spriteBounds.Width / 2, spriteBounds.Height / 2), SpriteEffects.None, 0f);
         }
-
+		
+		/// <summary>
+        /// Scrolls the object with the map
+        /// </summary>
+        /// <param name="elapsedTime">The in-game time between the previous and current frame</param>
+		public override void ScrollWithMap(float elapsedTime)
+		{
+            position.Y += ScrollingSpeed * elapsedTime;
+		}
     }
 }

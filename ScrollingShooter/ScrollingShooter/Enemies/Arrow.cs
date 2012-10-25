@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.Audio;
 
 namespace ScrollingShooter
 {
@@ -26,7 +25,6 @@ namespace ScrollingShooter
         Rectangle[] spriteBounds = new Rectangle[3];
         ArrowSteeringState steeringState = ArrowSteeringState.Straight;
         float gunTimer = 0;
-        SoundEffect arrowFired;
 
         /// <summary>
         /// The bounding rectangle of the Dart
@@ -45,7 +43,7 @@ namespace ScrollingShooter
             : base(id)
         {
             this.position = position;
-            arrowFired = content.Load<SoundEffect>("SFX/monster");
+
             spritesheet = content.Load<Texture2D>("Spritesheets/newsh$.shp.000000");
 
             spriteBounds[(int)ArrowSteeringState.Left].X = 5;
@@ -110,7 +108,6 @@ namespace ScrollingShooter
                     {
                         ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.ArrowProjectile, position);
                         gunTimer = 0f;
-                        arrowFired.Play();
                     }
                 }
                 else
@@ -127,6 +124,14 @@ namespace ScrollingShooter
         {
             spriteBatch.Draw(spritesheet, Bounds, spriteBounds[(int)steeringState], Color.White, 0f, new Vector2(Bounds.Width / 2, Bounds.Height / 2), SpriteEffects.FlipVertically, 1f);
         }
-
+		
+		/// <summary>
+        /// Scrolls the object with the map
+        /// </summary>
+        /// <param name="elapsedTime">The in-game time between the previous and current frame</param>
+		public override void ScrollWithMap(float elapsedTime)
+		{
+			position.Y += ScrollingSpeed * elapsedTime;
+		}
     }
 }

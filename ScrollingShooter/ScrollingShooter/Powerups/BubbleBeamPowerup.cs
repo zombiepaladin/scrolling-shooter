@@ -28,9 +28,9 @@ namespace ScrollingShooter
             : base(id)
         {
             this.type = PowerupType.BubbleBeam;
-            this.spriteSource = SPRITE_SOURCE;
+            this.spriteBounds = SPRITE_SOURCE;
             this.spriteSheet = contentManager.Load<Texture2D>(SPRITE_SHEET);
-            this.spriteBounds = new Rectangle((int)position.X, (int)position.Y, X_BOUNDS, Y_BOUNDS);
+            this.position = position;
         }
     }
 }

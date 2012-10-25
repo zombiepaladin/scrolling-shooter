@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.Audio;
 using System;
 
 namespace ScrollingShooter
@@ -31,7 +30,6 @@ namespace ScrollingShooter
     /// </summary>
     public class LaserDrone : Enemy
     {
-        SoundEffect laserDroneFired;
         /// <summary>
         /// The time in seconds to recharge the laser.
         /// </summary>
@@ -94,7 +92,7 @@ namespace ScrollingShooter
         public LaserDrone(uint id, ContentManager content, Vector2 position) : base(id)
         {
             this.position = position;
-            laserDroneFired = content.Load<SoundEffect>("SFX/wave2");
+
             spritesheet = content.Load<Texture2D>("Spritesheets/newsh8.shp.000000");
 
             spriteBounds[(int)WeaponChargeLevel.Full].X = 1;
@@ -121,6 +119,11 @@ namespace ScrollingShooter
         /// <param name="elapsedTime">The in-game time between the previous and current frame</param>
         public override void Update(float elapsedTime)
         {
+            if (Health <= 0 && droneLaser != null)
+            {
+                ScrollingShooterGame.GameObjectManager.DestroyObject(droneLaser.ID);
+            }
+
             // Sense the player's position
             Vector2 playerPosition = new Vector2(ScrollingShooterGame.Game.Player.Bounds.Center.X, ScrollingShooterGame.Game.Player.Bounds.Center.Y);
 
@@ -133,7 +136,6 @@ namespace ScrollingShooter
                         //transition to firing state
                         fireTimeRemaining = FIRE_TIME;
                         aiState = AIState.Firing;
-                        laserDroneFired.Play();
                         currentSpeed = MAX_MOVE_SPEED * 0.66f;
                         if(droneLaser == null)
                             droneLaser = (DroneLaser) ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.DroneLaser, Vector2.Zero);

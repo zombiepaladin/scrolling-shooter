@@ -13,7 +13,7 @@ namespace ScrollingShooter
         Dart,
         GreenGoblin,
         LaserDrone,
-        Cobalt,
+		Cobalt,
         JetMinion,
         Seed,
         Bomber,
@@ -33,6 +33,7 @@ namespace ScrollingShooter
         DeerTickLeft,
         Turret,
         JTurret,
+        JTurretScrolling,
         DrillLeft,
         DrillRight,
         SuicideBomber,
@@ -49,7 +50,8 @@ namespace ScrollingShooter
         TurretSingle,
         TurretDouble,
         TurretTower,
-        JTurretScrolling,
+        Mine,
+        Rock,
         AlienTurretScrolling,
     }
 
@@ -64,9 +66,23 @@ namespace ScrollingShooter
         public float Health = 1;
 
         /// <summary>
+        /// The enemy's point value
+        /// </summary>
+        public int Score = 10;
+
+        /// <summary>
         /// Constructs a new enemy
         /// </summary>
         /// <param name="id">The unique id of the enemy instance</param>
         public Enemy(uint id) : base(id) { }
+
+        /// <summary>
+        /// Scrolls the object with the map
+        /// </summary>
+        /// <param name="elapsedTime">The in-game time between the previous and current frame</param>
+		public override void ScrollWithMap(float elapsedTime) 
+        {
+            // Does nothing
+        }
     }
 }

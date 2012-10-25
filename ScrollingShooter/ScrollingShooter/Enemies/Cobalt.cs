@@ -16,7 +16,7 @@ namespace ScrollingShooter
         Vector2 position;
         Rectangle spriteBounds;
         float delay;
-
+        
         /// <summary>
         /// The bounding rectangle of the Cobalt
         /// </summary>
@@ -41,6 +41,8 @@ namespace ScrollingShooter
             spriteBounds.Y = 55;
             spriteBounds.Width = 37;
             spriteBounds.Height = 28;
+
+            Health = 5;
         }
 
         /// <summary>
@@ -72,7 +74,7 @@ namespace ScrollingShooter
                         delay = 0;
                     }
                 }
-                // We sense the player's ship!
+                // We sense the player's ship!                  
                 // Get a normalized steering vector
                 toPlayer.Normalize();
 
@@ -81,6 +83,11 @@ namespace ScrollingShooter
 
             }
 
+        }
+
+        public override void ScrollWithMap(float elapsedTime)
+        {
+            this.position.Y += ScrollingSpeed * elapsedTime;
         }
 
         /// <summary>

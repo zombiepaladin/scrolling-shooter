@@ -38,28 +38,7 @@ namespace ScrollingShooter
         /// <summary>
         /// Player's Health
         /// </summary>
-        public float Health;
-
-        /// <summary>
-        /// Player's Max Health
-        /// </summary>
-        public float MaxHealth = 100;
-
-        /// <summary>
-        /// Player's Lives
-        /// </summary>
-        public int Lives = 5;
-
-        /// <summary>
-        /// Player's Score
-        /// </summary>
-        public int Score = 0;
-
-        /// <summary>
-        /// Player's Kill count
-        /// </summary>
-        public int Kills = 0;
-
+        public float Health = 100;
 
         #region Timers
 
@@ -172,8 +151,6 @@ namespace ScrollingShooter
         public PlayerShip(uint id, ContentManager content) : base(id) 
         {
             bulletFired = content.Load<SoundEffect>("SFX/anti_tank_gun_single_shot");
-            Health = MaxHealth;
-            Score = 0;
         }
 
 
@@ -199,7 +176,7 @@ namespace ScrollingShooter
             }
 
             // Store the new powerup in the PowerupType bitmask
-            this.PowerupType = powerup;
+            this.PowerupType |= powerup;
 
             //Apply special logic for powerups here
             switch (powerup)
@@ -242,7 +219,6 @@ namespace ScrollingShooter
             bombTimer += elapsedTime;
             railgunTimer += elapsedTime;
             homingMissileTimer -= elapsedTime;
-            shotgunTimer += elapsedTime;
 
             if (!drunk)
             {
@@ -343,16 +319,6 @@ namespace ScrollingShooter
                     }
                 }
             }
-            // Do player clamping
-            // Note: 384 = worldView width / 2 and 360 = worldView height / 2
-            // I assumed it would be faster to compare hardcoded numbers than to reference the variable directly
-            if ((position.X - Bounds.Width / 2) < 0) position.X = Bounds.Width / 2;
-            else if ((position.X + Bounds.Width / 2) > 384) position.X = 384 - Bounds.Width / 2;
-            if (position.Y < ((ScrollingShooterGame.LevelManager.scrollDistance * -0.5f) + Bounds.Height / 2))
-                position.Y = (ScrollingShooterGame.LevelManager.scrollDistance * -0.5f) + Bounds.Height / 2;
-            else if (position.Y > ((ScrollingShooterGame.LevelManager.scrollDistance * -0.5f) + 360 - Bounds.Height / 2))
-                position.Y = (ScrollingShooterGame.LevelManager.scrollDistance * -0.5f) + 360 - Bounds.Height / 2;
-
             // Fire bomb
             if (currentKeyboardState.IsKeyDown(Keys.B))
             {
@@ -404,7 +370,7 @@ namespace ScrollingShooter
                     }
 
                     // Default gun
-                    if (defaultGunTimer > 0.25f & PowerupType == 0)
+                    if (defaultGunTimer > 0.25f)
                     {
                         ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.Bullet, position);
                         bulletFired.Play();
@@ -513,26 +479,28 @@ namespace ScrollingShooter
         /// </summary>
         void TriggerMeteor()
         {
+            //TODO: Constantly do a tiny amount of damage to all enemies during the storm.
 
             //Reduce object creation by creating variables before loop.
-            Vector2 meteorPosition = new Vector2();
+            Vector2 position = new Vector2();
             Random rand = new Random();
-			
-			// (nevermind) Add a bunch of decorative meteors
-            /*
-			for (int i = 0; i < 300; i++)
-			{
-                meteorPosition.X = rand.Next(800);
-                meteorPosition.Y = -rand.Next(4000) - 200;
 
-                ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.Meteor, meteorPosition);
+            //Add a bunch of decorative meteors
+            for (int i = 0; i < 300; i++)
+            {
+                position.X = rand.Next(800);
+                position.Y = -rand.Next(4000) - 200;
+
+                ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.Meteor, position);
 			}
-            */
-            //Add one large meteor that repeats
-            meteorPosition.X = 220;
-            meteorPosition.Y = position.Y - 200;
+			//Add a few large meteors
+            for (int i = 0; i < 10; i++)
+            {
+                position.X = 50 + rand.Next(800);
+                position.Y = -rand.Next(8000) - 1000;
 
-            ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.BigMeteor, meteorPosition);
+                ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.BigMeteor, position);
+            }
         }
 
         /// <summary>
@@ -696,15 +664,6 @@ namespace ScrollingShooter
             Vector2 newDir = direction - position;
             newDir.Normalize();
             position += newDir * 2;
-        }
-
-        /// <summary>
-        /// Scrolls the object with the map
-        /// </summary>
-        /// <param name="elapsedTime">The in-game time between the previous and current frame</param>
-        public override void ScrollWithMap(float elapsedTime)
-        {
-            // Does nothing
         }
     }
 }

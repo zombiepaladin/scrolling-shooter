@@ -21,6 +21,8 @@
   <object name="PlayerStart" x="315" y="22208" width="76" height="69"/>
   <object name="PlayerStart" x="298" y="28726" width="135" height="123"/>
   <object name="Powerup" type="Fireball" x="280" y="28229"/>
+  <object name="Enemy" type="LaserDrone" x="432" y="28117" width="28" height="27"/>
+  <object name="Enemy" type="BrainBoss" x="376" y="27864"/>
  </objectgroup>
  <layer name="Tile Layer 2" width="40" height="1028">
   <properties>

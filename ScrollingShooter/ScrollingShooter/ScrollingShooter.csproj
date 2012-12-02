@@ -124,10 +124,8 @@
     <Compile Include="Enemies\BigBad.cs" />
     <Compile Include="Enemies\AlienHead.cs" />
     <Compile Include="Enemies\AlienTurret.cs" />
-    <Compile Include="Enemies\Asteriod.cs" />
     <Compile Include="Bosses\BrainBoss.cs" />
     <Compile Include="Enemies\BeamShip.cs" />
-    <Compile Include="Enemies\BigBad.cs" />
     <Compile Include="Enemies\Bomber.cs" />
     <Compile Include="Enemies\BrainBossPsiEmitter.cs" />
     <Compile Include="Enemies\BrainBossProtection.cs" />

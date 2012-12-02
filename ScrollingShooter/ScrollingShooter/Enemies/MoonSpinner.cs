@@ -20,8 +20,6 @@ namespace ScrollingShooter
             S7
         }
         int sc = 0;
-        Texture2D spritesheet;
-        Vector2 position;
         Rectangle[] spriteBounds = new Rectangle[8];
         spinState ss = spinState.S0;
 

@@ -46,12 +46,6 @@ namespace ScrollingShooter
     /// </summary>
     public class AlienHead : Enemy
     {
-        //sprite sheet containing the alien head
-        Texture2D spritesheet;
-
-        //position of the alien head on screen
-        Vector2 position;
-
         //rectangle where the sprite exists on the spritesheet
         Rectangle[] spriteBounds = new Rectangle[6];
 

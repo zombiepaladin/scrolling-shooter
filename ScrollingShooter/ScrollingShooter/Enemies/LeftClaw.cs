@@ -11,8 +11,6 @@ namespace ScrollingShooter
     /// </summary>
     public class LeftClaw : Enemy
     {
-        Texture2D spritesheet;
-        Vector2 position;
         Rectangle[] spriteBounds = new Rectangle[2];
 
         Rectangle[] drawBounds = new Rectangle[2];

@@ -22,8 +22,6 @@ namespace ScrollingShooter
     public class GreenGoblin : Enemy
     {
         // Green Goblin state variables
-        Texture2D spritesheet;
-        Vector2 position;
         Rectangle[] spriteBounds = new Rectangle[3];
         GreenGoblinSteeringState steeringState = GreenGoblinSteeringState.Straight;
         Random rand = new Random();

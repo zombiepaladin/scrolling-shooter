@@ -31,8 +31,6 @@ namespace ScrollingShooter
         private float eyeRotation = 0;
         private Vector2 eyeRotationOrigin;
 
-        private Vector2 position;
-
         private Random rand;
 
         private float shotTimer = 0.1f;

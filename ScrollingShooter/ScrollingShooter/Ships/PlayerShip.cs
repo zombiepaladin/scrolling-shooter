@@ -199,7 +199,7 @@ namespace ScrollingShooter
             }
 
             // Store the new powerup in the PowerupType bitmask
-            this.PowerupType = powerup;
+            this.PowerupType = powerup | PowerupType;
 
             //Apply special logic for powerups here
             switch (powerup)
@@ -233,238 +233,252 @@ namespace ScrollingShooter
         /// <param name="elapsedTime"></param>
         public override void Update(float elapsedTime)
         {
-            KeyboardState currentKeyboardState = Keyboard.GetState();
-
-            // Update timers
-            defaultGunTimer += elapsedTime;
-            bladesPowerupTimer += elapsedTime;
-            energyBlastTimer -= elapsedTime;
-            bombTimer += elapsedTime;
-            railgunTimer += elapsedTime;
-            homingMissileTimer -= elapsedTime;
-            shotgunTimer += elapsedTime;
-
-            if (!drunk)
+            if (!ScrollingShooterGame.LevelManager.Ending)
             {
-                // Steer the ship up or down according to user input
-                if (currentKeyboardState.IsKeyDown(Keys.Up))
-                {
-                    position.Y -= elapsedTime * velocity.Y;
-                }
-                else if (currentKeyboardState.IsKeyDown(Keys.Down))
-                {
-                    position.Y += elapsedTime * velocity.Y;
-                }
+                KeyboardState currentKeyboardState = Keyboard.GetState();
 
-                // Steer the ship left or right according to user input
-                steeringState = SteeringState.Straight;
+                // Update timers
+                defaultGunTimer += elapsedTime;
+                bladesPowerupTimer += elapsedTime;
+                energyBlastTimer -= elapsedTime;
+                bombTimer += elapsedTime;
+                railgunTimer += elapsedTime;
+                homingMissileTimer -= elapsedTime;
+                shotgunTimer += elapsedTime;
 
-                if (currentKeyboardState.IsKeyDown(Keys.Left))
+                if (!drunk)
                 {
-                    if (currentKeyboardState.IsKeyDown(Keys.LeftShift) ||
-                        currentKeyboardState.IsKeyDown(Keys.RightShift))
+                    // Steer the ship up or down according to user input
+                    if (currentKeyboardState.IsKeyDown(Keys.Up))
                     {
-                        steeringState = SteeringState.HardLeft;
-                        position.X -= elapsedTime * 2 * velocity.X;
-
+                        position.Y -= elapsedTime * velocity.Y;
                     }
-                    else
+                    else if (currentKeyboardState.IsKeyDown(Keys.Down))
                     {
-                        steeringState = SteeringState.Left;
-                        position.X -= elapsedTime * velocity.X;
+                        position.Y += elapsedTime * velocity.Y;
                     }
-                }
-                else if (currentKeyboardState.IsKeyDown(Keys.Right))
-                {
-                    if (currentKeyboardState.IsKeyDown(Keys.LeftShift) ||
-                        currentKeyboardState.IsKeyDown(Keys.RightShift))
-                    {
-                        position.X += elapsedTime * 2 * velocity.X;
-                        steeringState = SteeringState.HardRight;
-                    }
-                    else
-                    {
-                        position.X += elapsedTime * velocity.X;
-                        steeringState = SteeringState.Right;
-                    }
-                }
-            }
 
-            //Player is drunk and movements are reversed.
-            else
-            {
-                //Decrease drunkCounter and make the player sober if their drunk time is up.
-                drunkCounter--;
-                if (drunkCounter == 0)
-                {
-                    SoberUp();
-                }
-                // Steer the ship up or down according to user input
-                if (currentKeyboardState.IsKeyDown(Keys.Up))
-                {
-                    position.Y += elapsedTime * velocity.Y;
-                }
+                    // Steer the ship left or right according to user input
+                    steeringState = SteeringState.Straight;
 
-                else if (currentKeyboardState.IsKeyDown(Keys.Down))
-                {
-                    position.Y -= elapsedTime * velocity.Y;
-                }
-
-                // Steer the ship left or right according to user input
-                steeringState = SteeringState.Straight;
-
-                if (currentKeyboardState.IsKeyDown(Keys.Left))
-                {
-                    if (currentKeyboardState.IsKeyDown(Keys.LeftShift) ||
-                        currentKeyboardState.IsKeyDown(Keys.RightShift))
+                    if (currentKeyboardState.IsKeyDown(Keys.Left))
                     {
-                        steeringState = SteeringState.HardLeft;
-                        position.X += elapsedTime * 2 * velocity.X;
-
-                    }
-                    else
-                    {
-                        steeringState = SteeringState.Left;
-                        position.X += elapsedTime * velocity.X;
-                    }
-                }
-                else if (currentKeyboardState.IsKeyDown(Keys.Right))
-                {
-                    if (currentKeyboardState.IsKeyDown(Keys.LeftShift) ||
-                        currentKeyboardState.IsKeyDown(Keys.RightShift))
-                    {
-                        position.X -= elapsedTime * 2 * velocity.X;
-                        steeringState = SteeringState.HardRight;
-                    }
-                    else
-                    {
-                        position.X -= elapsedTime * velocity.X;
-                        steeringState = SteeringState.Right;
-                    }
-                }
-            }
-            // Do player clamping
-            // Note: 384 = worldView width / 2 and 360 = worldView height / 2
-            // I assumed it would be faster to compare hardcoded numbers than to reference the variable directly
-            if ((position.X - Bounds.Width / 2) < 0) position.X = Bounds.Width / 2;
-            else if ((position.X + Bounds.Width / 2) > 384) position.X = 384 - Bounds.Width / 2;
-            if (position.Y < ((ScrollingShooterGame.LevelManager.scrollDistance * -0.5f) + Bounds.Height / 2))
-                position.Y = (ScrollingShooterGame.LevelManager.scrollDistance * -0.5f) + Bounds.Height / 2;
-            else if (position.Y > ((ScrollingShooterGame.LevelManager.scrollDistance * -0.5f) + 360 - Bounds.Height / 2))
-                position.Y = (ScrollingShooterGame.LevelManager.scrollDistance * -0.5f) + 360 - Bounds.Height / 2;
-
-            // Fire bomb
-            if (currentKeyboardState.IsKeyDown(Keys.B))
-            {
-                //checks if player has the bomb power up
-                if ((PowerupType & PowerupType.Bomb) > 0)
-                {
-                    if (bombTimer > 1.5f)
-                    {
-                        ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.Bomb, position);
-                        bombTimer = 0f;
-                    }
-                }
-            }
-            if (bladesPowerupTimer > 10.0f && (PowerupType & PowerupType.Blades) > 0)
-            {
-                unApplyBlades();
-            }
-
-            // Used to test the energy blast powerup levels
-            //if (currentKeyboardState.IsKeyDown(Keys.F) && oldKeyboardState.IsKeyUp(Keys.F))
-            //    energyBlastLevel++;
-            if ((PowerupType & PowerupType.Blades) == 0)
-            {
-                // Fire weapons
-                if (currentKeyboardState.IsKeyDown(Keys.Space))
-                {
-                    if ((PowerupType & PowerupType.Freezewave) > 0)
-                    {
-                        if (defaultGunTimer > .5f)
+                        if (currentKeyboardState.IsKeyDown(Keys.LeftShift) ||
+                            currentKeyboardState.IsKeyDown(Keys.RightShift))
                         {
-                            ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.FreezewaveProjectile, position);
+                            steeringState = SteeringState.HardLeft;
+                            position.X -= elapsedTime * 2 * velocity.X;
+
+                        }
+                        else
+                        {
+                            steeringState = SteeringState.Left;
+                            position.X -= elapsedTime * velocity.X;
                         }
                     }
-                    // Streaming weapons
-                    if ((PowerupType & PowerupType.BubbleBeam) > 0)
+                    else if (currentKeyboardState.IsKeyDown(Keys.Right))
                     {
-                        if (defaultGunTimer > .1f)
+                        if (currentKeyboardState.IsKeyDown(Keys.LeftShift) ||
+                            currentKeyboardState.IsKeyDown(Keys.RightShift))
                         {
-                            ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.BubbleBullet, position);
+                            position.X += elapsedTime * 2 * velocity.X;
+                            steeringState = SteeringState.HardRight;
+                        }
+                        else
+                        {
+                            position.X += elapsedTime * velocity.X;
+                            steeringState = SteeringState.Right;
+                        }
+                    }
+                }
+
+                //Player is drunk and movements are reversed.
+                else
+                {
+                    //Decrease drunkCounter and make the player sober if their drunk time is up.
+                    drunkCounter--;
+                    if (drunkCounter == 0)
+                    {
+                        SoberUp();
+                    }
+                    // Steer the ship up or down according to user input
+                    if (currentKeyboardState.IsKeyDown(Keys.Up))
+                    {
+                        position.Y += elapsedTime * velocity.Y;
+                    }
+
+                    else if (currentKeyboardState.IsKeyDown(Keys.Down))
+                    {
+                        position.Y -= elapsedTime * velocity.Y;
+                    }
+
+                    // Steer the ship left or right according to user input
+                    steeringState = SteeringState.Straight;
+
+                    if (currentKeyboardState.IsKeyDown(Keys.Left))
+                    {
+                        if (currentKeyboardState.IsKeyDown(Keys.LeftShift) ||
+                            currentKeyboardState.IsKeyDown(Keys.RightShift))
+                        {
+                            steeringState = SteeringState.HardLeft;
+                            position.X += elapsedTime * 2 * velocity.X;
+
+                        }
+                        else
+                        {
+                            steeringState = SteeringState.Left;
+                            position.X += elapsedTime * velocity.X;
+                        }
+                    }
+                    else if (currentKeyboardState.IsKeyDown(Keys.Right))
+                    {
+                        if (currentKeyboardState.IsKeyDown(Keys.LeftShift) ||
+                            currentKeyboardState.IsKeyDown(Keys.RightShift))
+                        {
+                            position.X -= elapsedTime * 2 * velocity.X;
+                            steeringState = SteeringState.HardRight;
+                        }
+                        else
+                        {
+                            position.X -= elapsedTime * velocity.X;
+                            steeringState = SteeringState.Right;
+                        }
+                    }
+                }
+                // Do player clamping
+                // Note: 384 = worldView width / 2 and 360 = worldView height / 2
+                // I assumed it would be faster to compare hardcoded numbers than to reference the variable directly
+                if ((position.X - Bounds.Width / 2) < 0) position.X = Bounds.Width / 2;
+                else if ((position.X + Bounds.Width / 2) > 384) position.X = 384 - Bounds.Width / 2;
+                if (position.Y < ((ScrollingShooterGame.LevelManager.scrollDistance * -0.5f) + Bounds.Height / 2))
+                    position.Y = (ScrollingShooterGame.LevelManager.scrollDistance * -0.5f) + Bounds.Height / 2;
+                else if (position.Y > ((ScrollingShooterGame.LevelManager.scrollDistance * -0.5f) + 360 - Bounds.Height / 2))
+                    position.Y = (ScrollingShooterGame.LevelManager.scrollDistance * -0.5f) + 360 - Bounds.Height / 2;
+
+                // Fire bomb
+                if (currentKeyboardState.IsKeyDown(Keys.B))
+                {
+                    //checks if player has the bomb power up
+                    if ((PowerupType & PowerupType.Bomb) > 0)
+                    {
+                        if (bombTimer > 1.5f)
+                        {
+                            ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.Bomb, position);
+                            bombTimer = 0f;
+                        }
+                    }
+                }
+                if (bladesPowerupTimer > 10.0f && (PowerupType & PowerupType.Blades) > 0)
+                {
+                    unApplyBlades();
+                }
+
+                // Used to test the energy blast powerup levels
+                if (currentKeyboardState.IsKeyDown(Keys.F) && oldKeyboardState.IsKeyUp(Keys.F))
+                    energyBlastLevel++;
+                if ((PowerupType & PowerupType.Blades) == 0)
+                {
+                    // Fire weapons
+                    if (currentKeyboardState.IsKeyDown(Keys.Space))
+                    {
+                        if ((PowerupType & PowerupType.Freezewave) > 0)
+                        {
+                            if (defaultGunTimer > .5f)
+                            {
+                                ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.FreezewaveProjectile, position);
+                            }
+                        }
+                        // Streaming weapons
+                        if ((PowerupType & PowerupType.BubbleBeam) > 0)
+                        {
+                            if (defaultGunTimer > BubbleBullet.FIRE_INTERVAL_MS)
+                            {
+                                ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.BubbleBullet, position);
+                                defaultGunTimer = 0f;
+                            }
+                        }
+
+                        // Fires a shotgun shot if the shotgun powerup is active and half a second has passed since the last shot
+                        if ((PowerupType & PowerupType.ShotgunPowerup) > 0 && shotgunTimer > 0.5f)
+                        {
+                            TriggerShotgun();
+                            shotgunTimer = 0;
+                        }
+
+                        // Default gun
+                        if (defaultGunTimer > 0.25f & PowerupType == 0)
+                        {
+                            ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.Bullet, position);
+                            bulletFired.Play();
                             defaultGunTimer = 0f;
                         }
-                    }
 
-                    // Fires a shotgun shot if the shotgun powerup is active and half a second has passed since the last shot
-                    if ((PowerupType & PowerupType.ShotgunPowerup) > 0 && shotgunTimer > 0.5f)
-                    {
-                        TriggerShotgun();
-                        shotgunTimer = 0;
-                    }
-
-                    // Default gun
-                    if (defaultGunTimer > 0.25f & PowerupType == 0)
-                    {
-                        ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.Bullet, position);
-                        bulletFired.Play();
-                        defaultGunTimer = 0f;
-                    }
-
-                    if((PowerupType & PowerupType.HomingMissiles) > 0)
-                    {
-                        if (homingMissileTimer <= 0)
+                        if ((PowerupType & PowerupType.HomingMissiles) > 0)
                         {
-                            homingMissileTimer = homingMissileFireRate;
-                            TriggerHomingMissile();
+                            if (homingMissileTimer <= 0)
+                            {
+                                homingMissileTimer = homingMissileFireRate;
+                                TriggerHomingMissile();
+                            }
                         }
-                    }
 
-                    //Conditionals to fire railgun.
-                    if ((PowerupType & PowerupType.Railgun) > 0)
-                    {
-                        if (railgunTimer > 3.0f)
+                        //Conditionals to fire railgun.
+                        if ((PowerupType & PowerupType.Railgun) > 0)
                         {
-                            TriggerRailgun();
-                            railgunTimer = 0f;
+                            if (railgunTimer > 3.0f)
+                            {
+                                TriggerRailgun();
+                                railgunTimer = 0f;
+                            }
                         }
-                    }
 
-                    // Energy Blast Gun
-                    if (((PowerupType & PowerupType.EnergyBlast) > 0) && energyBlastTimer < 0)
-                    {
-                        TriggerEnergyBlast();
-                    }
-
-                    // Fire-once weapons
-                    if (oldKeyboardState.IsKeyUp(Keys.Space))
-                    {
-
-                        if ((PowerupType & PowerupType.Fireball) > 0)
-                            TriggerFireball();
-
-                        if ((PowerupType & PowerupType.DroneWave) > 0)
+                        // Energy Blast Gun
+                        if (((PowerupType & PowerupType.EnergyBlast) > 0) && energyBlastTimer < 0)
                         {
-                            TriggerDroneWave();
+                            TriggerEnergyBlast();
                         }
+
+                        // Fire-once weapons
+                        if (oldKeyboardState.IsKeyUp(Keys.Space))
+                        {
+
+                            if ((PowerupType & PowerupType.Fireball) > 0)
+                                TriggerFireball();
+
+                            if ((PowerupType & PowerupType.DroneWave) > 0)
+                            {
+                                TriggerDroneWave();
+                            }
+                        }
+
+                        if ((PowerupType & PowerupType.Frostball) > 0)
+                            TriggerFrostball();
+
+
+                        if ((PowerupType & PowerupType.Birdcrap) > 0)
+                        {
+                            TriggerBirdcrap();
+                        }
+
+                        if ((PowerupType & PowerupType.Bomb) > 0)
+                            TriggerBomb();
                     }
-
-                    if ((PowerupType & PowerupType.Frostball) > 0)
-                        TriggerFrostball();
-
-
-                    if ((PowerupType & PowerupType.Birdcrap) > 0)
-                    {
-                        TriggerBirdcrap();
-                    }
-
-                    if ((PowerupType & PowerupType.Bomb) > 0)
-                        TriggerBomb();
                 }
-            }
 
-            // store the current keyboard state for next frame
-            oldKeyboardState = currentKeyboardState;
+                // store the current keyboard state for next frame
+                oldKeyboardState = currentKeyboardState;
+            }
+        }
+
+        public void EndLevel(float elaspedTime)
+        {
+            // Get to center of screen, then fly off
+
+            //if (-ScrollingShooterGame.LevelManager.scrollDistance / 2 <= position.Y + 10)
+            {
+                ScrollingShooterGame.LevelManager.Ending = false;
+                ScrollingShooterGame.LevelManager.LevelDone = true;
+            }
         }
 
 

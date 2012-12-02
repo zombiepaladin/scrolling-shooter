@@ -46,8 +46,6 @@ namespace ScrollingShooter
         private const float MAX_MOVE_SPEED = 175;
 
         // LaserDrone state variables
-        Texture2D spritesheet;
-        Vector2 position;
         Rectangle[] spriteBounds = new Rectangle[3];
         WeaponChargeLevel weaponChargeLevel = WeaponChargeLevel.Low;
 

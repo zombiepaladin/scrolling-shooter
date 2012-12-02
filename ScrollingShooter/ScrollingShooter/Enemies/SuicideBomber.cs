@@ -21,8 +21,6 @@ namespace ScrollingShooter
     public class SuicideBomber : Enemy
     {
         // SuicideBomber state variables
-        Texture2D spritesheet;
-        Vector2 position;
         Rectangle[] spriteBounds = new Rectangle[3];
         SuicideBomberState steeringState = SuicideBomberState.Straight;
 

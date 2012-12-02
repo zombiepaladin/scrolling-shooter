@@ -6,10 +6,6 @@ namespace ScrollingShooter
 {
     public class Mine : Enemy
     {
-        Texture2D spritesheet;
-        Vector2 position;
-        Rectangle spriteBounds;
-
         /// <summary>
         /// The bounding rectangle
         /// </summary>

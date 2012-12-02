@@ -1,37 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" width="16" height="320" tilewidth="24" tileheight="28">
  <tileset firstgid="1" name="shapes)" tilewidth="24" tileheight="28">
-  <image source="../Tilesets/shapes).png" width="240" height="1708"/>
+  <image source="../../../../../../Desktop/scrolling-shooter-master/scrolling-shooter-master/ScrollingShooter/ScrollingShooterContent/Tilesets/shapes).png" width="240" height="1708"/>
  </tileset>
  <tileset firstgid="611" name="shapesw" tilewidth="24" tileheight="28">
-  <image source="../Tilesets/shapesw.png" width="240" height="1652"/>
+  <image source="../../../../../../Desktop/scrolling-shooter-master/scrolling-shooter-master/ScrollingShooter/ScrollingShooterContent/Tilesets/shapesw.png" width="240" height="1652"/>
  </tileset>
  <tileset firstgid="1201" name="shapesx" tilewidth="24" tileheight="28">
-  <image source="../Tilesets/shapesx.png" width="240" height="1932"/>
+  <image source="../../../../../../Desktop/scrolling-shooter-master/scrolling-shooter-master/ScrollingShooter/ScrollingShooterContent/Tilesets/shapesx.png" width="240" height="1932"/>
  </tileset>
  <tileset firstgid="1891" name="shapesy" tilewidth="24" tileheight="28">
-  <image source="../Tilesets/shapesy.png" width="240" height="1876"/>
+  <image source="../../../../../../Desktop/scrolling-shooter-master/scrolling-shooter-master/ScrollingShooter/ScrollingShooterContent/Tilesets/shapesy.png" width="240" height="1876"/>
  </tileset>
  <tileset firstgid="2561" name="shapesz" tilewidth="24" tileheight="28">
-  <image source="../Tilesets/shapesz.png" width="240" height="1736"/>
+  <image source="../../../../../../Desktop/scrolling-shooter-master/scrolling-shooter-master/ScrollingShooter/ScrollingShooterContent/Tilesets/shapesz.png" width="240" height="1736"/>
  </tileset>
  <tileset firstgid="3181" name="Black" tilewidth="24" tileheight="28">
-  <image source="../Tilesets/Black.png" width="24" height="28"/>
+  <image source="../../../../../../Desktop/scrolling-shooter-master/scrolling-shooter-master/ScrollingShooter/ScrollingShooterContent/Tilesets/Black.png" width="24" height="28"/>
  </tileset>
  <tileset firstgid="3182" name="shapesz" tilewidth="24" tileheight="28">
-  <image source="../Tilesets/shapesz.png" trans="000000" width="240" height="1736"/>
+  <image source="../../../../../../Desktop/scrolling-shooter-master/scrolling-shooter-master/ScrollingShooter/ScrollingShooterContent/Tilesets/shapesz.png" trans="000000" width="240" height="1736"/>
  </tileset>
  <tileset firstgid="3802" name="DarkMoon" tilewidth="24" tileheight="28">
-  <image source="../Tilesets/DarkMoon.png" width="24" height="28"/>
+  <image source="../../../../../../Desktop/scrolling-shooter-master/scrolling-shooter-master/ScrollingShooter/ScrollingShooterContent/Tilesets/DarkMoon.png" width="24" height="28"/>
  </tileset>
  <tileset firstgid="3803" name="ToDark" tilewidth="24" tileheight="28">
-  <image source="../Tilesets/ToDark.png" width="24" height="28"/>
+  <image source="../../../../../../Desktop/scrolling-shooter-master/scrolling-shooter-master/ScrollingShooter/ScrollingShooterContent/Tilesets/ToDark.png" width="24" height="28"/>
  </tileset>
  <tileset firstgid="3804" name="shapesw" tilewidth="24" tileheight="28">
-  <image source="../Tilesets/shapesw.png" trans="000000" width="240" height="1652"/>
+  <image source="../../../../../../Desktop/scrolling-shooter-master/scrolling-shooter-master/ScrollingShooter/ScrollingShooterContent/Tilesets/shapesw.png" trans="000000" width="240" height="1652"/>
  </tileset>
  <tileset firstgid="4394" name="moon" tilewidth="24" tileheight="28">
-  <image source="../Tilesets/moon.png" trans="000000" width="24" height="28"/>
+  <image source="../../../../../../Desktop/scrolling-shooter-master/scrolling-shooter-master/ScrollingShooter/ScrollingShooterContent/Tilesets/moon.png" trans="000000" width="24" height="28"/>
  </tileset>
  <layer name="Space" width="16" height="320">
   <properties>

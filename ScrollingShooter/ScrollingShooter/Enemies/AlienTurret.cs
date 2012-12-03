@@ -31,8 +31,6 @@ namespace ScrollingShooter
     public class AlienTurret : Enemy
     {
         // Alien Turret drawing variables
-        Texture2D spritesheet;
-        Vector2 position;
         Rectangle[] spriteBounds = new Rectangle[3];
 
         const int MAX_HEALTH = 500;

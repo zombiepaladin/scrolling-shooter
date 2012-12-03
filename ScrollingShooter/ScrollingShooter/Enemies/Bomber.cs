@@ -20,9 +20,7 @@ namespace ScrollingShooter
     public class Bomber : Enemy
     {
         // Dart state variables
-        Texture2D spritesheet;
         Texture2D spritesheetExplosion;
-        Vector2 position;
         Rectangle[] spriteBounds = new Rectangle[3];
         Rectangle[] spriteExplosionBounds = new Rectangle[12];
         int explosionState = 0;

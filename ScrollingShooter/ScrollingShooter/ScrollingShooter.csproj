@@ -120,6 +120,7 @@
     <Compile Include="Bosses\MBCloseC.cs" />
     <Compile Include="Bosses\MoonBoss.cs" />
     <Compile Include="Effects\Explosion2.cs" />
+    <Compile Include="Enemies\Asteriod.cs" />
     <Compile Include="Enemies\BigBad.cs" />
     <Compile Include="Enemies\AlienHead.cs" />
     <Compile Include="Enemies\AlienTurret.cs" />
@@ -138,6 +139,7 @@
     <Compile Include="Enemies\GreenGoblin.cs" />
     <Compile Include="Enemies\LaserDrone.cs" />
     <Compile Include="Enemies\Mine.cs" />
+    <Compile Include="Enemies\MoonShield.cs" />
     <Compile Include="Enemies\MoonSpinner.cs" />
     <Compile Include="Enemies\LavaFighter.cs" />
     <Compile Include="Enemies\Panzer2.cs" />

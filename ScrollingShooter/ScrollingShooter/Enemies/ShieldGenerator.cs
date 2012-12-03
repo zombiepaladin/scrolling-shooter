@@ -9,8 +9,6 @@ namespace ScrollingShooter
     /// </summary>
     public class ShieldGenerator : Enemy
     {
-        Texture2D spritesheet;
-        Vector2 position;
         Rectangle spriteBounds;
         
         /// <summary>

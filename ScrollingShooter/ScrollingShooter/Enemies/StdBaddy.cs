@@ -19,8 +19,6 @@ namespace ScrollingShooter
     class StdBaddy:Enemy
     {
         float dgt = 0;
-        Texture2D spritesheet;
-        Vector2 position;
         Rectangle[] spriteBounds = new Rectangle[3];
         StdBaddyStearingState steeringState = StdBaddyStearingState.Streight;
 

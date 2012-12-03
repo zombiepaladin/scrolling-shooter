@@ -53,8 +53,6 @@ namespace ScrollingShooter
         /// <summary>
         /// Variables for the sprite.
         /// </summary>
-        Texture2D spritesheet;
-        Vector2 position;
         Vector2 patrolVector;
         Rectangle[] spriteBounds = new Rectangle[11];
         spinnerState state;

@@ -27,6 +27,8 @@ namespace ScrollingShooter
         public bool Loading = true;
         public bool Paused = false;
         public bool Scrolling = true;
+        public bool Ending = false;
+        public bool LevelDone = false;
 
         public Tilemap CurrentMap;
         public Song CurrentSong;
@@ -39,6 +41,8 @@ namespace ScrollingShooter
         public LevelManager(Game game)
         {
             this.game = game;
+            Ending = false;
+            LevelDone = false;
         }
 
 
@@ -63,6 +67,13 @@ namespace ScrollingShooter
             };
         }
 
+        public void UnloadLevel()
+        {
+            CurrentMap = null;
+            CurrentSong = null;
+            scrollDistance = 0;
+        }
+
 
         /// <summary>
         /// Loads a new level asynchronously
@@ -71,6 +82,8 @@ namespace ScrollingShooter
         public void LoadLevel(string level)
         {
             Loading = true;
+            Ending = false;
+            LevelDone = false;
 
             ThreadStart threadStarter = delegate
             {
@@ -139,7 +152,6 @@ namespace ScrollingShooter
 
                 // Mark level as loaded
                 Loading = false;
-                Scrolling = true;
             };
 
             Thread loadingThread = new Thread(threadStarter);
@@ -157,6 +169,10 @@ namespace ScrollingShooter
                 // Unpase on space press
                 if (Keyboard.GetState().IsKeyDown(Keys.Space)) Paused = false;
             }
+            else if (Ending)
+            {
+                ScrollingShooterGame.Game.Player.EndLevel(elapsedTime);
+            }
             else
             {
                 // Update the scrolling distance - the distance
@@ -173,7 +189,7 @@ namespace ScrollingShooter
                     {
                         CurrentMap.Layers[i].ScrollOffset += elapsedTime * CurrentMap.Layers[i].ScrollingSpeed;
                     }
-					// Scrolls objects with the map
+                    // Scrolls objects with the map
                     foreach (uint goID in ScrollingShooterGame.GameObjectManager.scrollingObjects)
                     {
                         GameObject go = ScrollingShooterGame.GameObjectManager.GetObject(goID);
@@ -201,6 +217,14 @@ namespace ScrollingShooter
                 foreach (uint goID in ScrollingShooterGame.GameObjectManager.QueryRegion(deleteBounds))
                 {
                     ScrollingShooterGame.GameObjectManager.DestroyObject(goID);
+                }
+
+                // Remove projectiles that are out of our update bounds
+                foreach (uint goID in ScrollingShooterGame.GameObjectManager.projectileObjects)
+                {
+                    GameObject go = ScrollingShooterGame.GameObjectManager.GetObject(goID);
+                    if (!bounds.Contains(go.Bounds))
+                        ScrollingShooterGame.GameObjectManager.DestroyObject(goID);
                 }
             }
         }
@@ -252,7 +276,7 @@ namespace ScrollingShooter
                                 (int)(y * CurrentMap.TileHeight + CurrentMap.Layers[i].ScrollOffset),
                                 CurrentMap.TileWidth,
                                 CurrentMap.TileHeight);
-                            spriteBatch.Draw(CurrentMap.Textures[tile.TextureID], onScreen, tile.Source, Color.White, 0f, new Vector2(CurrentMap.TileWidth / 2, CurrentMap.TileHeight / 2), tileData.SpriteEffects, CurrentMap.Layers[i].LayerDepth);
+                            spriteBatch.Draw(CurrentMap.Textures[tile.TextureID], onScreen, tile.Source, Color.White, 0f, new Vector2(0, CurrentMap.TileHeight / 2), tileData.SpriteEffects, CurrentMap.Layers[i].LayerDepth);
                         }
                     }
                 }

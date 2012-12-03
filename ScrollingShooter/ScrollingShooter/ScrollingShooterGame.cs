@@ -40,6 +40,8 @@ namespace ScrollingShooter
         public static GameObjectManager GameObjectManager;
         public static LevelManager LevelManager;
         public static GuiManager GuiManager;
+        public int CurrentLevel;
+        public List<string> Levels;
 
         public PlayerShip Player;
         Song Music;
@@ -75,6 +77,8 @@ namespace ScrollingShooter
 
             TotalKills = 0;
             TotalScore = 0;
+            CurrentLevel = 0;
+            Levels = new List<string> { "Airbase", "Airbase" };
 
             base.Initialize();
         }
@@ -97,9 +101,8 @@ namespace ScrollingShooter
 
             // TODO: use this.Content to load your game content here
             Player = GameObjectManager.CreatePlayerShip(PlayerShipType.Shrike, new Vector2(300, 300));
-
             LevelManager.LoadContent();
-            LevelManager.LoadLevel("Airbase");
+            LevelManager.LoadLevel(Levels[CurrentLevel]);
             GuiManager.LoadContent();
             GameState = GameState.Initializing;
         }
@@ -111,6 +114,17 @@ namespace ScrollingShooter
         protected override void UnloadContent()
         {
             // TODO: Unload any non ContentManager content here
+        }
+
+        /// <summary>
+        /// Reset the GameObjectManager and Load the next level
+        /// </summary>
+        private void Reset()
+        {
+            GameObjectManager.Reset(Player);
+            LevelManager.UnloadLevel();
+            LevelManager.LoadLevel(Levels[CurrentLevel]);
+            GameState = GameState.Initializing;
         }
 
         /// <summary>
@@ -146,8 +160,19 @@ namespace ScrollingShooter
 
                 case GameState.Gameplay:
                     LevelManager.Update(elapsedTime);
-                    GameObjectManager.Update(elapsedTime);
-                    ProcessCollisions();
+                    if (!LevelManager.Ending)
+                    {
+                        GameObjectManager.Update(elapsedTime);
+                        ProcessCollisions();
+                    }
+                    if (LevelManager.LevelDone)
+                    {
+                        CurrentLevel++;
+                        if (CurrentLevel < Levels.Count)
+                        {
+                            Reset();
+                        }
+                    }
                     break;
 
                 case GameState.Scoring:
@@ -313,6 +338,7 @@ namespace ScrollingShooter
                                 GameObjectManager.CreateExplosion2(collider.ID, 1.5f);
                                 Player.Kills++;
                                 Player.Score += boss.Score;
+                                LevelManager.Ending = true;
                             }
                             // Destroy projectile
                             // Note, if there are special things for the bullet, add them here

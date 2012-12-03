@@ -4,9 +4,9 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 
 
-namespace ScrollingShooter.Enemies
+namespace ScrollingShooter
 {
-    class MoonSpinner:Enemy
+    public class MoonSpinner:Enemy
     {
         enum spinState
         {
@@ -20,8 +20,6 @@ namespace ScrollingShooter.Enemies
             S7
         }
         int sc = 0;
-        Texture2D spritesheet;
-        Vector2 position;
         Rectangle[] spriteBounds = new Rectangle[8];
         spinState ss = spinState.S0;
 

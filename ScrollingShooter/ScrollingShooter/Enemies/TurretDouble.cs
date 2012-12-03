@@ -10,17 +10,6 @@ namespace ScrollingShooter
     /// </summary>
     public class TurretDouble : Enemy
     {   
-        // Turret Variables
-        /// <summary>
-        /// spritesheet with the turret texture
-        /// </summary>
-        Texture2D spritesheet;
-
-        /// <summary>
-        /// Position of the turret
-        /// </summary>
-        Vector2 position;
-
         /// <summary>
         /// Bounds of the turret on the spritesheet
         /// </summary>

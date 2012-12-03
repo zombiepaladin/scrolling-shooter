@@ -12,16 +12,6 @@ namespace ScrollingShooter
     {   
         // Turret Variables
         /// <summary>
-        /// spritesheet with the turret texture
-        /// </summary>
-        Texture2D spritesheet;
-
-        /// <summary>
-        /// Position of the turret
-        /// </summary>
-        Vector2 position;
-
-        /// <summary>
         /// Bounds of the turret on the spritesheet
         /// </summary>
         Rectangle[] spriteBounds = new Rectangle[9];
@@ -189,7 +179,7 @@ namespace ScrollingShooter
                         shotDelay = 0;
 
                         // Spawn the bullet
-                        ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.EnemyTurretTowerBullet, this.position + offset, bulletVel * toPlayer);
+                        ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.EnemyFlameball, this.position + offset, bulletVel * toPlayer);
                     }
                 }
             }

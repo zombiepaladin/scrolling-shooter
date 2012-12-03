@@ -32,6 +32,7 @@ namespace ScrollingShooter
         HashSet<CollisionPair> collisions;
 
         public List<uint> scrollingObjects;
+        public List<uint> projectileObjects;
 
         //control the lavabug boss
         bool lavaFlip;
@@ -51,6 +52,7 @@ namespace ScrollingShooter
 
             boundingBoxes = new Dictionary<uint, BoundingBox>();
             scrollingObjects = new List<uint>();
+            projectileObjects = new List<uint>();
             verticalAxis = new List<Bound>(256);
 
             verticalOverlaps = new HashSet<CollisionPair>();
@@ -58,6 +60,29 @@ namespace ScrollingShooter
 
             //lavabug
             lavaFlip = true;
+        }
+
+        /// <summary>
+        /// Clear all of the Queues, lists, and Dictionarys and readd the Player
+        /// This reloads the level while maintaining the player's score, lives, and powerups.
+        /// </summary>
+        /// <param name="player">The player</param>
+        public void Reset(PlayerShip player)
+        {
+            gameObjects.Clear();
+
+            createdGameObjects.Clear();
+            destroyedGameObjects.Clear();
+
+            boundingBoxes.Clear();
+            scrollingObjects.Clear();
+            projectileObjects.Clear();
+            verticalAxis.Clear();
+
+            verticalOverlaps.Clear();
+            collisions.Clear();
+
+            QueueGameObjectForCreation(player);
         }
 
 
@@ -72,6 +97,7 @@ namespace ScrollingShooter
             {
                 GameObject go = createdGameObjects.Dequeue();
                 if (go is Enemy || go is Boss || go is Powerup) scrollingObjects.Add(go.ID);
+                else if (go is Projectile) projectileObjects.Add(go.ID);
                 AddGameObject(go);
             }
 
@@ -80,6 +106,7 @@ namespace ScrollingShooter
             {
                 GameObject go = destroyedGameObjects.Dequeue();
                 if (go is Enemy || go is Boss || go is Powerup) scrollingObjects.Remove(go.ID);
+                else if (go is Projectile) projectileObjects.Remove(go.ID);
                 RemoveGameObject(go);            
             }
             
@@ -218,6 +245,10 @@ namespace ScrollingShooter
 
                 case BossType.TwinJetManager:
                     boss = new TwinJetManager(id, content, position);
+                    break;
+
+                case BossType.MoonBoss:
+                    boss = new MoonBoss(id, content, position);
                     break;
                 
                 default:
@@ -770,6 +801,22 @@ namespace ScrollingShooter
                     enemy = new TwinJet(id, content, position);
                     break;
 
+                case EnemyType.Asteriod1:
+                    enemy = new Asteriod(id, content, position, 1);
+                    break;
+
+                case EnemyType.Asteriod2:
+                    enemy = new Asteriod(id, content, position, 2);
+                    break;
+
+                case EnemyType.Asteriod3:
+                    enemy = new Asteriod(id, content, position, 3);
+                    break;
+
+                case EnemyType.Asteriod4:
+                    enemy = new Asteriod(id, content, position, 4);
+                    break;
+
                 case EnemyType.AlienTurret:
                     enemy = new AlienTurret(id, content, position);
                     break;
@@ -802,6 +849,14 @@ namespace ScrollingShooter
                     break;
                 case EnemyType.Rock:
                     enemy = new Rock(id, content, position);
+                    break;
+
+                case EnemyType.MoonSpiner:
+                    enemy = new MoonSpinner(id, content, position);
+                    break;
+
+                case EnemyType.MoonShield:
+                    enemy = new MoonShield(id, content, position);
                     break;
 
                 default:

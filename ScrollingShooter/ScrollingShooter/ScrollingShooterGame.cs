@@ -52,6 +52,7 @@ namespace ScrollingShooter
         public int TotalKills;
         public int TotalScore;
 
+        KeyboardState oldKS;
 
         public ScrollingShooterGame()
         {
@@ -78,7 +79,9 @@ namespace ScrollingShooter
             TotalKills = 0;
             TotalScore = 0;
             CurrentLevel = 0;
-            Levels = new List<string> { "Airbase", "Airbase" };
+            Levels = new List<string> { "Airbase", "Airbase", "Airbase", "Airbase", "Airbase" };
+
+            oldKS = Keyboard.GetState();
 
             base.Initialize();
         }
@@ -121,10 +124,11 @@ namespace ScrollingShooter
         /// </summary>
         private void Reset()
         {
+            GameState = GameState.Initializing;
+            Player.Health = Player.MaxHealth;
             GameObjectManager.Reset(Player);
             LevelManager.UnloadLevel();
             LevelManager.LoadLevel(Levels[CurrentLevel]);
-            GameState = GameState.Initializing;
         }
 
         /// <summary>
@@ -137,6 +141,17 @@ namespace ScrollingShooter
             // Allows the game to exit
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
+
+            
+            if (Keyboard.GetState().IsKeyDown(Keys.Y) && oldKS.IsKeyUp(Keys.Y))
+            {  
+                CurrentLevel++;
+                if (CurrentLevel < Levels.Count)
+                {
+                    Reset();
+                }
+            }
+            oldKS = Keyboard.GetState();
 
             float elapsedTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
 

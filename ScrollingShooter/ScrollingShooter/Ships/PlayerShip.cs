@@ -374,8 +374,8 @@ namespace ScrollingShooter
                 }
 
                 // Used to test the energy blast powerup levels
-                if (currentKeyboardState.IsKeyDown(Keys.F) && oldKeyboardState.IsKeyUp(Keys.F))
-                    energyBlastLevel++;
+                //if (currentKeyboardState.IsKeyDown(Keys.F) && oldKeyboardState.IsKeyUp(Keys.F))
+                //    energyBlastLevel++;
                 if ((PowerupType & PowerupType.Blades) == 0)
                 {
                     // Fire weapons

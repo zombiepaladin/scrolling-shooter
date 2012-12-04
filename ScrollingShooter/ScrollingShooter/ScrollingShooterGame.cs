@@ -293,16 +293,11 @@ namespace ScrollingShooter
 
                             case ObjectType.Enemy:
                                 Enemy enemy = collider as Enemy;
-                                if (enemy.GetType() == typeof(Kamikaze) || enemy.GetType() == typeof(Mandible) ||
-                                    enemy.GetType() == typeof(SuicideBomber) || enemy.GetType() == typeof(Mine) ||
-                                    enemy.GetType() == typeof(Rock))
-                                {
-                                    //Player take damage
-                                    GameObjectManager.DestroyObject(collider.ID);
-                                    GameObjectManager.CreateExplosion2(collider.ID, 0.5f);
-                                    // Update the player's score
-                                    player.Score += enemy.Score;
-                                }
+                                player.Health -= enemy.Health;
+                                GameObjectManager.DestroyObject(collider.ID);
+                                GameObjectManager.CreateExplosion2(collider.ID, 0.5f);
+                                // Update the player's score
+                                player.Score += enemy.Score;
                                 break;
 
                             case ObjectType.EnemyProjectile:

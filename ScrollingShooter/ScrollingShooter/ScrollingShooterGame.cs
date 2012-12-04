@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using ScrollingShooterWindowsLibrary;
+using ScrollingShooter.SplashScreens;
 
 namespace ScrollingShooter
 {
@@ -21,7 +22,6 @@ namespace ScrollingShooter
         Splash,
         Gameplay,
         Scoring,
-        Credits,
     }
 
     /// <summary>
@@ -46,7 +46,6 @@ namespace ScrollingShooter
         public PlayerShip Player;
         Song Music;
         SplashScreen Splash;
-        Credits Credits;
 
         public GameState GameState { get; private set; }
 
@@ -106,14 +105,9 @@ namespace ScrollingShooter
             // TODO: use this.Content to load your game content here
             Player = GameObjectManager.CreatePlayerShip(PlayerShipType.Shrike, new Vector2(300, 300));
             LevelManager.LoadContent();
-            LevelManager.LoadLevel(Levels[CurrentLevel]);
             GuiManager.LoadContent();
-            Credits = new Credits();
-            GameState = GameState.Initializing;
-
-            //These lines are only to display Assignment 1 through 3 for Devin Kelly-Collins
-            Player.ApplyPowerup(PowerupType.BubbleBeam);
-            LevelManager.LoadLevel("moon");
+            Splash = new GameStart();
+            GameState = GameState.Splash;
         }
 
         /// <summary>
@@ -171,12 +165,16 @@ namespace ScrollingShooter
 
                 case GameState.Splash:
 
-                    if (!LevelManager.Loading && Keyboard.GetState().IsKeyDown(Keys.Space))
+                    if(Splash.IsFree && Keyboard.GetState().IsKeyDown(Keys.Space))
                     {
-                        GameState = GameState.Gameplay;
-                        LevelManager.NextLevel();
-                        Music = LevelManager.CurrentSong;
-                        if (Music != null) MediaPlayer.Play(Music);
+                        //Load next level.
+                        CurrentLevel = Splash.NextLevel;
+                        Reset();
+                    }
+                    else
+                    {
+                        //Otherwise update.
+                        Splash.Update(elapsedTime);
                     }
                     break;
 
@@ -214,18 +212,6 @@ namespace ScrollingShooter
                         GameState = GameState.Splash;
                         Music = Splash.Music;
                         if (Music != null) MediaPlayer.Play(Music);
-                    }
-                    break;
-
-                case GameState.Credits:
-                    if (Credits.State == ScrollingShooter.Credits.CreditsState.Finished
-                        && Keyboard.GetState().IsKeyDown(Keys.Space))
-                    {
-                        GameState = ScrollingShooter.GameState.Gameplay;
-                    }
-                    else
-                    {
-                        Credits.Update(elapsedTime);
                     }
                     break;
             }
@@ -270,12 +256,6 @@ namespace ScrollingShooter
                     // TODO: Render the end-of-level scoring screen
                     GuiManager.DrawScoringScreen(elapsedGameTime, spriteBatch);
                     break;
-
-                case GameState.Credits:
-                    spriteBatch.Begin(0, null, SamplerState.LinearClamp, null, null, null);
-                    Credits.Draw(elapsedGameTime, spriteBatch);
-                    spriteBatch.End();
-                    break;
             }
 
             base.Draw(gameTime);
@@ -302,15 +282,14 @@ namespace ScrollingShooter
                     if (!player.Dead)
                     {
 
-                        case ObjectType.Enemy:
-                            Enemy enemy = collider as Enemy;
-                            //Player take damage
-                            player.Health -= enemy.Health;
-                            GameObjectManager.DestroyObject(collider.ID);
-                            GameObjectManager.CreateExplosion2(collider.ID, 0.5f);
-                            // Update the player's score
-                            player.Score += enemy.Score;
-                            break;
+                        // Process powerup collisions
+                        switch (collider.ObjectType)
+                        {
+                            case ObjectType.Powerup:
+                                Powerup powerup = collider as Powerup;
+                                player.ApplyPowerup(powerup.Type);
+                                GameObjectManager.DestroyObject(collider.ID);
+                                break;
 
                             case ObjectType.Enemy:
                                 Enemy enemy = collider as Enemy;
@@ -401,6 +380,17 @@ namespace ScrollingShooter
                     }
                 }
             }
+        }
+
+        public void PlayerDeath()
+        {
+            Splash = new GameOver();
+            GameState = GameState.Splash;
+            LevelManager.ResetLevel = false;
+            Player.Score = 0;
+            Player.Lives = 5;
+            Player.Health = Player.MaxHealth;
+            Player.Dead = false;
         }
     }
 }

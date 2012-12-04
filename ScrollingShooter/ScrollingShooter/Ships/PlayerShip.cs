@@ -269,7 +269,7 @@ namespace ScrollingShooter
                     if (this.Lives <= 0)
                     {
                         //Perma Death
-                        ScrollingShooterGame.LevelManager.ResetLevel = true;
+                        ScrollingShooterGame.Game.PlayerDeath();
                     }
                     else
                     {

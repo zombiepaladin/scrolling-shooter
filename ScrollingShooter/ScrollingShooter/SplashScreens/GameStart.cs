@@ -9,7 +9,7 @@ namespace ScrollingShooter
     /// </summary>
     public class GameStart : SplashScreen
     {
-        private const float TIME_BLINK = .5f;
+        private const float TIME_BLINK = .1f;
 
         bool _drawFont;
         SpriteFont spriteFont;
@@ -23,8 +23,9 @@ namespace ScrollingShooter
             spriteSheet = ScrollingShooterGame.Game.Content.Load<Texture2D>("Spritesheets/TitleScreen");
             _timer = 0f;
 
-            Music = ScrollingShooterGame.Game.Content.Load<Song>("Music/StartMusic");
-            NextLevel = "level1";
+            //Music = ScrollingShooterGame.Game.Content.Load<Song>("Music/StartMusic");
+            NextLevel = (int)LevelManager.Level.Airbase;
+            IsFree = true;
         }
 
         public override void Update(float elapsedTime)

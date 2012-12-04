@@ -15,7 +15,7 @@ namespace ScrollingShooter
         /// </summary>
         public EndLevelOne()
         {
-            NextLevel = "example2";
+            //NextLevel = "example2";
             spriteFont = ScrollingShooterGame.Game.Content.Load<SpriteFont>("SpriteFonts/Pescadero");
         }
 

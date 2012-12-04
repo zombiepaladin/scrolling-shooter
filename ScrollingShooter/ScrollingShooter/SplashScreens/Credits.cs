@@ -64,8 +64,8 @@ namespace ScrollingShooter
             _index = 0;
             _displayString = String.Empty;
 
-            Music = ScrollingShooterGame.Game.Content.Load<Song>("Music/Credits");
-            NextLevel = "level1";
+            //Music = ScrollingShooterGame.Game.Content.Load<Song>("Music/Credits");
+            NextLevel = (int)LevelManager.Level.Airbase;
 
             LoadCredits();
         }
@@ -94,6 +94,7 @@ namespace ScrollingShooter
                         break;
                     case CreditsState.Finished:
                         _displayString = "Press Space bar to play again.";
+                        IsFree = true;
                         break;
                     default:
                         throw new Exception("Unexpected State.");

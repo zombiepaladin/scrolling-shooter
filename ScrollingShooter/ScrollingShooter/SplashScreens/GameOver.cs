@@ -16,8 +16,9 @@ namespace ScrollingShooter.SplashScreens
         {
             spriteFont = ScrollingShooterGame.Game.Content.Load<SpriteFont>("SpriteFonts/Pescadero");
 
-            Music = ScrollingShooterGame.Game.Content.Load<Song>("Music/GameOver");
-            NextLevel = "level1";
+            //Music = ScrollingShooterGame.Game.Content.Load<Song>("Music/GameOver");
+            NextLevel = (int)LevelManager.Level.Airbase;
+            IsFree = true;
         }
 
         public override void Update(float elapsedTime)

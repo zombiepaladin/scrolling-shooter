@@ -86,7 +86,7 @@ namespace ScrollingShooter
             }
             else if (rc1 >= 3f)
             {
-                ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.Laser, Vector2.Zero);
+                ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.DroneLaser, Vector2.Zero);
                 dgt1 += elapsedTime;
             }
             else if(rc1 < 3f)
@@ -99,7 +99,7 @@ namespace ScrollingShooter
             }
             else if( rc2 >= 3f)
             {
-                ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.Laser, Vector2.Zero);
+                ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.DroneLaser, Vector2.Zero);
                 dgt2 += elapsedTime;
             }
             else if (rc2 < 3f)

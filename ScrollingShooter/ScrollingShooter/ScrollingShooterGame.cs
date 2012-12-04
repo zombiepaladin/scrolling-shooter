@@ -192,6 +192,11 @@ namespace ScrollingShooter
                         {
                             Reset();
                         }
+                        else
+                        {
+                            Splash = new Credits();
+                            GameState = GameState.Splash;
+                        }
                     }
                     else if (LevelManager.ResetLevel)
                     {

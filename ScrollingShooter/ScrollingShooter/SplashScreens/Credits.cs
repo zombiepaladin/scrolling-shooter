@@ -29,7 +29,7 @@ namespace ScrollingShooter
         //Constants
         private const string FILE = "Content/Credits.txt";
         private const string SPRITESHEET = "SpriteFonts/Pescadero";
-        private const float STATE_TIME = 1f;
+        private const float STATE_TIME = 2f;
 
         //Instance variables
         SpriteFont _spriteFont;

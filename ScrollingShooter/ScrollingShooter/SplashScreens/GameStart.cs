@@ -9,7 +9,7 @@ namespace ScrollingShooter
     /// </summary>
     public class GameStart : SplashScreen
     {
-        private const float TIME_BLINK = .1f;
+        private const float TIME_BLINK = .05f;
 
         bool _drawFont;
         SpriteFont spriteFont;
@@ -26,11 +26,12 @@ namespace ScrollingShooter
             //Music = ScrollingShooterGame.Game.Content.Load<Song>("Music/StartMusic");
             NextLevel = (int)LevelManager.Level.Airbase;
             IsFree = true;
+            _drawFont = true;
         }
 
         public override void Update(float elapsedTime)
         {
-            _timer = elapsedTime;
+            _timer += elapsedTime;
             if (_timer >= TIME_BLINK)
             {
                 _drawFont = !_drawFont;
@@ -42,7 +43,7 @@ namespace ScrollingShooter
         {
             spriteBatch.Draw(spriteSheet, new Vector2(0, 0), Color.White);
             if(_drawFont)
-                spriteBatch.DrawString(spriteFont, "Press Space to Begin", new Vector2(100, 100), Color.White);
+                spriteBatch.DrawString(spriteFont, "Press Space to Begin", new Vector2(300, 1000), Color.Black);
         }
     }
 }

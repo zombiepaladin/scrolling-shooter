@@ -4,16 +4,20 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Media;
 
 namespace ScrollingShooter.SplashScreens
 {
-    public class GameOver
+    public class GameOver : SplashScreen
     {
         SpriteFont spriteFont;
 
         public GameOver()
         {
             spriteFont = ScrollingShooterGame.Game.Content.Load<SpriteFont>("SpriteFonts/Pescadero");
+
+            Music = ScrollingShooterGame.Game.Content.Load<Song>("Music/GameOver");
+            NextLevel = "level1";
         }
 
         public override void Update(float elapsedTime)

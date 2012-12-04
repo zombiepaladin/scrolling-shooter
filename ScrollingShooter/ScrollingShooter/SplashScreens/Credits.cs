@@ -7,6 +7,7 @@ using System.Threading;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Media;
 
 namespace ScrollingShooter
 {
@@ -62,6 +63,10 @@ namespace ScrollingShooter
             _timer = 0;
             _index = 0;
             _displayString = String.Empty;
+
+            Music = ScrollingShooterGame.Game.Content.Load<Song>("Music/Credits");
+            NextLevel = "level1";
+
             LoadCredits();
         }
     
@@ -88,7 +93,7 @@ namespace ScrollingShooter
                         _displayString = _credits[_index++];
                         break;
                     case CreditsState.Finished:
-                        _displayString = "Press Space bar to begin.";
+                        _displayString = "Press Space bar to play again.";
                         break;
                     default:
                         throw new Exception("Unexpected State.");

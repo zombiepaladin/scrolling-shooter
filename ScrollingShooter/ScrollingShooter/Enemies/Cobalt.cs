@@ -12,7 +12,6 @@ namespace ScrollingShooter
     public class Cobalt : Enemy
     {
         // Cobalt state variables
-        Rectangle spriteBounds;
         float delay;
         
         /// <summary>
@@ -40,7 +39,7 @@ namespace ScrollingShooter
             spriteBounds.Width = 37;
             spriteBounds.Height = 28;
 
-            Health = 5;
+            Health = 19;
         }
 
         /// <summary>
@@ -60,7 +59,7 @@ namespace ScrollingShooter
             //Sense the player from longer away but move slower.
             if (toPlayer.LengthSquared() < 160000)
             {
-                if (toPlayer.LengthSquared() < 10000)
+                if (toPlayer.LengthSquared() < 90000)
                 {
                     if (delay > .5f)
                     {
@@ -111,7 +110,7 @@ namespace ScrollingShooter
     public class CobaltBomb : Projectile
     {
         /// <summary>
-        /// Creates a new blimp bullet
+        /// Creates a new combalt bomb
         /// </summary>
         /// <param name="content">A ContentManager to load content from</param>
         /// <param name="position">A position on the screen</param>
@@ -132,6 +131,8 @@ namespace ScrollingShooter
             Vector2 toPlayer = playerPosition - this.position;
 
             velocity = toPlayer;
+
+            Damage = 10.521f;
 
         }
     }

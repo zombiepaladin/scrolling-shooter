@@ -58,6 +58,7 @@ Content\Tilesets\shapeszFinalLvlMod.xnb
 Content\Tilesets\shapesFinalLvlMod.xnb
 Content\Spritesheets\newsh0.shp.000001.xnb
 Content\Spritesheets\gui.xnb
+Content\Spritesheets\TitleScreen.xnb
 Content\Tilemaps\example.xnb
 Content\Tilemaps\example2.xnb
 Content\Tilemaps\crystalland.xnb
@@ -69,8 +70,23 @@ Content\Tilemaps\AlienBase.xnb
 Content\SpriteFonts\Pescadero.xnb
 Content\debugFont.xnb
 Content\Music\Hard as Nails 11-13-28.xnb
+Content\Music\01 The Misadventure Begins.xnb
+Content\Music\05 Highway Slaughter.xnb
+Content\Music\06 Interception.xnb
+Content\Music\07 City of Iron.xnb
+Content\Music\09 Indiscriminate.xnb
+Content\Music\10 Final Breath.xnb
 Content\SFX\anti_tank_gun_single_shot.xnb
 Content\SFX\gamalaser.xnb
 Content\SFX\fireworksmortar3.xnb
-Content\Spritesheets\TitleScreen.xnb
+Content\SFX\Laser.xnb
+Content\SFX\Rocket.xnb
+Content\SFX\Shotgun.xnb
+Content\SFX\Blast.xnb
 Content\Music\Hard as Nails 11-13-28.wma
+Content\Music\01 The Misadventure Begins.wma
+Content\Music\05 Highway Slaughter.wma
+Content\Music\06 Interception.wma
+Content\Music\07 City of Iron.wma
+Content\Music\09 Indiscriminate.wma
+Content\Music\10 Final Breath.wma

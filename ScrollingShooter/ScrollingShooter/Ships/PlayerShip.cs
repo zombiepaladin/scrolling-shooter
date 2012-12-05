@@ -112,6 +112,9 @@ namespace ScrollingShooter
         #region Sound Effects
 
         SoundEffect bulletFired;
+        SoundEffect shotgunFired;
+        SoundEffect rocketFired;
+        SoundEffect laserFired;
 
         #endregion
 
@@ -198,6 +201,9 @@ namespace ScrollingShooter
         public PlayerShip(uint id, ContentManager content) : base(id) 
         {
             bulletFired = content.Load<SoundEffect>("SFX/anti_tank_gun_single_shot");
+            shotgunFired = content.Load<SoundEffect>("SFX/Shotgun");
+            rocketFired = content.Load<SoundEffect>("SFX/Rocket");
+            laserFired = content.Load<SoundEffect>("SFX/Laser");
             Health = MaxHealth;
             Score = 0;
         }
@@ -464,6 +470,7 @@ namespace ScrollingShooter
                         if ((PowerupType & PowerupType.ShotgunPowerup) > 0 && shotgunTimer > 0.5f)
                         {
                             TriggerShotgun();
+                            shotgunFired.Play();
                             shotgunTimer = 0;
                         }
 
@@ -481,6 +488,7 @@ namespace ScrollingShooter
                             {
                                 homingMissileTimer = homingMissileFireRate;
                                 TriggerHomingMissile();
+                                rocketFired.Play();
                             }
                         }
 
@@ -498,6 +506,7 @@ namespace ScrollingShooter
                         if (((PowerupType & PowerupType.EnergyBlast) > 0) && energyBlastTimer < 0)
                         {
                             TriggerEnergyBlast();
+                            laserFired.Play();
                         }
 
                         // Fire-once weapons
@@ -505,8 +514,10 @@ namespace ScrollingShooter
                         {
 
                             if ((PowerupType & PowerupType.Fireball) > 0)
+                            {
                                 TriggerFireball();
-
+                                bulletFired.Play();
+                            }
                             if ((PowerupType & PowerupType.DroneWave) > 0)
                             {
                                 TriggerDroneWave();

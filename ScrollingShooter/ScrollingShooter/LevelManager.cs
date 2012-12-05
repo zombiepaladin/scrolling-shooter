@@ -112,6 +112,8 @@ namespace ScrollingShooter
                 if (CurrentMap.MusicTitle != null && CurrentMap.MusicTitle != "")
                 {
                     CurrentSong = game.Content.Load<Song>("Music/" + CurrentMap.MusicTitle);
+                    //Play it
+                    MediaPlayer.Play(CurrentSong);
                 }
                 else
                 {

@@ -56,9 +56,29 @@ namespace ScrollingShooter
         public int Score = 0;
 
         /// <summary>
+        /// Player's alive-ness
+        /// </summary>
+        public bool Dead = false;
+
+        /// <summary>
         /// Player's Kill count
         /// </summary>
         public int Kills = 0;
+
+        /// <summary>
+        /// Player's death timer
+        /// </summary>
+        public float DeathTimer = 0;
+
+        /// <summary>
+        /// Player's invincible timer
+        /// </summary>
+        public float InvincibleTimer = 0;
+
+        /// <summary>
+        /// Player's invincible frame
+        /// </summary>
+        public float InvincibleFrame = 0;
 
 
         #region Timers
@@ -154,6 +174,12 @@ namespace ScrollingShooter
         bool drunk = false;
         int drunkCounter = 0;
 
+        //Clear the powerups
+        public void ClearPowerups()
+        {
+            PowerupType = PowerupType.None;
+        }
+
         /// <summary>
         /// The bounding rectangle for the ship.  Generated from the animation frame and the ship's
         /// position.
@@ -233,6 +259,42 @@ namespace ScrollingShooter
         /// <param name="elapsedTime"></param>
         public override void Update(float elapsedTime)
         {
+            if (this.Dead)
+            {
+                DeathTimer -= elapsedTime;
+
+                if (DeathTimer <= 0)
+                {
+                    //Respawn
+                    if (this.Lives <= 0)
+                    {
+                        //Perma Death
+                        ScrollingShooterGame.LevelManager.ResetLevel = true;
+                    }
+                    else
+                    {
+                        this.Health = this.MaxHealth;
+                        this.Lives--;
+                        this.Dead = false;
+
+                        this.InvincibleTimer = 2;
+
+                        //Respawn or whatever
+                    }
+
+                }
+                return;
+            }
+
+            if (InvincibleTimer > 0)
+            {
+                InvincibleTimer -= elapsedTime;
+
+                InvincibleFrame -= elapsedTime;
+                if (InvincibleFrame < -.1)
+                    InvincibleFrame += 0.3f;
+            }
+
             if (!ScrollingShooterGame.LevelManager.Ending)
             {
                 KeyboardState currentKeyboardState = Keyboard.GetState();
@@ -374,8 +436,8 @@ namespace ScrollingShooter
                 }
 
                 // Used to test the energy blast powerup levels
-                if (currentKeyboardState.IsKeyDown(Keys.F) && oldKeyboardState.IsKeyUp(Keys.F))
-                    energyBlastLevel++;
+                //if (currentKeyboardState.IsKeyDown(Keys.F) && oldKeyboardState.IsKeyUp(Keys.F))
+                //    energyBlastLevel++;
                 if ((PowerupType & PowerupType.Blades) == 0)
                 {
                     // Fire weapons
@@ -489,6 +551,12 @@ namespace ScrollingShooter
         /// <param name="spriteBatch">An already-initialized spritebatch, ready for Draw() commands</param>
         public override void Draw(float elaspedTime, SpriteBatch spriteBatch)
         {
+            if (this.Dead)
+                return;
+
+            if (InvincibleTimer > 0 && InvincibleFrame > 0)
+                return;
+
             if ((PowerupType & PowerupType.Railgun) > 0)
                 spriteBatch.Draw(spriteSheet, RailgunBounds, railgunSpriteBounds, Color.White);
 

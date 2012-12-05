@@ -53,6 +53,7 @@ namespace ScrollingShooter
         public int TotalKills;
         public int TotalScore;
 
+        KeyboardState oldKS;
 
         public ScrollingShooterGame()
         {
@@ -79,7 +80,9 @@ namespace ScrollingShooter
             TotalKills = 0;
             TotalScore = 0;
             CurrentLevel = 0;
-            Levels = new List<string> { "Airbase", "Airbase" };
+            Levels = new List<string> { "Airbase", "Airbase", "Airbase", "Airbase", "Airbase" };
+
+            oldKS = Keyboard.GetState();
 
             base.Initialize();
         }
@@ -127,10 +130,11 @@ namespace ScrollingShooter
         /// </summary>
         private void Reset()
         {
+            GameState = GameState.Initializing;
+            Player.Health = Player.MaxHealth;
             GameObjectManager.Reset(Player);
             LevelManager.UnloadLevel();
             LevelManager.LoadLevel(Levels[CurrentLevel]);
-            GameState = GameState.Initializing;
         }
 
         /// <summary>
@@ -143,6 +147,17 @@ namespace ScrollingShooter
             // Allows the game to exit
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
+
+            
+            if (Keyboard.GetState().IsKeyDown(Keys.Y) && oldKS.IsKeyUp(Keys.Y))
+            {  
+                CurrentLevel++;
+                if (CurrentLevel < Levels.Count)
+                {
+                    Reset();
+                }
+            }
+            oldKS = Keyboard.GetState();
 
             float elapsedTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
@@ -179,6 +194,15 @@ namespace ScrollingShooter
                         {
                             Reset();
                         }
+                    }
+                    else if (LevelManager.ResetLevel)
+                    {
+                        Reset();
+                        LevelManager.ResetLevel = false;
+                        Player.Score = 0;
+                        Player.Lives = 5;
+                        Player.Health = Player.MaxHealth;
+                        Player.Dead = false;
                     }
                     break;
 
@@ -275,14 +299,8 @@ namespace ScrollingShooter
                     PlayerShip player = ((objectA.ObjectType == ObjectType.Player) ? objectA : objectB) as PlayerShip;
                     GameObject collider = (objectA.ObjectType == ObjectType.Player) ? objectB : objectA;
 
-                    // Process powerup collisions
-                    switch (collider.ObjectType)
+                    if (!player.Dead)
                     {
-                        case ObjectType.Powerup:
-                            Powerup powerup = collider as Powerup;
-                            player.ApplyPowerup(powerup.Type);
-                            GameObjectManager.DestroyObject(collider.ID);
-                            break;
 
                         case ObjectType.Enemy:
                             Enemy enemy = collider as Enemy;
@@ -294,20 +312,41 @@ namespace ScrollingShooter
                             player.Score += enemy.Score;
                             break;
 
-                        case ObjectType.EnemyProjectile:
-                            Projectile projectile = collider as Projectile;
+                            case ObjectType.Enemy:
+                                Enemy enemy = collider as Enemy;
+                                if (enemy.GetType() == typeof(Kamikaze) || enemy.GetType() == typeof(Mandible) ||
+                                    enemy.GetType() == typeof(SuicideBomber) || enemy.GetType() == typeof(Mine) ||
+                                    enemy.GetType() == typeof(Rock))
+                                {
+                                    //Player take damage
+                                    GameObjectManager.DestroyObject(collider.ID);
+                                    GameObjectManager.CreateExplosion2(collider.ID, 0.5f);
+                                    // Update the player's score
+                                    player.Score += enemy.Score;
+                                }
+                                break;
 
-                            // Damage player
-                            player.Health -= projectile.Damage;
-                            if (player.Health <= 0)
-                            {
-                                GameObjectManager.DestroyObject(player.ID);
-                                GameObjectManager.CreateExplosion2(player.ID, 1);
-                                player.Score -= 100;
-                            }
+                            case ObjectType.EnemyProjectile:
+                                Projectile projectile = collider as Projectile;
 
-                            GameObjectManager.DestroyObject(collider.ID);
-                            break;
+                                // Damage player
+                                if (player.InvincibleTimer <= 0)
+                                {
+                                    player.Health -= projectile.Damage;
+                                    if (player.Health <= 0)
+                                    {
+                                        //GameObjectManager.DestroyObject(player.ID);
+                                        player.Dead = true;
+                                        player.DeathTimer = 2;
+                                        GameObjectManager.CreateExplosion2(player.ID, 1);
+                                        player.Score -= 100;
+
+                                    }
+                                }
+
+                                GameObjectManager.DestroyObject(collider.ID);
+                                break;
+                        }
                     }
                 }
 

@@ -25,7 +25,7 @@ namespace ScrollingShooter
 
             //Music = ScrollingShooterGame.Game.Content.Load<Song>("Music/StartMusic");
             NextLevel = (int)LevelManager.Level.Airbase;
-            IsFree = true;
+            Done = false;
         }
 
         public override void Update(float elapsedTime)

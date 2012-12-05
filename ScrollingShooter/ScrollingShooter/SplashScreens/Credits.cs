@@ -94,7 +94,7 @@ namespace ScrollingShooter
                         break;
                     case CreditsState.Finished:
                         _displayString = "Press Space bar to play again.";
-                        IsFree = true;
+                        Done = true;
                         break;
                     default:
                         throw new Exception("Unexpected State.");

@@ -6,9 +6,9 @@ using Microsoft.Xna.Framework.Input;
 namespace ScrollingShooter
 {
     /// <summary>
-    /// Class to handle the cutscene at the end of level one
+    /// Class to handle the cutscene after level two
     /// </summary>
-    public class EndLevelOne : SplashScreen
+    public class EndLevelTwo : SplashScreen
     {
         /// <summary>
         /// Handles which state of the dialog the cutscene is currently in
@@ -23,6 +23,16 @@ namespace ScrollingShooter
             conv6,
             conv7,
             conv8,
+            conv9,
+            conv10,
+            conv11,
+            conv12,
+            conv13,
+            conv14,
+            conv15,
+            conv16,
+            conv17,
+            conv18,
             end
         }
 
@@ -45,12 +55,12 @@ namespace ScrollingShooter
         //enum to handle which dialog state the scene is currently in
         Dialog dialog;
 
-        public EndLevelOne()
+        public EndLevelTwo()
         {
             //initiates variables
             keyUp = true;
             Done = false;
-            NextLevel = 2;
+            NextLevel = 3;
 
             //sets the scene to the first dialog text
             dialog = Dialog.conv1;
@@ -79,7 +89,7 @@ namespace ScrollingShooter
             {
                 case Dialog.conv1:
                     image = images.GetJaxon();
-                    line = "I'm not sure where they're getting all these weapons.  They were not this equipped last \ntime I was here.";
+                    line = "This is pathetic. For all of their firepower they can't even stand up to a single ship.  \nI'm not sure what they are trying to prove here.";
                     if (Keyboard.GetState().IsKeyDown(Keys.Enter) && keyUp)
                     {
                         keyUp = false;
@@ -88,7 +98,7 @@ namespace ScrollingShooter
                     break;
                 case Dialog.conv2:
                     image = images.GetAster();
-                    line = "The new government must have gotten it from somewhere.  We are still trying to trace \ndown the origin.";
+                    line = "We still don't know where they got the equipment.  There may be more to this than we think.";
                     if (Keyboard.GetState().IsKeyDown(Keys.Enter) && keyUp)
                     {
                         keyUp = false;
@@ -97,7 +107,7 @@ namespace ScrollingShooter
                     break;
                 case Dialog.conv3:
                     image = images.GetJaxon();
-                    line = "Did we give them any of it?";
+                    line = "There shouldn't be much more to clean up.  I'll be able to get back to my vact...";
                     if (Keyboard.GetState().IsKeyDown(Keys.Enter) && keyUp)
                     {
                         keyUp = false;
@@ -105,8 +115,8 @@ namespace ScrollingShooter
                     }
                     break;
                 case Dialog.conv4:
-                    image = images.GetAster();
-                    line = "No, they cut their ties with us before their rebellion.  I believe you know why.";
+                    image = images.GetKiefer1();
+                    line = "(breaking in) You never did fully understand your enemy did you?";
                     if (Keyboard.GetState().IsKeyDown(Keys.Enter) && keyUp)
                     {
                         keyUp = false;
@@ -115,7 +125,7 @@ namespace ScrollingShooter
                     break;
                 case Dialog.conv5:
                     image = images.GetJaxon();
-                    line = "...";
+                    line = "Who's that?";
                     if (Keyboard.GetState().IsKeyDown(Keys.Enter) && keyUp)
                     {
                         keyUp = false;
@@ -124,7 +134,7 @@ namespace ScrollingShooter
                     break;
                 case Dialog.conv6:
                     image = images.GetAster();
-                    line = "Our satellite scans show a large air force being gathered at an airstrip in southern \nKradstan.  They may be getting ready to intercept with you.";
+                    line = "We're not sure.  Someone is in our channel and we can't get him out.  We're tracing the \nsource.";
                     if (Keyboard.GetState().IsKeyDown(Keys.Enter) && keyUp)
                     {
                         keyUp = false;
@@ -132,8 +142,8 @@ namespace ScrollingShooter
                     }
                     break;
                 case Dialog.conv7:
-                    image = images.GetJaxon();
-                    line = "So I should hit them first.";
+                    image = images.GetKiefer1();
+                    line = "Don't bother Aster.  I'll tell you who this is.  It's your old frend...the one you left \nbehind!";
                     if (Keyboard.GetState().IsKeyDown(Keys.Enter) && keyUp)
                     {
                         keyUp = false;
@@ -141,8 +151,98 @@ namespace ScrollingShooter
                     }
                     break;
                 case Dialog.conv8:
+                    image = images.GetJaxon();
+                    line = "Brendon Kiefer?  How?";
+                    if (Keyboard.GetState().IsKeyDown(Keys.Enter) && keyUp)
+                    {
+                        keyUp = false;
+                        dialog = Dialog.conv9;
+                    }
+                    break;
+                case Dialog.conv9:
+                    image = images.GetKiefer1();
+                    line = "I'm sure you have questions but I'm not here to answer them.  I asked for you Jaxon so I \ncould be the one to kill you.  Come to my mountain stronghold and face me.";
+                    if (Keyboard.GetState().IsKeyDown(Keys.Enter) && keyUp)
+                    {
+                        keyUp = false;
+                        dialog = Dialog.conv10;
+                    }
+                    break;
+                case Dialog.conv10:
+                    image = images.GetJaxon();
+                    line = "Wait Kiefer!  How are you alive?";
+                    if (Keyboard.GetState().IsKeyDown(Keys.Enter) && keyUp)
+                    {
+                        keyUp = false;
+                        dialog = Dialog.conv11;
+                    }
+                    break;
+                case Dialog.conv11:
                     image = images.GetAster();
-                    line = "Exactly.  Taking out that strip is your new goal.  It doesnt' look very advanced so it \nshould be an easy target.";
+                    line = "He is no longer in our channel.";
+                    if (Keyboard.GetState().IsKeyDown(Keys.Enter) && keyUp)
+                    {
+                        keyUp = false;
+                        dialog = Dialog.conv12;
+                    }
+                    break;
+                case Dialog.conv12:
+                    image = images.GetJaxon();
+                    line = "I saw his plane explode over this country.  Could he have survived that?";
+                    if (Keyboard.GetState().IsKeyDown(Keys.Enter) && keyUp)
+                    {
+                        keyUp = false;
+                        dialog = Dialog.conv13;
+                    }
+                    break;
+                case Dialog.conv13:
+                    image = images.GetAster();
+                    line = "We believe he did survive.  It was just too risky to go after him when you botched that mission.";
+                    if (Keyboard.GetState().IsKeyDown(Keys.Enter) && keyUp)
+                    {
+                        keyUp = false;
+                        dialog = Dialog.conv14;
+                    }
+                    break;
+                case Dialog.conv14:
+                    image = images.GetJaxon();
+                    line = "You told me he was confirmed dead!";
+                    if (Keyboard.GetState().IsKeyDown(Keys.Enter) && keyUp)
+                    {
+                        keyUp = false;
+                        dialog = Dialog.conv15;
+                    }
+                    break;
+                case Dialog.conv15:
+                    image = images.GetAster();
+                    line = "Jaxon, you don't have time for this now.  It may be a trap but it seems Kiefer is in league \nwith these people.  You must go to his stronghold and fight him.";
+                    if (Keyboard.GetState().IsKeyDown(Keys.Enter) && keyUp)
+                    {
+                        keyUp = false;
+                        dialog = Dialog.conv16;
+                    }
+                    break;
+                case Dialog.conv16:
+                    image = images.GetJaxon();
+                    line = "Fine.  I want to know why you lied to me though.";
+                    if (Keyboard.GetState().IsKeyDown(Keys.Enter) && keyUp)
+                    {
+                        keyUp = false;
+                        dialog = Dialog.conv17;
+                    }
+                    break;
+                case Dialog.conv17:
+                    image = images.GetAster();
+                    line = "We knew how close you where to him.  We didn't want you to go off and get yourself killed \ntrying to get him back.";
+                    if (Keyboard.GetState().IsKeyDown(Keys.Enter) && keyUp)
+                    {
+                        keyUp = false;
+                        dialog = Dialog.conv18;
+                    }
+                    break;
+                case Dialog.conv18:
+                    image = images.GetJaxon();
+                    line = "...";
                     if (Keyboard.GetState().IsKeyDown(Keys.Enter) && keyUp)
                     {
                         Done = true;

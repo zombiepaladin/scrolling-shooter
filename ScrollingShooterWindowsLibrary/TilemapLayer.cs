@@ -1,4 +1,6 @@
-﻿namespace ScrollingShooterWindowsLibrary
+﻿using Microsoft.Xna.Framework.Content;
+
+namespace ScrollingShooterWindowsLibrary
 {
     /// <summary>
     /// A structure representing a layer within a tilemap
@@ -6,9 +8,15 @@
     public struct TilemapLayer
     {
         /// <summary>
-        /// The current scrolling offset in the y axis
+        /// The default scrolling offset in the y axis
         /// </summary>
         public float ScrollOffset;
+
+        /// <summary>
+        /// The current scrolling offset in the y axis
+        /// </summary>
+        [ContentSerializerIgnore]
+        public float CurrentScrollOffset;
 
         /// <summary>
         /// The speed at which this layer scrolls

@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace ScrollingShooter
 {
@@ -37,6 +39,10 @@ namespace ScrollingShooter
         DrillRight,
         SuicideBomber,
         AlienHead,
+        Asteriod1,
+        Asteriod2,
+        Asteriod3,
+        Asteriod4,
         ShieldGenerator,
         AlienTurret,
         RightClaw,
@@ -50,7 +56,9 @@ namespace ScrollingShooter
         TurretDouble,
         TurretTower,
         Mine,
-        Rock
+        Rock,
+        MoonSpiner,
+        MoonShield,
     }
 
     /// <summary>
@@ -69,6 +77,29 @@ namespace ScrollingShooter
         public int Score = 10;
 
         /// <summary>
+        /// The spritesheet the powerup is found on
+        /// </summary>
+        public Texture2D spritesheet;
+
+        /// <summary>
+        /// The bounding rectangle of the powerup in the game
+        /// </summary>
+        protected Rectangle spriteBounds;
+
+        /// <summary>
+        /// The position of the Powerup
+        /// </summary>
+        protected Vector2 position;
+
+        /// <summary>
+        /// The location of the powerup in the game world
+        /// </summary>
+        public override Rectangle Bounds
+        {
+            get { return new Rectangle((int)position.X, (int)position.Y, spriteBounds.Width, spriteBounds.Height); }
+        }
+
+        /// <summary>
         /// Constructs a new enemy
         /// </summary>
         /// <param name="id">The unique id of the enemy instance</param>
@@ -78,9 +109,9 @@ namespace ScrollingShooter
         /// Scrolls the object with the map
         /// </summary>
         /// <param name="elapsedTime">The in-game time between the previous and current frame</param>
-		public override void ScrollWithMap(float elapsedTime) 
+		public override void ScrollWithMap(float elapsedTime)
         {
-            // Does nothing
+            position.Y += ScrollingSpeed * elapsedTime;
         }
     }
 }

@@ -5,6 +5,7 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using System.Diagnostics;
 
 namespace ScrollingShooter
 {
@@ -13,6 +14,7 @@ namespace ScrollingShooter
     /// </summary>
     public class GameObjectManager
     {
+        Stopwatch sw = new Stopwatch();
         ContentManager content;
 
         uint objectCount = 0;
@@ -24,14 +26,13 @@ namespace ScrollingShooter
 
         Dictionary<uint, BoundingBox> boundingBoxes;
 
-        List<Bound> horizontalAxis;
         List<Bound> verticalAxis;
 
-        HashSet<CollisionPair> horizontalOverlaps;
         HashSet<CollisionPair> verticalOverlaps;
         HashSet<CollisionPair> collisions;
 
         public List<uint> scrollingObjects;
+        public List<uint> projectileObjects;
 
         //control the lavabug boss
         bool lavaFlip;
@@ -51,15 +52,37 @@ namespace ScrollingShooter
 
             boundingBoxes = new Dictionary<uint, BoundingBox>();
             scrollingObjects = new List<uint>();
-            horizontalAxis = new List<Bound>();
-            verticalAxis = new List<Bound>();
+            projectileObjects = new List<uint>();
+            verticalAxis = new List<Bound>(256);
 
-            horizontalOverlaps = new HashSet<CollisionPair>();
             verticalOverlaps = new HashSet<CollisionPair>();
             collisions = new HashSet<CollisionPair>();
 
             //lavabug
             lavaFlip = true;
+        }
+
+        /// <summary>
+        /// Clear all of the Queues, lists, and Dictionarys and readd the Player
+        /// This reloads the level while maintaining the player's score, lives, and powerups.
+        /// </summary>
+        /// <param name="player">The player</param>
+        public void Reset(PlayerShip player)
+        {
+            gameObjects.Clear();
+
+            createdGameObjects.Clear();
+            destroyedGameObjects.Clear();
+
+            boundingBoxes.Clear();
+            scrollingObjects.Clear();
+            projectileObjects.Clear();
+            verticalAxis.Clear();
+
+            verticalOverlaps.Clear();
+            collisions.Clear();
+
+            QueueGameObjectForCreation(player);
         }
 
 
@@ -74,6 +97,7 @@ namespace ScrollingShooter
             {
                 GameObject go = createdGameObjects.Dequeue();
                 if (go is Enemy || go is Boss || go is Powerup) scrollingObjects.Add(go.ID);
+                else if (go is Projectile) projectileObjects.Add(go.ID);
                 AddGameObject(go);
             }
 
@@ -82,20 +106,10 @@ namespace ScrollingShooter
             {
                 GameObject go = destroyedGameObjects.Dequeue();
                 if (go is Enemy || go is Boss || go is Powerup) scrollingObjects.Remove(go.ID);
-                RemoveGameObject(go);
-            } 
+                else if (go is Projectile) projectileObjects.Remove(go.ID);
+                RemoveGameObject(go);            
+            }
             
-            // Update our game objects
-            //foreach (GameObject go in gameObjects.Values)
-            //{
-            //    // Call the GameObject's own update method
-            //    go.Update(elapsedTime);
-
-            //    // Update the game object's bounds to reflect 
-            //    // changes this frame
-            //    UpdateGameObject(go.ID);
-            //}
-
             // Update our axis lists
             UpdateAxisLists();
         }
@@ -111,7 +125,7 @@ namespace ScrollingShooter
             foreach (GameObject go in gameObjects.Values)
             {
                 go.Draw(elapsedTime, spriteBatch);
-            }
+            } 
         }
 
 
@@ -160,39 +174,21 @@ namespace ScrollingShooter
         public uint[] QueryRegion(Rectangle bounds)
         {
             HashSet<uint> matches = new HashSet<uint>();
-            /*
-            // Find the minimal index in the horizontal axis list using binary search
-            Bound left = new Bound(null, bounds.Left, BoundType.Min);
-
-            int minHorizontalIndex = horizontalAxis.BinarySearch(left);
-            if (minHorizontalIndex < 0)
-            {
-                // If the index returned by binary search is negative,
-                // then our current bound value does not exist within the
-                // axis (most common case).  The bitwise compliement (~) of
-                // that index value indicates the index of the first element 
-                // in the axis list *larger* than our bound, and therefore
-                // the first potentailly intersecting item
-                minHorizontalIndex = ~minHorizontalIndex;
-            }
-
-            Bound right = new Bound(null, bounds.Right, BoundType.Max);
-            int maxHorizontalIndex = horizontalAxis.BinarySearch(right);
-            if (maxHorizontalIndex < 0) maxHorizontalIndex = ~maxHorizontalIndex;
-
-            for (int i = minHorizontalIndex; i < maxHorizontalIndex; i++)
-            {
-                matches.Add(horizontalAxis[i].Box.GameObjectID);
-            }*/
-
+            
+            // Find the maximal index for the bounding region in the vertical
+            // axis list
             Bound top = new Bound(null, bounds.Top, BoundType.Min);
             int minVerticalIndex = verticalAxis.BinarySearch(top);
             if (minVerticalIndex < 0) minVerticalIndex = ~minVerticalIndex;
 
+            // Find the minimal index for the bounding region in the vertical
+            // axis list
             Bound bottom = new Bound(null, bounds.Bottom, BoundType.Max);
             int maxVerticalIndex = verticalAxis.BinarySearch(bottom);
             if (maxVerticalIndex < 0) maxVerticalIndex = ~maxVerticalIndex;
 
+            // Collect all game object ids between the minimal and maximal
+            // indices
             for (int i = minVerticalIndex; i < maxVerticalIndex; i++)
             {
                 matches.Add(verticalAxis[i].Box.GameObjectID);
@@ -249,6 +245,10 @@ namespace ScrollingShooter
 
                 case BossType.TwinJetManager:
                     boss = new TwinJetManager(id, content, position);
+                    break;
+
+                case BossType.MoonBoss:
+                    boss = new MoonBoss(id, content, position);
                     break;
                 
                 default:
@@ -801,6 +801,22 @@ namespace ScrollingShooter
                     enemy = new TwinJet(id, content, position);
                     break;
 
+                case EnemyType.Asteriod1:
+                    enemy = new Asteriod(id, content, position, 1);
+                    break;
+
+                case EnemyType.Asteriod2:
+                    enemy = new Asteriod(id, content, position, 2);
+                    break;
+
+                case EnemyType.Asteriod3:
+                    enemy = new Asteriod(id, content, position, 3);
+                    break;
+
+                case EnemyType.Asteriod4:
+                    enemy = new Asteriod(id, content, position, 4);
+                    break;
+
                 case EnemyType.AlienTurret:
                     enemy = new AlienTurret(id, content, position);
                     break;
@@ -835,6 +851,14 @@ namespace ScrollingShooter
                     enemy = new Rock(id, content, position);
                     break;
 
+                case EnemyType.MoonSpiner:
+                    enemy = new MoonSpinner(id, content, position);
+                    break;
+
+                case EnemyType.MoonShield:
+                    enemy = new MoonShield(id, content, position);
+                    break;
+
                 default:
                     throw new NotImplementedException("The enemy type " + Enum.GetName(typeof(EnemyType), enemyType) + " is not supported");
             }
@@ -857,37 +881,6 @@ namespace ScrollingShooter
         {
             HashSet<CollisionPair> overlaps = new HashSet<CollisionPair>();
             int i, j;
-
-            // Sort the horizontal axis
-            for (i = 1; i < horizontalAxis.Count; i++)
-            {
-                Bound bound = horizontalAxis[i];
-                j = i - 1;
-
-                // if our bound needs to be moved left... lower in the list
-                while ((j >= 0) && horizontalAxis[j].CompareTo(bound) > 0)
-                {
-                    // What are we passing, and what are we passing it with?
-                    if (horizontalAxis[j].Type == BoundType.Min && bound.Type == BoundType.Max)
-                    {
-                        // when a Max bound passes a min, we remove it from 
-                        // the collision set
-                        collisions.Remove(new CollisionPair(horizontalAxis[j].Box.GameObjectID, bound.Box.GameObjectID));
-                        horizontalOverlaps.Remove(new CollisionPair(horizontalAxis[j].Box.GameObjectID, bound.Box.GameObjectID));
-                    }
-                    else if (horizontalAxis[j].Type == BoundType.Max && bound.Type == BoundType.Min)
-                    {
-                        // when a Min bound passes a Max, we add it to the 
-                        // potential collision set
-                        horizontalOverlaps.Add(new CollisionPair(horizontalAxis[j].Box.GameObjectID, bound.Box.GameObjectID));
-                    }
-
-                    // Shift the elment at j up the list by one index
-                    horizontalAxis[j + 1] = horizontalAxis[j];
-                    j--;
-                }
-                horizontalAxis[j + 1] = bound;
-            }
 
             // Sort the vertical axis
             for (i = 1; i < verticalAxis.Count; i++)
@@ -983,17 +976,6 @@ namespace ScrollingShooter
             BoundingBox box = new BoundingBox(id, gameObject.Bounds);
             boundingBoxes.Add(id, box);
 
-            // Store the game object's bounds in our horizontal axis list
-            int leftIndex = InsertBoundIntoAxis(horizontalAxis, box.Left);
-            int rightIndex = InsertBoundIntoAxis(horizontalAxis, box.Right);
-
-            // Grab any game object ids for game objects whose bounds fall
-            // between the min and max bounds of our new game object
-            for (int i = leftIndex + 1; i < rightIndex; i++)
-            {
-                horizontalOverlaps.Add(new CollisionPair(id, horizontalAxis[i].Box.GameObjectID));
-            }
-
             // Store the new game object's bounds in our vertical axis list
             int topIndex = InsertBoundIntoAxis(verticalAxis, box.Top);
             int bottomIndex = InsertBoundIntoAxis(verticalAxis, box.Bottom);
@@ -1037,33 +1019,25 @@ namespace ScrollingShooter
 
             // Remove the game object from our list of all game objects
             gameObjects.Remove(id);
-
+            
             // Remove the game object from our collection of collisions
-            int i = collisions.Count - 1;
-            while (i >= 0)
+            CollisionPair[] pairs = collisions.ToArray();
+            foreach (CollisionPair pair in pairs)
             {
-                CollisionPair pair = collisions.ElementAt(i);
                 if (pair.A == id || pair.B == id)
+                {
                     collisions.Remove(pair);
-                i--;
+                }
             }
 
             // Remove the game object from our collection of overlaps
-            i = horizontalOverlaps.Count - 1;
-            while (i >= 0)
+            CollisionPair[] pairs2 = verticalOverlaps.ToArray();
+            foreach (CollisionPair pair in pairs2)
             {
-                CollisionPair pair = horizontalOverlaps.ElementAt(i);
                 if (pair.A == id || pair.B == id)
-                    horizontalOverlaps.Remove(pair);
-                i--;
-            }
-            i = verticalOverlaps.Count - 1;
-            while (i >= 0)
-            {
-                CollisionPair pair = verticalOverlaps.ElementAt(i);
-                if (pair.A == id || pair.B == id)
+                {
                     verticalOverlaps.Remove(pair);
-                i--;
+                }
             }
 
             // Grab the game object's bounding box
@@ -1077,12 +1051,10 @@ namespace ScrollingShooter
                 return;
             }
 
-            // Remove the game objects' bounds from our horizontal axis lists
-            horizontalAxis.Remove(box.Left);
-            horizontalAxis.Remove(box.Right);
+            // Remove the game objects' bounds from our vertical axis lists
             verticalAxis.Remove(box.Top);
             verticalAxis.Remove(box.Bottom);
-
+            
             // Remove the game object's bounding box
             boundingBoxes.Remove(id);
         }

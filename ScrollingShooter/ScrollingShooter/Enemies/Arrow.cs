@@ -20,8 +20,6 @@ namespace ScrollingShooter
     public class Arrow : Enemy
     {
         // Arrow state variables
-        Texture2D spritesheet;
-        Vector2 position;
         Rectangle[] spriteBounds = new Rectangle[3];
         ArrowSteeringState steeringState = ArrowSteeringState.Straight;
         float gunTimer = 0;

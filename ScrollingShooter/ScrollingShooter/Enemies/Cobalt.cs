@@ -12,8 +12,6 @@ namespace ScrollingShooter
     public class Cobalt : Enemy
     {
         // Cobalt state variables
-        Texture2D spritesheet;
-        Vector2 position;
         Rectangle spriteBounds;
         float delay;
         

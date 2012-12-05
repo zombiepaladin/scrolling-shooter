@@ -40,6 +40,8 @@ namespace ScrollingShooter
         public static GameObjectManager GameObjectManager;
         public static LevelManager LevelManager;
         public static GuiManager GuiManager;
+        public int CurrentLevel;
+        public List<string> Levels;
 
         public PlayerShip Player;
         Song Music;
@@ -50,6 +52,7 @@ namespace ScrollingShooter
         public int TotalKills;
         public int TotalScore;
 
+        KeyboardState oldKS;
 
         public ScrollingShooterGame()
         {
@@ -75,6 +78,10 @@ namespace ScrollingShooter
 
             TotalKills = 0;
             TotalScore = 0;
+            CurrentLevel = 0;
+            Levels = new List<string> { "Airbase", "Airbase", "Airbase", "Airbase", "Airbase" };
+
+            oldKS = Keyboard.GetState();
 
             base.Initialize();
         }
@@ -97,12 +104,10 @@ namespace ScrollingShooter
 
             // TODO: use this.Content to load your game content here
             Player = GameObjectManager.CreatePlayerShip(PlayerShipType.Shrike, new Vector2(300, 300));
-
             LevelManager.LoadContent();
-            LevelManager.LoadLevel("Airbase");
+            LevelManager.LoadLevel(Levels[CurrentLevel]);
             GuiManager.LoadContent();
             GameState = GameState.Initializing;
-            Splash = new Beginning();
         }
 
         /// <summary>
@@ -112,6 +117,18 @@ namespace ScrollingShooter
         protected override void UnloadContent()
         {
             // TODO: Unload any non ContentManager content here
+        }
+
+        /// <summary>
+        /// Reset the GameObjectManager and Load the next level
+        /// </summary>
+        private void Reset()
+        {
+            GameState = GameState.Initializing;
+            Player.Health = Player.MaxHealth;
+            GameObjectManager.Reset(Player);
+            LevelManager.UnloadLevel();
+            LevelManager.LoadLevel(Levels[CurrentLevel]);
         }
 
         /// <summary>
@@ -125,17 +142,30 @@ namespace ScrollingShooter
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
 
+            
+            if (Keyboard.GetState().IsKeyDown(Keys.Y) && oldKS.IsKeyUp(Keys.Y))
+            {  
+                CurrentLevel++;
+                if (CurrentLevel < Levels.Count)
+                {
+                    Reset();
+                }
+            }
+            oldKS = Keyboard.GetState();
+
             float elapsedTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
             // Update according to current game state
             switch (GameState)
             {
-                case GameState.Initializing: 
-                        GameState = GameState.Splash;
-                        break;
+                case GameState.Initializing:
+                    if (!LevelManager.Loading)
+                        GameState = GameState.Gameplay;
+                    break;
+
                 case GameState.Splash:
-                        Splash.Update(elapsedTime);
-                    if (!LevelManager.Loading && (Keyboard.GetState().IsKeyDown(Keys.Space) || Splash.Done))
+
+                    if (!LevelManager.Loading && Keyboard.GetState().IsKeyDown(Keys.Space))
                     {
                         GameState = GameState.Gameplay;
                         Music = LevelManager.CurrentSong;
@@ -145,8 +175,19 @@ namespace ScrollingShooter
 
                 case GameState.Gameplay:
                     LevelManager.Update(elapsedTime);
-                    GameObjectManager.Update(elapsedTime);
-                    ProcessCollisions();
+                    if (!LevelManager.Ending)
+                    {
+                        GameObjectManager.Update(elapsedTime);
+                        ProcessCollisions();
+                    }
+                    if (LevelManager.LevelDone)
+                    {
+                        CurrentLevel++;
+                        if (CurrentLevel < Levels.Count)
+                        {
+                            Reset();
+                        }
+                    }
                     break;
 
                 case GameState.Scoring:
@@ -184,9 +225,7 @@ namespace ScrollingShooter
             switch (GameState)
             {
                 case GameState.Splash:
-                    spriteBatch.Begin();
-                    Splash.Draw(elapsedGameTime, spriteBatch);
-                    spriteBatch.End();
+                    // TODO: Render splash screen
                     break;
 
                 case GameState.Gameplay:
@@ -314,6 +353,7 @@ namespace ScrollingShooter
                                 GameObjectManager.CreateExplosion2(collider.ID, 1.5f);
                                 Player.Kills++;
                                 Player.Score += boss.Score;
+                                LevelManager.Ending = true;
                             }
                             // Destroy projectile
                             // Note, if there are special things for the bullet, add them here

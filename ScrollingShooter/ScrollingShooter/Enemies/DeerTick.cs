@@ -19,8 +19,6 @@ namespace ScrollingShooter
     public class DeerTick : Enemy
     {   
         // Deer Tick state variables
-        Texture2D spritesheet;
-        Vector2 position;
         Rectangle[] spriteBounds = new Rectangle[3];
         DeerTickDirection direction = DeerTickDirection.Straight;
         float shotTimer; //used to keep track of when to shoot the next bullet

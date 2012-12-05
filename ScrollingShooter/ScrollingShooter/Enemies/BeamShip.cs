@@ -34,9 +34,7 @@ namespace ScrollingShooter
     {
 
         // beam ship state variables
-        Texture2D spritesheet;
         Texture2D beamSpriteSheet;
-        Vector2 position;
         Rectangle[] spriteBounds = new Rectangle[3];
 
         //rectangle for each part of the ship for drawing purposes

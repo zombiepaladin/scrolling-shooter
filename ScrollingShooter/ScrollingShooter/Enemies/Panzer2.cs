@@ -31,8 +31,6 @@ namespace ScrollingShooter
     public class Panzer2 : Enemy
     {
         //the vars
-        Texture2D spritesheet;
-        Vector2 position;
         Rectangle[] spriteBounds = new Rectangle[8];
         Panzer2AimState aimState;
         float defaultGunTimer = 0;

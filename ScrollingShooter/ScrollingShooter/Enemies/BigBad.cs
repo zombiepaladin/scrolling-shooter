@@ -9,8 +9,6 @@ namespace ScrollingShooter
     class BigBad:Enemy
     {
         float dgt = 0;
-        Texture2D spritesheet;
-        Vector2 position;
         Rectangle spriteBounds = new Rectangle();
 
 

@@ -19,8 +19,6 @@ namespace ScrollingShooter
     }
     public class LavaFighter : Enemy
     {
-        Texture2D spritesheet;
-        Vector2 position;
         Rectangle[] spriteBounds = new Rectangle[3];
         LavaFighterSteeringState steeringState = LavaFighterSteeringState.Straight;
         float gunTimer = 0;

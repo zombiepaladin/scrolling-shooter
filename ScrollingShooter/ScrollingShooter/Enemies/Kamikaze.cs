@@ -19,8 +19,6 @@ namespace ScrollingShooter
     public class Kamikaze : Enemy
     {   
         // Dart state variables
-        Texture2D spritesheet;
-        Vector2 position;
         Rectangle[] spriteBounds = new Rectangle[3];
         DartSteeringState steeringState = DartSteeringState.Straight;
 

@@ -24,8 +24,6 @@ namespace ScrollingShooter
     class Drill : Enemy
     {
         // Drill state variables
-        Texture2D spritesheet;
-        Vector2 position;
         Vector2 velocity;
         Rectangle[] spriteBounds = new Rectangle[3];
         DrillSpinState SpinState = DrillSpinState.Spin1;

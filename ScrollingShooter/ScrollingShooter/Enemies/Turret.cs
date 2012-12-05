@@ -24,8 +24,6 @@ namespace ScrollingShooter
     /// </summary>
     public class Turret : Enemy
     {
-        Texture2D spritesheet;
-        Vector2 position;
         Rectangle[] spriteBounds = new Rectangle[8];
         TurretSteeringState steeringState = TurretSteeringState.Bottom;
         float turretGunTimer = 0;

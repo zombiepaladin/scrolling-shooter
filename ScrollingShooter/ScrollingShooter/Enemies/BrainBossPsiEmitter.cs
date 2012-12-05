@@ -70,11 +70,6 @@ namespace ScrollingShooter
         private float recoverTime = 3f;
 
         /// <summary>
-        /// Position of the projectile
-        /// </summary>
-        private Vector2 position;
-
-        /// <summary>
         /// Spritesheet origin of the emblem
         /// </summary>
         private Texture2D emblemSpritesheet;

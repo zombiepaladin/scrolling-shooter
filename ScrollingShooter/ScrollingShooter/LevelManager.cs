@@ -29,6 +29,7 @@ namespace ScrollingShooter
         public bool Scrolling = true;
         public bool Ending = false;
         public bool LevelDone = false;
+        public bool ResetLevel = false;
 
         public Tilemap CurrentMap;
         public Song CurrentSong;

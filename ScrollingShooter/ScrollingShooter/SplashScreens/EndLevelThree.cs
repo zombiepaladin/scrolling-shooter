@@ -6,9 +6,9 @@ using Microsoft.Xna.Framework.Input;
 namespace ScrollingShooter
 {
     /// <summary>
-    /// Class to handle the cutscene at the end of level one
+    /// Class to handle the cutscene after level three
     /// </summary>
-    public class EndLevelOne : SplashScreen
+    public class EndLevelThree : SplashScreen
     {
         /// <summary>
         /// Handles which state of the dialog the cutscene is currently in
@@ -23,6 +23,12 @@ namespace ScrollingShooter
             conv6,
             conv7,
             conv8,
+            conv9,
+            conv10,
+            conv11,
+            conv12,
+            conv13,
+            conv14,
             end
         }
 
@@ -45,12 +51,12 @@ namespace ScrollingShooter
         //enum to handle which dialog state the scene is currently in
         Dialog dialog;
 
-        public EndLevelOne()
+        public EndLevelThree()
         {
             //initiates variables
             keyUp = true;
             Done = false;
-            NextLevel = 2;
+            NextLevel = 4;
 
             //sets the scene to the first dialog text
             dialog = Dialog.conv1;
@@ -79,7 +85,7 @@ namespace ScrollingShooter
             {
                 case Dialog.conv1:
                     image = images.GetJaxon();
-                    line = "I'm not sure where they're getting all these weapons.  They were not this equipped last \ntime I was here.";
+                    line = "Please surrender Kiefer. I don't want to kill you.";
                     if (Keyboard.GetState().IsKeyDown(Keys.Enter) && keyUp)
                     {
                         keyUp = false;
@@ -87,8 +93,8 @@ namespace ScrollingShooter
                     }
                     break;
                 case Dialog.conv2:
-                    image = images.GetAster();
-                    line = "The new government must have gotten it from somewhere.  We are still trying to trace \ndown the origin.";
+                    image = images.GetKiefer2();
+                    line = "It's not even close to over!  You have no idea what resources I have!.";
                     if (Keyboard.GetState().IsKeyDown(Keys.Enter) && keyUp)
                     {
                         keyUp = false;
@@ -97,7 +103,7 @@ namespace ScrollingShooter
                     break;
                 case Dialog.conv3:
                     image = images.GetJaxon();
-                    line = "Did we give them any of it?";
+                    line = "Where are you getting these things?  They don't even look like normal weapons.  What have you \ngotten yourself into?";
                     if (Keyboard.GetState().IsKeyDown(Keys.Enter) && keyUp)
                     {
                         keyUp = false;
@@ -105,8 +111,8 @@ namespace ScrollingShooter
                     }
                     break;
                 case Dialog.conv4:
-                    image = images.GetAster();
-                    line = "No, they cut their ties with us before their rebellion.  I believe you know why.";
+                    image = images.GetKiefer2();
+                    line = "Follow me then.  If you dare.  I will show you where I am getting these if you can catch me.  \nThen I will kill you. ";
                     if (Keyboard.GetState().IsKeyDown(Keys.Enter) && keyUp)
                     {
                         keyUp = false;
@@ -114,8 +120,8 @@ namespace ScrollingShooter
                     }
                     break;
                 case Dialog.conv5:
-                    image = images.GetJaxon();
-                    line = "...";
+                    image = images.GetAster();
+                    line = "Jaxon, it's over.  Kradstan just issued a surrender.";
                     if (Keyboard.GetState().IsKeyDown(Keys.Enter) && keyUp)
                     {
                         keyUp = false;
@@ -123,8 +129,8 @@ namespace ScrollingShooter
                     }
                     break;
                 case Dialog.conv6:
-                    image = images.GetAster();
-                    line = "Our satellite scans show a large air force being gathered at an airstrip in southern \nKradstan.  They may be getting ready to intercept with you.";
+                    image = images.GetJaxon();
+                    line = "I'm going after Kiefer.";
                     if (Keyboard.GetState().IsKeyDown(Keys.Enter) && keyUp)
                     {
                         keyUp = false;
@@ -132,8 +138,8 @@ namespace ScrollingShooter
                     }
                     break;
                 case Dialog.conv7:
-                    image = images.GetJaxon();
-                    line = "So I should hit them first.";
+                    image = images.GetAster();
+                    line = "I am assigning that to other pilots.  Without the threat to civilians I am sending more forces \nthat way.";
                     if (Keyboard.GetState().IsKeyDown(Keys.Enter) && keyUp)
                     {
                         keyUp = false;
@@ -141,8 +147,62 @@ namespace ScrollingShooter
                     }
                     break;
                 case Dialog.conv8:
+                    image = images.GetJaxon();
+                    line = "I think Kiefer has gone into space.";
+                    if (Keyboard.GetState().IsKeyDown(Keys.Enter) && keyUp)
+                    {
+                        keyUp = false;
+                        dialog = Dialog.conv9;
+                    }
+                    break;
+                case Dialog.conv9:
                     image = images.GetAster();
-                    line = "Exactly.  Taking out that strip is your new goal.  It doesnt' look very advanced so it \nshould be an easy target.";
+                    line = "Really?  Space?";
+                    if (Keyboard.GetState().IsKeyDown(Keys.Enter) && keyUp)
+                    {
+                        keyUp = false;
+                        dialog = Dialog.conv10;
+                    }
+                    break;
+                case Dialog.conv10:
+                    image = images.GetJaxon();
+                    line = "Yes.  This ship has all kinds of features.  Can it survive in space?";
+                    if (Keyboard.GetState().IsKeyDown(Keys.Enter) && keyUp)
+                    {
+                        keyUp = false;
+                        dialog = Dialog.conv11;
+                    }
+                    break;
+                case Dialog.conv11:
+                    image = images.GetAster();
+                    line = "Well...yes...it can.  We were prototyping it as a replacement for the space shuttle.";
+                    if (Keyboard.GetState().IsKeyDown(Keys.Enter) && keyUp)
+                    {
+                        keyUp = false;
+                        dialog = Dialog.conv12;
+                    }
+                    break;
+                case Dialog.conv12:
+                    image = images.GetJaxon();
+                    line = "Then I'm following Kiefer.";
+                    if (Keyboard.GetState().IsKeyDown(Keys.Enter) && keyUp)
+                    {
+                        keyUp = false;
+                        dialog = Dialog.conv13;
+                    }
+                    break;
+                case Dialog.conv13:
+                    image = images.GetAster();
+                    line = "Wait! Jaxon!";
+                    if (Keyboard.GetState().IsKeyDown(Keys.Enter) && keyUp)
+                    {
+                        keyUp = false;
+                        dialog = Dialog.conv14;
+                    }
+                    break;
+                case Dialog.conv14:
+                    image = new Rectangle();
+                    line = "(Aster is disconnected)";
                     if (Keyboard.GetState().IsKeyDown(Keys.Enter) && keyUp)
                     {
                         Done = true;

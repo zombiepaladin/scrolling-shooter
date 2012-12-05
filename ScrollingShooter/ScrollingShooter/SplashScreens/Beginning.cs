@@ -55,18 +55,20 @@ namespace ScrollingShooter
             //initiates variables
             keyUp = true;
             Done = false;
+            NextLevel = 1;
 
             //sets the scene to the first dialog text
             dialog = Dialog.conv1;
 
             //sets up the exit line
-            exitLine = "Press [enter] to continue or press [spacebar] to skip";
+            exitLine = "Press [enter] to continue or press [S] to skip";
 
             //declares which sprite font to use
             spriteFont = ScrollingShooterGame.Game.Content.Load<SpriteFont>("SpriteFonts/Pescadero");
 
             //the bounds for each image
             bounds = images.GetBounds(new Vector2(300, 300));
+
         }
 
         /// <summary>

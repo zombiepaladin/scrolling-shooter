@@ -18,7 +18,7 @@ namespace ScrollingShooter.SplashScreens
 
             //Music = ScrollingShooterGame.Game.Content.Load<Song>("Music/GameOver");
             NextLevel = (int)LevelManager.Level.Airbase;
-            IsFree = true;
+            Done = true;
         }
 
         public override void Update(float elapsedTime)

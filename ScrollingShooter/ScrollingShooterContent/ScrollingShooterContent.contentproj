@@ -112,12 +112,6 @@
       <Processor>TextureProcessor</Processor>
       <ProcessorParameters_ColorKeyColor>191, 220, 191, 255</ProcessorParameters_ColorKeyColor>
     </Compile>
-    <Compile Include="Spritesheets\newsh0.shp.000000.png">
-      <Name>newsh0.shp.000000</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <ProcessorParameters_ColorKeyColor>191, 220, 191, 255</ProcessorParameters_ColorKeyColor>
-    </Compile>
     <Compile Include="Spritesheets\newsh1.shp.000000.png">
       <Name>newsh1.shp.000000</Name>
       <Importer>TextureImporter</Importer>
@@ -394,12 +388,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Spritesheets\newsh0.shp.000000.png">
-      <Name>newsh0.shp.000000</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <ProcessorParameters_ColorKeyColor>191, 220, 191, 255</ProcessorParameters_ColorKeyColor>
-    </Compile>
     <Compile Include="Spritesheets\vulcano.png">
       <Name>vulcano</Name>
       <Importer>TextureImporter</Importer>
@@ -536,6 +524,13 @@
       <Name>AlienBase</Name>
       <Importer>TmxImporter</Importer>
       <Processor>TilemapProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Spritesheets\TitleScreen.png">
+      <Name>TitleScreen</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />

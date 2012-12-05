@@ -23,6 +23,8 @@ namespace ScrollingShooter
             this.velocity = new Vector2(0, -200);
 
             this.position = position;
+
+            this.Damage = 0.05f;
         }
     }
 }

@@ -6,9 +6,9 @@ using Microsoft.Xna.Framework.Input;
 namespace ScrollingShooter
 {
     /// <summary>
-    /// Class to handle the cutscene at the end of level one
+    /// Class to handle the cutscene after level four
     /// </summary>
-    public class EndLevelOne : SplashScreen
+    public class EndLevelFour : SplashScreen
     {
         /// <summary>
         /// Handles which state of the dialog the cutscene is currently in
@@ -23,6 +23,11 @@ namespace ScrollingShooter
             conv6,
             conv7,
             conv8,
+            conv9,
+            conv10,
+            conv11,
+            conv12,
+            conv13,
             end
         }
 
@@ -45,12 +50,12 @@ namespace ScrollingShooter
         //enum to handle which dialog state the scene is currently in
         Dialog dialog;
 
-        public EndLevelOne()
+        public EndLevelFour()
         {
             //initiates variables
             keyUp = true;
             Done = false;
-            NextLevel = 2;
+            NextLevel = 5;
 
             //sets the scene to the first dialog text
             dialog = Dialog.conv1;
@@ -79,7 +84,7 @@ namespace ScrollingShooter
             {
                 case Dialog.conv1:
                     image = images.GetJaxon();
-                    line = "I'm not sure where they're getting all these weapons.  They were not this equipped last \ntime I was here.";
+                    line = " Kiefer!  Where are you?";
                     if (Keyboard.GetState().IsKeyDown(Keys.Enter) && keyUp)
                     {
                         keyUp = false;
@@ -87,8 +92,8 @@ namespace ScrollingShooter
                     }
                     break;
                 case Dialog.conv2:
-                    image = images.GetAster();
-                    line = "The new government must have gotten it from somewhere.  We are still trying to trace \ndown the origin.";
+                    image = images.GetKiefer3();
+                    line = "I'm here Jaxon.  I can't believe you followed me out here.  You never change, even after \nall these years.  You still fall for the same stupid traps; only this time you don't have a \npartner to leave for dead.";
                     if (Keyboard.GetState().IsKeyDown(Keys.Enter) && keyUp)
                     {
                         keyUp = false;
@@ -97,7 +102,7 @@ namespace ScrollingShooter
                     break;
                 case Dialog.conv3:
                     image = images.GetJaxon();
-                    line = "Did we give them any of it?";
+                    line = "I was told you were killed when your plane exploded.  I didn't even know you had survived.  \nI would have come to get you if I had known.";
                     if (Keyboard.GetState().IsKeyDown(Keys.Enter) && keyUp)
                     {
                         keyUp = false;
@@ -105,8 +110,8 @@ namespace ScrollingShooter
                     }
                     break;
                 case Dialog.conv4:
-                    image = images.GetAster();
-                    line = "No, they cut their ties with us before their rebellion.  I believe you know why.";
+                    image = images.GetKiefer3();
+                    line = "It's too late for that.  My new friends helped me out.  They gave me all kinds of weapons \nand I was easily able to take over Kradstan and start that stupid war.  They wanted everyone \non Earth to start fighting each other.  I just wanted you dead.";
                     if (Keyboard.GetState().IsKeyDown(Keys.Enter) && keyUp)
                     {
                         keyUp = false;
@@ -115,7 +120,7 @@ namespace ScrollingShooter
                     break;
                 case Dialog.conv5:
                     image = images.GetJaxon();
-                    line = "...";
+                    line = "Is that why you only let me through?";
                     if (Keyboard.GetState().IsKeyDown(Keys.Enter) && keyUp)
                     {
                         keyUp = false;
@@ -123,8 +128,8 @@ namespace ScrollingShooter
                     }
                     break;
                 case Dialog.conv6:
-                    image = images.GetAster();
-                    line = "Our satellite scans show a large air force being gathered at an airstrip in southern \nKradstan.  They may be getting ready to intercept with you.";
+                    image = images.GetKiefer3();
+                    line = "Exactly! Ater you were dead I was going to carry out the rest of what these creatures want.";
                     if (Keyboard.GetState().IsKeyDown(Keys.Enter) && keyUp)
                     {
                         keyUp = false;
@@ -133,7 +138,7 @@ namespace ScrollingShooter
                     break;
                 case Dialog.conv7:
                     image = images.GetJaxon();
-                    line = "So I should hit them first.";
+                    line = "What is that?";
                     if (Keyboard.GetState().IsKeyDown(Keys.Enter) && keyUp)
                     {
                         keyUp = false;
@@ -141,16 +146,61 @@ namespace ScrollingShooter
                     }
                     break;
                 case Dialog.conv8:
-                    image = images.GetAster();
-                    line = "Exactly.  Taking out that strip is your new goal.  It doesnt' look very advanced so it \nshould be an easy target.";
+                    image = images.GetKiefer3();
+                    line = "They want the Earth.  With everyone fighting it would be easy to let you kill each \nother and take over when you are vulnerable.  I think things are different now though.";
                     if (Keyboard.GetState().IsKeyDown(Keys.Enter) && keyUp)
                     {
-                        Done = true;
                         keyUp = false;
+                        dialog = Dialog.conv9;
+                    }
+                    break;
+                case Dialog.conv9:
+                    image = new Rectangle();
+                    line = "(Suddenly a beam of light eminates from the moon and hits the Earth)";
+                    if (Keyboard.GetState().IsKeyDown(Keys.Enter) && keyUp)
+                    {
+                        keyUp = false;
+                        dialog = Dialog.conv10;
+                    }
+                    break;
+                case Dialog.conv10:
+                    image = images.GetJaxon();
+                    line = "What was that?";
+                    if (Keyboard.GetState().IsKeyDown(Keys.Enter) && keyUp)
+                    {
+                        keyUp = false;
+                        dialog = Dialog.conv11;
+                    }
+                    break;
+                case Dialog.conv11:
+                    image = images.GetKiefer3();
+                    line = "A super weapon capable of taking out several countries at once.  Now that Kradstan has fallen \nthey will be taking a more direct approach.  It might end up destroying the Earth, but \nhopefully they will kill everyone before that happens.";
+                    if (Keyboard.GetState().IsKeyDown(Keys.Enter) && keyUp)
+                    {
+                        keyUp = false;
+                        dialog = Dialog.conv12;
+                    }
+                    break;
+                case Dialog.conv12:
+                    image = images.GetJaxon();
+                    line = "You're crazy!";
+                    if (Keyboard.GetState().IsKeyDown(Keys.Enter) && keyUp)
+                    {
+                        keyUp = false;
+                        dialog = Dialog.conv13;
+                    }
+                    break;
+                case Dialog.conv13:
+                    image = images.GetKiefer3();
+                    line = "If you really want to know the true face of your enemy then keep following me.  I will show you \nto them before you die.";
+                    if (Keyboard.GetState().IsKeyDown(Keys.Enter) && keyUp)
+                    {
+                        keyUp = false;
+                        Done = true;
                         dialog = Dialog.end;
                     }
                     break;
-            }
+                }
         }
 
         /// <summary>

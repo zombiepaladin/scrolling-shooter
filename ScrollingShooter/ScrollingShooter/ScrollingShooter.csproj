@@ -228,10 +228,18 @@
     <Compile Include="Program.cs" />
     <Compile Include="ScrollingShooterGame.cs" />
     <Compile Include="Ships\ShrikeShip.cs" />
+    <Compile Include="SplashScreens\Beginning.cs" />
+    <Compile Include="SplashScreens\Dialog.cs" />
+    <Compile Include="SplashScreens\EndLevelFive.cs" />
+    <Compile Include="SplashScreens\EndLevelFour.cs" />
     <Compile Include="SplashScreens\Credits.cs" />
     <Compile Include="SplashScreens\EndLevelOne.cs" />
+    <Compile Include="SplashScreens\EndLevelSix.cs" />
+    <Compile Include="SplashScreens\EndLevelThree.cs" />
+    <Compile Include="SplashScreens\EndLevelTwo.cs" />
     <Compile Include="SplashScreens\GameOver.cs" />
     <Compile Include="SplashScreens\GameStart.cs" />
+    <Compile Include="SplashScreens\CutSceneImages.cs" />
     <Compile Include="SplashScreens\SplashScreen.cs" />
   </ItemGroup>
   <ItemGroup>

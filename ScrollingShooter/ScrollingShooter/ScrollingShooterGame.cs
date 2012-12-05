@@ -79,7 +79,7 @@ namespace ScrollingShooter
             TotalKills = 0;
             TotalScore = 0;
             CurrentLevel = 0;
-            Levels = new List<string> { "Airbase", "Airbase", "Airbase", "Airbase", "Airbase" };
+            Levels = new List<string> { "Level_1_Tilemap_2", "Airbase", "Airbase", "Airbase", "Airbase" };
 
             oldKS = Keyboard.GetState();
 

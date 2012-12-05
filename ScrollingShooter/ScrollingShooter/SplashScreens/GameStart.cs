@@ -9,6 +9,8 @@ namespace ScrollingShooter
     public class GameStart : SplashScreen
     {
         SpriteFont spriteFont;
+        Texture2D spriteSheet;
+        Vector2 spriteSheetBounds;
 
         public GameStart()
         {

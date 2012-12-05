@@ -17,6 +17,15 @@ namespace ScrollingShooter
     /// </summary>
     public class LevelManager
     {
+        public enum Level
+        {
+            Airbase,
+            moon,
+            AlienBaseSafe,
+            crystalland,
+            lavaLevel2,
+        }
+
         Game game;
         SpriteBatch spriteBatch;
         BasicEffect basicEffect;
@@ -29,9 +38,12 @@ namespace ScrollingShooter
         public bool Scrolling = true;
         public bool Ending = false;
         public bool LevelDone = false;
+        public bool ResetLevel = false;
 
         public Tilemap CurrentMap;
         public Song CurrentSong;
+
+        private Level level;
 
 
         /// <summary>
@@ -302,6 +314,29 @@ namespace ScrollingShooter
 
             spriteBatch.End();
             
+        }
+
+        public void NextLevel()
+        {
+            switch (level)
+            {
+                case Level.Airbase:
+                    level = Level.lavaLevel2;
+                    break;
+                case Level.lavaLevel2:
+                    level = Level.moon;
+                    break;
+                case Level.moon:
+                    level = Level.crystalland;
+                    break;
+                case Level.crystalland:
+                    level = Level.AlienBaseSafe;
+                    break;
+                case Level.AlienBaseSafe:
+                    level = Level.Airbase;
+                    break;
+            }
+            LoadLevel(level.ToString());
         }
     }
 }

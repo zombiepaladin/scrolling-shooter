@@ -37,6 +37,8 @@ namespace ScrollingShooter
         Texture2D beamSpriteSheet;
         Rectangle[] spriteBounds = new Rectangle[3];
 
+        //DartSteeringState steeringState = DartSteeringState.Straight;
+
         //rectangle for each part of the ship for drawing purposes
         Rectangle[] drawBounds = new Rectangle[3];
 
@@ -83,7 +85,8 @@ namespace ScrollingShooter
         /// </summary>
         /// <param name="content">A ContentManager to load resources with</param>
         /// <param name="position">The position of the beam ship in the game world</param>
-        public BeamShip(uint id, ContentManager content, Vector2 position) : base (id)
+        public BeamShip(uint id, ContentManager content, Vector2 position)
+            : base(id)
         {
             this.position = position;
             weaponAlive = true;
@@ -94,7 +97,7 @@ namespace ScrollingShooter
             velocityY = new Vector2(0, 35);
             velocityX = new Vector2(80, 0);
             timer = -1;
-            
+
             spritesheet = content.Load<Texture2D>("Spritesheets/newsh2.shp.000000");
 
             //load the body of the craft from the spritesheet
@@ -129,7 +132,7 @@ namespace ScrollingShooter
             // Sense the player's position
             PlayerShip player = ScrollingShooterGame.Game.Player;
             Vector2 playerPosition = new Vector2(player.Bounds.X, player.Bounds.Y);
-           
+
             if (timer > 0)
                 timer -= elapsedTime;
 
@@ -150,7 +153,7 @@ namespace ScrollingShooter
                     break;
                 case BehaviorState.Charging:
                     weaponFiring = true;
-                    if(timer < .9)
+                    if (timer < .9)
                         behaviorState = BehaviorState.Firing;
 
                     break;
@@ -171,7 +174,7 @@ namespace ScrollingShooter
                         this.position += velocityX * elapsedTime;
                     else
                         this.position -= velocityX * elapsedTime;
-                  
+
                     break;
                 case BehaviorState.Fragged:
                     //the code for the ship dying will go here
@@ -200,7 +203,7 @@ namespace ScrollingShooter
                     //need code for dead ship
                     break;
             }
-         
+
             drawBounds[(int)BeamShipParts.Body] = new Rectangle((int)position.X, (int)position.Y, spriteBounds[(int)BeamShipParts.Body].Width, spriteBounds[(int)BeamShipParts.Body].Height);
             drawBounds[(int)BeamShipParts.Weapon] = new Rectangle((int)(position.X + weaponOffset.X), (int)(position.Y + weaponOffset.Y), spriteBounds[(int)BeamShipParts.Weapon].Width, spriteBounds[(int)BeamShipParts.Weapon].Height);
             drawBounds[(int)BeamShipParts.WeaponFire] = new Rectangle((int)(position.X + weaponFireOffset.X), (int)(position.Y + weaponFireOffset.Y), spriteBounds[(int)BeamShipParts.WeaponFire].Width, spriteBounds[(int)BeamShipParts.WeaponFire].Height);
@@ -212,17 +215,26 @@ namespace ScrollingShooter
         /// <param name="elapsedTime">The in-game time between the previous and current frame</param>
         /// <param name="spriteBatch">An already initialized SpriteBatch, ready for Draw() commands</param>
         public override void Draw(float elapsedTime, SpriteBatch spriteBatch)
-        { 
-            if(weaponFiring)
+        {
+            if (weaponFiring)
                 spriteBatch.Draw(beamSpriteSheet, drawBounds[(int)BeamShipParts.WeaponFire], spriteBounds[(int)BeamShipParts.WeaponFire], Color.White);
 
-            if(shipAlive)
+            if (shipAlive)
                 spriteBatch.Draw(spritesheet, drawBounds[(int)BeamShipParts.Body], spriteBounds[(int)BeamShipParts.Body], Color.White);
-            
-            if(weaponAlive)
+
+            if (weaponAlive)
                 spriteBatch.Draw(spritesheet, drawBounds[(int)BeamShipParts.Weapon], spriteBounds[(int)BeamShipParts.Weapon], Color.White);
-           
-            
+
+
+        }
+
+        /// <summary>
+        /// Scrolls the object with the map
+        /// </summary>
+        /// <param name="elapsedTime">The in-game time between the previous and current frame</param>
+        public override void ScrollWithMap(float elapsedTime)
+        {
+            position.Y += ScrollingSpeed * elapsedTime;
         }
     }
 }

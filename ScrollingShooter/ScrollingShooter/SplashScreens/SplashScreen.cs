@@ -33,7 +33,12 @@ namespace ScrollingShooter
         /// <summary>
         /// The level to load after this splash screen exits
         /// </summary>
-        public string NextLevel;
+        public int NextLevel;
+
+        /// <summary>
+        /// True when the splash screen is done.
+        /// </summary>
+        public bool IsFree;
 
         /// <summary>
         /// Whether the splash screen is done or not

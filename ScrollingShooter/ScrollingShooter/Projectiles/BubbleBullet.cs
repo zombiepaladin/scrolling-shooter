@@ -10,14 +10,27 @@ namespace ScrollingShooter
     /// </summary>
     public class BubbleBullet : Projectile
     {
-        /// <summary>
-        /// Minimum amount of elapsed time before firing another bullet.
-        /// </summary>
-        public static float FIRE_INTERVAL_MS = .05f;
+        private static int PL = 0;
+        public static int POWER_LEVEL
+        {
+            get { return PL; }
+            set
+            {
+                if (value <= 4)
+                    PL = value;
+            }
+        }
 
         //Constants for the Bubble bullet.
         private const String SPRITESHEET = "Spritesheets/tyrian.shp.01D8A7";
-        private static readonly Rectangle SPRITEBOUNDS = new Rectangle(38, 57, 7, 11);
+        private static readonly Rectangle[] SPRITEBOUNDS = new Rectangle[] 
+        {
+            new Rectangle(14, 2, 6, 6),
+            new Rectangle(24, 1, 8, 8),
+            new Rectangle(35, 0, 11, 11),
+            new Rectangle(48, 0, 11, 11)
+        };
+        private const int BASE_DAMAGE = 2;
         private static Random rand = new Random();
 
         /// <summary>
@@ -29,7 +42,7 @@ namespace ScrollingShooter
             : base(id)
         {
             this.spriteSheet = content.Load<Texture2D>(SPRITESHEET);
-            this.spriteBounds = SPRITEBOUNDS;
+            this.spriteBounds = SPRITEBOUNDS[POWER_LEVEL];
             this.velocity = generateRandomVelocity(500);
             this.position = position;
         }

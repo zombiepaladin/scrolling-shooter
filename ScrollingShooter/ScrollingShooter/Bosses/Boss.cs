@@ -13,6 +13,7 @@ namespace ScrollingShooter
         TwinJetManager,
         MoonBoss,
         Lavabug,
+        BrainBoss,
     }
 
     /// <summary>

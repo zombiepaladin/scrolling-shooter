@@ -85,7 +85,7 @@ namespace ScrollingShooter
 
             //the first element of this list is unused so that the elements will be numbered the same as their level values
             //example: level 1 is at index 1, level 3 is at index 3 ect.
-            Levels = new List<string> { "Unused", "Airbase", "Airbase", "Airbase", "Airbase", "Airbase", "Airbase"};
+            Levels = new List<string> { "Unused", "Airbase", "lavaLevel2", "Airbase", "Airbase", "Airbase", "Airbase"};
 
 
             oldKS = Keyboard.GetState();

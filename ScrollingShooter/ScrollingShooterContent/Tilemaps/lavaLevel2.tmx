@@ -217,7 +217,11 @@
     <property name="Enemy" value="Panzer2"/>
    </properties>
   </object>
-  <object name="Powerup" type="Blades" x="216" y="3808"/>
+  <object name="Powerup" type="HomingMissiles" x="192" y="5208"/>
+  <object name="Powerup" type="ShotgunPowerup" x="288" y="4648"/>
+  <object name="Powerup" type="EnergyBlast" x="72" y="3892"/>
+  <object name="Powerup" type="Frostball" x="312" y="2940"/>
+  <object name="Powerup" type="Blades" x="312" y="2184"/>
  </objectgroup>
  <layer name="Tile Layer 2" width="17" height="200">
   <properties>
@@ -528,76 +532,6 @@
     <property name="Enemy" value="LavaFighter"/>
    </properties>
   </object>
-  <object name="Enemy" type="Dart" x="188" y="4703">
-   <properties>
-    <property name="Enemy" value="Dart"/>
-   </properties>
-  </object>
-  <object name="Enemy" type="Dart" x="223" y="4700">
-   <properties>
-    <property name="Enemy" value="Dart"/>
-   </properties>
-  </object>
-  <object name="Enemy" type="Dart" x="181" y="4733">
-   <properties>
-    <property name="Enemy" value="Dart"/>
-   </properties>
-  </object>
-  <object name="Enemy" type="Dart" x="221" y="4733">
-   <properties>
-    <property name="Enemy" value="Dart"/>
-   </properties>
-  </object>
-  <object name="Enemy" type="Dart" x="69" y="3351">
-   <properties>
-    <property name="Enemy" value="Dart"/>
-   </properties>
-  </object>
-  <object name="Enemy" type="Dart" x="129" y="3344">
-   <properties>
-    <property name="Enemy" value="Dart"/>
-   </properties>
-  </object>
-  <object name="Enemy" type="Dart" x="69" y="3417">
-   <properties>
-    <property name="Enemy" value="Dart"/>
-   </properties>
-  </object>
-  <object name="Enemy" type="Dart" x="136" y="3427">
-   <properties>
-    <property name="Enemy" value="Dart"/>
-   </properties>
-  </object>
-  <object name="Enemy" type="Dart" x="165" y="2629">
-   <properties>
-    <property name="Enemy" value="Dart"/>
-   </properties>
-  </object>
-  <object name="Enemy" type="Dart" x="212" y="2632">
-   <properties>
-    <property name="Enemy" value="Dart"/>
-   </properties>
-  </object>
-  <object name="Enemy" type="Dart" x="167" y="2687">
-   <properties>
-    <property name="Enemy" value="Dart"/>
-   </properties>
-  </object>
-  <object name="Enemy" type="Dart" x="201" y="2693">
-   <properties>
-    <property name="Enemy" value="Dart"/>
-   </properties>
-  </object>
-  <object name="Enemy" type="Dart" x="160" y="2739">
-   <properties>
-    <property name="Enemy" value="Dart"/>
-   </properties>
-  </object>
-  <object name="Enemy" type="Dart" x="203" y="2748">
-   <properties>
-    <property name="Enemy" value="Dart"/>
-   </properties>
-  </object>
   <object name="Enemy" type="Kamikaze" x="241" y="1747">
    <properties>
     <property name="Enemy" value="Kamikaze"/>
@@ -609,21 +543,6 @@
    </properties>
   </object>
   <object name="Enemy" type="Kamikaze" x="243" y="1796">
-   <properties>
-    <property name="Enemy" value="Kamikaze"/>
-   </properties>
-  </object>
-  <object name="Enemy" type="Kamikaze" x="281" y="1796">
-   <properties>
-    <property name="Enemy" value="Kamikaze"/>
-   </properties>
-  </object>
-  <object name="Enemy" type="Kamikaze" x="249" y="1855">
-   <properties>
-    <property name="Enemy" value="Kamikaze"/>
-   </properties>
-  </object>
-  <object name="Enemy" type="Kamikaze" x="287" y="1855">
    <properties>
     <property name="Enemy" value="Kamikaze"/>
    </properties>
@@ -1092,7 +1011,7 @@
   <object name="Enemy" type="Rock" x="240" y="4200"/>
   <object name="Enemy" type="Rock" x="216" y="4200"/>
  </objectgroup>
- <layer name="Tile Layer 3" width="17" height="200" visible="0">
+ <layer name="Tile Layer 3" width="17" height="200">
   <properties>
    <property name="LayerDepth" value=".4"/>
    <property name="ScrollingSpeed" value="100"/>

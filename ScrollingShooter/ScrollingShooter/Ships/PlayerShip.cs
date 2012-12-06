@@ -679,10 +679,10 @@ namespace ScrollingShooter
         /// </summary>
         void ApplyBlades()
         {
-            ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.Blades, position);
+            ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.Blades, this.Position);
             this.velocity *= 2;
             bladesPowerupTimer = 0;
-            //TO DO: make player invulerable for 10 secs, since not implemented yet.
+            this.InvincibleTimer = 10;
         }
 
         /// <summary>

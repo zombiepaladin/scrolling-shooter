@@ -135,6 +135,7 @@ namespace ScrollingShooter
             psiOrbOffset.Y = brainSpriteBounds.Height / 2;
 
             this.Health = 100;
+            this.Score = 350;
 
             this.position = position;
 

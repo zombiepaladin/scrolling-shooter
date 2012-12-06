@@ -43,6 +43,7 @@ namespace ScrollingShooter
             : base(id)
         {
             this.position = position;
+            this.Score = 18;
 
             spritesheet = content.Load<Texture2D>("Spritesheets/newshe.shp.000000");
             bulletFired = content.Load<SoundEffect>("SFX/gamalaser");

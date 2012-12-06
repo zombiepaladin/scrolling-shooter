@@ -43,6 +43,7 @@ namespace ScrollingShooter
         {
             Health = 40;
             this.position = position;
+            this.Score = 26;
             spritesheet = content.Load<Texture2D>("Spritesheets/newsh2.shp.000000");
 
             spriteBounds[(int)spinState.S0].X = 0;

@@ -46,6 +46,7 @@ namespace ScrollingShooter
         {
             this.position = position;
             this.Health = 100;
+            this.Score = 80;
 
             rand = new Random();
 

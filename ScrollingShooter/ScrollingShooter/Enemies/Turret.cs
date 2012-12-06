@@ -44,6 +44,7 @@ namespace ScrollingShooter
         public Turret(uint id, ContentManager content, Vector2 position) : base (id)
         {
             this.position = position;
+            this.Score = 14;
 
             spritesheet = content.Load<Texture2D>("Spritesheets/newshp.shp.000000");
 

@@ -97,6 +97,7 @@ namespace ScrollingShooter
             : base(id)
         {
             this.position = position;
+            this.Score = 100;
             phase = AlienPhase.Wait;
             timer = 0;
 

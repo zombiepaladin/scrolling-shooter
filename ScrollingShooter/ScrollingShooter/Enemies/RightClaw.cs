@@ -52,6 +52,7 @@ namespace ScrollingShooter
             this.position.Y = position.Y;
             this.position.X = ScrollingShooterGame.Game.GraphicsDevice.Viewport.Width + 200;
             phase = AlienClawPhase.Wait;
+            this.Score = 40;
            
             spritesheet = content.Load<Texture2D>("Spritesheets/newsh4.shp.000000");
 

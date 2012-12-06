@@ -250,6 +250,9 @@ namespace ScrollingShooter
                 case BossType.MoonBoss:
                     boss = new MoonBoss(id, content, position);
                     break;
+                case BossType.Lavabug:
+                    boss = new Lavabug(id, content, position);
+                    break;
 
                 default:
                     throw new NotImplementedException("The boss type " + Enum.GetName(typeof(BossType), enemyType) + " is not supported");
@@ -742,10 +745,6 @@ namespace ScrollingShooter
 
                 case EnemyType.Panzer2:
                     enemy = new Panzer2(id, content, position);
-                    break;
-
-                case EnemyType.Lavabug:
-                    enemy = new Lavabug(id, content, position);
                     break;
 
                 case EnemyType.Lavabug2:

@@ -76,6 +76,7 @@ namespace ScrollingShooter
             velocity = new Vector2(50, 0);
 
             this.gunTimer = 0;
+            this.Score = 100;
         }
 
         /// <summary>

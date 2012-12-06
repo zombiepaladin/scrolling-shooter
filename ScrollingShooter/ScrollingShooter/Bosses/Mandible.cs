@@ -43,8 +43,9 @@ namespace ScrollingShooter
         {
             this.position = position;
             this.isLeft = side;
-            Health = 8;
+            Health = 30;
             this.isFired = false;
+            this.Score = 30;
 
             //spritesheet
             spritesheet = content.Load<Texture2D>("Spritesheets/vulcano");

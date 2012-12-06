@@ -131,7 +131,7 @@ namespace ScrollingShooter
         {
             // Sense the player's position
             PlayerShip player = ScrollingShooterGame.Game.Player;
-            Vector2 playerPosition = new Vector2(player.Bounds.Center.X, player.Bounds.Center.Y);
+            Vector2 playerPosition = new Vector2(player.Bounds.X, player.Bounds.Y);
 
             if (timer > 0)
                 timer -= elapsedTime;

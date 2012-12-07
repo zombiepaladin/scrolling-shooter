@@ -24,6 +24,7 @@ namespace ScrollingShooter
             AlienBaseSafe,
             crystalland,
             lavaLevel2,
+            InsideAlien,
         }
 
         Game game;
@@ -335,6 +336,9 @@ namespace ScrollingShooter
                     level = Level.AlienBaseSafe;
                     break;
                 case Level.AlienBaseSafe:
+                    level = Level.InsideAlien;
+                    break;
+                case Level.InsideAlien:
                     level = Level.Airbase;
                     break;
             }

@@ -41,6 +41,7 @@ namespace ScrollingShooter
             _state = ShieldState.s1;
             _timer = 0;
             this.Health = 700;
+            this.Score = 25;
         }
 
         public override Rectangle Bounds

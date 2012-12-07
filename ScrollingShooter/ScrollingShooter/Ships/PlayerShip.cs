@@ -1,4 +1,4 @@
-﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
@@ -140,7 +140,7 @@ namespace ScrollingShooter
         protected Vector2 velocity;
 
         /// <summary>
-        /// The position of the ship in the game world.  We use a Vector2 for position 
+        /// The position of the ship in the game world. We use a Vector2 for position
         /// rather than a Rectangle, as floats allow us to move less than a pixel
         /// </summary>
         protected Vector2 position = new Vector2(300, 300);
@@ -172,7 +172,7 @@ namespace ScrollingShooter
         // The PowerupType equipped on this ship
         PowerupType PowerupType = PowerupType.None;
 
-        /// This drunk status of the ship.  If the bool is true, movements are reversed, and damage is doubled.
+        /// This drunk status of the ship. If the bool is true, movements are reversed, and damage is doubled.
         /// The drunk counter represents how many more frame updates before the player is sober again.
         bool drunk = false;
         int drunkCounter = 0;
@@ -184,7 +184,7 @@ namespace ScrollingShooter
         }
 
         /// <summary>
-        /// The bounding rectangle for the ship.  Generated from the animation frame and the ship's
+        /// The bounding rectangle for the ship. Generated from the animation frame and the ship's
         /// position.
         /// </summary>
         public override Rectangle Bounds
@@ -198,7 +198,8 @@ namespace ScrollingShooter
         /// and initializes sound effects
         /// </summary>
         /// <param name="id">the unique id of the Player ship</param>
-        public PlayerShip(uint id, ContentManager content) : base(id) 
+        public PlayerShip(uint id, ContentManager content)
+            : base(id)
         {
             bulletFired = content.Load<SoundEffect>("SFX/anti_tank_gun_single_shot");
             shotgunFired = content.Load<SoundEffect>("SFX/Shotgun");
@@ -443,7 +444,7 @@ namespace ScrollingShooter
 
                 // Used to test the energy blast powerup levels
                 //if (currentKeyboardState.IsKeyDown(Keys.F) && oldKeyboardState.IsKeyUp(Keys.F))
-                //    energyBlastLevel++;
+                // energyBlastLevel++;
                 if ((PowerupType & PowerupType.Blades) == 0)
                 {
                     // Fire weapons
@@ -579,7 +580,7 @@ namespace ScrollingShooter
 
 
         /// <summary>
-        /// A helper function that fires a fireball from the ship, 
+        /// A helper function that fires a fireball from the ship,
         /// corresponding to the fireball powerup
         /// </summary>
         void TriggerFireball()
@@ -593,7 +594,7 @@ namespace ScrollingShooter
         /// </summary>
         void TriggerRailgun()
         {
-            ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.RGSabot, 
+            ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.RGSabot,
                 new Vector2(position.X + (Bounds.Width / 2) - 4, position.Y));
             //Simuated recoil
             position.Y += 10;
@@ -610,17 +611,17 @@ namespace ScrollingShooter
             //Reduce object creation by creating variables before loop.
             Vector2 meteorPosition = new Vector2();
             Random rand = new Random();
-			
-			// (nevermind) Add a bunch of decorative meteors
-            /*
-			for (int i = 0; i < 300; i++)
-			{
-                meteorPosition.X = rand.Next(800);
-                meteorPosition.Y = -rand.Next(4000) - 200;
 
-                ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.Meteor, meteorPosition);
-			}
-            */
+            // (nevermind) Add a bunch of decorative meteors
+            /*
+for (int i = 0; i < 300; i++)
+{
+meteorPosition.X = rand.Next(800);
+meteorPosition.Y = -rand.Next(4000) - 200;
+
+ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.Meteor, meteorPosition);
+}
+*/
             //Add one large meteor that repeats
             meteorPosition.X = 220;
             meteorPosition.Y = position.Y - 200;
@@ -638,8 +639,8 @@ namespace ScrollingShooter
         }
 
         /// <summary>
-        /// Makes the player drunk.  If the player is already drunk the player is just made drunk for longer.  The drunk counter is
-        /// increased by a random number.  Time to be drunk is between 5 and 10 seconds.
+        /// Makes the player drunk. If the player is already drunk the player is just made drunk for longer. The drunk counter is
+        /// increased by a random number. Time to be drunk is between 5 and 10 seconds.
         /// </summary>
         void GetDrunk()
         {
@@ -649,7 +650,7 @@ namespace ScrollingShooter
         }
 
         /// <summary>
-        /// Makes the player sober.  Activated when the drunk time has run out.
+        /// Makes the player sober. Activated when the drunk time has run out.
         /// </summary>
         void SoberUp()
         {
@@ -676,7 +677,7 @@ namespace ScrollingShooter
         }
 
         /// <summary>
-        /// A helper function that fires a frostball from the ship, 
+        /// A helper function that fires a frostball from the ship,
         /// corresponding to the frostball powerup
         /// </summary>
         void TriggerFrostball()
@@ -735,7 +736,7 @@ namespace ScrollingShooter
         }
 
         /// <summary>
-        /// A helper function that fires an energy blast from the ship, 
+        /// A helper function that fires an energy blast from the ship,
         /// corresponding to the energy blast powerup
         /// </summary>
         void TriggerEnergyBlast()
@@ -747,7 +748,7 @@ namespace ScrollingShooter
                 energyBlastTimer = 0.3f;
             else if (energyBlastLevel >= 3)
                 energyBlastTimer = 0.25f;
-            
+
             ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.EnergyBlast, position);
         }
 

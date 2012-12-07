@@ -18,6 +18,7 @@ namespace ScrollingShooter
             : base(id)
         {
             this.position = position;
+            this.Score = 25;
 
             spriteBounds.X = 191;
             spriteBounds.Y = 142;

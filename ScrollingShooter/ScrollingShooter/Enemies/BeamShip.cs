@@ -89,6 +89,7 @@ namespace ScrollingShooter
             : base(id)
         {
             this.position = position;
+            this.Score = 15;
             weaponAlive = true;
             shipAlive = true;
             weaponFiring = false;

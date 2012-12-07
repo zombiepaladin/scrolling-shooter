@@ -39,7 +39,7 @@ namespace ScrollingShooter
             : base(id)
         {
             this.position = position;
-
+            this.Score = 16;
             spritesheet = content.Load<Texture2D>("Spritesheets/newsh2.shp.000000");
 
             spriteBounds[(int)DartSteeringState.Left].X =148;
@@ -84,7 +84,7 @@ namespace ScrollingShooter
                 toPlayer.Normalize();
 
                 // Steer towards them
-                this.position += toPlayer * elapsedTime * 150;
+                this.position += toPlayer * elapsedTime * 100;
 
                 // Change the steering state to reflect our direction
                 if (toPlayer.X < -0.5f) steeringState = DartSteeringState.Left;

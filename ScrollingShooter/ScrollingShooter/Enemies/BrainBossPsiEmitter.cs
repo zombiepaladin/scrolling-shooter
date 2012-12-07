@@ -149,6 +149,7 @@ namespace ScrollingShooter
             this.psiOrbSpriteBounds = new Rectangle(98, 60, 21, 21);
             this.psiOrbOrigin = new Vector2(psiOrbSpriteBounds.Width / 2, psiOrbSpriteBounds.Height / 2);
             this.psiOrbRotation = 0f;
+            this.Score = 80;
 
             this.emblemSpriteBounds = new Rectangle(122, 28, 21, 28);
 

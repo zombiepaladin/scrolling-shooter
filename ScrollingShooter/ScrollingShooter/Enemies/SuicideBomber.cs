@@ -41,6 +41,7 @@ namespace ScrollingShooter
             : base(id)
         {
             this.position = position;
+            this.Score = 12;
 
             spritesheet = content.Load<Texture2D>("Spritesheets/newshf.shp.000000");
 

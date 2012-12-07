@@ -47,7 +47,8 @@ namespace ScrollingShooter
             : base(id)
         {
             this.position = position;
-            this.Health = 10; //TODO: change this to be higher?
+            this.Health = 100; //TODO: change this to be higher?
+            this.Score = 100;
             //spritesheet
             spritesheet = content.Load<Texture2D>("Spritesheets/accessories");
 

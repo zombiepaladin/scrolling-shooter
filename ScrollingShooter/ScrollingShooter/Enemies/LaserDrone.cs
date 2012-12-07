@@ -90,6 +90,7 @@ namespace ScrollingShooter
         public LaserDrone(uint id, ContentManager content, Vector2 position) : base(id)
         {
             this.position = position;
+            this.Score = 25;
 
             spritesheet = content.Load<Texture2D>("Spritesheets/newsh8.shp.000000");
 

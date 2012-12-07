@@ -19,7 +19,7 @@ namespace ScrollingShooter
         {
             this.position = position;
             spritesheet = content.Load<Texture2D>("Spritesheets/newsha.shp.000000");
-
+            this.Score = 8;
             spriteBounds.X = 191;
             spriteBounds.Y = 142;
             spriteBounds.Width = 25;

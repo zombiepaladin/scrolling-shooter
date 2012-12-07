@@ -41,7 +41,7 @@ namespace ScrollingShooter
             : base(id)
         {
             this.position = position;
-
+            this.Score = 12;
             spritesheet = content.Load<Texture2D>("Spritesheets/newsh$.shp.000000");
 
             spriteBounds[(int)ArrowSteeringState.Left].X = 5;

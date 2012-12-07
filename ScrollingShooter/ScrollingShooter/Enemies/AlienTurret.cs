@@ -64,6 +64,7 @@ namespace ScrollingShooter
             this.position = position;
             phase = AlienTurretPhase.Wait;
             Health = MAX_HEALTH;
+            this.Score = 30;
 
             spritesheet = content.Load<Texture2D>("Spritesheets/newshh.shp.000000");
 

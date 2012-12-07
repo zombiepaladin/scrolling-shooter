@@ -43,6 +43,7 @@ namespace ScrollingShooter
             this.position = position;
             CC = new MBCloseC(id, content, position);
             CC.Health = 600;
+            this.Score = 350;
             spritesheet = content.Load<Texture2D>("Spritesheets/MoonBoss");
 
             spriteBounds[(int)MBState.Full].X = 0;

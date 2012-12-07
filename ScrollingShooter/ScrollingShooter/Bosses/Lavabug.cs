@@ -14,7 +14,7 @@ namespace ScrollingShooter
     /// <summary>
     /// Start of 2-phase boss fight for the vulcano level.
     /// </summary>
-    class Lavabug : Enemy
+    class Lavabug : Boss
     {
         //the vars
         Texture2D spritesheet;
@@ -52,7 +52,7 @@ namespace ScrollingShooter
             this.position = position;
             //spritesheet
             spritesheet = content.Load<Texture2D>("Spritesheets/accessories");
-            this.Health = 30;
+            this.Health = 200;
             spriteBounds[0].X = 4;
             spriteBounds[0].Y = 20;
             spriteBounds[0].Width = 70;
@@ -61,7 +61,7 @@ namespace ScrollingShooter
 
             _mandible1 = (Mandible)ScrollingShooterGame.GameObjectManager.CreateEnemy(EnemyType.Mandible, new Vector2(150, 120));
             _mandible2 = (Mandible)ScrollingShooterGame.GameObjectManager.CreateEnemy(EnemyType.Mandible, new Vector2(500, 120));
-
+            this.Score = 150;
 
             //spritebounds
         }
@@ -72,6 +72,7 @@ namespace ScrollingShooter
         /// <param name="elapsedTime">The in-game time between the previous and current frame</param>
         public override void Update(float elapsedTime)
         {
+            if (-ScrollingShooterGame.LevelManager.scrollDistance / 2 <= position.Y - 10) ScrollingShooterGame.LevelManager.Scrolling = false;
             // Sense the player's position
             PlayerShip player = ScrollingShooterGame.Game.Player;
             Vector2 playerPosition = new Vector2(player.Bounds.Center.X, player.Bounds.Center.Y);
@@ -83,8 +84,8 @@ namespace ScrollingShooter
             }
             if (this.Health <= 0)
             {
-                ScrollingShooterGame.GameObjectManager.CreateEnemy(EnemyType.Lavabug2, new Vector2(800, this.position.Y));
-                ScrollingShooterGame.GameObjectManager.CreateEnemy(EnemyType.Lavabug2, new Vector2(0, this.position.Y + 60));
+                ScrollingShooterGame.GameObjectManager.CreateEnemy(EnemyType.Lavabug2, new Vector2(playerPosition.X, this.position.Y));
+                ScrollingShooterGame.GameObjectManager.CreateEnemy(EnemyType.Lavabug2, new Vector2(playerPosition.X, this.position.Y + 60));
                 ScrollingShooterGame.GameObjectManager.DestroyObject(this.ID);
             }
 

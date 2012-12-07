@@ -28,7 +28,7 @@ namespace ScrollingShooter
     /// After destroying the emblem on its head multiple times, it will go crazy and fire short range lightning while chasing you
     /// While chasing, it will take damage over time and from the player, and finally die
     /// </summary>
-    class BrainBoss : Enemy
+    class BrainBoss : Boss
     {
         /// <summary>
         /// Move speed of the brain boss
@@ -135,6 +135,7 @@ namespace ScrollingShooter
             psiOrbOffset.Y = brainSpriteBounds.Height / 2;
 
             this.Health = 100;
+            this.Score = 350;
 
             this.position = position;
 

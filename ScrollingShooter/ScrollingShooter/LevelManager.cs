@@ -24,6 +24,7 @@ namespace ScrollingShooter
             AlienBaseSafe,
             crystalland,
             lavaLevel2,
+            InsideAlien,
         }
 
         Game game;
@@ -112,6 +113,8 @@ namespace ScrollingShooter
                 if (CurrentMap.MusicTitle != null && CurrentMap.MusicTitle != "")
                 {
                     CurrentSong = game.Content.Load<Song>("Music/" + CurrentMap.MusicTitle);
+                    //Play it
+                    MediaPlayer.Play(CurrentSong);
                 }
                 else
                 {
@@ -333,6 +336,9 @@ namespace ScrollingShooter
                     level = Level.AlienBaseSafe;
                     break;
                 case Level.AlienBaseSafe:
+                    level = Level.InsideAlien;
+                    break;
+                case Level.InsideAlien:
                     level = Level.Airbase;
                     break;
             }

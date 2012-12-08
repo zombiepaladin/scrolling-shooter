@@ -336,6 +336,7 @@ namespace ScrollingShooter
         {
             //Setting the health
             this.Health = FullHealth;
+            this.Score = 75;
 
             //Setting alive to 'true'
             _isAlive = true;

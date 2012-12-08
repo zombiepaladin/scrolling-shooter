@@ -135,6 +135,7 @@ namespace ScrollingShooter
             psiOrbOffset.Y = brainSpriteBounds.Height / 2;
 
             this.Health = 100;
+            this.Score = 350;
 
             this.position = position;
 
@@ -191,6 +192,9 @@ namespace ScrollingShooter
 
                 case BrainBossState.PsyAttack:
                     //can't die in this state
+
+                    psiEmitter.Health -= (999999 - Health);
+
                     Health = 999999;
 
                     if (psiEmitter.isDestroyed())
@@ -235,7 +239,9 @@ namespace ScrollingShooter
         /// </summary>
         public override Rectangle Bounds
         {
-            get { return new Rectangle((int)position.X, (int)position.Y, brainSpriteBounds.Width, brainSpriteBounds.Height); }
+            get {
+                return new Rectangle((int)position.X, (int)position.Y, brainSpriteBounds.Width, brainSpriteBounds.Height);
+            }
         }
 
         /// <summary>

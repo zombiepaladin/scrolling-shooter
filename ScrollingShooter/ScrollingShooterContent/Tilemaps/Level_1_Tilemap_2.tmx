@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" width="16" height="160" tilewidth="24" tileheight="28">
  <properties>
-  <property name="Music" value="Hard as Nails 11-13-28"/>
+  <property name="Music" value="01 The Misadventure Begins"/>
  </properties>
  <tileset firstgid="1" name="shapes)" tilewidth="24" tileheight="28">
   <image source="../Tilesets/shapes).png" trans="c0dcc0" width="240" height="1708"/>
@@ -102,5 +102,11 @@
   <object name="PlayerStart" x="193" y="4201" width="21" height="20"/>
   <object name="EndPlayer" type="EndPlayer" x="184" y="57" width="21" height="20"/>
   <object name="Boss" type="TwinJetManager" x="135" y="156" width="124" height="158"/>
+  <object name="Player Stop" x="0" y="86" width="385" height="21">
+   <properties>
+    <property name="PlayerEnd" value="End"/>
+   </properties>
+  </object>
+  <object name="Boss" type="TwinJetManager" x="119" y="3964" width="124" height="158"/>
  </objectgroup>
 </map>

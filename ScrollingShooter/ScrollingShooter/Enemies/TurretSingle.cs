@@ -53,6 +53,7 @@ namespace ScrollingShooter
             :base(id)
         {
             this.position = position;
+            this.Score = 16;
 
             spritesheet = content.Load<Texture2D>("Spritesheets/newsh2.shp.000000");
 

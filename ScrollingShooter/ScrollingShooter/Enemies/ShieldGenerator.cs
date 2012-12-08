@@ -28,6 +28,7 @@ namespace ScrollingShooter
             : base(id)
         {
             Health = 500;
+            this.Score = 60;
 
             this.position = position;
 

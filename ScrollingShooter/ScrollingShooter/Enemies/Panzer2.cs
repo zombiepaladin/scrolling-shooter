@@ -60,6 +60,7 @@ namespace ScrollingShooter
             : base(id)
         {
             this.position = position;
+            this.Score = 16;
             spritesheet = content.Load<Texture2D>("Spritesheets/vulcano");
             photonFired = content.Load<SoundEffect>("SFX/fireworksmortar3");
 

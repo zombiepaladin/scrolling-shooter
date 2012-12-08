@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System.Diagnostics;
+using ScrollingShooter.Bosses;
 
 namespace ScrollingShooter
 {
@@ -249,6 +250,17 @@ namespace ScrollingShooter
 
                 case BossType.MoonBoss:
                     boss = new MoonBoss(id, content, position);
+                    break;
+                case BossType.Lavabug:
+                    boss = new Lavabug(id, content, position);
+                    break;
+
+                case BossType.BrainBoss:
+                    boss = new BrainBossWrapper(id, content, position);
+                    break;
+
+                case BossType.Bird:
+                    boss = new Bird(id, content, position);
                     break;
 
                 default:
@@ -744,10 +756,6 @@ namespace ScrollingShooter
                     enemy = new Panzer2(id, content, position);
                     break;
 
-                case EnemyType.Lavabug:
-                    enemy = new Lavabug(id, content, position);
-                    break;
-
                 case EnemyType.Lavabug2:
                     enemy = new Lavabug2(id, content, position);
                     break;
@@ -827,10 +835,6 @@ namespace ScrollingShooter
 
                 case EnemyType.LeftClaw:
                     enemy = new LeftClaw(id, content, position);
-                    break;
-
-                case EnemyType.Bird:
-                    enemy = new Bird(id, content, position);
                     break;
 
                 case EnemyType.BrainBoss:

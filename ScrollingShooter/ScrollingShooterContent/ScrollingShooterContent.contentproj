@@ -50,35 +50,40 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Tilemaps\crystalland.tmx">
+      <Name>crystalland</Name>
+      <Importer>TmxImporter</Importer>
+      <Processor>TilemapProcessor</Processor>
+    </Compile>
     <Compile Include="Tilesets\shapes%29.png">
       <Name>shapes%29</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
-      <ProcessorParameters_ColorKeyColor>191, 220, 191, 255</ProcessorParameters_ColorKeyColor>
+      <ProcessorParameters_ColorKeyColor>0, 0, 0, 255</ProcessorParameters_ColorKeyColor>
     </Compile>
     <Compile Include="Tilesets\shapesw.png">
       <Name>shapesw</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
-      <ProcessorParameters_ColorKeyColor>191, 220, 191, 255</ProcessorParameters_ColorKeyColor>
+      <ProcessorParameters_ColorKeyColor>0, 0, 0, 255</ProcessorParameters_ColorKeyColor>
     </Compile>
     <Compile Include="Tilesets\shapesx.png">
       <Name>shapesx</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
-      <ProcessorParameters_ColorKeyColor>191, 220, 191, 255</ProcessorParameters_ColorKeyColor>
+      <ProcessorParameters_ColorKeyColor>0, 0, 0, 255</ProcessorParameters_ColorKeyColor>
     </Compile>
     <Compile Include="Tilesets\shapesy.png">
       <Name>shapesy</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
-      <ProcessorParameters_ColorKeyColor>191, 220, 191, 255</ProcessorParameters_ColorKeyColor>
+      <ProcessorParameters_ColorKeyColor>0, 0, 0, 255</ProcessorParameters_ColorKeyColor>
     </Compile>
     <Compile Include="Tilesets\shapesz.png">
       <Name>shapesz</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
-      <ProcessorParameters_ColorKeyColor>191, 220, 191, 255</ProcessorParameters_ColorKeyColor>
+      <ProcessorParameters_ColorKeyColor>0, 0, 0, 255</ProcessorParameters_ColorKeyColor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -330,22 +335,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="SpriteFonts\Pescadero.spritefont">
-      <Name>Pescadero</Name>
-      <Importer>FontDescriptionImporter</Importer>
-      <Processor>FontDescriptionProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\..\ScrollingShooterContentPipeline\ScrollingShooterContentPipeline.csproj">
       <Project>{178E30B3-9F27-4FF1-B6A0-4866B6FA0875}</Project>
       <Name>ScrollingShooterContentPipeline</Name>
     </ProjectReference>
-    <Compile Include="Tilemaps\moon.tmx">
-      <Name>moon</Name>
-      <Importer>TmxImporter</Importer>
-      <Processor>TilemapProcessor</Processor>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Tilemaps\example.tmx">
@@ -393,13 +386,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Tilemaps\crystalland.tmx">
-      <Name>crystalland</Name>
-      <Importer>TmxImporter</Importer>
-      <Processor>TilemapProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Spritesheets\vulcano.png">
       <Name>vulcano</Name>
       <Importer>TextureImporter</Importer>
@@ -440,11 +426,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Spritesheets\explosion.png">
-      <Name>explosion</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
     <Compile Include="Spritesheets\MoonBoss.png">
       <Name>MoonBoss</Name>
       <Importer>TextureImporter</Importer>
@@ -452,12 +433,15 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Credits.txt">
-      <Name>Credits</Name>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Compile Include="Spritesheets\TitleScreen.png">
-      <Name>TitleScreen</Name>
+    <Compile Include="Spritesheets\explosion.png">
+      <Name>explosion</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Spritesheets\characterPotraits.png">
+      <Name>characterPotraits</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
@@ -506,41 +490,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Tilesets\Black.png">
-      <Name>Black</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Tilesets\DarkMoon.png">
-      <Name>DarkMoon</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Tilesets\moon.png">
-      <Name>moon</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Tilesets\ToDark.png">
-      <Name>ToDark</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Spritesheets\MoonBoss.png">
-      <Name>MoonBoss</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="SFX\anti_tank_gun_single_shot.wav">
       <Name>anti_tank_gun_single_shot</Name>
       <Importer>WavImporter</Importer>
@@ -569,6 +518,103 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Tilemaps\AlienBase.tmx">
+      <Name>AlienBase</Name>
+      <Importer>TmxImporter</Importer>
+      <Processor>TilemapProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Spritesheets\TitleScreen.png">
+      <Name>TitleScreen</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Music\01 The Misadventure Begins.mp3">
+      <Name>01 The Misadventure Begins</Name>
+      <Importer>Mp3Importer</Importer>
+      <Processor>SongProcessor</Processor>
+    </Compile>
+    <Compile Include="Music\05 Highway Slaughter.mp3">
+      <Name>05 Highway Slaughter</Name>
+      <Importer>Mp3Importer</Importer>
+      <Processor>SongProcessor</Processor>
+    </Compile>
+    <Compile Include="Music\06 Interception.mp3">
+      <Name>06 Interception</Name>
+      <Importer>Mp3Importer</Importer>
+      <Processor>SongProcessor</Processor>
+    </Compile>
+    <Compile Include="Music\07 City of Iron.mp3">
+      <Name>07 City of Iron</Name>
+      <Importer>Mp3Importer</Importer>
+      <Processor>SongProcessor</Processor>
+    </Compile>
+    <Compile Include="Music\09 Indiscriminate.mp3">
+      <Name>09 Indiscriminate</Name>
+      <Importer>Mp3Importer</Importer>
+      <Processor>SongProcessor</Processor>
+    </Compile>
+    <Compile Include="Music\10 Final Breath.mp3">
+      <Name>10 Final Breath</Name>
+      <Importer>Mp3Importer</Importer>
+      <Processor>SongProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="SFX\Laser.wav">
+      <Name>Laser</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+    </Compile>
+    <Compile Include="SFX\Rocket.wav">
+      <Name>Rocket</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+    </Compile>
+    <Compile Include="SFX\Shotgun.wav">
+      <Name>Shotgun</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="SFX\Blast.wav">
+      <Name>Blast</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="SFX\bird_fire.wav">
+      <Name>bird_fire</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+    </Compile>
+    <Compile Include="SFX\death_scream.wav">
+      <Name>death_scream</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+    </Compile>
+    <Compile Include="SFX\hawk_scream.wav">
+      <Name>hawk_scream</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+    </Compile>
+    <Compile Include="SFX\hurt_scream.wav">
+      <Name>hurt_scream</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Tilemaps\InsideAlien.tmx">
+      <Name>InsideAlien</Name>
+      <Importer>TmxImporter</Importer>
+      <Processor>TilemapProcessor</Processor>
+    </Compile>
     <Compile Include="Tilemaps\moon.tmx">
       <Name>moon</Name>
       <Importer>TmxImporter</Importer>
@@ -596,6 +642,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
+  </ItemGroup>
+  <ItemGroup>
     <Compile Include="Tilesets\ToDark.png">
       <Name>ToDark</Name>
       <Importer>TextureImporter</Importer>
@@ -607,6 +655,49 @@
       <Name>Impact</Name>
       <Importer>FontDescriptionImporter</Importer>
       <Processor>FontDescriptionProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Spritesheets\newsh0.shp.000000.png">
+      <Name>newsh0.shp.000000</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Tilemaps\moon.tmx">
+      <Name>moon</Name>
+      <Importer>TmxImporter</Importer>
+      <Processor>TilemapProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Tilesets\Black.png">
+      <Name>Black</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Tilesets\DarkMoon.png">
+      <Name>DarkMoon</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Tilesets\moon.png">
+      <Name>moon</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Tilesets\newshn.shp.000000.png">
+      <Name>newshn.shp.000000</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Tilesets\ToDark.png">
+      <Name>ToDark</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />

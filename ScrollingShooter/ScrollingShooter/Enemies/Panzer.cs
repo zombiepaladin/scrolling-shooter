@@ -61,6 +61,7 @@ namespace ScrollingShooter
             : base(id)
         {
             this.position = position;
+            this.Score = 18;
             spritesheet = content.Load<Texture2D>("Spritesheets/newsh2.shp.000000");
             bulletFired = content.Load<SoundEffect>("SFX/anti_tank_gun_single_shot");
 

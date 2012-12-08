@@ -23,7 +23,7 @@ namespace ScrollingShooter
         Vector2 position;
         Rectangle[] spriteBounds = new Rectangle[2];
         BlimpState state;
-        int maxHealth = 100;
+        int maxHealth = 654;
         Vector2 velocity;
         int screenWidth = 384;
         float gunTimer;
@@ -76,6 +76,7 @@ namespace ScrollingShooter
             velocity = new Vector2(50, 0);
 
             this.gunTimer = 0;
+            this.Score = 100;
         }
 
         /// <summary>
@@ -113,7 +114,7 @@ namespace ScrollingShooter
                 Vector2 toPlayer = playerPosition - this.position;
 
                 // Shoot the shotgun if the player is within 200 units of the blimp
-                if (toPlayer.LengthSquared() < 25000)
+                if (toPlayer.LengthSquared() < 40000)
                 {
                     Vector2 travel = position;
                     travel.X += Bounds.Width / 2;
@@ -354,6 +355,8 @@ namespace ScrollingShooter
             this.spriteBounds = new Rectangle(203, 56, 13, 14);
 
             this.position = position;
+
+            this.Damage = 3.01f;
 
             // Sense the player's position
             PlayerShip player = ScrollingShooterGame.Game.Player;

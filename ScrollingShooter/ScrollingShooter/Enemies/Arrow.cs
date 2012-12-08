@@ -41,7 +41,7 @@ namespace ScrollingShooter
             : base(id)
         {
             this.position = position;
-
+            this.Score = 12;
             spritesheet = content.Load<Texture2D>("Spritesheets/newsh$.shp.000000");
 
             spriteBounds[(int)ArrowSteeringState.Left].X = 5;
@@ -78,7 +78,7 @@ namespace ScrollingShooter
             // Get a vector from our position to the player's position
             Vector2 toPlayer = playerPosition - this.position;
 
-            if (toPlayer.LengthSquared() < 20000)
+            if (toPlayer.LengthSquared() < 20000 && playerPosition.Y < position.Y)
             {
                 // We sense the player's ship!        
                 // Get a normalized steering vector

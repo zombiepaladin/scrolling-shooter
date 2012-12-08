@@ -52,6 +52,7 @@ namespace ScrollingShooter
             diagFlightLength = rand.Next(20, 150);
             this.position = position;
             diagCount = 0;
+            this.Score = 12;
 
             spritesheet = content.Load<Texture2D>("Spritesheets/newshf.shp.000000");
 

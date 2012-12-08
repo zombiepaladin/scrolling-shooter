@@ -80,7 +80,7 @@ namespace ScrollingShooter
             TotalKills = 0;
             TotalScore = 0;
             CurrentLevel = 0;
-            Levels = new List<string> { "Level_1_Tilemap_2", "crystalland", "Airbase", "lavaLevel2", "moon", "crystalland", "AlienBaseSafe", "InsideAlien" };
+            Levels = new List<string> { "Level_1_Tilemap_2", "Airbase", "lavaLevel2", "moon", "crystalland", "AlienBaseSafe", "InsideAlien" };
 
            // Levels = new List<string> { "Level_1_Tilemap_2", "Airbase", "Airbase", "Airbase", "Airbase" };
 

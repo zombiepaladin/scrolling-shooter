@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" width="17" height="500" tilewidth="24" tileheight="28">
+  <properties>
+    <property name="Music" value="10 Final Breath"/>
+  </properties>
  <tileset firstgid="1" name="bossFloorTexture" tilewidth="24" tileheight="28">
   <image source="../Tilesets/bossFloorTexture.png" trans="bfdcbf" width="240" height="1652"/>
  </tileset>

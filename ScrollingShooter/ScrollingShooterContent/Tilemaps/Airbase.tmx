@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" width="16" height="160" tilewidth="24" tileheight="28">
+  <properties>
+    <property name="Music" value="05 Highway Slaughter"/>
+  </properties>
  <tileset firstgid="1" name="shapesz" tilewidth="24" tileheight="28">
   <image source="../Tilesets/shapesz.png" width="240" height="1736"/>
  </tileset>

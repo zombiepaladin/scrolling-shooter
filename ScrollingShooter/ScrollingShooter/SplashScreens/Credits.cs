@@ -28,7 +28,7 @@ namespace ScrollingShooter
 
         //Constants
         private const string FILE = "Content/Credits.txt";
-        private const string SPRITESHEET = "SpriteFonts/Pescadero";
+        private const string SPRITESHEET = "SpriteFonts/Impact";
         private const float STATE_TIME = 2f;
 
         //Instance variables

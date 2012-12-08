@@ -14,7 +14,7 @@ namespace ScrollingShooter.SplashScreens
 
         public GameOver()
         {
-            spriteFont = ScrollingShooterGame.Game.Content.Load<SpriteFont>("SpriteFonts/Pescadero");
+            spriteFont = ScrollingShooterGame.Game.Content.Load<SpriteFont>("SpriteFonts/Impact");
 
             //Music = ScrollingShooterGame.Game.Content.Load<Song>("Music/GameOver");
             NextLevel = (int)LevelManager.Level.Airbase;

@@ -14,6 +14,7 @@ namespace ScrollingShooter
         MoonBoss,
         Lavabug,
         BrainBoss,
+        Bird,
     }
 
     /// <summary>

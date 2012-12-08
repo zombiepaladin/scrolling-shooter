@@ -114,9 +114,9 @@ namespace ScrollingShooter
             Player = GameObjectManager.CreatePlayerShip(PlayerShipType.Shrike, new Vector2(300, 300));
             LevelManager.LoadContent();
             GuiManager.LoadContent();
-            Splash = new GameStart();
             SplashType = SplashScreenType.GameStart;
             GameState = GameState.Splash;
+            loadSplashScreen(new GameStart());
         }
 
         /// <summary>
@@ -147,12 +147,10 @@ namespace ScrollingShooter
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            
-
             // Allows the game to exit
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
+            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed
+                || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 this.Exit();
-
             
             if (Keyboard.GetState().IsKeyDown(Keys.Y) && oldKS.IsKeyUp(Keys.Y))
             {  
@@ -162,7 +160,6 @@ namespace ScrollingShooter
                     Reset();
                 }
             }
-           
 
             float elapsedTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
@@ -176,14 +173,22 @@ namespace ScrollingShooter
 
                 case GameState.Splash:
 
-                    if (SplashType == SplashScreenType.GameStart)
+                    if (SplashType == SplashScreenType.GameStart )
                     {
                         if (Keyboard.GetState().IsKeyDown(Keys.Space))
                         {
                             //the game is starting, load the first cutscene and update to the first line of dialog
                             SplashType = SplashScreenType.Beginning;
-                            Splash = new Beginning();
-                            Splash.Update(elapsedTime);
+                            loadSplashScreen(new Beginning());
+                        }
+                    }
+                    else if (SplashType == SplashScreenType.GameOver) //Should be Gameover or credits
+                    {
+                        if (Splash.Done && Keyboard.GetState().IsKeyDown(Keys.Space))
+                        {
+                            //Game over reload first screen.
+                            SplashType = SplashScreenType.GameStart;
+                            loadSplashScreen(new GameStart());
                         }
                     }
                     else if (Splash.Done || Keyboard.GetState().IsKeyDown(Keys.S) && oldKS.IsKeyUp(Keys.S))
@@ -244,6 +249,7 @@ namespace ScrollingShooter
                     }
                     else if (LevelManager.ResetLevel)
                     {
+                        //Should be handle by player death method.
                         Reset();
                         LevelManager.ResetLevel = false;
                         Player.Score = 0;
@@ -321,7 +327,7 @@ namespace ScrollingShooter
             foreach (CollisionPair pair in GameObjectManager.Collisions)
             {
                 GameObject objectA = GameObjectManager.GetObject(pair.A);
-                GameObject objectB = GameObjectManager.GetObject(pair.B);
+                   GameObject objectB = GameObjectManager.GetObject(pair.B);
 
                 // Player collisions
                 if (objectA.ObjectType == ObjectType.Player || objectB.ObjectType == ObjectType.Player)
@@ -435,12 +441,28 @@ namespace ScrollingShooter
         public void PlayerDeath()
         {
             Splash = new GameOver();
+            SplashType = SplashScreenType.GameOver;
             GameState = GameState.Splash;
             LevelManager.ResetLevel = false;
             Player.Score = 0;
             Player.Lives = 5;
             Player.Health = Player.MaxHealth;
             Player.Dead = false;
+        }
+
+        private void loadSplashScreen(SplashScreen ss)
+        {
+            Splash = ss;
+            if (ss.Music != null)
+            {
+                MediaPlayer.Play(ss.Music);
+            }
+            else
+            {
+                MediaPlayer.Stop();
+            }
+            GameState = GameState.Splash;
+            ss.Update(0);
         }
     }
 }

@@ -16,7 +16,7 @@ namespace ScrollingShooter.SplashScreens
         {
             spriteFont = ScrollingShooterGame.Game.Content.Load<SpriteFont>("SpriteFonts/Impact");
 
-            //Music = ScrollingShooterGame.Game.Content.Load<Song>("Music/GameOver");
+            Music = ScrollingShooterGame.Game.Content.Load<Song>("Music/Hard as Nails 11-13-28");
             NextLevel = (int)LevelManager.Level.Airbase;
             Done = true;
         }

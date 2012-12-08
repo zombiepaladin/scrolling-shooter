@@ -64,7 +64,7 @@ namespace ScrollingShooter
             _index = 0;
             _displayString = String.Empty;
 
-            //Music = ScrollingShooterGame.Game.Content.Load<Song>("Music/Credits");
+            Music = ScrollingShooterGame.Game.Content.Load<Song>("Music/12 Superbia");
             NextLevel = (int)LevelManager.Level.Airbase;
 
             LoadCredits();

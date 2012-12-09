@@ -259,6 +259,10 @@ namespace ScrollingShooter
                     boss = new BrainBossWrapper(id, content, position);
                     break;
 
+                case BossType.Bird:
+                    boss = new Bird(id, content, position);
+                    break;
+
                 default:
                     throw new NotImplementedException("The boss type " + Enum.GetName(typeof(BossType), enemyType) + " is not supported");
             }
@@ -831,10 +835,6 @@ namespace ScrollingShooter
 
                 case EnemyType.LeftClaw:
                     enemy = new LeftClaw(id, content, position);
-                    break;
-
-                case EnemyType.Bird:
-                    enemy = new Bird(id, content, position);
                     break;
 
                 case EnemyType.BrainBoss:

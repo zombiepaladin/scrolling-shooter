@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" width="16" height="160" tilewidth="24" tileheight="28">
  <properties>
-  <property name="Music" value="Hard as Nails 11-13-28"/>
+  <property name="Music" value="01 The Misadventure Begins"/>
  </properties>
  <tileset firstgid="1" name="shapes)" tilewidth="24" tileheight="28">
   <image source="../Tilesets/shapes).png" trans="c0dcc0" width="240" height="1708"/>

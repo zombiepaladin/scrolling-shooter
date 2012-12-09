@@ -1,7 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
-
+using Microsoft.Xna.Framework.Audio;
 namespace ScrollingShooter
 {
     /// <summary>
@@ -13,6 +13,7 @@ namespace ScrollingShooter
         Vector2 position;
         Texture2D spriteSheet;
         Rectangle[] spriteBounds = new Rectangle[12];
+        SoundEffect explosionSound;
         int explosionState;
         float explosionTimer;
         float Scale;
@@ -38,6 +39,8 @@ namespace ScrollingShooter
             Scale = scale;
 
             this.spriteSheet = content.Load<Texture2D>("Spritesheets/explosion");
+            explosionSound = content.Load<SoundEffect>("SFX/Blast");
+            explosionSound.Play();
 
             for (int i = 0; i < 12; i++)
             {

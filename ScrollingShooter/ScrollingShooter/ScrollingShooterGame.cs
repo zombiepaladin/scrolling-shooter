@@ -148,12 +148,14 @@ namespace ScrollingShooter
                 this.Exit();
 
             //Debug input
+#if DEBUG
             if (Keyboard.GetState().IsKeyDown(Keys.OemTilde))
             {
                 GameState = GameState.Splash;
                 SplashType = SplashScreenType.GameOver;
                 loadSplashScreen(new Credits());
             }
+#endif
             
             if (Keyboard.GetState().IsKeyDown(Keys.Y) && oldKS.IsKeyUp(Keys.Y))
             {  
@@ -349,11 +351,12 @@ namespace ScrollingShooter
 
                             case ObjectType.Enemy:
                                 Enemy enemy = collider as Enemy;
-                                if (enemy.GetType() == typeof(Kamikaze) || enemy.GetType() == typeof(Mandible) ||
-                                    enemy.GetType() == typeof(SuicideBomber) || enemy.GetType() == typeof(Mine) ||
-                                    enemy.GetType() == typeof(Rock))
+                                //if (enemy.GetType() == typeof(Kamikaze) || enemy.GetType() == typeof(Mandible) ||
+                                //    enemy.GetType() == typeof(SuicideBomber) || enemy.GetType() == typeof(Mine) ||
+                                //    enemy.GetType() == typeof(Rock))
                                 {
                                     //Player take damage
+                                    Player.Health -= enemy.Health;
                                     GameObjectManager.DestroyObject(collider.ID);
                                     GameObjectManager.CreateExplosion2(collider.ID, 0.5f);
                                     // Update the player's score

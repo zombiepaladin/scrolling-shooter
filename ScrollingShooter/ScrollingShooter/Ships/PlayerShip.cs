@@ -487,7 +487,7 @@ namespace ScrollingShooter
                         }
 
                         // Default gun
-                        if (defaultGunTimer > 0.25f & PowerupType == PowerupType.Default)
+                        if (defaultGunTimer > 0.25f & (PowerupType & PowerupType.Default) > 0)
                         {
                             ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.Bullet, position);
                             bulletFired.Play();

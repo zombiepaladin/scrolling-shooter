@@ -90,6 +90,9 @@ namespace ScrollingShooter
         public float defaultGunTimer = 5;
         float bombTimer = 1.5f;
         float shotgunTimer = 0.5f;
+        float bubbleTimer = 0;
+        float fireballTimer = 0;
+        float freezeTimer = 0;
 
         private float homingMissileFireRate = 3;
         private float homingMissileTimer = 0;
@@ -256,6 +259,10 @@ namespace ScrollingShooter
                 case PowerupType.EnergyBlast:
                     energyBlastLevel++;
                     break;
+
+                case PowerupType.BubbleBeam:
+                    BubbleBullet.POWER_LEVEL++;
+                    break;
             }
         }
 
@@ -314,6 +321,9 @@ namespace ScrollingShooter
                 railgunTimer += elapsedTime;
                 homingMissileTimer -= elapsedTime;
                 shotgunTimer += elapsedTime;
+                bubbleTimer += elapsedTime;
+                fireballTimer += elapsedTime;
+                freezeTimer += elapsedTime;
 
                 if (!drunk)
                 {
@@ -452,18 +462,19 @@ namespace ScrollingShooter
                     {
                         if ((PowerupType & PowerupType.Freezewave) > 0)
                         {
-                            if (defaultGunTimer > .5f)
+                            if (freezeTimer > .5f)
                             {
                                 ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.FreezewaveProjectile, position);
+                                freezeTimer = 0;
                             }
                         }
                         // Streaming weapons
                         if ((PowerupType & PowerupType.BubbleBeam) > 0)
                         {
-                            if (defaultGunTimer > .1f)
+                            if (bubbleTimer > .1f)
                             {
                                 ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.BubbleBullet, position);
-                                defaultGunTimer = 0f;
+                                bubbleTimer = 0f;
                             }
                         }
 
@@ -476,17 +487,17 @@ namespace ScrollingShooter
                         }
 
                         // Default gun
-                        if (defaultGunTimer > 0.25f & PowerupType == 0)
+                        if (defaultGunTimer > 0.25f & PowerupType == PowerupType.Default)
                         {
                             ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.Bullet, position);
                             bulletFired.Play();
                             defaultGunTimer = 0f;
                         }
-                        else if (defaultGunTimer > 0.4f & (PowerupType & PowerupType.Fireball) > 0)
+                        else if (fireballTimer > 0.4f & (PowerupType & PowerupType.Fireball) > 0)
                         {
                             TriggerFireball();
                             bulletFired.Play();
-                            defaultGunTimer = 0f;
+                            fireballTimer = 0f;
                         }
 
                         if ((PowerupType & PowerupType.HomingMissiles) > 0)
@@ -549,7 +560,7 @@ namespace ScrollingShooter
         {
             // Get to center of screen, then fly off
 
-            //if (-ScrollingShooterGame.LevelManager.scrollDistance / 2 <= position.Y + 10)
+            if (-ScrollingShooterGame.LevelManager.scrollDistance / 2 <= position.Y + 10)
             {
                 ScrollingShooterGame.LevelManager.Ending = false;
                 ScrollingShooterGame.LevelManager.LevelDone = true;

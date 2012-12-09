@@ -106,6 +106,7 @@ namespace ScrollingShooter
             // TODO: use this.Content to load your game content here
             MediaPlayer.IsRepeating = true;
             Player = GameObjectManager.CreatePlayerShip(PlayerShipType.Shrike, new Vector2(300, 300));
+            Player.ApplyPowerup(PowerupType.Default);
             LevelManager.LoadContent();
             GuiManager.LoadContent();
             SplashType = SplashScreenType.GameStart;
@@ -250,7 +251,7 @@ namespace ScrollingShooter
                     }
                     break;
 
-                case GameState.Scoring:
+                case GameState.Scoring: //Not used
                     GuiManager.Update(elapsedTime);
                     if (GuiManager.tallyState == GuiManager.TallyingState.PressSpaceToContinue
                         && Keyboard.GetState().IsKeyDown(Keys.Space))
@@ -438,6 +439,8 @@ namespace ScrollingShooter
             Player.Lives = 5;
             Player.Health = Player.MaxHealth;
             Player.Dead = false;
+            Player.ClearPowerups();
+            Player.ApplyPowerup(PowerupType.Default);
         }
 
         private void loadSplashScreen(SplashScreen ss)

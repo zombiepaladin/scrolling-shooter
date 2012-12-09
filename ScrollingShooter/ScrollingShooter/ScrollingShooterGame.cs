@@ -452,6 +452,7 @@ namespace ScrollingShooter
             loadSplashScreen(new GameOver());
             SplashType = SplashScreenType.GameOver;
             LevelManager.ResetLevel = false;
+            LevelManager.Ending = true; //This needs to be true. Otherwise the player restarts the game as dead.
             Player.Score = 0;
             Player.Lives = 5;
             Player.Health = Player.MaxHealth;

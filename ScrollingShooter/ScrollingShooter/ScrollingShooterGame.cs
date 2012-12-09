@@ -351,16 +351,24 @@ namespace ScrollingShooter
 
                             case ObjectType.Enemy:
                                 Enemy enemy = collider as Enemy;
-                                //if (enemy.GetType() == typeof(Kamikaze) || enemy.GetType() == typeof(Mandible) ||
-                                //    enemy.GetType() == typeof(SuicideBomber) || enemy.GetType() == typeof(Mine) ||
-                                //    enemy.GetType() == typeof(Rock))
+                                if (enemy.GetType() == typeof(Kamikaze) || enemy.GetType() == typeof(Mandible) ||
+                                    enemy.GetType() == typeof(SuicideBomber) || enemy.GetType() == typeof(Mine) ||
+                                    enemy.GetType() == typeof(Rock))
                                 {
                                     //Player take damage
-                                    Player.Health -= enemy.Health;
+                                    player.Health -= enemy.Health;
+                                    if(player.Health <= 0 && !(player.InvincibleTimer > 0))
+                                        killPlayer(player);
                                     GameObjectManager.DestroyObject(collider.ID);
                                     GameObjectManager.CreateExplosion2(collider.ID, 0.5f);
                                     // Update the player's score
                                     player.Score += enemy.Score;
+                                }
+                                else
+                                {
+                                    //Destroy player. Not the enemy
+                                    if(!(player.InvincibleTimer > 0))
+                                        killPlayer(player);
                                 }
                                 break;
 
@@ -371,18 +379,16 @@ namespace ScrollingShooter
                                 if (player.InvincibleTimer <= 0)
                                 {
                                     player.Health -= projectile.Damage;
-                                    if (player.Health <= 0)
-                                    {
-                                        //GameObjectManager.DestroyObject(player.ID);
-                                        player.Dead = true;
-                                        player.DeathTimer = 2;
-                                        GameObjectManager.CreateExplosion2(player.ID, 1);
-                                        player.Score -= 100;
-
-                                    }
+                                    if(player.Health <= 0 && !(player.InvincibleTimer > 0))
+                                        killPlayer(player);
                                 }
 
                                 GameObjectManager.DestroyObject(collider.ID);
+                                break;
+                            case ObjectType.Boss:
+                                //Destroy player. Not the enemy
+                                if(!(player.InvincibleTimer > 0))
+                                    killPlayer(player);
                                 break;
                         }
                     }
@@ -467,6 +473,15 @@ namespace ScrollingShooter
             }
             GameState = GameState.Splash;
             ss.Update(0);
+        }
+
+        private void killPlayer(PlayerShip player)
+        {
+            //GameObjectManager.DestroyObject(player.ID);
+            player.Dead = true;
+            player.DeathTimer = 2;
+            GameObjectManager.CreateExplosion2(player.ID, 1);
+            player.Score -= 100;
         }
     }
 }

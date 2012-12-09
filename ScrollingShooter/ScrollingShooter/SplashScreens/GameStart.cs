@@ -44,7 +44,7 @@ namespace ScrollingShooter
         {
             spriteBatch.Draw(spriteSheet, new Vector2(0, 0), Color.White);
             if(drawFont)
-                spriteBatch.DrawString(spriteFont, "Press Space to Begin", new Vector2(500, 400), Color.Black);
+                spriteBatch.DrawString(spriteFont, "Press enter to Begin", new Vector2(500, 400), Color.Black);
         }
     }
 }

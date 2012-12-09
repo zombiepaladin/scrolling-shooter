@@ -28,7 +28,7 @@ namespace ScrollingShooter
     /// After destroying the emblem on its head multiple times, it will go crazy and fire short range lightning while chasing you
     /// While chasing, it will take damage over time and from the player, and finally die
     /// </summary>
-    class BrainBoss : Boss
+    class BrainBoss : Enemy
     {
         /// <summary>
         /// Move speed of the brain boss
@@ -192,6 +192,9 @@ namespace ScrollingShooter
 
                 case BrainBossState.PsyAttack:
                     //can't die in this state
+
+                    psiEmitter.Health -= (999999 - Health);
+
                     Health = 999999;
 
                     if (psiEmitter.isDestroyed())
@@ -236,7 +239,9 @@ namespace ScrollingShooter
         /// </summary>
         public override Rectangle Bounds
         {
-            get { return new Rectangle((int)position.X, (int)position.Y, brainSpriteBounds.Width, brainSpriteBounds.Height); }
+            get {
+                return new Rectangle((int)position.X, (int)position.Y, brainSpriteBounds.Width, brainSpriteBounds.Height);
+            }
         }
 
         /// <summary>

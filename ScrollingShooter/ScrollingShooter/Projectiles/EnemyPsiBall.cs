@@ -133,8 +133,8 @@ namespace ScrollingShooter
 
             rangeLeft -= (int) (speed * elapsedTime);
 
-            if (scale.X < 5)
-                scale.X += 10 * elapsedTime;
+            //if (scale.X < 5)
+              //  scale.X += 10 * elapsedTime;
 
             if (rangeLeft <= 0)
             {

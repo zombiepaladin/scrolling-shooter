@@ -111,6 +111,7 @@
     <Compile Include="Bosses\Bird.cs" />
     <Compile Include="Bosses\Boss.cs" />
     <Compile Include="Bosses\BossFlightPattern.cs" />
+    <Compile Include="Bosses\BrainBossWrapper.cs" />
     <Compile Include="Bosses\MBCloseC.cs" />
     <Compile Include="Bosses\TwinJet.cs" />
     <Compile Include="Bosses\TwinJetManager.cs" />

@@ -19,11 +19,12 @@ namespace ScrollingShooter
     {
         public enum Level
         {
+            Level_1_Tilemap_2,
             Airbase,
-            moon,
-            AlienBaseSafe,
-            crystalland,
             lavaLevel2,
+            moon,
+            crystalland,
+            AlienBaseSafe,
             InsideAlien,
         }
 

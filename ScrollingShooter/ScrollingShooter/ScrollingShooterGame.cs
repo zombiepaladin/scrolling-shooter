@@ -82,13 +82,6 @@ namespace ScrollingShooter
             CurrentLevel = 0;
             Levels = new List<string> { "Level_1_Tilemap_2", "Airbase", "lavaLevel2", "moon", "crystalland", "AlienBaseSafe", "InsideAlien" };
 
-           // Levels = new List<string> { "Level_1_Tilemap_2", "Airbase", "Airbase", "Airbase", "Airbase" };
-
-            //the first element of this list is unused so that the elements will be numbered the same as their level values
-            //example: level 1 is at index 1, level 3 is at index 3 ect.
-            //Levels = new List<string> { "Unused", "Airbase", "Airbase", "Airbase", "Airbase", "Airbase", "Airbase"};
-
-
             oldKS = Keyboard.GetState();
 
             base.Initialize();
@@ -111,6 +104,7 @@ namespace ScrollingShooter
             GameObjectManager = new GameObjectManager(Content);
 
             // TODO: use this.Content to load your game content here
+            MediaPlayer.IsRepeating = true;
             Player = GameObjectManager.CreatePlayerShip(PlayerShipType.Shrike, new Vector2(300, 300));
             LevelManager.LoadContent();
             GuiManager.LoadContent();
@@ -197,11 +191,8 @@ namespace ScrollingShooter
                         CurrentLevel = Splash.NextLevel;
                         Reset();
                     }
-                    else
-                    {
-                        //Otherwise update.
-                        Splash.Update(elapsedTime);
-                    }
+                    //Otherwise update.
+                    Splash.Update(elapsedTime);
                     break;
 
                 case GameState.Gameplay:
@@ -440,9 +431,8 @@ namespace ScrollingShooter
 
         public void PlayerDeath()
         {
-            Splash = new GameOver();
+            loadSplashScreen(new GameOver());
             SplashType = SplashScreenType.GameOver;
-            GameState = GameState.Splash;
             LevelManager.ResetLevel = false;
             Player.Score = 0;
             Player.Lives = 5;

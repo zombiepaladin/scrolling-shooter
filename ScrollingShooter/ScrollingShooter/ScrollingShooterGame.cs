@@ -146,6 +146,14 @@ namespace ScrollingShooter
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed
                 || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 this.Exit();
+
+            //Debug input
+            if (Keyboard.GetState().IsKeyDown(Keys.OemTilde))
+            {
+                GameState = GameState.Splash;
+                SplashType = SplashScreenType.GameOver;
+                loadSplashScreen(new Credits());
+            }
             
             if (Keyboard.GetState().IsKeyDown(Keys.Y) && oldKS.IsKeyUp(Keys.Y))
             {  
@@ -170,7 +178,7 @@ namespace ScrollingShooter
 
                     if (SplashType == SplashScreenType.GameStart )
                     {
-                        if (Keyboard.GetState().IsKeyDown(Keys.Space))
+                        if (Splash.Done && Keyboard.GetState().IsKeyDown(Keys.Enter))
                         {
                             //the game is starting, load the first cutscene and update to the first line of dialog
                             SplashType = SplashScreenType.Beginning;
@@ -179,7 +187,7 @@ namespace ScrollingShooter
                     }
                     else if (SplashType == SplashScreenType.GameOver) //Should be Gameover or credits
                     {
-                        if (Splash.Done && Keyboard.GetState().IsKeyDown(Keys.Space))
+                        if (Splash.Done && Keyboard.GetState().IsKeyDown(Keys.Enter))
                         {
                             //Game over reload first screen.
                             SplashType = SplashScreenType.GameStart;

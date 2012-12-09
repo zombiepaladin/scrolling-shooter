@@ -34,6 +34,7 @@ namespace ScrollingShooter
             timer += elapsedTime;
             if (timer >= TIME_BLINK)
             {
+                Done = true;
                 drawFont = !drawFont;
                 timer = 0;
             }

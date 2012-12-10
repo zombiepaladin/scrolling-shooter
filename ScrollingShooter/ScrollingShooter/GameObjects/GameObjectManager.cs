@@ -637,7 +637,7 @@ namespace ScrollingShooter
                 default:
                     throw new NotImplementedException("The projectile type " + Enum.GetName(typeof(ProjectileType), projectileType) + " is not supported");
             }
-
+            
             if ((int)projectileType < 100)
                 projectile.ObjectType = ObjectType.PlayerProjectile;
             else

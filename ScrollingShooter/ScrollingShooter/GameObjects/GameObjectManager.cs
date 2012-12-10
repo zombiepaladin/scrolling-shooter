@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System.Diagnostics;
+using ScrollingShooter.Bosses;
 
 namespace ScrollingShooter
 {
@@ -255,7 +256,11 @@ namespace ScrollingShooter
                     break;
 
                 case BossType.BrainBoss:
-                    boss = new BrainBoss(id, content, position);
+                    boss = new BrainBossWrapper(id, content, position);
+                    break;
+
+                case BossType.Bird:
+                    boss = new Bird(id, content, position);
                     break;
 
                 default:
@@ -832,8 +837,8 @@ namespace ScrollingShooter
                     enemy = new LeftClaw(id, content, position);
                     break;
 
-                case EnemyType.Bird:
-                    enemy = new Bird(id, content, position);
+                case EnemyType.BrainBoss:
+                    enemy = new BrainBoss(id, content, position);
                     break;
 
                 case EnemyType.BrainBossPsyEmitter:

@@ -482,6 +482,12 @@ namespace ScrollingShooter
                             bulletFired.Play();
                             defaultGunTimer = 0f;
                         }
+                        else if (defaultGunTimer > 0.4f & (PowerupType & PowerupType.Fireball) > 0)
+                        {
+                            TriggerFireball();
+                            bulletFired.Play();
+                            defaultGunTimer = 0f;
+                        }
 
                         if ((PowerupType & PowerupType.HomingMissiles) > 0)
                         {
@@ -514,11 +520,6 @@ namespace ScrollingShooter
                         if (oldKeyboardState.IsKeyUp(Keys.Space))
                         {
 
-                            if ((PowerupType & PowerupType.Fireball) > 0)
-                            {
-                                TriggerFireball();
-                                bulletFired.Play();
-                            }
                             if ((PowerupType & PowerupType.DroneWave) > 0)
                             {
                                 TriggerDroneWave();

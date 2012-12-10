@@ -157,7 +157,7 @@ namespace ScrollingShooter
 
             timeUntilDirectionSwitch = 15 + rand.Next(15);
 
-            Health = 100;
+            Health = 500;
 
         }
 
@@ -198,7 +198,7 @@ namespace ScrollingShooter
                     {
                         recoverTime = 3f;
                         state = PsiEmitterState.RECOVERING;
-                        Health = 100;
+                        Health = 500;
                         ScrollingShooterGame.GameObjectManager.CreateExplosion(ID);
                         return;
                     }
@@ -265,7 +265,7 @@ namespace ScrollingShooter
 
                         tintColor = Color.White;
 
-                        Health = 100;
+                        Health = 500;
 
                         state = PsiEmitterState.FIRING;
                     }
@@ -328,27 +328,27 @@ namespace ScrollingShooter
             switch (numArms)
             {
                 case 1:
-                    targetShotDelay = 0.2f;
+                    targetShotDelay = 0.1f;
                     targetShotSpeed = 150;
                     rotationSpeed = targetRotationSpeed = (float)Math.PI / 5f;
                     break;
                 case 2:
-                    targetShotDelay = 0.175f;
+                    targetShotDelay = 0.08f;
                     targetShotSpeed = 200;
                     targetRotationSpeed = (float)Math.PI / 4.5f;
                     break;
                 case 3:
-                    targetShotDelay = 0.15f;
+                    targetShotDelay = 0.06f;
                     targetShotSpeed = 250;
                     targetRotationSpeed = (float)Math.PI / 4f;
                     break;
                 case 4:
-                    targetShotDelay = 0.125f;
+                    targetShotDelay = 0.04f;
                     targetShotSpeed = 300;
                     targetRotationSpeed = (float)Math.PI / 3.5f;
                     break;
                 case 5:
-                    targetShotDelay = 0.1f;
+                    targetShotDelay = 0.02f;
                     targetShotSpeed = 350;
                     targetRotationSpeed = (float)Math.PI / 3f;
                     break;
@@ -376,7 +376,7 @@ namespace ScrollingShooter
         public void startAttacking()
         {
             this.state = PsiEmitterState.FIRING;
-            Health = 100;
+            Health = 500;
             updateShotValues();
         }
 

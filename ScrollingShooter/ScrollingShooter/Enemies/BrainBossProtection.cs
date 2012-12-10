@@ -45,7 +45,7 @@ namespace ScrollingShooter
             : base(id)
         {
             this.position = position;
-            this.Health = 100;
+            this.Health = 9900; //very high for terrible workaround
             this.Score = 80;
 
             rand = new Random();
@@ -86,10 +86,10 @@ namespace ScrollingShooter
                 return;
             }
 
-            if (Health <= 0)
+            if (Health <= 9900 - 500)
             {
                 partsLeft--;
-                Health = 100;
+                Health = 9900;
                 ScrollingShooterGame.GameObjectManager.CreateExplosion(ID);
             }
 

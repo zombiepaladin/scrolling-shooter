@@ -651,6 +651,13 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="SpriteFonts\Impact.spritefont">
+      <Name>Impact</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
     <Compile Include="Spritesheets\newsh0.shp.000000.png">
       <Name>newsh0.shp.000000</Name>
       <Importer>TextureImporter</Importer>
@@ -691,6 +698,20 @@
       <Name>ToDark</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Music\02 World Nap.mp3">
+      <Name>02 World Nap</Name>
+      <Importer>Mp3Importer</Importer>
+      <Processor>SongProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Music\12 Superbia.mp3">
+      <Name>12 Superbia</Name>
+      <Importer>Mp3Importer</Importer>
+      <Processor>SongProcessor</Processor>
     </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />

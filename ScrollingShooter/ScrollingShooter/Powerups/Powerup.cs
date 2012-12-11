@@ -26,6 +26,7 @@ namespace ScrollingShooter
         ShotgunPowerup = 8192,
         MeteorPowerup = 16384,
         Railgun = 32768,
+        Default = 65536,
     }
 
     /// <summary>

@@ -80,14 +80,7 @@ namespace ScrollingShooter
             TotalKills = 0;
             TotalScore = 0;
             CurrentLevel = 0;
-            Levels = new List<string> { "Level_1_Tilemap_2", "Airbase", "lavaLevel2", "moon", "crystalland", "AlienBaseSafe", "InsideAlien" };
-
-           // Levels = new List<string> { "Level_1_Tilemap_2", "Airbase", "Airbase", "Airbase", "Airbase" };
-
-            //the first element of this list is unused so that the elements will be numbered the same as their level values
-            //example: level 1 is at index 1, level 3 is at index 3 ect.
-            //Levels = new List<string> { "Unused", "Airbase", "Airbase", "Airbase", "Airbase", "Airbase", "Airbase"};
-
+            Levels = new List<string> { "Unused", "Level_1_Tilemap_2", "Airbase", "lavaLevel2", "moon", "crystalland", "AlienBaseSafe", "InsideAlien" };
 
             oldKS = Keyboard.GetState();
 
@@ -111,12 +104,14 @@ namespace ScrollingShooter
             GameObjectManager = new GameObjectManager(Content);
 
             // TODO: use this.Content to load your game content here
+            MediaPlayer.IsRepeating = true;
             Player = GameObjectManager.CreatePlayerShip(PlayerShipType.Shrike, new Vector2(300, 300));
+            Player.ApplyPowerup(PowerupType.Default);
             LevelManager.LoadContent();
             GuiManager.LoadContent();
-            Splash = new GameStart();
             SplashType = SplashScreenType.GameStart;
             GameState = GameState.Splash;
+            loadSplashScreen(new GameStart());
         }
 
         /// <summary>
@@ -147,22 +142,29 @@ namespace ScrollingShooter
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            
-
             // Allows the game to exit
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
+            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed
+                || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 this.Exit();
 
+            //Debug input
+#if DEBUG
+            if (Keyboard.GetState().IsKeyDown(Keys.OemTilde))
+            {
+                GameState = GameState.Splash;
+                SplashType = SplashScreenType.GameOver;
+                loadSplashScreen(new Credits());
+            }
+#endif
             
             if (Keyboard.GetState().IsKeyDown(Keys.Y) && oldKS.IsKeyUp(Keys.Y))
             {  
-                CurrentLevel++;
+                //CurrentLevel++;
                 if (CurrentLevel < Levels.Count)
                 {
-                    Reset();
+                    LevelManager.LevelDone = true;
                 }
             }
-           
 
             float elapsedTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
@@ -176,14 +178,22 @@ namespace ScrollingShooter
 
                 case GameState.Splash:
 
-                    if (SplashType == SplashScreenType.GameStart)
+                    if (SplashType == SplashScreenType.GameStart )
                     {
-                        if (Keyboard.GetState().IsKeyDown(Keys.Space))
+                        if (Splash.Done && Keyboard.GetState().IsKeyDown(Keys.Enter))
                         {
                             //the game is starting, load the first cutscene and update to the first line of dialog
                             SplashType = SplashScreenType.Beginning;
-                            Splash = new Beginning();
-                            Splash.Update(elapsedTime);
+                            loadSplashScreen(new Beginning());
+                        }
+                    }
+                    else if (SplashType == SplashScreenType.GameOver) //Should be Gameover or credits
+                    {
+                        if (Splash.Done && Keyboard.GetState().IsKeyDown(Keys.Enter))
+                        {
+                            //Game over reload first screen.
+                            SplashType = SplashScreenType.GameStart;
+                            loadSplashScreen(new GameStart());
                         }
                     }
                     else if (Splash.Done || Keyboard.GetState().IsKeyDown(Keys.S) && oldKS.IsKeyUp(Keys.S))
@@ -192,11 +202,8 @@ namespace ScrollingShooter
                         CurrentLevel = Splash.NextLevel;
                         Reset();
                     }
-                    else
-                    {
-                        //Otherwise update.
-                        Splash.Update(elapsedTime);
-                    }
+                    //Otherwise update.
+                    Splash.Update(elapsedTime);
                     break;
 
                 case GameState.Gameplay:
@@ -244,6 +251,7 @@ namespace ScrollingShooter
                     }
                     else if (LevelManager.ResetLevel)
                     {
+                        //Should be handle by player death method.
                         Reset();
                         LevelManager.ResetLevel = false;
                         Player.Score = 0;
@@ -253,7 +261,7 @@ namespace ScrollingShooter
                     }
                     break;
 
-                case GameState.Scoring:
+                case GameState.Scoring: //Not used
                     GuiManager.Update(elapsedTime);
                     if (GuiManager.tallyState == GuiManager.TallyingState.PressSpaceToContinue
                         && Keyboard.GetState().IsKeyDown(Keys.Space))
@@ -321,7 +329,7 @@ namespace ScrollingShooter
             foreach (CollisionPair pair in GameObjectManager.Collisions)
             {
                 GameObject objectA = GameObjectManager.GetObject(pair.A);
-                GameObject objectB = GameObjectManager.GetObject(pair.B);
+                   GameObject objectB = GameObjectManager.GetObject(pair.B);
 
                 // Player collisions
                 if (objectA.ObjectType == ObjectType.Player || objectB.ObjectType == ObjectType.Player)
@@ -348,10 +356,19 @@ namespace ScrollingShooter
                                     enemy.GetType() == typeof(Rock))
                                 {
                                     //Player take damage
+                                    player.Health -= enemy.Health;
+                                    if(player.Health <= 0 && !(player.InvincibleTimer > 0))
+                                        killPlayer(player);
                                     GameObjectManager.DestroyObject(collider.ID);
                                     GameObjectManager.CreateExplosion2(collider.ID, 0.5f);
                                     // Update the player's score
                                     player.Score += enemy.Score;
+                                }
+                                else
+                                {
+                                    //Destroy player. Not the enemy
+                                    if(!(player.InvincibleTimer > 0))
+                                        killPlayer(player);
                                 }
                                 break;
 
@@ -362,18 +379,16 @@ namespace ScrollingShooter
                                 if (player.InvincibleTimer <= 0)
                                 {
                                     player.Health -= projectile.Damage;
-                                    if (player.Health <= 0)
-                                    {
-                                        //GameObjectManager.DestroyObject(player.ID);
-                                        player.Dead = true;
-                                        player.DeathTimer = 2;
-                                        GameObjectManager.CreateExplosion2(player.ID, 1);
-                                        player.Score -= 100;
-
-                                    }
+                                    if(player.Health <= 0 && !(player.InvincibleTimer > 0))
+                                        killPlayer(player);
                                 }
 
                                 GameObjectManager.DestroyObject(collider.ID);
+                                break;
+                            case ObjectType.Boss:
+                                //Destroy player. Not the enemy
+                                if(!(player.InvincibleTimer > 0))
+                                    killPlayer(player);
                                 break;
                         }
                     }
@@ -434,13 +449,40 @@ namespace ScrollingShooter
 
         public void PlayerDeath()
         {
-            Splash = new GameOver();
-            GameState = GameState.Splash;
+            loadSplashScreen(new GameOver());
+            SplashType = SplashScreenType.GameOver;
             LevelManager.ResetLevel = false;
+            LevelManager.Ending = true; //This needs to be true. Otherwise the player restarts the game as dead.
             Player.Score = 0;
             Player.Lives = 5;
             Player.Health = Player.MaxHealth;
             Player.Dead = false;
+            Player.ClearPowerups();
+            Player.ApplyPowerup(PowerupType.Default);
+        }
+
+        private void loadSplashScreen(SplashScreen ss)
+        {
+            Splash = ss;
+            if (ss.Music != null)
+            {
+                MediaPlayer.Play(ss.Music);
+            }
+            else
+            {
+                MediaPlayer.Stop();
+            }
+            GameState = GameState.Splash;
+            ss.Update(0);
+        }
+
+        private void killPlayer(PlayerShip player)
+        {
+            //GameObjectManager.DestroyObject(player.ID);
+            player.Dead = true;
+            player.DeathTimer = 2;
+            GameObjectManager.CreateExplosion2(player.ID, 1);
+            player.Score -= 100;
         }
     }
 }

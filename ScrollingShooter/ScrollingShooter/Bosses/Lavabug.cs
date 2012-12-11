@@ -52,18 +52,18 @@ namespace ScrollingShooter
             this.position = position;
             //spritesheet
             spritesheet = content.Load<Texture2D>("Spritesheets/accessories");
-            this.Health = 200;
+            this.Health = 100;
             spriteBounds[0].X = 4;
             spriteBounds[0].Y = 20;
             spriteBounds[0].Width = 70;
             spriteBounds[0].Height = 132;
             laserFired = content.Load<SoundEffect>("SFX/gamalaser");
-
-            _mandible1 = (Mandible)ScrollingShooterGame.GameObjectManager.CreateEnemy(EnemyType.Mandible, new Vector2(150, 120));
-            _mandible2 = (Mandible)ScrollingShooterGame.GameObjectManager.CreateEnemy(EnemyType.Mandible, new Vector2(500, 120));
             this.Score = 150;
 
-            //spritebounds
+            _mandible1 = (Mandible)ScrollingShooterGame.GameObjectManager.CreateEnemy(EnemyType.Mandible,
+                new Vector2(this.position.X - 11, this.position.Y));
+            _mandible2 = (Mandible)ScrollingShooterGame.GameObjectManager.CreateEnemy(EnemyType.Mandible,
+                new Vector2(this.position.X + 11, this.position.Y));
         }
 
         /// <summary>
@@ -72,25 +72,29 @@ namespace ScrollingShooter
         /// <param name="elapsedTime">The in-game time between the previous and current frame</param>
         public override void Update(float elapsedTime)
         {
-            if (-ScrollingShooterGame.LevelManager.scrollDistance / 2 <= position.Y - 10) ScrollingShooterGame.LevelManager.Scrolling = false;
+            // Pause the scrolling
+            if (-ScrollingShooterGame.LevelManager.scrollDistance / 2 <= position.Y - 50) ScrollingShooterGame.LevelManager.Scrolling = false;
+
             // Sense the player's position
             PlayerShip player = ScrollingShooterGame.Game.Player;
             Vector2 playerPosition = new Vector2(player.Bounds.Center.X, player.Bounds.Center.Y);
 
-            if (this.Health <= 15)
+            if (this.Health <= 50)
             {
                 _mandible1.isFired = true;
                 _mandible2.isFired = true;
             }
             if (this.Health <= 0)
             {
-                ScrollingShooterGame.GameObjectManager.CreateEnemy(EnemyType.Lavabug2, new Vector2(playerPosition.X, this.position.Y));
-                ScrollingShooterGame.GameObjectManager.CreateEnemy(EnemyType.Lavabug2, new Vector2(playerPosition.X, this.position.Y + 60));
+                ScrollingShooterGame.GameObjectManager.CreateEnemy(EnemyType.Lavabug2,
+                    new Vector2(this.position.X, this.position.Y));
+                ScrollingShooterGame.GameObjectManager.CreateEnemy(EnemyType.Lavabug2,
+                    new Vector2(this.position.X + 10, this.position.Y + 60));
                 ScrollingShooterGame.GameObjectManager.DestroyObject(this.ID);
             }
 
             // Move in front of player
-            this.position.Y = 75;
+            //this.position.Y = playerPosition.Y;
             this.position.X = playerPosition.X;
 
             //fire at player
@@ -113,7 +117,7 @@ namespace ScrollingShooter
             if (defaultGunTimer > .5f)
             {
                 //Make use of the ToPlayerBullet class
-                ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.Laser, position);
+                ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.Photon, position);
                 defaultGunTimer = 0;
                 laserFired.Play();
             }

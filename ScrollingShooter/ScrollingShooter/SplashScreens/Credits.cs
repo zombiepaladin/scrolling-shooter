@@ -28,18 +28,30 @@ namespace ScrollingShooter
 
         //Constants
         private const string FILE = "Content/Credits.txt";
-        private const string SPRITESHEET = "SpriteFonts/Pescadero";
-        private const float STATE_TIME = 1f;
+        private const string SPRITESHEET = "SpriteFonts/Impact";
+        private const float STATE_TIME = 2f;
 
         //Instance variables
         SpriteFont _spriteFont;
         Vector2 _position;
-        private bool _loading;
         private CreditsState _state;
         private float _timer;
-        private string[] _credits;
         private int _index;
         private string _displayString;
+
+        private string[] _credits = new string[]
+        {
+            "Scrolling Shooter\n\nCIS 580 - Intro to Game Design\n\nKansas State University",
+            "Studio Staff-Producers\n\nNathen Bean \nMicheal Marlen",
+            "Studio Staff-Programmers/Designers\n\nDevin Kelly-Collins\nJoseph Shaw\nAustin Murphy\nNick Boen\nMatthew McHaney",
+            "Studio Staff-Programmers/Designers\n\nAdam Clark\nNick Stanley\nJosh Zavala\nMicheal Fountain\nSam Fike",
+            "Studio Staff-Programmers/Designers\n\nMatthew Hart\nAndrew Bellinder\nNicholes Strub\nBrett Barger\nJiri Malina",
+            "Studio Staff-Programmers/Designers\n\nAdam Steen\nBen Jazen\nDaniel Rymph",
+            "Artwork\n\n Thorbjorn Lindeijer \n\t Tiled Map Editor \nDaniel Cook \n\tRemastered Tyrian Graphics",
+            "Music\n\nIwan Gabovitch \n\t Dust Loop - Sneaky Hidden Danger \nK. Alex Rosen \n\t Blitz Kaskade",
+            "Developed with Microsoft's \nXNA framwork",
+            "Production Babies\n\nNo babies were born during production \n(as far as we know)",
+        };
 
         /// <summary>
         /// Returns the current state of the screen. Once all the credits have been displayed the State will be Finished.
@@ -58,16 +70,14 @@ namespace ScrollingShooter
         public Credits()
         {
             _spriteFont = ScrollingShooterGame.Game.Content.Load<SpriteFont>(SPRITESHEET);
-            _position = new Vector2(100, 100);
+            _position = new Vector2(50, 50);
             _state = CreditsState.Display;
             _timer = 0;
             _index = 0;
-            _displayString = String.Empty;
+            _displayString = _credits[_index++];
 
-            //Music = ScrollingShooterGame.Game.Content.Load<Song>("Music/Credits");
+            Music = ScrollingShooterGame.Game.Content.Load<Song>("Music/12 Superbia");
             NextLevel = (int)LevelManager.Level.Airbase;
-
-            LoadCredits();
         }
     
         /// <summary>
@@ -77,9 +87,7 @@ namespace ScrollingShooter
         public override void Update(float elapsedTime)
         {
             _timer += elapsedTime;
-            if (_loading)
-                _displayString = "Credits";
-            else if (_timer >= STATE_TIME)
+            if (_timer >= STATE_TIME)
             {
                 _timer = 0;
                 switch (_state)
@@ -93,7 +101,7 @@ namespace ScrollingShooter
                         _displayString = _credits[_index++];
                         break;
                     case CreditsState.Finished:
-                        _displayString = "Press Space bar to play again.";
+                        _displayString = "Thank you for playing\n\nPress enter to play again.";
                         Done = true;
                         break;
                     default:
@@ -110,31 +118,6 @@ namespace ScrollingShooter
         public override void Draw(float elapsedTime, Microsoft.Xna.Framework.Graphics.SpriteBatch spriteBatch)
         {
             spriteBatch.DrawString(_spriteFont, _displayString, _position, Color.White);
-        }
-
-        /// <summary>
-        /// Loads in the credtis from FILE. The file must be setup like so:
-        /// The first line should define how many lines follow.
-        /// Every screen in the credits screen should be separted by a new line.
-        /// If the screen needs a new line in itself, place a ;
-        /// </summary>
-        private void LoadCredits()
-        {
-            Thread loadingThread = new Thread(() =>
-            {
-                _loading = true;
-                using (StreamReader reader = new StreamReader(File.Open(FILE, FileMode.Open)))
-                {
-                    int size = Int32.Parse(reader.ReadLine());
-                    _credits = new string[size];
-                    for (int i = 0; i < size; i++)
-                    {
-                        _credits[i] = reader.ReadLine().Replace(';', '\n');
-                    }
-                }
-                _loading = false;
-            });
-            loadingThread.Start();
         }
     }
 }

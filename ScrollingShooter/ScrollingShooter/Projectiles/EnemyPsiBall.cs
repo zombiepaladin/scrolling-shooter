@@ -83,6 +83,8 @@ namespace ScrollingShooter
             scale = new Vector2(.75f, .75f);
 
             color = Color.White;
+
+            this.Damage = 5;
             
             if(rand == null)
                 rand = new Random();

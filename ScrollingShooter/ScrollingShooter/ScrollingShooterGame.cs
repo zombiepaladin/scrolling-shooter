@@ -80,6 +80,8 @@ namespace ScrollingShooter
             TotalKills = 0;
             TotalScore = 0;
             CurrentLevel = 0;
+
+            //Let's keep it starting at index 0 since it's already set up for that
             Levels = new List<string> {"Level_1_Tilemap_2", "Airbase", "lavaLevel2", "moon", "crystalland", "AlienBaseSafe", "InsideAlien" };
 
             oldKS = Keyboard.GetState();

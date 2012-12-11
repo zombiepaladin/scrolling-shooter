@@ -81,8 +81,8 @@ namespace ScrollingShooter
             TotalScore = 0;
             CurrentLevel = 0;
 
-            //Let's keep it starting at index 0 since it's already set up for that
-            Levels = new List<string> {"Level_1_Tilemap_2", "Airbase", "lavaLevel2", "moon", "crystalland", "AlienBaseSafe", "InsideAlien" };
+            //Using unused so that the first level is at index 1, second is index 2 ect.
+            Levels = new List<string> {"unused", "Level_1_Tilemap_2", "Airbase", "lavaLevel2", "moon", "crystalland", "AlienBaseSafe", "InsideAlien" };
 
             oldKS = Keyboard.GetState();
 
@@ -244,6 +244,10 @@ namespace ScrollingShooter
                                 Splash = new EndLevelSix();
                                 break;
                             case 7:
+                                SplashType = SplashScreenType.EndLevelSeven;
+                                Splash = new EndLevelSeven();
+                                break;
+                            case 8:
                                 SplashType = SplashScreenType.GameOver;
                                 Splash = new Credits();
                                 break;

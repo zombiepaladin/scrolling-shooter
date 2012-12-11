@@ -235,6 +235,7 @@
     <Compile Include="SplashScreens\EndLevelFour.cs" />
     <Compile Include="SplashScreens\Credits.cs" />
     <Compile Include="SplashScreens\EndLevelOne.cs" />
+    <Compile Include="SplashScreens\EndLevelSeven.cs" />
     <Compile Include="SplashScreens\EndLevelSix.cs" />
     <Compile Include="SplashScreens\EndLevelThree.cs" />
     <Compile Include="SplashScreens\EndLevelTwo.cs" />

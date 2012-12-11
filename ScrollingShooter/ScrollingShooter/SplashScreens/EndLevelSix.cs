@@ -60,7 +60,7 @@ namespace ScrollingShooter
             //initiates variables
             keyUp = true;
             Done = false;
-            NextLevel = 1;
+            NextLevel = 7;
 
             //sets the scene to the first dialog text
             dialog = Dialog.conv1;
@@ -89,43 +89,7 @@ namespace ScrollingShooter
             {
                 case Dialog.conv1:
                     image = images.GetJaxon();
-                    line = "I got them.  That'll teach them not to mess with Earth.";
-                    if (Keyboard.GetState().IsKeyDown(Keys.Enter) && keyUp)
-                    {
-                        keyUp = false;
-                        dialog = Dialog.conv2;
-                    }
-                    break;
-                case Dialog.conv2:
-                    image = images.GetAster();
-                    line = "Is it over?";
-                    if (Keyboard.GetState().IsKeyDown(Keys.Enter) && keyUp)
-                    {
-                        keyUp = false;
-                        dialog = Dialog.conv3;
-                    }
-                    break;
-                case Dialog.conv3:
-                    image = images.GetJaxon();
-                    line = "Yes.  According to Kiefer they are a hive mind.  They should be lost and confused right now.";
-                    if (Keyboard.GetState().IsKeyDown(Keys.Enter) && keyUp)
-                    {
-                        keyUp = false;
-                        dialog = Dialog.conv4;
-                    }
-                    break;
-                case Dialog.conv4:
-                    image = images.GetAster();
-                    line = "Good . Come on back.  I've been in contact with your wife and she will be back here when \nyou land.  You've done an incredible job and will receive a medal of honor for your service.";
-                    if (Keyboard.GetState().IsKeyDown(Keys.Enter) && keyUp)
-                    {
-                        keyUp = false;
-                        dialog = Dialog.conv5;
-                    }
-                    break;
-                case Dialog.conv5:
-                    image = images.GetJaxon();
-                    line = "Sounds good.  I'll be right there.";
+                    line = "Finally!  That ends it...Whoah! I'm being sucked in!";
                     if (Keyboard.GetState().IsKeyDown(Keys.Enter) && keyUp)
                     {
                         Done = true;

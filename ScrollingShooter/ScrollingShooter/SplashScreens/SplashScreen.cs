@@ -18,6 +18,7 @@ namespace ScrollingShooter
         EndLevelFour,
         EndLevelFive,
         EndLevelSix,
+        EndLevelSeven,
         GameOver
     }
 

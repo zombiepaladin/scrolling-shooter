@@ -23,7 +23,7 @@ namespace ScrollingShooter
         public BirdWrath(uint id, ContentManager content, Vector2 position)
             : base(id)
         {
-            this.spriteSheet = content.Load<Texture2D>("Spritesheets/newsh0.shp.000000");
+            this.spriteSheet = content.Load<Texture2D>("Spritesheets/newsh0.shp.000001");
 
             this.animatedSpriteBounds[0] = new Rectangle(2, 115, 21, 21);
             this.animatedSpriteBounds[1] = new Rectangle(26, 115, 21, 21);

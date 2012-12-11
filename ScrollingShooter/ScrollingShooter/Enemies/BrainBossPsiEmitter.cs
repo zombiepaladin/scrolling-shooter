@@ -9,6 +9,7 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Audio;
 
 namespace ScrollingShooter
 {
@@ -134,6 +135,10 @@ namespace ScrollingShooter
         /// </summary>
         private float timeUntilNextShot = 0;
 
+        private SoundEffect firingSound;
+
+        private float soundTimer = 0f;
+
         /// <summary>
         /// Creates a new psi emitter for the brain boss
         /// </summary>
@@ -159,6 +164,7 @@ namespace ScrollingShooter
 
             Health = 500;
 
+            firingSound = content.Load<SoundEffect>("SFX/PsiSound");
         }
 
         /// <summary>
@@ -193,6 +199,13 @@ namespace ScrollingShooter
 
                 case PsiEmitterState.FIRING:
                     timeUntilNextShot -= elapsedTime;
+
+                    soundTimer += elapsedTime;
+                    if (soundTimer > 0.25f)
+                    {
+                        firingSound.Play(.5f, 0f, 0f);
+                        soundTimer = 0;
+                    }
 
                     if (Health <= 0)
                     {
@@ -345,12 +358,12 @@ namespace ScrollingShooter
                 case 4:
                     targetShotDelay = 0.04f;
                     targetShotSpeed = 300;
-                    targetRotationSpeed = (float)Math.PI / 3.5f;
+                    targetRotationSpeed = (float)Math.PI / 3.75f;
                     break;
                 case 5:
                     targetShotDelay = 0.02f;
                     targetShotSpeed = 350;
-                    targetRotationSpeed = (float)Math.PI / 3f;
+                    targetRotationSpeed = (float)Math.PI / 3.75f;
                     break;
             }
 

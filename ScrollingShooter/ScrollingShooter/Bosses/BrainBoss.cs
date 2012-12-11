@@ -7,6 +7,7 @@ using System.Text;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Audio;
 
 namespace ScrollingShooter
 {
@@ -115,6 +116,8 @@ namespace ScrollingShooter
         /// </summary>
         private BrainBossProtection protection;
 
+        private SoundEffect firingSound;
+
         /// <summary>
         /// Creates a new brain boss
         /// </summary>
@@ -147,6 +150,8 @@ namespace ScrollingShooter
 
             targetPositionX = (int)position.X;
             targetPositionY = (int)(position.Y + ScrollingShooterGame.Game.GraphicsDevice.Viewport.Height / 5 - brainSpriteBounds.Height / 2);
+
+            firingSound = content.Load<SoundEffect>("SFX/Laser");
         }
 
         /// <summary>
@@ -224,6 +229,8 @@ namespace ScrollingShooter
                     if (lightningRecharge <= 0)
                     {
                         lightningRecharge = .66f;
+
+                        firingSound.Play(.7f, 0f, 0f);
 
                         for (int i = 0; i < 15; i++)
                             ((EnemyLightningZap)ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.EnemyLightningZap, this.position + centerOffset)).Initialize((float)(rand.NextDouble() * Math.PI * 2), this.brainSpriteBounds.Width / 2);

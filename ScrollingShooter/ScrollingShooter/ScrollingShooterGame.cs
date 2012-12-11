@@ -80,7 +80,9 @@ namespace ScrollingShooter
             TotalKills = 0;
             TotalScore = 0;
             CurrentLevel = 0;
-            Levels = new List<string> { "Unused", "Level_1_Tilemap_2", "Airbase", "lavaLevel2", "moon", "crystalland", "AlienBaseSafe", "InsideAlien" };
+
+            //Let's keep it starting at index 0 since it's already set up for that
+            Levels = new List<string> {"Level_1_Tilemap_2", "Airbase", "lavaLevel2", "moon", "crystalland", "AlienBaseSafe", "InsideAlien" };
 
             oldKS = Keyboard.GetState();
 
@@ -367,8 +369,9 @@ namespace ScrollingShooter
                                 else
                                 {
                                     //Destroy player. Not the enemy
-                                    if(!(player.InvincibleTimer > 0))
-                                        killPlayer(player);
+                                    //Commented out because enemies get stuck on you and keep insta-killing you
+                                    //if(!(player.InvincibleTimer > 0))
+                                      //  killPlayer(player);
                                 }
                                 break;
 
@@ -416,6 +419,8 @@ namespace ScrollingShooter
                                 GameObjectManager.CreateExplosion2(collider.ID, 0.5f);
                                 Player.Kills++;
                                 Player.Score += enemy.Score;
+                                if(enemy is BrainBoss)
+                                    LevelManager.Ending = true;
                             }
                             // Destroy projectile
                             // Note, if there are special things for the bullet, add them here

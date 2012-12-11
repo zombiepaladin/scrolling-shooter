@@ -7,6 +7,7 @@ using System.Text;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Audio;
 
 namespace ScrollingShooter
 {
@@ -34,6 +35,8 @@ namespace ScrollingShooter
         private Random rand;
 
         private float shotTimer = 0.1f;
+
+        private SoundEffect firingSound;
 
         /// <summary>
         /// The armor and eye for the BrainBoss
@@ -63,6 +66,8 @@ namespace ScrollingShooter
 
             helmetSpriteBounds = new Rectangle(96, 8, 71, 75);
             helmetCenterOffset = new Vector2(helmetSpriteBounds.Width / 2, helmetSpriteBounds.Height / 2 + 10);
+
+            firingSound = content.Load<SoundEffect>("SFX/Laser");
         }
 
         /// <summary>
@@ -105,6 +110,7 @@ namespace ScrollingShooter
 
                 if (shotTimer <= 0)
                 {
+                    firingSound.Play(.7f, 0f, 0f);
                     shotTimer = 0.4f;
                     EnemyLightningZap zap = (EnemyLightningZap)ScrollingShooterGame.GameObjectManager.CreateProjectile(ProjectileType.EnemyLightningZap, position - eyeCenterOffset);
                     zap.Initialize(eyeRotation + (float)(Math.PI / 2f), 500);
@@ -114,6 +120,7 @@ namespace ScrollingShooter
             {
                 if (shotTimer <= 0)
                 {
+                    firingSound.Play(.7f, 0f, 0f); 
                     shotTimer = 0.4f;
 
                     eyeRotation = (float) (rand.NextDouble() * Math.PI * 2);

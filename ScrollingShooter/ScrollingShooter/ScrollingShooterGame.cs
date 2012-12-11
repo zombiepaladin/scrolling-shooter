@@ -369,8 +369,9 @@ namespace ScrollingShooter
                                 else
                                 {
                                     //Destroy player. Not the enemy
-                                    if(!(player.InvincibleTimer > 0))
-                                        killPlayer(player);
+                                    //Commented out because enemies get stuck on you and keep insta-killing you
+                                    //if(!(player.InvincibleTimer > 0))
+                                      //  killPlayer(player);
                                 }
                                 break;
 

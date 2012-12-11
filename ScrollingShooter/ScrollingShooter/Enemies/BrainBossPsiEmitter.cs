@@ -358,12 +358,12 @@ namespace ScrollingShooter
                 case 4:
                     targetShotDelay = 0.04f;
                     targetShotSpeed = 300;
-                    targetRotationSpeed = (float)Math.PI / 3.5f;
+                    targetRotationSpeed = (float)Math.PI / 3.75f;
                     break;
                 case 5:
                     targetShotDelay = 0.02f;
                     targetShotSpeed = 350;
-                    targetRotationSpeed = (float)Math.PI / 3f;
+                    targetRotationSpeed = (float)Math.PI / 3.75f;
                     break;
             }
 

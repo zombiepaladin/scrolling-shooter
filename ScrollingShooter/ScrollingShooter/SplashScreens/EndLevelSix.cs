@@ -60,7 +60,7 @@ namespace ScrollingShooter
             //initiates variables
             keyUp = true;
             Done = false;
-            NextLevel = 0;
+            NextLevel = 1;
 
             //sets the scene to the first dialog text
             dialog = Dialog.conv1;

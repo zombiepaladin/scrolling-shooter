@@ -23,6 +23,9 @@ namespace ScrollingShooter
         float defaultGunTimer = 0; //maybe more
         private Mandible _mandible1;
         private Mandible _mandible2;
+        private int stage = 1;
+        Enemy bug1, bug2;
+        bool mandibles = false;
 
         #region Sound Effects
         SoundEffect laserFired;
@@ -52,7 +55,7 @@ namespace ScrollingShooter
             this.position = position;
             //spritesheet
             spritesheet = content.Load<Texture2D>("Spritesheets/accessories");
-            this.Health = 100;
+            this.Health = 400;
             spriteBounds[0].X = 4;
             spriteBounds[0].Y = 20;
             spriteBounds[0].Width = 70;
@@ -60,10 +63,6 @@ namespace ScrollingShooter
             laserFired = content.Load<SoundEffect>("SFX/gamalaser");
             this.Score = 150;
 
-            _mandible1 = (Mandible)ScrollingShooterGame.GameObjectManager.CreateEnemy(EnemyType.Mandible,
-                new Vector2(this.position.X - 11, this.position.Y));
-            _mandible2 = (Mandible)ScrollingShooterGame.GameObjectManager.CreateEnemy(EnemyType.Mandible,
-                new Vector2(this.position.X + 11, this.position.Y));
         }
 
         /// <summary>
@@ -79,18 +78,34 @@ namespace ScrollingShooter
             PlayerShip player = ScrollingShooterGame.Game.Player;
             Vector2 playerPosition = new Vector2(player.Bounds.Center.X, player.Bounds.Center.Y);
 
-            if (this.Health <= 50)
+            if (mandibles == false && ScrollingShooterGame.LevelManager.Scrolling == false)
+            {
+                _mandible1 = (Mandible)ScrollingShooterGame.GameObjectManager.CreateEnemy(EnemyType.Mandible,
+                  new Vector2(this.position.X - 30, this.position.Y));
+                _mandible2 = (Mandible)ScrollingShooterGame.GameObjectManager.CreateEnemy(EnemyType.Mandible,
+                    new Vector2(this.position.X + 11, this.position.Y));
+                mandibles = true;
+            }
+
+            if (this.Health <= 200)
             {
                 _mandible1.isFired = true;
                 _mandible2.isFired = true;
             }
-            if (this.Health <= 0)
+            if (stage == 1 && this.Health <= 100)
             {
-                ScrollingShooterGame.GameObjectManager.CreateEnemy(EnemyType.Lavabug2,
-                    new Vector2(this.position.X, this.position.Y));
-                ScrollingShooterGame.GameObjectManager.CreateEnemy(EnemyType.Lavabug2,
-                    new Vector2(this.position.X + 10, this.position.Y + 60));
-                ScrollingShooterGame.GameObjectManager.DestroyObject(this.ID);
+                stage = 2;
+                bug1 = ScrollingShooterGame.GameObjectManager.CreateEnemy(EnemyType.Lavabug2,
+                    new Vector2(this.position.X - 10, this.position.Y + 10));
+                bug2 = ScrollingShooterGame.GameObjectManager.CreateEnemy(EnemyType.Lavabug2,
+                  new Vector2(this.position.X + 10, this.position.Y + 10));
+            }
+
+            if (stage == 2)
+            {
+                Health = 100;
+                if (bug1.Health <= 0 && bug2.Health <= 0)
+                    Health = 0;
             }
 
             // Move in front of player
@@ -108,7 +123,8 @@ namespace ScrollingShooter
         /// <param name="spriteBatch">An already initialized SpriteBatch, ready for Draw() commands</param>
         public override void Draw(float elapsedTime, SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(spritesheet, Bounds, spriteBounds[0], Color.White, 0f, new Vector2(Bounds.Width / 2, Bounds.Height / 2), SpriteEffects.None, 1f);
+            if(stage == 1)
+                spriteBatch.Draw(spritesheet, Bounds, spriteBounds[0], Color.White, 0f, new Vector2(Bounds.Width / 2, Bounds.Height / 2), SpriteEffects.None, 1f);
         }
 
         public void Fire(float elapsedTime)

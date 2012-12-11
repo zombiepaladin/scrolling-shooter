@@ -59,6 +59,7 @@ namespace ScrollingShooter
         Rock,
         MoonSpiner,
         MoonShield,
+        Manidible,
     }
 
     /// <summary>

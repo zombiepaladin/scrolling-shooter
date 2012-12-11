@@ -18,6 +18,7 @@ namespace ScrollingShooter
         Vector2 position;
         Rectangle[] spriteBounds = new Rectangle[1];
         bool isLeft;
+        Boss lavabug;
         public bool isFired;
 
         /// <summary>
@@ -43,9 +44,10 @@ namespace ScrollingShooter
         {
             this.position = position;
             this.isLeft = side;
-            Health = 30;
+            Health = 100;
             this.isFired = false;
             this.Score = 30;
+            
 
             //spritesheet
             spritesheet = content.Load<Texture2D>("Spritesheets/vulcano");
@@ -76,8 +78,14 @@ namespace ScrollingShooter
 
             if (!isFired)
             {
-                if (isLeft) this.position.X = playerPosition.X - 30; //change?
-                else this.position.X = playerPosition.X + 30;
+                if (isLeft)
+                {
+                    this.position.X = playerPosition.X - 30; //change?
+                }
+                else
+                {
+                    this.position.X = playerPosition.X + 30;
+                }
             }
         }
 

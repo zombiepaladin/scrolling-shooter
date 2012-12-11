@@ -1,9 +1,4 @@
 Content\Spritesheets\birdcrapsprite.xnb
-Content\Tilesets\shapes).xnb
-Content\Tilesets\shapesw.xnb
-Content\Tilesets\shapesx.xnb
-Content\Tilesets\shapesy.xnb
-Content\Tilesets\shapesz.xnb
 Content\Spritesheets\destruct_sprites.xnb
 Content\Spritesheets\newsh#.shp.000000.xnb
 Content\Spritesheets\newsh$.shp.000000.xnb
@@ -50,15 +45,16 @@ Content\Spritesheets\EBullet.xnb
 Content\Tilesets\shapeswmodified.xnb
 Content\Spritesheets\accessories.xnb
 Content\Spritesheets\vulcano.xnb
-Content\Spritesheets\MoonBoss.xnb
 Content\Spritesheets\explosion.xnb
-Content\Spritesheets\characterPotraits.xnb
+Content\Spritesheets\MoonBoss.xnb
+Content\Spritesheets\TitleScreen.xnb
 Content\Tilesets\bossFloorTexture.xnb
 Content\Tilesets\shapeszFinalLvlMod.xnb
 Content\Tilesets\shapesFinalLvlMod.xnb
 Content\Spritesheets\newsh0.shp.000001.xnb
 Content\Spritesheets\gui.xnb
-Content\Spritesheets\TitleScreen.xnb
+Content\SpriteFonts\Pescadero.xnb
+Content\debugFont.xnb
 Content\Tilemaps\example.xnb
 Content\Tilemaps\example2.xnb
 Content\Tilemaps\crystalland.xnb
@@ -66,35 +62,42 @@ Content\Tilemaps\lavaLevel2.xnb
 Content\Tilemaps\Airbase.xnb
 Content\Tilemaps\Level_1_Tilemap_2.xnb
 Content\Tilemaps\AlienBaseSafe.xnb
-Content\Tilemaps\AlienBase.xnb
-Content\SpriteFonts\Pescadero.xnb
-Content\debugFont.xnb
 Content\Music\Hard as Nails 11-13-28.xnb
-Content\Music\01 The Misadventure Begins.xnb
-Content\Music\05 Highway Slaughter.xnb
-Content\Music\06 Interception.xnb
-Content\Music\07 City of Iron.xnb
-Content\Music\09 Indiscriminate.xnb
-Content\Music\10 Final Breath.xnb
 Content\SFX\anti_tank_gun_single_shot.xnb
 Content\SFX\gamalaser.xnb
 Content\SFX\fireworksmortar3.xnb
-Content\SFX\Laser.xnb
-Content\SFX\Rocket.xnb
-Content\SFX\Shotgun.xnb
-Content\SFX\Blast.xnb
-Content\Tilemaps\InsideAlien.xnb
-Content\Tilemaps\moon.xnb
-Content\SFX\bird_fire.xnb
-Content\SFX\death_scream.xnb
-Content\SFX\hawk_scream.xnb
-Content\SFX\hurt_scream.xnb
+Content\Tilesets\shapes).xnb
+Content\Tilesets\shapesw.xnb
+Content\Tilesets\shapesx.xnb
+Content\Tilesets\shapesy.xnb
+Content\Tilesets\shapesz.xnb
+Content\Spritesheets\characterPotraits.xnb
+Content\Tilemaps\AlienBase.xnb
 Content\Tilesets\Black.xnb
 Content\Tilesets\DarkMoon.xnb
 Content\Tilesets\moon.xnb
 Content\Tilesets\newshn.shp.000000.xnb
 Content\Tilesets\ToDark.xnb
 Content\Spritesheets\newsh0.shp.000000.xnb
+Content\Tilemaps\InsideAlien.xnb
+Content\Tilemaps\moon.xnb
+Content\SpriteFonts\Impact.xnb
+Content\Music\01 The Misadventure Begins.xnb
+Content\Music\05 Highway Slaughter.xnb
+Content\Music\06 Interception.xnb
+Content\Music\07 City of Iron.xnb
+Content\Music\09 Indiscriminate.xnb
+Content\Music\10 Final Breath.xnb
+Content\Music\02 World Nap.xnb
+Content\Music\12 Superbia.xnb
+Content\SFX\Laser.xnb
+Content\SFX\Rocket.xnb
+Content\SFX\Shotgun.xnb
+Content\SFX\Blast.xnb
+Content\SFX\bird_fire.xnb
+Content\SFX\death_scream.xnb
+Content\SFX\hawk_scream.xnb
+Content\SFX\hurt_scream.xnb
 Content\Music\Hard as Nails 11-13-28.wma
 Content\Music\01 The Misadventure Begins.wma
 Content\Music\05 Highway Slaughter.wma
@@ -102,3 +105,5 @@ Content\Music\06 Interception.wma
 Content\Music\07 City of Iron.wma
 Content\Music\09 Indiscriminate.wma
 Content\Music\10 Final Breath.wma
+Content\Music\02 World Nap.wma
+Content\Music\12 Superbia.wma

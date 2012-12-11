@@ -82,7 +82,7 @@ namespace ScrollingShooter
 
             }
             else this.position.X += elapsedTime * 200;
-            if (this.position.X > 800) direction = !direction;
+            if (this.position.X > 400) direction = !direction;
             if (this.position.X < 0) direction = !direction;
 
             //fire at player
